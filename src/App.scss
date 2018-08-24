@@ -26,3 +26,52 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+// FONTS
+@font-face {
+  font-family: 'sf_ui_displaybold';
+  src: url('./style/fonts/sfuidisplay-bold.eot');
+  src: url('./style/fonts/sfuidisplay-bold.eot?#iefix') format('embedded-opentype'),
+       url('./style/fonts/sfuidisplay-bold.woff2') format('woff2'),
+       url('./style/fonts/sfuidisplay-bold.woff') format('woff'),
+       url('./style/fonts/sfuidisplay-bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'sf_ui_displaylight';
+  src: url('./style/fonts/sf-ui-display-light.eot');
+  src: url('./style/fonts/sf-ui-display-light.eot?#iefix') format('embedded-opentype'),
+       url('./style/fonts/sf-ui-display-light.woff2') format('woff2'),
+       url('./style/fonts/sf-ui-display-light.woff') format('woff'),
+       url('./style/fonts/sf-ui-display-light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'sf_ui_displaymedium';
+  src: url('./style/fonts/sf-ui-display-medium.eot');
+  src: url('./style/fonts/sf-ui-display-medium.eot?#iefix') format('embedded-opentype'),
+       url('./style/fonts/sf-ui-display-medium.woff2') format('woff2'),
+       url('./style/fonts/sf-ui-display-medium.woff') format('woff'),
+       url('./style/fonts/sf-ui-display-medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'sf_ui_displayregular';
+  src: url('./style/fonts/sf-ui-display-regular.eot');
+  src: url('./style/fonts/sf-ui-display-regular.eot?#iefix') format('embedded-opentype'),
+       url('./style/fonts/sf-ui-display-regular.woff2') format('woff2'),
+       url('./style/fonts/sf-ui-display-regular.woff') format('woff'),
+       url('./style/fonts/sf-ui-display-regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+
+}
