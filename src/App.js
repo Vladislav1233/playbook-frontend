@@ -1,17 +1,28 @@
 import React, { Component } from 'react';
 import './App.css';
 import { connect } from 'react-redux';
-import ScheduleItem from './components/ScheduleItem'
+import ScheduleList from './components/ScheduleList'
 
 class App extends Component {
+
+  renderTemplateListSchedule = () => {
+    // return console.log(this.props);
+
+    const {listSchedule} = this.props;
+
+    return listSchedule.map(item => (
+      <div className="b-schedule" key={item.date}>
+        <div className="b-schedule__date">{item.date}</div>
+        <ScheduleList list={item.list} />
+      </div>
+    ))
+  }
+
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <main className="b-main">
-        <p className="App-intro">
-          Я хочу получить текст {this.props.testText}
-        </p>
-        <ScheduleItem />
+        {this.renderTemplateListSchedule()}
       </main>
     );
   }
@@ -20,7 +31,8 @@ class App extends Component {
 const mapStateToProps = store => {
   console.log(store);
   return {
-    testText: store.toggleSchedule.testText
+    toggleSchedule: store.toggleSchedule,
+    listSchedule: store.listSchedule
   }
 }
 

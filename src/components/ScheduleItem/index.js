@@ -4,26 +4,21 @@ import './ScheduleItem.css';
 class ScheduleItem extends Component {
   
   render() {
+    console.log(this.props.dataScheduleItem);
+    const {startTime, finishTime, court, price, status} = this.props.dataScheduleItem;
+
     return (
-      
-      <div>
-        {/* // state one - свободно */}
-        <div className="b-schedule-item">
-          <div className="b-schedule-item__time-wrap">
-            <div className="b-schedule-item__time">10:00</div>
-            <div className="b-schedule-item__time b-schedule-item__time--finish">12:00</div>
-          </div>
-          <div className="b-schedule-item__info">
-            <div className="b-schedule-item__state">Свободно <span className="b-schedule-item__price">200 р/час</span></div>
-            <div className="b-schedule-item__court">4 корт</div>
-            <div className="b-schedule-item__name">Кликни на блок для брони</div>
-          </div>
+      <div className="b-schedule-item">
+        <div className="b-schedule-item__time-wrap">
+          <div className="b-schedule-item__time">{startTime}</div>
+          <div className="b-schedule-item__time b-schedule-item__time--finish">{finishTime}</div>
         </div>
-
-        {/* // state two - Занято */}
+        <div className="b-schedule-item__info">
+          <div className={`b-schedule-item__state ${status ? 'b-schedule-item__state--free': 'b-schedule-item__state--busy'}`}>{status ? 'Свободно' : 'Занято'} <span className="b-schedule-item__price">{price} р/час</span></div>
+          <div className="b-schedule-item__court">{court} корт</div>
+          <div className="b-schedule-item__name">Кликни на блок для брони</div>
+        </div>
       </div>
-
-      
     )
   }
 }

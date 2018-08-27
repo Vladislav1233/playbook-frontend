@@ -1,8 +1,14 @@
 .b-schedule-item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
 
   &__time-wrap {
     line-height: 32px;
     display: inline-block;
+    flex-shrink: 0;
+    margin-right: 20px;
+    padding-top: 10px;
   }
   
   &__time {
@@ -17,5 +23,56 @@
 
   &__info {
     display: inline-block;
+    width: 100%;
+    border-bottom: 1px solid #ebebeb;
+  }
+
+  &__state {
+    font-family: 'sf_ui_displayregular';
+    font-size: 30px;
+    line-height: 42px;
+    position: relative;
+
+    &:before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: -10px;
+      background-color: transparent;
+    }
+
+    &--free {
+      &::before {
+        background-color: #29cb41;
+      }
+    }
+
+    &--busy {
+      &::before {
+        background-color: #ff6158;
+      }
+    }
+  }
+
+  &__court,
+  &__name {
+    font-family: 'sf_ui_displayregular';
+    font-size: 24px;
+    line-height: 32px;
+    color: #999999;
+  }
+
+  &__price {
+    display: inline-block;
+    padding: 4px 4px 2px;
+    border: 1px solid #eee;
+    background-color: #f2f4f5;
+    color: #7c4dff;
+    border-radius: 3px;
   }
 }
