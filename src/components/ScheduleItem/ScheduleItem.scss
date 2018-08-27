@@ -1,0 +1,21 @@
+.b-schedule-item {
+
+  &__time-wrap {
+    line-height: 32px;
+    display: inline-block;
+  }
+  
+  &__time {
+    color: #222222;
+    font-family: 'sf_ui_displaymedium';
+    font-size: 24px;
+
+    &--finish {
+      color: #cccccc;
+    }
+  }
+
+  &__info {
+    display: inline-block;
+  }
+}

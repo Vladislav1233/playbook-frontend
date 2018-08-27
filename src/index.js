@@ -5,9 +5,9 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import isportApp, { initialStateToggleSchedule } from './reducers'
+import { toggleSchedule, initialStateToggleSchedule } from './reducers'
 
-const store = createStore(isportApp, initialStateToggleSchedule)
+const store = createStore(toggleSchedule, initialStateToggleSchedule)
 
 ReactDOM.render(
     <Provider store={store}>

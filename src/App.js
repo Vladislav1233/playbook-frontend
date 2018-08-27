@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { connect } from 'react-redux';
+import ScheduleItem from './components/ScheduleItem'
 
 class App extends Component {
   render() {
     console.log(this.props);
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
+      <main className="b-main">
         <p className="App-intro">
           Я хочу получить текст {this.props.testText}
         </p>
-      </div>
+        <ScheduleItem />
+      </main>
     );
   }
 }
