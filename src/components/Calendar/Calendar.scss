@@ -1,0 +1,42 @@
+.b-date-calendar {
+  background-color: #7c4dff;
+
+  &__calendar {
+    background-color: transparent;
+    border: none;
+    margin: 0px auto;
+    font-family: 'sf_ui_displaymedium';
+    width: 100%;
+    max-width: 672px;
+  }
+
+  .react-calendar__month-view__weekdays__weekday {
+    font-size: 20px;
+    opacity: 0.48;
+    color: #ffffff;
+  }
+
+  .react-calendar__month-view__days__day {
+    color: #ffffff;
+
+    &--neighboringMonth {
+      opacity: 0.16;
+    }
+  }
+
+  .react-calendar__tile {
+    font-family: 'sf_ui_displaymedium';
+    font-size: 26px;
+
+    &--active {
+      box-shadow: 0 16px 16px rgba(0, 0, 0, 0.08), 0 8px 8px rgba(0, 0, 0, 0.08);
+      background: #ffffff;
+      border-radius: 50%;
+      color: #7c4dff;
+    }
+  }
+
+  button.react-calendar__tile--active:enabled:hover, button.react-calendar__tile--active:enabled:focus {
+    background: #ffffff;
+  }
+}

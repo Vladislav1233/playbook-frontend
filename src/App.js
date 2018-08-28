@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import './App.css';
 import { connect } from 'react-redux';
 import ScheduleList from './components/ScheduleList';
-import Calendar from 'react-calendar';
+import DateCalendar from './components/Calendar';
 
 class App extends Component {
 
   renderTemplateListSchedule = () => {
     // return console.log(this.props);
-
     const {listSchedule} = this.props;
 
     return listSchedule.map(item => (
@@ -23,8 +22,10 @@ class App extends Component {
     // console.log(this.props);
     return (
       <main className="b-main">
-        <Calendar />
-        {this.renderTemplateListSchedule()}
+        <DateCalendar />
+        <div className="container">
+          {this.renderTemplateListSchedule()}
+        </div>
       </main>
     );
   }
