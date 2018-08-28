@@ -9,6 +9,7 @@ class App extends Component {
   renderTemplateListSchedule = () => {
     // return console.log(this.props);
     const {listSchedule} = this.props;
+    console.log(listSchedule);
 
     return listSchedule.map(item => (
       <div className="b-schedule" key={item.date}>
@@ -18,11 +19,15 @@ class App extends Component {
     ))
   }
 
+  // filterSchedule = () => {
+
+  // }
+
   render() {
     // console.log(this.props);
     return (
       <main className="b-main">
-        <DateCalendar />
+        <DateCalendar onFilterSchedule={this.props.onFilterSchedule}/>
         <div className="container">
           {this.renderTemplateListSchedule()}
         </div>
@@ -33,10 +38,22 @@ class App extends Component {
 
 const mapStateToProps = store => {
   console.log(store);
+  console.log(store.filterListSchedule);
   return {
     toggleSchedule: store.toggleSchedule,
-    listSchedule: store.listSchedule
+    listSchedule: store.listSchedule.filter(item => item.date.includes(store.filterListSchedule))
+    // listSchedule: store.listSchedule
   }
 }
 
-export default connect(mapStateToProps)(App)
+const mapStateToDispatch = (dispatch) => {
+  // console.log(dispatch);
+  return {
+    onFilterSchedule: (date) => {
+      console.log('date', date);
+      dispatch({type: 'FILTER_SCHEDULE', payload: date});
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapStateToDispatch)(App)

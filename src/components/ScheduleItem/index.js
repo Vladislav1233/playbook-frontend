@@ -4,7 +4,7 @@ import './ScheduleItem.css';
 class ScheduleItem extends Component {
   
   render() {
-    console.log(this.props.dataScheduleItem);
+    // console.log(this.props.dataScheduleItem);
     const {startTime, finishTime, court, price, status} = this.props.dataScheduleItem;
 
     return (

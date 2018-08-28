@@ -10,7 +10,7 @@ export const initialStateToggleSchedule = {
     },
 
     listSchedule: [{ // список расписания
-        date: '01.09', // это брать как id key можно
+        date: '01.09.18', // это брать как id key можно
         list: [{
             idItemScheduleList: 'idItemScheduleList-1', // идентификатор 
             startTime: '10:00', // начальное время брони - в каком виде передавать, наверное нужно date почитать как форимруется
@@ -27,7 +27,7 @@ export const initialStateToggleSchedule = {
             court: 4
         }]
     }, {
-        date: '02.09',
+        date: '02.09.18',
         list: [{
             idItemScheduleList: 'idItemScheduleList-3',
             startTime: '10:00',
@@ -36,13 +36,18 @@ export const initialStateToggleSchedule = {
             price: 200,
             court: 4
         }]
-    }]
+    }],
+    
+    filterListSchedule: ''
 }
 
 export function toggleSchedule(state = initialStateToggleSchedule, action) {
     switch (action.type) {
         case TOGGLE_PANEL_SCHEDULE: 
             return {...state, visiblePanel: action.toggle}
+        
+        case 'FILTER_SCHEDULE': 
+            return {...state, filterListSchedule: action.payload }
         
         default: 
             return state
