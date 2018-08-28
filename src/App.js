@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { connect } from 'react-redux';
 import ScheduleList from './components/ScheduleList';
-import InfiniteCalendar from 'react-infinite-calendar';
-import 'react-infinite-calendar/styles.css';
+import Calendar from 'react-calendar';
 
 class App extends Component {
 
@@ -21,23 +20,10 @@ class App extends Component {
   }
 
   render() {
-    // Render the Calendar
-    const today = new Date();
-    const lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
     // console.log(this.props);
     return (
       <main className="b-main">
-        <InfiniteCalendar 
-          width={400}
-          height={600}
-          selected={today}
-          disabledDates={[0,6]}
-          minDate={lastWeek}
-          displayOptions={{
-            showOverlay: false
-          }}
-        />
-
+        <Calendar />
         {this.renderTemplateListSchedule()}
       </main>
     );
