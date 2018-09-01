@@ -71,6 +71,11 @@
     font-size: 14px;
     line-height: 18px;
     color: #999999;
+
+    &--click {
+      margin-top: 5px;
+      color: #7c4dff;
+    }
   }
 
   &__price {
