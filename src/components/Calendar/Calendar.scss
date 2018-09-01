@@ -1,5 +1,7 @@
 .b-date-calendar {
   background-color: #7c4dff;
+  padding-left: 8px;
+  padding-right: 8px;
 
   &__calendar {
     background-color: transparent;
@@ -11,9 +13,14 @@
   }
 
   .react-calendar__month-view__weekdays__weekday {
-    font-size: 20px;
+    font-family: 'sf_ui_displaymedium';
+    font-size: 14px;
     opacity: 0.48;
     color: #ffffff;
+
+    @media (min-width: 768px) {
+      font-size: 20px;
+    }
   }
 
   .react-calendar__month-view__days__day {
@@ -26,7 +33,7 @@
 
   .react-calendar__tile {
     font-family: 'sf_ui_displaymedium';
-    font-size: 26px;
+    font-size: 14px;
 
     &--active {
       box-shadow: 0 16px 16px rgba(0, 0, 0, 0.08), 0 8px 8px rgba(0, 0, 0, 0.08);
@@ -38,5 +45,29 @@
 
   button.react-calendar__tile--active:enabled:hover, button.react-calendar__tile--active:enabled:focus {
     background: #ffffff;
+  }
+
+  .react-calendar__navigation__label {
+    font-family: 'sf_ui_displayregular';
+    color: #ffffff;
+    padding-bottom: 0px;
+    padding-top: 6px;
+    font-size: 20px;
+  }
+
+  .react-calendar__navigation__arrow {
+    color: #ffffff;
+    font-size: 30px;
+  }
+
+  .react-calendar__navigation {
+    button[disabled] {
+      background-color: transparent;
+    }
+  }
+
+  .react-calendar__navigation__next2-button,
+  .react-calendar__navigation__prev2-button {
+    display: none;
   }
 }

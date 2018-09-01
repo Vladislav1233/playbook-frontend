@@ -11,6 +11,7 @@ export const initialStateToggleSchedule = {
 
     listSchedule: [{ // список расписания
         date: '01.09.18', // это брать как id key можно
+        nameDay: 'Суббота',
         list: [{
             idItemScheduleList: 'idItemScheduleList-1', // идентификатор 
             startTime: '10:00', // начальное время брони - в каком виде передавать, наверное нужно date почитать как форимруется
@@ -28,6 +29,7 @@ export const initialStateToggleSchedule = {
         }]
     }, {
         date: '02.09.18',
+        nameDay: 'Воскресенье',
         list: [{
             idItemScheduleList: 'idItemScheduleList-3',
             startTime: '10:00',

@@ -3,6 +3,7 @@ import './App.css';
 import { connect } from 'react-redux';
 import ScheduleList from './components/ScheduleList';
 import DateCalendar from './components/Calendar';
+import './components/Schedule/Schedule.css';
 
 class App extends Component {
 
@@ -13,7 +14,9 @@ class App extends Component {
 
     return listSchedule.map(item => (
       <div className="b-schedule" key={item.date}>
-        <div className="b-schedule__date">{item.date}</div>
+        <div className="b-schedule__date">{item.nameDay}, {item.date}. 
+          <div className="b-schedule__timetable">Время работы: 9:00 - 19:00</div>
+        </div>
         <ScheduleList list={item.list} />
       </div>
     ))

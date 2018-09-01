@@ -1,0 +1,12 @@
+.b-schedule-list {
+    margin: 0px;
+    padding-left: 0;
+
+    &__item {
+        list-style-type: none;
+
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+    }
+}

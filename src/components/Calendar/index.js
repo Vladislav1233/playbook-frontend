@@ -28,7 +28,10 @@ class DateCalendar extends Component {
 
     return (
       <div className="b-date-calendar">
-        <Calendar className="b-date-calendar__calendar" onClickDay={this.onClickDay}/>
+        <Calendar className="b-date-calendar__calendar" 
+          onClickDay={this.onClickDay}
+          minDetail='month'
+        />
       </div>
     )
   }

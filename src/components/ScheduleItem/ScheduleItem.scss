@@ -7,14 +7,16 @@
     line-height: 32px;
     display: inline-block;
     flex-shrink: 0;
-    margin-right: 20px;
+    margin-right: 35px;
     padding-top: 10px;
   }
   
   &__time {
     color: #222222;
     font-family: 'sf_ui_displaymedium';
-    font-size: 24px;
+    // font-size: 24px;
+    font-size: 14px;
+    line-height: 21px;
 
     &--finish {
       color: #cccccc;
@@ -25,13 +27,18 @@
     display: inline-block;
     width: 100%;
     border-bottom: 1px solid #ebebeb;
+    padding-top: 5px;
+    padding-bottom: 10px;
   }
 
   &__state {
     font-family: 'sf_ui_displayregular';
-    font-size: 30px;
-    line-height: 42px;
+    // font-size: 30px;
+    // line-height: 42px;
+    font-size: 18px;
+    line-height: 26px;
     position: relative;
+    margin-bottom: 6px;
 
     &:before {
       content: '';
@@ -59,11 +66,10 @@
     }
   }
 
-  &__court,
-  &__name {
+  &__court-info {
     font-family: 'sf_ui_displayregular';
-    font-size: 24px;
-    line-height: 32px;
+    font-size: 14px;
+    line-height: 18px;
     color: #999999;
   }
 
@@ -74,5 +80,6 @@
     background-color: #f2f4f5;
     color: #7c4dff;
     border-radius: 3px;
+    line-height: 22px;
   }
 }
