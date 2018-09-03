@@ -5,7 +5,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { toggleSchedule, initialStateToggleSchedule } from './reducers'
+import { toggleSchedule, initialStateToggleSchedule } from './reducers/reducers'
 
 const store = createStore(toggleSchedule, initialStateToggleSchedule)
 
