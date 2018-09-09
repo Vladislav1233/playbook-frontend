@@ -1,15 +1,4 @@
-// import { combineReducers } from 'redux'
-import { TOGGLE_PANEL_SCHEDULE_HIDE, TOGGLE_PANEL_SCHEDULE } from './actions'
-
-
-export const initialStateToggleSchedule = {
-    toggleSchedule: {
-        visibilityPanel: TOGGLE_PANEL_SCHEDULE_HIDE,
-        visiblePanel: false,
-        testText: 'testText'
-    },
-
-    listSchedule: [{ // список расписания
+const initialState = [{ // список расписания
         date: '01.09.18', // это брать как id key можно
         nameDay: 'Суббота',
         list: [{
@@ -38,20 +27,8 @@ export const initialStateToggleSchedule = {
             price: 200,
             court: 4
         }]
-    }],
-    
-    filterListSchedule: ''
-}
+    }]
 
-export function toggleSchedule(state = initialStateToggleSchedule, action) {
-    switch (action.type) {
-        case TOGGLE_PANEL_SCHEDULE: 
-            return {...state, visiblePanel: action.toggle}
-        
-        case 'FILTER_SCHEDULE': 
-            return {...state, filterListSchedule: action.payload }
-        
-        default: 
-            return state
-    }
+export default function(state = initialState) {
+    return state;
 }

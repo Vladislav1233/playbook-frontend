@@ -3,11 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { toggleSchedule, initialStateToggleSchedule } from './reducers/reducers'
+import configureStore from './reducers/configureStore';
 
-const store = createStore(toggleSchedule, initialStateToggleSchedule)
+const store = configureStore();
 
 ReactDOM.render(
     <Provider store={store}>

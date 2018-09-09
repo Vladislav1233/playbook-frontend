@@ -43,9 +43,7 @@ const mapStateToProps = store => {
   console.log(store);
   console.log(store.filterListSchedule);
   return {
-    toggleSchedule: store.toggleSchedule,
     listSchedule: store.listSchedule.filter(item => item.date.includes(store.filterListSchedule))
-    // listSchedule: store.listSchedule
   }
 }
 
@@ -54,7 +52,7 @@ const mapStateToDispatch = (dispatch) => {
   return {
     onFilterSchedule: (date) => {
       console.log('date', date);
-      dispatch({type: 'FILTER_SCHEDULE', payload: date});
+      dispatch({type: 'FILTER_LIST_SCHEDULE', payload: date});
     }
   }
 }
