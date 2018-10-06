@@ -4,6 +4,10 @@ import './Calendar.css'
 
 class DateCalendar extends Component {
 
+  state = {
+    date: new Date()
+  }
+  // TODO: Перенести в action
   onClickDay = (value) => {
 
     function formatDate(date) {
@@ -31,6 +35,7 @@ class DateCalendar extends Component {
         <Calendar className="b-date-calendar__calendar" 
           onClickDay={this.onClickDay}
           minDetail='month'
+          value={this.state.date}
         />
       </div>
     )

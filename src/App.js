@@ -22,10 +22,6 @@ class App extends Component {
     ))
   }
 
-  // filterSchedule = () => {
-
-  // }
-
   render() {
     // console.log(this.props);
     return (
@@ -40,8 +36,8 @@ class App extends Component {
 }
 
 const mapStateToProps = store => {
-  console.log(store);
-  console.log(store.filterListSchedule);
+  // console.log(store);
+  // console.log(store.filterListSchedule);
   return {
     listSchedule: store.listSchedule.filter(item => item.date.includes(store.filterListSchedule))
   }
@@ -52,6 +48,7 @@ const mapStateToDispatch = (dispatch) => {
   return {
     onFilterSchedule: (date) => {
       console.log('date', date);
+      
       dispatch({type: 'FILTER_LIST_SCHEDULE', payload: date});
     }
   }

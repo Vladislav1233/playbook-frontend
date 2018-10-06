@@ -29,6 +29,11 @@ const initialState = [{ // список расписания
         }]
     }]
 
-export default function(state = initialState) {
+export default function(state = initialState, action) {
+    switch (action.type) {
+        case 'FILTER_DAY':
+            return // TODO
+    }
+    
     return state;
 }
