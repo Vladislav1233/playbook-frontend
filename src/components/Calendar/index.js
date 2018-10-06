@@ -23,9 +23,8 @@ class DateCalendar extends Component {
     
       return dd + '.' + mm + '.' + yy;
     }
-    // console.log(formatDate(value), typeof(value));
+
     this.props.onFilterSchedule(formatDate(value));
-    // console.log(this.props);
   }
 
   render() {

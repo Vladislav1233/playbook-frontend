@@ -1,10 +1,10 @@
-const FILTER_LIST_SCHEDULE = "FILTER_LIST_SCHEDULE";
+import { GET_SCHEDULE_CHOOSE_DAY } from '../constants/Schedule';
 
 const initialState = ''
 
 export default function(state = initialState, action) {
     switch (action.type) {
-        case FILTER_LIST_SCHEDULE: 
+        case GET_SCHEDULE_CHOOSE_DAY: 
             return action.payload;
         default:
             return state;
