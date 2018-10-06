@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './ScheduleList.css';
+import './ScheduleList.scss';
 import ScheduleItem from '../ScheduleItem'
 
 class ScheduleList extends Component {

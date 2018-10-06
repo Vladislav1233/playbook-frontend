@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Calendar from 'react-calendar';
-import './Calendar.css'
+import './Calendar.scss'
 
 class DateCalendar extends Component {
 

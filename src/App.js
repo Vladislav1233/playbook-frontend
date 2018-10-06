@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
+import './App.scss';
 import { connect } from 'react-redux';
 import ScheduleList from './components/ScheduleList';
 import DateCalendar from './components/Calendar';
-import './components/Schedule/Schedule.css';
+import './components/Schedule/Schedule.scss';
 
 class App extends Component {
 
