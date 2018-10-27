@@ -1,62 +1,31 @@
 // 320 ++
-$animation-time: 0.2s;
 
 .b-hamburger {
     display: inline-block;
-    width: 50px;
-    height: 50px;
-    border: 1px solid blue;
+    width: 40px;
+    height: 40px;
+    border: 2px solid $white;
     border-radius: 50%;
     position: relative;
     z-index: 2;
     overflow: hidden;
-
-    &--popup {
-        border-color: #DDE4E8;
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        z-index: 2;
-        transition-property: background-color, border-color, color;
-        transition-duration: $animation-time;
-        transition-timing-function: ease;
-
-        svg {
-            pointer-events: none;
-            touch-action: none;
-        }
-
-        path {
-            transition: stroke $animation-time ease;
-        }
-
-        .no-touchevents &:hover,
-        .touchevents &:active {
-            background-color: red;
-            border-color: red;
-
-            path {
-                stroke: red;
-            }
-        }
-        // align-self: flex-end;
-        // margin-bottom: 30px;
-    }
+    transition: border-color $animation-time, right $animation-time;
+    right: 0;
 
     svg {
         width: 50px;
         position: absolute;
-        top: 4px;
-        left: -2px;
+        top: -2px;
+        left: -8px;
         z-index: 1;
     }
 
     path {
         stroke-width: 40;
         stroke-linecap: round;
-        stroke: burlywood;
+        stroke: $white;
         fill: none;
-        transition: all 0.4s ease-in-out;
+        transition: all $animation-time-double ease-in-out, stroke $animation-time;
     }
 
     &__top-bar,
@@ -68,7 +37,21 @@ $animation-time: 0.2s;
         stroke-dasharray: 240px 240px;
     }
 
+    .no-touchevents &:hover,
+    .touchevents &:active {
+        border-color: lighten($orange-diamond-yellow, 10%);
+
+        path {
+            stroke: lighten($orange-diamond-yellow, 10%);
+        }        
+    }
+
+    &.open {
+        right: calc(-100% + 35px);
+    }
+
     &.open & {
+
         &__top-bar,
         &__bottom-bar {
             stroke-dashoffset: -650px;

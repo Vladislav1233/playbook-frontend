@@ -1,1 +1,24 @@
-// 320
+// 320++
+.b-header {
+    background-color: $mint;
+    font-size: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+    }
+
+    &__get-schedule {
+        font-family: 'sf_ui_displaymedium';
+        font-size: 15px;
+        line-height: 1;
+        display: inline-block;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        color: $white;
+    }
+}

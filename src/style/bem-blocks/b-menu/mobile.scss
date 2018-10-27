@@ -1,1 +1,36 @@
-// 320
+// 320++
+$between-menu-browser: 50px;
+
+.b-menu {
+    position: fixed;
+    z-index: 50;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: calc(100% - 60px);
+    background-color: $mint;
+    transform: translateX(-100%);
+    transition-property: transform;
+    transition-duration: $animation-time;
+
+    &.open {
+        transform: translateX(0%);
+    }
+
+    &__list {
+        padding: 0;
+    }
+
+    &__item {
+        list-style-type: none;
+    }
+
+    &__link {
+        font-family: 'sf_ui_displaymedium';
+        font-size: 14px;
+        line-height: 1;
+        padding: 4px 0px;
+        display: inline-block;
+        color: $white;
+    }
+}

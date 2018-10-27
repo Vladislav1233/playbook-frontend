@@ -7,11 +7,27 @@ import '../../style/bem-blocks/b-hamburger/index.scss';
 
 
 class MenuHeader extends Component {
+    state = {
+        toggleMenu: false
+    }
+
+    toggleMenu = (e) => {
+        e.preventDefault();
+
+        this.setState((state) => {
+            return {
+                toggleMenu: !state.toggleMenu
+            }
+        })
+    }
+
     render() {
+        console.log('render');
+
         return (
             <Fragment>
 
-                <a href="" className="b-hamburger">
+                <a href="" className={`b-hamburger ${this.state.toggleMenu ? 'open' : ''}`} onClick={e => this.toggleMenu(e)}>
                     <svg viewBox="0 0 800 600">
                         <path d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200" className="b-hamburger__top-bar"></path>
                         <path d="M300,320 L540,320" className="b-hamburger__middle-bar"></path>
@@ -19,20 +35,20 @@ class MenuHeader extends Component {
                     </svg>
                 </a>
 
-                <div className="b-menu">
+                <div className={`b-menu ${this.state.toggleMenu ? 'open' : ''}`}>
                     <ul className="b-menu__list">
 
                         <li className="b-menu__item">
-                            <a href="" title="Отменить бронь">Отменить бронь</a>
+                            <a className="b-menu__link" href="" title="Отменить бронь">Отменить бронь</a>
                         </li>
                         <li className="b-menu__item">
-                            <a href="" title="Ваш город">Ваш город: Ульяновск</a>
+                            <a className="b-menu__link" href="" title="Ваш город">Ваш город: Ульяновск</a>
                         </li>
                         <li className="b-menu__item">
-                            <a href="" title="Войти в кабинет">Войти в кабинет</a>
+                            <a className="b-menu__link" href="" title="Войти в кабинет">Войти в кабинет</a>
                         </li>
                         <li className="b-menu__item">
-                            <a href="" title="Ваш город">Написать нам</a>
+                            <a className="b-menu__link" href="" title="Ваш город">Написать нам</a>
                         </li>
 
                     </ul>

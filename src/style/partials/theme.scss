@@ -2,16 +2,27 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'sf_ui_displaymedium', Arial, Helvetica, sans-serif;
-  }
+}
   
-  *,
-  *:before,
-  *:after {
-      box-sizing: border-box;
-  }
-  
-  .container {
-    max-width: 1920px;
-    padding: 0px 15px;
-    margin: 0px auto;
-  }
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+.container {
+  max-width: 1920px;
+  padding: 0px 15px;
+  margin: 0px auto;
+}
+
+a {
+    text-decoration: none;
+    color: $orange-diamond-yellow;
+    transition: color $animation-time;
+
+    .no-touchevents &:hover,
+    .touchevents &:active {
+        color: lighten($orange-diamond-yellow, 10%);
+    }
+}
