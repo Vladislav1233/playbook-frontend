@@ -1,13 +1,22 @@
+// react, redux
 import React, { Component } from 'react';
-import './App.scss';
 
-import Schedule from './pages/Schedule/Schedule'
+// component
+import Schedule from './pages/Schedule/Schedule';
+import Header from './components/Template/Header';
+
+// style
 
 class App extends Component {
 
     render() {
         return (
-            <Schedule/>
+            <div className="b-page-wrapper">
+                <Header/>
+                <div className="b-main">
+                    <Schedule/>
+                </div>
+            </div>
         );
     }
 }
