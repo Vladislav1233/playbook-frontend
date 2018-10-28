@@ -1,5 +1,7 @@
 // react, redux
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { toggleMenu } from '../../store/actions/toggleMenu';
 
 // Style
 import '../../style/bem-blocks/b-menu/index.scss';
@@ -7,27 +9,15 @@ import '../../style/bem-blocks/b-hamburger/index.scss';
 
 
 class MenuHeader extends Component {
-    state = {
-        toggleMenu: false
-    }
-
-    toggleMenu = (e) => {
-        e.preventDefault();
-
-        this.setState((state) => {
-            return {
-                toggleMenu: !state.toggleMenu
-            }
-        })
-    }
 
     render() {
         console.log('render');
+        console.log(this.props.toggleMenu);
 
         return (
             <Fragment>
 
-                <a href="" className={`b-hamburger ${this.state.toggleMenu ? 'open' : ''}`} onClick={e => this.toggleMenu(e)}>
+                <a href="" className={`b-hamburger ${this.props.toggleMenu ? 'open' : ''}`} onClick={e => this.props.onToggleMenu(e)}>
                     <svg viewBox="0 0 800 600">
                         <path d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200" className="b-hamburger__top-bar"></path>
                         <path d="M300,320 L540,320" className="b-hamburger__middle-bar"></path>
@@ -35,7 +25,7 @@ class MenuHeader extends Component {
                     </svg>
                 </a>
 
-                <div className={`b-menu ${this.state.toggleMenu ? 'open' : ''}`}>
+                <div className={`b-menu ${this.props.toggleMenu ? 'open' : ''}`}>
                     <ul className="b-menu__list">
 
                         <li className="b-menu__item">
@@ -58,4 +48,17 @@ class MenuHeader extends Component {
     }
 }
 
-export default MenuHeader;
+const mapStateToProps = (state) => {
+    return state.toggleMenu
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onToggleMenu: (e) => {
+            e.preventDefault();
+            dispatch(toggleMenu())
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MenuHeader);
