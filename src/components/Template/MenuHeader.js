@@ -11,8 +11,7 @@ import '../../style/bem-blocks/b-hamburger/index.scss';
 class MenuHeader extends Component {
 
     render() {
-        console.log('render');
-        console.log(this.props.toggleMenu);
+        console.log('render MenuHeader');
 
         return (
             <Fragment>
@@ -49,7 +48,10 @@ class MenuHeader extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return state.toggleMenu
+    console.log(state);
+    return {
+       toggleMenu: state.toggleMenu.toggleMenu
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {

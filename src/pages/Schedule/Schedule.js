@@ -57,6 +57,7 @@ const filterSchedule = (schedule, day) => {
 }
 
 const mapStateToProps = store => {
+    console.log(store);
     return {
         listSchedule: filterSchedule(store.listSchedule, store.getDayFilter)
     }
