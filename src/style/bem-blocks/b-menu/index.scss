@@ -1,0 +1,19 @@
+@import '../../partials/variables.scss';
+
+@import './mobile.scss';
+
+@media (min-width: 768px) {
+    @import './tablet.scss';
+}
+
+@media (min-width: 1024px) {
+    @import './desktop.min.scss';
+}
+
+@media (min-width: 1440px) {
+    @import './desktop.scss';
+}
+
+@media (min-width: 1680px) {
+    @import './desktop.big.scss';
+}
