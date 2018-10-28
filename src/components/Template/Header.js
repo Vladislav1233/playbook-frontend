@@ -9,6 +9,7 @@ import MenuHeader from './MenuHeader';
 
 class Header extends Component {
     render() {
+        console.log('render Header');
         return (
             <header className="b-header">
                 <div className="container">

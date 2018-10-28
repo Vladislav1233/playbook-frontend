@@ -37,7 +37,7 @@ class MenuHeader extends Component {
                             <a className="b-menu__link" href="" title="Войти в кабинет">Войти в кабинет</a>
                         </li>
                         <li className="b-menu__item">
-                            <a className="b-menu__link" href="" title="Ваш город">Написать нам</a>
+                            <a className="b-menu__link" href="" title="Написать нам">Написать нам</a>
                         </li>
 
                     </ul>
@@ -48,7 +48,6 @@ class MenuHeader extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
        toggleMenu: state.toggleMenu.toggleMenu
     }

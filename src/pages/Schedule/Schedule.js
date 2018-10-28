@@ -11,7 +11,6 @@ import './Schedule.scss';
 class Schedule extends Component {
     renderTemplateListSchedule = () => {
         const {listSchedule} = this.props;
-        console.log(listSchedule);
     
         return listSchedule.map(item => (
             <div className="b-schedule" key={item.date}>
@@ -24,7 +23,7 @@ class Schedule extends Component {
     }
 
     render() {
-        console.log(this.props);
+        console.log('render Schedule');
         return (
             <main className="b-main">
                 <DateCalendar onFilterSchedule={this.props.onFilterSchedule}/>
@@ -57,7 +56,6 @@ const filterSchedule = (schedule, day) => {
 }
 
 const mapStateToProps = store => {
-    console.log(store);
     return {
         listSchedule: filterSchedule(store.listSchedule, store.getDayFilter)
     }

@@ -7,6 +7,7 @@ import { toggleMenu } from '../../store/actions/toggleMenu';
 import '../../style/bem-blocks/b-cover-page/index.scss';
 
 function CoverPage(props) {
+    console.log('render CoverPage');
     return (
         <div className={`b-cover-page  ${props.toggleMenu ? "active" : ''}`} onClick={(e) => props.onToggleMenu(e)}></div>
     )
