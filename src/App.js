@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // component
-import Schedule from './pages/Schedule/Schedule';
+import ScheduleTrainer from './pages/ScheduleTrainer/ScheduleTrainer';
 import Header from './components/Template/Header';
 import CoverPage from './components/CoverPage/CoverPage';
 
@@ -17,7 +17,7 @@ class App extends Component {
             <div className={`b-page-wrapper ${this.props.toggleMenu ? 'no-scroll' : ''}`}>
                 <Header/>
                 <main className="b-main">
-                    <Schedule/>
+                    <ScheduleTrainer />
                 </main>
                 <CoverPage />
             </div>
