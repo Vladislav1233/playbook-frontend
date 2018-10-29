@@ -6,15 +6,13 @@ const initialState = [{ // список расписания
         startTime: '10:00', // начальное время брони - в каком виде передавать, наверное нужно date почитать как форимруется
         finishTime: '13:00',
         status: true, // true - свободно, false - забронировано
-        price: 200, // цена в текущий промежуток времени (промежутки времени должны группироваться в зависимости от цены)
-        court: 4 // номер корта
+        price: 200 // цена в текущий промежуток времени (промежутки времени должны группироваться в зависимости от цены)
     }, {
         idItemScheduleList: 'idItemScheduleList-2',
         startTime: '13:00',
         finishTime: '19:00',
         status: false,
-        price: 200,
-        court: 4
+        price: 200
     }]
 }, {
     date: '30.10.18',
@@ -24,8 +22,7 @@ const initialState = [{ // список расписания
         startTime: '10:00',
         finishTime: '19:00',
         status: false,
-        price: 200,
-        court: 4
+        price: 200
     }]
 }]
 
