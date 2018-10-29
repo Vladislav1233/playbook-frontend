@@ -59,7 +59,9 @@
     "start": "npm-run-all -p start-js",
     "build-js": "node scripts/build.js",
     "build": "npm-run-all build-js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "lint": "./node_modules/.bin/eslint ./src",
+    "jest": "./node_modules/.bin/jest --env=jsdom"
   },
   "devDependencies": {
     "node-sass": "^4.9.3",
@@ -67,14 +69,14 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx,mjs}"
+      "tests/**/*.{js,jsx,mjs}"
     ],
     "setupFiles": [
       "<rootDir>/config/polyfills.js"
     ],
     "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
-      "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}"
+      "<rootDir>/tests/**/__tests__/**/*.{js,jsx,mjs}",
+      "<rootDir>/tests/**/?(*.)(spec|test).{js,jsx,mjs}"
     ],
     "testEnvironment": "node",
     "testURL": "http://localhost",

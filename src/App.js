@@ -12,7 +12,6 @@ import './style/bem-blocks/b-page-wrapper/index.scss';
 import './style/bem-blocks/b-main/index.scss';
 
 class App extends Component {
-
     render() {
         return (
             <div className={`b-page-wrapper ${this.props.toggleMenu ? 'no-scroll' : ''}`}>
@@ -30,6 +29,6 @@ const mapStateToProps = (state) => {
     return {
         toggleMenu: state.toggleMenu.toggleMenu
     }
-}
+};
 
 export default connect(mapStateToProps)(App);
