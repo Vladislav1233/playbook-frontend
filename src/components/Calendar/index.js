@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Calendar from 'react-calendar';
-import './Calendar.scss'
+
+// style
+import '../../style/bem-blocks/b-date-calendar/index.scss';
 
 class DateCalendar extends Component {
 

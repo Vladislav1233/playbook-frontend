@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import './ScheduleList.scss';
+
+// component
 import ScheduleItem from '../ScheduleItem';
+
+// style
+import '../../style/bem-blocks/b-schedule-list/index.scss';
 
 class ScheduleList extends Component {
 

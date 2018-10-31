@@ -1,5 +1,5 @@
 const initialState = [{ // список расписания
-    date: '29.10.18', // это брать как id key можно
+    date: '30.10.18', // это брать как id key можно
     nameDay: "Понедельник",
     list: [{
         idItemScheduleList: 'idItemScheduleList-1', // идентификатор 
@@ -15,7 +15,7 @@ const initialState = [{ // список расписания
         price: 200
     }]
 }, {
-    date: '30.10.18',
+    date: '31.10.18',
     nameDay: "Вторник",
     list: [{
         idItemScheduleList: 'idItemScheduleList-3',

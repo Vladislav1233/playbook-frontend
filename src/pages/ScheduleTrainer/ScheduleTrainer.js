@@ -1,36 +1,22 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getScheduleChooseDay } from '../../store/actions/Schedule';
 
-import ScheduleList from '../../components/ScheduleList';
-import DateCalendar from '../../components/Calendar';
-
-import './Schedule.scss';
+// component
+import Schedule from '../../components/Schedule/Schedule';
 
 class ScheduleTrainer extends Component {
 
     render() {
         console.log('render ScheduleTrainer');
-        const { scheduleTrainer } = this.props;
+        const { scheduleTrainer, onFilterSchedule } = this.props;
+        console.log(scheduleTrainer);
+
         return (
-            <Fragment>
-                <DateCalendar onFilterSchedule={this.props.onFilterSchedule}/>
-                <div className="container">
-                    {scheduleTrainer 
-                        ?
-                        <div className="b-schedule">
-                            <div className="b-schedule__date">{scheduleTrainer.nameDay}, {scheduleTrainer.date}. 
-                                <div className="b-schedule__timetable">Время работы: 9:00 - 19:00</div>
-                            </div>
-                            <ScheduleList list={scheduleTrainer.list} />
-                        </div> 
-                        :
-                        <div>
-                            Расписания нет, sorry!
-                        </div>
-                    }
-                </div>
-            </Fragment>
+            <Schedule 
+                scheduleTrainer={scheduleTrainer}
+                onFilterSchedule={onFilterSchedule}
+            />
         )
     }
 }
