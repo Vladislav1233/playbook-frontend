@@ -10,12 +10,19 @@ class ScheduleList extends Component {
 
 
   render() {
-    // const listScheduleData = this.props.list;
+    const list = this.props.list;
 
     return (
         <ul className="b-schedule-list">
-            
-            <ScheduleItem />
+            {
+                list ? list.map(item => (
+                    <li className="b-schedule-list__item" key={item.idItemSchedule}>
+                        <ScheduleItem dataScheduleItem={item} telTrainer={this.props.telTrainer}/>
+                    </li>
+                ))
+                :
+                <div>Расписания нет</div>
+            }
         </ul>
     )
   }

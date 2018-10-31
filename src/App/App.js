@@ -23,7 +23,6 @@ class App extends Component {
                     {
                         roleUser === 'guest' ?
                             <AppUserTemplate />
-                            // <ScheduleTrainer />
                     
                         : <div>404</div> // TODO: поставить страницу 404
                     }

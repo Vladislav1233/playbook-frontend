@@ -10,11 +10,10 @@ class ScheduleTrainer extends Component {
     render() {
         console.log('render ScheduleTrainer');
         const { scheduleTrainer, onFilterSchedule } = this.props;
-        console.log(scheduleTrainer);
 
         return (
             <Schedule 
-                scheduleTrainer={scheduleTrainer}
+                schedule={scheduleTrainer}
                 onFilterSchedule={onFilterSchedule}
             />
         )

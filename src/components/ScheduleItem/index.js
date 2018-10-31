@@ -7,61 +7,50 @@ class ScheduleItem extends Component {
   
   render() {
     // const {startTime, finishTime, court, price, status} = this.props.dataScheduleItem;
+    const { 
+        startTime, 
+        finishTime,
+        status, // true - это время свободно, false - это время занято
+        price,
+        freeCourt,
+        courts
+    } = this.props.dataScheduleItem;
 
     return (
-        // TODO: Убрать фрагмент когда выведем через map
-        // TODO: li вы нести в компонент schedule list
-        <Fragment>
-            {/* Свободное время тренера, у которого один или несколько кортов */}
-            <li className="b-schedule-list__item">
-                <div className="b-schedule-item">
-                    <div className="b-schedule-item__time-wrap">
-                        <div className="b-schedule-item__time">12:00</div>
-                        <div className="b-schedule-item__time b-schedule-item__time--finish">17:00</div>
-                    </div>
+        <div className="b-schedule-item">
+            <div className="b-schedule-item__time-wrap">
+                <div className="b-schedule-item__time">{startTime}</div>
+                <div className="b-schedule-item__time b-schedule-item__time--finish">{finishTime}</div>
+            </div>
 
-                    <div className="b-schedule-item__info">
-                        <div className='b-schedule-item__state b-schedule-item__state--free'>Свободно <span className="b-schedule-item__price">700 р/час</span></div>
+            <div className="b-schedule-item__info">
+                <div className={`b-schedule-item__state ${status ? 'b-schedule-item__state--free': 'b-schedule-item__state--busy'}`}>
+                    {status ? 'Свободно' : 'Занято'} 
+                    {status ? <span className="b-schedule-item__price">{price} р/час</span> : null}
+                </div>
+                
+                {status ? freeCourt ?
+                    <Fragment>
                         <div className='b-schedule-item__court-info'>
-                            <p className='b-schedule-item__name-court'>Lawn tennis</p>
-                            <p className='b-schedule-item__address-court'>ул. Первомайская, д. 59</p>
-                            <p className="b-schedule-item__additional-court">или ещё 2 корт(а)</p>
+                            <p className='b-schedule-item__name-court'>{courts[0].name}</p>
+                            <p className='b-schedule-item__address-court'>{courts[0].street}, д. {courts[0].number}</p>
+                            {courts.length > 0 ?
+                                <p className="b-schedule-item__additional-court">или ещё {courts.length - 1} корт(а)</p>
+                                :
+                                null
+                            }
                         </div>
                         <div className="b-schedule-item__click">Кликни на блок для брони</div>
+                    </Fragment>
+                    :
+                    <div className="b-schedule-item__court-info">
+                        Нет свободных кортов на это время. Теория или знаешь где свободный корт? - наибрай <span className="b-schedule-item__tel">89176786243</span>
                     </div>
-                </div>
-            </li>
-
-            {/* Свободное время тренера, но кортов нет */}
-            <li className="b-schedule-list__item">
-                <div className="b-schedule-item">
-                    <div className="b-schedule-item__time-wrap">
-                        <div className="b-schedule-item__time">12:00</div>
-                        <div className="b-schedule-item__time b-schedule-item__time--finish">17:00</div>
-                    </div>
-                    {/* TODO: по клику на такой блок - сразу чтобы звонить тренеру */}
-                    <div className="b-schedule-item__info">
-                        <div className='b-schedule-item__state b-schedule-item__state--free'>Свободно <span className="b-schedule-item__price">700 р/час</span></div>
-                        <div className="b-schedule-item__court-info">Нет свободных кортов на это время. Теория или знаешь где свободный корт? - наибрай <span className="b-schedule-item__tel">89178667345</span></div>
-                    </div>
-                </div>
-            </li>
-
-            {/* Тренер занят */}
-            <li className="b-schedule-list__item">
-                <div className="b-schedule-item">
-                    <div className="b-schedule-item__time-wrap">
-                        <div className="b-schedule-item__time">12:00</div>
-                        <div className="b-schedule-item__time b-schedule-item__time--finish">17:00</div>
-                    </div>
-
-                    <div className="b-schedule-item__info">
-                        <div className='b-schedule-item__state b-schedule-item__state--busy'>Занято</div>
-                    </div>
-                </div>
-            </li>
-
-        </Fragment>
+                    
+                    : null
+                }
+            </div>
+        </div>
     )
   }
 }

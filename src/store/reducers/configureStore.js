@@ -1,13 +1,14 @@
 import { combineReducers, createStore } from 'redux';
-import listSchedule from './listSchedule';
 import getDayFilter from './getDayFilter';
 import toggleMenu from './toggleMenu';
 import scheduleTrainer from './scheduleTrainer';
+import scheduleCourt from './scheduleCourt';
 import roleUser from './roleUser';
+
 
 export default function(initialState = {}) {
     const rootReducer = combineReducers({
-        listSchedule,
+        scheduleCourt,
         getDayFilter,
         toggleMenu,
         scheduleTrainer,
