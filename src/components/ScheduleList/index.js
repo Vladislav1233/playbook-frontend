@@ -14,17 +14,23 @@ class ScheduleList extends Component {
 
     return (
         <ul className="b-schedule-list">
-            {listScheduleData ? listScheduleData.map(item => (
-                <li className="b-schedule-list__item" key={item.idItemScheduleList}>
-                    <ScheduleItem dataScheduleItem={item}/>
-                </li>
-            )) 
-            : 
-                <div>Расписания нет</div>
-            }
+            
+            <ScheduleItem />
         </ul>
     )
   }
 }
 
 export default ScheduleList;
+
+
+// <ul className="b-schedule-list">
+//             {listScheduleData ? listScheduleData.map(item => (
+//                 <li className="b-schedule-list__item" key={item.idItemScheduleList}>
+//                     <ScheduleItem dataScheduleItem={item}/>
+//                 </li>
+//             )) 
+//             : 
+//                 <div>Расписания нет</div>
+//             }
+//         </ul>

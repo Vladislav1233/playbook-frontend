@@ -1,48 +1,38 @@
 // FONTS
 @font-face {
-  font-family: 'sf_ui_displaybold';
-  src: url('./partials/fonts/sfuidisplay-bold.eot');
-  src: url('./partials/fonts/sfuidisplay-bold.eot?#iefix') format('embedded-opentype'),
-       url('./partials/fonts/sfuidisplay-bold.woff2') format('woff2'),
-       url('./partials/fonts/sfuidisplay-bold.woff') format('woff'),
-       url('./partials/fonts/sfuidisplay-bold.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'montserratbold';
+    src: url('./partials/fonts/montserrat-bold.woff2') format('woff2'),
+         url('./partials/fonts/montserrat-bold.woff') format('woff'),
+         url('./partials/fonts/montserrat-bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
-  font-family: 'sf_ui_displaylight';
-  src: url('./partials/fonts/sf-ui-display-light.eot');
-  src: url('./partials/fonts/sf-ui-display-light.eot?#iefix') format('embedded-opentype'),
-       url('./partials/fonts/sf-ui-display-light.woff2') format('woff2'),
-       url('./partials/fonts/sf-ui-display-light.woff') format('woff'),
-       url('./partials/fonts/sf-ui-display-light.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'montserratlight';
+    src: url('./partials/fonts/montserrat-light.woff2') format('woff2'),
+         url('./partials/fonts/montserrat-light.woff') format('woff'),
+         url('./partials/fonts/montserrat-light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
-// 500
 @font-face {
-  font-family: 'sf_ui_displaymedium';
-  src: url('./partials/fonts/sf-ui-display-medium.eot');
-  src: url('./partials/fonts/sf-ui-display-medium.eot?#iefix') format('embedded-opentype'),
-       url('./partials/fonts/sf-ui-display-medium.woff2') format('woff2'),
-       url('./partials/fonts/sf-ui-display-medium.woff') format('woff'),
-       url('./partials/fonts/sf-ui-display-medium.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'montserratmedium';
+    src: url('./partials/fonts/montserrat-medium.woff2') format('woff2'),
+         url('./partials/fonts/montserrat-medium.woff') format('woff'),
+         url('./partials/fonts/montserrat-medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
-// 400
 @font-face {
-  font-family: 'sf_ui_displayregular';
-  src: url('./partials/fonts/sf-ui-display-regular.eot');
-  src: url('./partials/fonts/sf-ui-display-regular.eot?#iefix') format('embedded-opentype'),
-       url('./partials/fonts/sf-ui-display-regular.woff2') format('woff2'),
-       url('./partials/fonts/sf-ui-display-regular.woff') format('woff'),
-       url('./partials/fonts/sf-ui-display-regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'montserratregular';
+    src: url('./partials/fonts/montserrat-regular.woff2') format('woff2'),
+         url('./partials/fonts/montserrat-regular.woff') format('woff'),
+         url('./partials/fonts/montserrat-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @import './partials/variables.scss';

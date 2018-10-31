@@ -14,7 +14,7 @@
 
     &__time {
         color: #222222;
-        font-family: 'sf_ui_displaymedium';
+        font-family: $medium;
         // font-size: 24px;
         font-size: 14px;
         line-height: 21px;
@@ -33,7 +33,7 @@
     }
 
     &__state {
-        font-family: 'sf_ui_displayregular';
+        font-family: $regular;
         // font-size: 30px;
         // line-height: 42px;
         font-size: 18px;
@@ -68,7 +68,7 @@
     }
 
     &__court-info {
-        font-family: 'sf_ui_displayregular';
+        font-family: $regular;
         font-size: 14px;
         line-height: 18px;
         color: #999999;
