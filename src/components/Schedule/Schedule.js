@@ -15,7 +15,7 @@ class Schedule extends Component {
         return (
             <Fragment>
                 <DateCalendar onFilterSchedule={this.props.onFilterSchedule}/>
-                <div className="container">
+                <div className="container container--schedule">
                     {scheduleTrainer 
                         ?
                         <div className="b-schedule">

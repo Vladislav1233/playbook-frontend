@@ -10,7 +10,7 @@ class ScheduleList extends Component {
 
 
   render() {
-    const listScheduleData = this.props.list;
+    // const listScheduleData = this.props.list;
 
     return (
         <ul className="b-schedule-list">

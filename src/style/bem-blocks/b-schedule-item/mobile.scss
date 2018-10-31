@@ -30,6 +30,7 @@
         border-bottom: 1px solid #ebebeb;
         padding-top: 5px;
         padding-bottom: 10px;
+        min-height: 115px;
     }
 
     &__state {
@@ -71,12 +72,15 @@
         font-family: $regular;
         font-size: 14px;
         line-height: 18px;
-        color: #999999;
+        color: $telegray;
+    }
 
-        &--click {
-            margin-top: 5px;
-            color: #7c4dff;
-        }
+    &__click {
+        font-family: $regular;
+        font-size: 14px;
+        line-height: 18px;
+        margin-top: 15px;
+        color: $temperate-slate-blue;
     }
 
     &__price {
@@ -84,8 +88,26 @@
         padding: 4px 4px 2px;
         border: 1px solid #eee;
         background-color: #f2f4f5;
-        color: #7c4dff;
+        color: $temperate-slate-blue;
         border-radius: 3px;
         line-height: 22px;
+    }
+
+    &__name-court {
+        font-family: $bold;
+        font-size: 15px;
+        margin: 0;
+        margin-bottom: 1px;
+    }
+
+    &__address-court {
+        font-family: $medium;
+        margin: 0;
+        margin-bottom: 5px;
+    }
+
+    &__additional-court {
+        margin: 0;
+        color: $bright-telegray;
     }
 }
