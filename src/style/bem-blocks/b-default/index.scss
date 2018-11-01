@@ -10,10 +10,14 @@
     @import './desktop.min.scss';
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1280px) {
     @import './desktop.scss';
 }
 
-@media (min-width: 1680px) {
+@media (min-width: 1440px) {
     @import './desktop.big.scss';
+}
+
+@media (min-width: 1680px) {
+    @import './desktop.fullhd.scss';
 }

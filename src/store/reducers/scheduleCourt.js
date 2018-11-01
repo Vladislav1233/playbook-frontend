@@ -22,7 +22,7 @@ const initialState = [{ // список расписания
     }, {
         name: 2,
         type: 'Искуственная трава',
-        id: 'court-1',
+        id: 'court-2',
         list: [{
             idItemScheduleList: 'idItemScheduleList-3',
             startTime: '10:00',
@@ -39,7 +39,7 @@ const initialState = [{ // список расписания
     }, {
         name: 3,
         type: 'Искуственная трава',
-        id: 'court-1',
+        id: 'court-3',
         list: [{
             idItemScheduleList: 'idItemScheduleList-5',
             startTime: '10:00',
@@ -68,8 +68,9 @@ const initialState = [{ // список расписания
     court: [{
         name: 1,
         type: 'Искуственная трава',
+        id: 'court-4',
         list: [{
-            idItemScheduleList: 'idItemScheduleList-5',
+            idItemScheduleList: 'idItemScheduleList-8',
             startTime: '10:00',
             finishTime: '19:00',
             status: false,
