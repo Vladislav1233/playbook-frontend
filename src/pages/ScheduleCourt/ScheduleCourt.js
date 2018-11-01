@@ -9,18 +9,33 @@ import Schedule from '../../components/Schedule/Schedule';
 import { filterSchedule } from '../../helpers/filterSchedule';
 
 class ScheduleCourt extends Component {
-  render() {
-    return (
-        <Schedule 
-            onFilterSchedule={this.props.onFilterSchedule}
-        />
-    )
-  }
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            scheduleCourt: props.scheduleCourt
+        }
+    }
+
+    render() {
+        const { onFilterSchedule } = this.props;
+        const { scheduleCourt } = this.state;
+        console.log(scheduleCourt);
+        
+
+        return (
+            <Schedule
+                schedule={scheduleCourt}
+                onFilterSchedule={onFilterSchedule}
+            />
+        )
+    }
 }
 
 const mapStateToProps = store => {
-  return {
-  }
+    return {
+        scheduleCourt: filterSchedule(store.scheduleCourt, store.getDayFilter)
+    }
 }
 
 const mapStateToDispatch = (dispatch) => {

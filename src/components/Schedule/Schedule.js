@@ -11,6 +11,7 @@ import ScheduleList from '../../components/ScheduleList';
 class Schedule extends Component {
     render() {
         const { schedule } = this.props;
+        console.log(schedule);
 
         return (
             <Fragment>
@@ -22,7 +23,15 @@ class Schedule extends Component {
                             <div className="b-schedule__date">{schedule.nameDay}, {schedule.date}. 
                                 <div className="b-schedule__timetable">Время работы: 9:00 - 19:00</div>
                             </div>
-                            <ScheduleList list={schedule.list} telTrainer={schedule.telTrainer} />
+                            {schedule.list ? 
+                                <ScheduleList list={schedule.list} telTrainer={schedule.telTrainer} />
+                                :
+                            schedule.court ? schedule.court.map((schedule) => (
+                                <ScheduleList list={schedule.list} telTrainer={schedule.telTrainer} />
+                            ))
+                                :
+                                null   
+                            }
                         </div>
                         :
                         <div>
