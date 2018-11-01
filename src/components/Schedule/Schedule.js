@@ -23,7 +23,7 @@ class Schedule extends Component {
                                 <div className="b-schedule__timetable">Время работы: 9:00 - 19:00</div>
                             </div>
                             <ScheduleList list={schedule.list} telTrainer={schedule.telTrainer} />
-                        </div> 
+                        </div>
                         :
                         <div>
                             Расписания нет, sorry!
