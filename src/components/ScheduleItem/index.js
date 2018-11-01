@@ -15,6 +15,35 @@ class ScheduleItem extends Component {
         freeCourt,
         courts
     } = this.props.dataScheduleItem;
+    
+    const { template } = this.props;
+
+    const itemTrainer = () => (
+        status ? freeCourt ?
+            <Fragment>
+                <div className='b-schedule-item__court-info'>
+                    <p className='b-schedule-item__name-court'>{courts[0].name}</p>
+                    <p className='b-schedule-item__address-court'>{courts[0].street}, д. {courts[0].number}</p>
+                    {courts.length > 0 ?
+                        <p className="b-schedule-item__additional-court">или ещё {courts.length - 1} корт(а)</p>
+                        :
+                        null
+                    }
+                </div>
+                <div className="b-schedule-item__click">Кликни на блок для брони</div>
+            </Fragment>
+            :
+            <div className="b-schedule-item__court-info">
+                Нет свободных кортов на это время. Теория или знаешь где свободный корт? - наибрай <span className="b-schedule-item__tel">89176786243</span>
+            </div>
+            : null
+    );
+
+    const itemCourt = () => (
+        status ? 
+            <div className="b-schedule-item__click">Кликни на блок для брони</div>
+        : null
+    );
 
     return (
         <div className="b-schedule-item">
@@ -28,27 +57,15 @@ class ScheduleItem extends Component {
                     {status ? 'Свободно ' : 'Занято '} 
                     {status ? <span className="b-schedule-item__price">{price} р/час</span> : null}
                 </div>
-                
-                {status ? freeCourt ?
-                    <Fragment>
-                        <div className='b-schedule-item__court-info'>
-                            <p className='b-schedule-item__name-court'>{courts[0].name}</p>
-                            <p className='b-schedule-item__address-court'>{courts[0].street}, д. {courts[0].number}</p>
-                            {courts.length > 0 ?
-                                <p className="b-schedule-item__additional-court">или ещё {courts.length - 1} корт(а)</p>
-                                :
-                                null
-                            }
-                        </div>
-                        <div className="b-schedule-item__click">Кликни на блок для брони</div>
-                    </Fragment>
+                { 
+                    template === 'trainer' ?
+                        itemTrainer()
                     :
-                    <div className="b-schedule-item__court-info">
-                        Нет свободных кортов на это время. Теория или знаешь где свободный корт? - наибрай <span className="b-schedule-item__tel">89176786243</span>
-                    </div>
-                    
+                    template === 'court' ?
+                        itemCourt()
                     : null
                 }
+                
             </div>
         </div>
     )

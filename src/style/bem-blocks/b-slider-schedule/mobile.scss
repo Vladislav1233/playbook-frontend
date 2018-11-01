@@ -1,0 +1,63 @@
+// 320++
+.b-slider-schedule {
+    position: relative;
+
+    &__header {
+        height: 30px;
+        margin-bottom: 15px;
+        padding: 0px 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px solid;
+        border-top: 1px solid;
+        border-color: $border-color;
+    }
+
+    &__title {
+        font-family: $regular;
+        font-size: 14px;
+        line-height: 17px;
+        padding-top: 2px;
+        // color: $telegray;
+        // color: $carmine-pink;
+        // color: $mint;
+    }
+
+    &__slide {
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .slick-slide {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .slick-arrow {
+        position: absolute;
+        z-index: 100;
+        top: 0;
+        height: 30px;
+        width: 30px;
+        font-size: 0;
+        background: $white;
+        outline: none;
+        box-shadow: none;
+        border: 1px solid $border-color;
+    }
+
+    .slick-prev {
+        left: 0;
+    }
+
+    .slick-next {
+        right: 0;
+    }
+
+    .slick-list {
+        overflow: hidden;
+        transition: height $animation-time;
+    }
+}

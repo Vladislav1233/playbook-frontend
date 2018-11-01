@@ -9,24 +9,24 @@ import Schedule from '../../components/Schedule/Schedule';
 import { filterSchedule } from '../../helpers/filterSchedule';
 
 class ScheduleCourt extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            scheduleCourt: props.scheduleCourt
-        }
-    }
 
     render() {
-        const { onFilterSchedule } = this.props;
-        const { scheduleCourt } = this.state;
-        console.log(scheduleCourt);
-        
+        const { onFilterSchedule, scheduleCourt } = this.props;
+        const settingSlider = {
+            dots: false,
+            infinite: false,
+            speed: 300,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            adaptiveHeight: true
+        }
 
         return (
             <Schedule
                 schedule={scheduleCourt}
                 onFilterSchedule={onFilterSchedule}
+                settingSlider={settingSlider}
+                template={'court'}
             />
         )
     }

@@ -18,6 +18,7 @@ class ScheduleTrainer extends Component {
             <Schedule 
                 schedule={scheduleTrainer}
                 onFilterSchedule={onFilterSchedule}
+                template={'trainer'}
             />
         )
     }
