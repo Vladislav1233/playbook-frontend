@@ -12,13 +12,17 @@ class ScheduleCourt extends Component {
 
     render() {
         const { onFilterSchedule, scheduleCourt } = this.props;
+
         const settingSlider = {
-            dots: false,
-            infinite: false,
-            speed: 300,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            adaptiveHeight: true
+            nav: false,
+            autoHeight: true,
+            controlsText: ["‹", "›"],
+
+            responsive: {
+                768: {
+                    gutter: 15
+                }
+            }
         }
 
         return (

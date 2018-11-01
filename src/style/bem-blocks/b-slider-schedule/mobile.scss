@@ -30,34 +30,43 @@
         }
     }
 
-    .slick-slide {
-        display: inline-block;
-        vertical-align: top;
-    }
+    // .slick-slide {
+    //     display: inline-block;
+    //     vertical-align: top;
+    // }
 
-    .slick-arrow {
-        position: absolute;
-        z-index: 100;
-        top: 0;
+    // .slick-arrow {
+    //     position: absolute;
+    //     z-index: 100;
+    //     top: 0;
+    //     height: 30px;
+    //     width: 30px;
+    //     font-size: 0;
+    //     background: $white;
+    //     outline: none;
+    //     box-shadow: none;
+    //     border: 1px solid $border-color;
+    // }
+
+    // .slick-prev {
+    //     left: 0;
+    // }
+
+    // .slick-next {
+    //     right: 0;
+    // }
+
+    // .slick-list {
+    //     overflow: hidden;
+    //     transition: height $animation-time;
+    // }
+}
+
+.tns-outer {
+    .tns-controls {
+        margin-bottom: -30px;
         height: 30px;
-        width: 30px;
-        font-size: 0;
-        background: $white;
-        outline: none;
-        box-shadow: none;
-        border: 1px solid $border-color;
-    }
-
-    .slick-prev {
-        left: 0;
-    }
-
-    .slick-next {
-        right: 0;
-    }
-
-    .slick-list {
-        overflow: hidden;
-        transition: height $animation-time;
+        position: relative;
+        z-index: 1;
     }
 }
