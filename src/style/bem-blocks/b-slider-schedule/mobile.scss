@@ -68,5 +68,24 @@
         height: 30px;
         position: relative;
         z-index: 1;
+        display: flex;
+        justify-content: space-between;
+        
+        &:focus {
+            outline: none;
+        }
+
+        button {
+            background: $white;
+            outline: none;
+            height: 30px;
+            width: 30px;
+            border: 1px solid $border-color;
+            font-size: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: $telegray;
+        }
     }
 }

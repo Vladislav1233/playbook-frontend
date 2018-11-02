@@ -11,6 +11,22 @@ import '../../style/bem-blocks/b-schedule/index.scss';
 import '../../style/bem-blocks/b-slider-schedule/index.scss';
 
 class Schedule extends Component {
+    componentDidUpdate() {
+        this.refreshSlider();
+    }
+
+    // Слайдер оставляет transform когда он дестроится и нельзя отловить refresh, пришлось костылить.
+    refreshSlider = () => {
+        if (this.ts) {
+            if (this.ts.slider === undefined) {
+                this.ts.ref.style.transform = '';
+                this.ts.ref.style.transitionDuration = '0s';
+            } else {
+                this.ts.ref.style.transitionDuration = '0s';
+            }
+        }
+    }
+
     render() {
         const { schedule, template } = this.props;
 
@@ -28,7 +44,7 @@ class Schedule extends Component {
                                 <ScheduleList list={schedule.list} telTrainer={schedule.telTrainer} template={template} />
                                 :
                             schedule.court ? 
-                                <TinySlider className="b-slider-schedule" settings={this.props.settingSlider}>
+                                <TinySlider className="b-slider-schedule" settings={this.props.settingSlider} ref={ts => this.ts = ts}>
                                     {schedule.court.map((schedule) => (
                                         <div className="b-slider-schedule__slide" key={schedule.id}>
                                             <div className="b-slider-schedule__header">

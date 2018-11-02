@@ -16,7 +16,6 @@ class ScheduleCourt extends Component {
         const settingSlider = {
             nav: false,
             autoHeight: true,
-            controlsText: ["‹", "›"],
 
             responsive: {
                 768: {
