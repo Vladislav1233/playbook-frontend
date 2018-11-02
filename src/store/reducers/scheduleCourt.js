@@ -1,5 +1,5 @@
 const initialState = [{ // список расписания
-    date: '01.11.18', // это брать как id key можно
+    date: '02.11.18', // это брать как id key можно
     nameDay: "Понедельник",
     timeWork: '10:00 - 22:00',
     court: [{
@@ -62,7 +62,7 @@ const initialState = [{ // список расписания
     }]
     
 }, {
-    date: '02.11.18',
+    date: '03.11.18',
     nameDay: "Вторник",
     timeWork: '10:00 - 22:00',
     court: [{

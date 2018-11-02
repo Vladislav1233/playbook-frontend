@@ -22,6 +22,13 @@ class ScheduleCourt extends Component {
                 768: {
                     gutter: 20,
                     items: 2
+                },
+                1024: {
+                    items: 3
+                },
+                1280: {
+                    items: 4,
+                    autoHeight: false
                 }
             }
         }
