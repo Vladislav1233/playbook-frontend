@@ -1,0 +1,10 @@
+// 1680++
+.b-slider-schedule {
+  
+    &__slide {
+        &:not(.tns-item) {
+            width: calc(100% / 4);
+            padding-right: 15px;
+        }
+    }
+}

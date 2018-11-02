@@ -40,7 +40,7 @@ a {
 @media (min-width: 1280px) {
     .container {
         &--schedule {
-            flex-grow: 1;
+            width: calc(100% - 320px);
         }
     }
 }
