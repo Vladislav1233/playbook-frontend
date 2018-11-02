@@ -21,9 +21,9 @@ body {
   padding: 0px 15px;
   margin: 0px auto;
 
-  &--schedule {
-      background-color: $temperate-slate-blue;
-  }
+    &--schedule {
+        background-color: $temperate-slate-blue;
+    }
 }
 
 a {
@@ -34,5 +34,13 @@ a {
     .no-touchevents &:hover,
     .touchevents &:active {
         color: lighten($orange-diamond-yellow, 10%);
+    }
+}
+
+@media (min-width: 1280px) {
+    .container {
+        &--schedule {
+            flex-grow: 1;
+        }
     }
 }

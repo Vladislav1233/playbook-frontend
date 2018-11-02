@@ -46,13 +46,12 @@
         &:before {
             content: '';
             display: block;
-            width: 6px;
-            height: 6px;
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            left: -10px;
+            top: 11px;
+            left: -13px;
             background-color: transparent;
         }
 
@@ -67,6 +66,10 @@
                 background-color: #ff6158;
             }
         }
+    }
+
+    &__state-name {
+        vertical-align: middle;
     }
 
     &__court-info {
@@ -92,6 +95,7 @@
         color: $temperate-slate-blue;
         border-radius: 3px;
         line-height: 22px;
+        vertical-align: middle;
     }
 
     &__name-court {

@@ -26,7 +26,7 @@ class ScheduleCourt extends Component {
                 1024: {
                     items: 3
                 },
-                1280: {
+                1680: {
                     items: 4,
                     autoHeight: false
                 }

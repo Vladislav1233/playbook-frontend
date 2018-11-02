@@ -20,7 +20,11 @@ class App extends Component {
         return (
             <div className={`b-page-wrapper ${this.props.toggleMenu ? 'no-scroll' : ''}`}>
                 <Header />
-                <main className={`b-main ${this.props.location.pathname === '/schedule-court' ? 'b-main--schedule-court' : ''}`}>
+                <main 
+                    className={
+                        `b-main ${this.props.location.pathname === '/schedule-court' ? 'b-main--schedule-court' : ''} ${this.props.location.pathname === '/schedule-court' ||  this.props.location.pathname === '/schedule-trainer' ? 'b-main--schedule' : ''}`
+                    }
+                >
                     {
                         roleUser === 'guest' ?
                             <AppUserTemplate />
