@@ -16,10 +16,12 @@ class ScheduleCourt extends Component {
         const settingSlider = {
             nav: false,
             autoHeight: true,
+            loop: false,
 
             responsive: {
                 768: {
-                    gutter: 15
+                    gutter: 20,
+                    items: 2
                 }
             }
         }

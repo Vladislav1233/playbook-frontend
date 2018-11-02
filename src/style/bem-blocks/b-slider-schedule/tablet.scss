@@ -1,1 +1,15 @@
-// 768
+// 768++
+.b-slider-schedule {
+  
+    &__slide {
+        &:not(.tns-item) {
+            width: 50%;
+            padding-right: 10px;
+        }
+    }
+
+    &__header {
+        background-color: $white;
+        border: 1px solid $border-color;
+    }
+}

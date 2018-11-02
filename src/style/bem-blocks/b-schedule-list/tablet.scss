@@ -1,1 +1,9 @@
-// 768
+// 768++
+.b-schedule-list {
+
+    &__item {
+        border: 1px solid $border-color;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+}

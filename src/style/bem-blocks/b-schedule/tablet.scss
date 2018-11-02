@@ -1,1 +1,8 @@
-// 768
+// 768++
+.b-schedule {
+    background-color: $background-schedule;
+
+    &__date {
+        background-color: $white;
+    }
+}
