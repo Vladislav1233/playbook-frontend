@@ -8,7 +8,6 @@ import '../../style/bem-blocks/b-schedule-list/index.scss';
 
 class ScheduleList extends Component {
 
-
   render() {
     const list = this.props.list;
     const { template } = this.props;
@@ -17,7 +16,7 @@ class ScheduleList extends Component {
         <ul className="b-schedule-list">
             {
                 list ? list.map(item => (
-                    <li className="b-schedule-list__item" key={item.idItemSchedule}>
+                    <li className={`b-schedule-list__item ${item.status || item.freeCourt ? 'b-schedule-list__item--hover' : ''}`} key={item.idItemScheduleList}>
                         <ScheduleItem dataScheduleItem={item} telTrainer={this.props.telTrainer} template={template}/>
                     </li>
                 ))
@@ -30,15 +29,3 @@ class ScheduleList extends Component {
 }
 
 export default ScheduleList;
-
-
-// <ul className="b-schedule-list">
-//             {listScheduleData ? listScheduleData.map(item => (
-//                 <li className="b-schedule-list__item" key={item.idItemScheduleList}>
-//                     <ScheduleItem dataScheduleItem={item}/>
-//                 </li>
-//             )) 
-//             : 
-//                 <div>Расписания нет</div>
-//             }
-//         </ul>

@@ -2,8 +2,13 @@
 .b-schedule-item {
     padding: 10px;
     background-color: $white;
+    cursor: default;
 
     &__info {
         border-bottom: none;
+    }
+
+    .b-schedule-list__item--hover & {
+        cursor: pointer;
     }
 }

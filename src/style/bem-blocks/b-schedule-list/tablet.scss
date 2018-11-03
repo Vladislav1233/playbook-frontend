@@ -7,9 +7,12 @@
         overflow: hidden;
         transition: border-color $animation-time;
 
-        .no-touchevents &:hover,
-        .touchevents &:active {
-            border-color: $orange-diamond-yellow;
+        &--hover {
+
+            .no-touchevents &:hover,
+            .touchevents &:active {
+                border-color: $orange-diamond-yellow;
+            }
         }
     }
 }

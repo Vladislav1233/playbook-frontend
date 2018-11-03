@@ -53,8 +53,8 @@ class ScheduleItem extends Component {
             </div>
 
             <div className="b-schedule-item__info">
-                <div className={`b-schedule-item__state ${status ? 'b-schedule-item__state--free': 'b-schedule-item__state--busy'}`}>
-                    <span className="b-schedule-item__state-name">{status ? 'Свободно ' : 'Занято '} </span>
+                <div className={`b-schedule-item__state ${status ? 'b-schedule-item__state--free' : 'b-schedule-item__state--busy'}`}>
+                    <span className={`b-schedule-item__state-name ${template === 'court' ? 'b-schedule-item__state-name--block' : ''}`}>{status ? 'Свободно ' : 'Занято '} </span>
                     {status ? <span className="b-schedule-item__price">{price} р/час</span> : null}
                 </div>
                 { 

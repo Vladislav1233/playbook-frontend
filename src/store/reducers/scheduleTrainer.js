@@ -3,7 +3,7 @@ const initialState = [
         date: '02.11.18', // это брать как id key можно
         nameDay: "Понедельник",
         list: [{
-            idItemSchedule: 'idItemSchedule1',
+            idItemScheduleList: 'idItemSchedule1',
             startTime: '12:00',
             finishTime: '15:00',
             status: true,
@@ -23,7 +23,7 @@ const initialState = [
                 priority: false
             }]
         }, {
-            idItemSchedule: 'idItemSchedule2',
+            idItemScheduleList: 'idItemSchedule2',
             startTime: '15:00',
             finishTime: '18:00',
             status: true,
@@ -43,7 +43,7 @@ const initialState = [
                 priority: false
             }]
         }, {
-            idItemSchedule: 'idItemSchedule3',
+            idItemScheduleList: 'idItemSchedule3',
             startTime: '18:00',
             finishTime: '20:00',
             status: false
@@ -52,7 +52,7 @@ const initialState = [
         date: '03.11.18',
         nameDay: "Вторник",
         list: [{
-            idItemSchedule: 'idItemSchedule4',
+            idItemScheduleList: 'idItemSchedule4',
             startTime: '15:00',
             finishTime: '18:00',
             status: true,
@@ -77,7 +77,7 @@ const initialState = [
         nameDay: "Среда",
         list: [{
             id: '7',
-            idItemSchedule: 'idItemSchedule5',
+            idItemScheduleList: 'idItemSchedule5',
             startTime: '15:00',
             finishTime: '18:00',
             status: false

@@ -37,12 +37,30 @@
     .react-calendar__tile {
         font-family: $medium;
         font-size: 14px;
+        border-radius: 50%;
+        transition-property: box-shadow;
+        transition-duration: $animation-time;
+
+        .no-touchevents &:enabled:hover,
+        .touchevents &:enabled:active {
+            background-color: transparent;
+            box-shadow: 0 16px 16px rgba(0, 0, 0, 0.08), 0 8px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        &:enabled:focus {
+            background-color: transparent;
+        }
 
         &--active {
-        box-shadow: 0 16px 16px rgba(0, 0, 0, 0.08), 0 8px 8px rgba(0, 0, 0, 0.08);
-        background: #ffffff;
-        border-radius: 50%;
-        color: #7c4dff;
+            box-shadow: 0 16px 16px rgba(0, 0, 0, 0.08), 0 8px 8px rgba(0, 0, 0, 0.08);
+            background: $white;
+            border-radius: 50%;
+            color: #7c4dff;
+
+            .no-touchevents &:enabled:hover,
+            .touchevents &:enabled:active {
+                background: $white;
+            }
         }
     }
 
@@ -61,6 +79,19 @@
     .react-calendar__navigation__arrow {
         color: #ffffff;
         font-size: 30px;
+        transition-property: background-color, color;
+        transition-duration: $animation-time;
+
+        .no-touchevents &:enabled:hover,
+        .touchevents &:enabled:active {
+            background-color: $white;
+            color: #7c4dff;
+        }
+
+        &:enabled:focus {
+            color: $white;
+            background-color: transparent;
+        }
     }
 
     .react-calendar__navigation {
@@ -72,5 +103,10 @@
     .react-calendar__navigation__next2-button,
     .react-calendar__navigation__prev2-button {
         display: none;
+    }
+
+    .react-calendar__tile--now {
+        font-family: $bold;
+        color: $orange-diamond-yellow;
     }
 }
