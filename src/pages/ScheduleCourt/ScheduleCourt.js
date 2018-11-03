@@ -17,6 +17,7 @@ class ScheduleCourt extends Component {
             nav: false,
             autoHeight: true,
             loop: false,
+            controlsText: ['', ''],
 
             responsive: {
                 768: {

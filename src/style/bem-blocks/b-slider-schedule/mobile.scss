@@ -53,9 +53,62 @@
             align-items: center;
             color: $telegray;
             background-color: $border-color;
+            position: relative;
+            transition: border-color $animation-time;
+
+            .no-touchevents &:not(:disabled):enabled:hover,
+            .touchevents &:not(:disabled):enabled:active {
+                border-color: $telegray;
+            } 
+
+            &:before,
+            &:after {
+                content: ''; 
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                border: 9px solid transparent;
+                transition: border-color $animation-time;
+            }
+
+            &:first-child {
+                &:after {
+                    left: 5px; 
+                    border: 7px solid transparent;
+                    border-right: 7px solid $border-color;
+                }
+    
+                &:before {
+                    left: 0px;
+                    border-right: 9px solid $telegray;
+                }
+            }
+
+            &:last-child {
+                &:after {
+                    right: 5px; 
+                    border: 7px solid transparent;
+                    border-left: 7px solid $border-color;
+                }
+    
+                &:before {
+                    right: 0px;
+                    border-left: 9px solid $telegray;
+                }
+            }
             
             &:disabled {
-                color: $bright-telegray;
+                &:first-child {
+                    &:before {
+                        border-right: 9px solid $bright-telegray;
+                    }
+                }
+
+                &:last-child {
+                    &:before {
+                        border-left: 9px solid $bright-telegray;
+                    }
+                }
             }
         }
     }
