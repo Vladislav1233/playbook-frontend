@@ -62,6 +62,11 @@
                 background: $white;
             }
         }
+
+        &:disabled {
+            color: #a7a7a7;
+            background-color: transparent;
+        }
     }
 
     button.react-calendar__tile--active:enabled:hover, button.react-calendar__tile--active:enabled:focus {
@@ -91,6 +96,10 @@
         &:enabled:focus {
             color: $white;
             background-color: transparent;
+        }
+
+        &:disabled {
+            color: #a7a7a7;
         }
     }
 

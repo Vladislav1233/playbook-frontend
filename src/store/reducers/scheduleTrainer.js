@@ -1,7 +1,7 @@
 const initialState = [
     { // Note: Свободное время тренера, у которого один или несколько кортов
-        date: '02.11.18', // это брать как id key можно
-        nameDay: "Понедельник",
+        date: '04.11.18', // это брать как id key можно
+        nameDay: "Воскресенье",
         list: [{
             idItemScheduleList: 'idItemSchedule1',
             startTime: '12:00',
@@ -49,8 +49,8 @@ const initialState = [
             status: false
         }]
     }, { // Note: Свободное время тренера, но кортов нет
-        date: '03.11.18',
-        nameDay: "Вторник",
+        date: '05.11.18',
+        nameDay: "Понедельник",
         list: [{
             idItemScheduleList: 'idItemSchedule4',
             startTime: '15:00',
@@ -73,13 +73,43 @@ const initialState = [
             }]
         }]
     }, { // Note: Тренер занят
-        date: '04.11.18',
-        nameDay: "Среда",
+        date: '06.11.18',
+        nameDay: "Вторник",
         list: [{
             id: '7',
             idItemScheduleList: 'idItemSchedule5',
             startTime: '15:00',
             finishTime: '18:00',
+            status: false
+        }]
+    }, { // Note: Тренер занят
+        date: '07.11.18',
+        nameDay: "Среда",
+        list: [{
+            id: '8',
+            idItemScheduleList: 'idItemSchedule6',
+            startTime: '12:00',
+            finishTime: '14:00',
+            status: false
+        }, {
+            id: '9',
+            idItemScheduleList: 'idItemSchedule7',
+            startTime: '14:00',
+            finishTime: '18:00',
+            status: true,
+            freeCourt: true,
+            courts: [{
+                id: '6',
+                name: 'Lawn tennis',
+                street: 'Первомайская',
+                number: 59,
+                priority: true
+            }]
+        }, {
+            id: '10',
+            idItemScheduleList: 'idItemSchedule8',
+            startTime: '18:00',
+            finishTime: '20:00',
             status: false
         }]
     }

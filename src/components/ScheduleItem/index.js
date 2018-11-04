@@ -24,7 +24,7 @@ class ScheduleItem extends Component {
                 <div className='b-schedule-item__court-info'>
                     <p className='b-schedule-item__name-court'>{courts[0].name}</p>
                     <p className='b-schedule-item__address-court'>{courts[0].street}, д. {courts[0].number}</p>
-                    {courts.length > 0 ?
+                    {courts.length > 1 ?
                         <p className="b-schedule-item__additional-court">или ещё {courts.length - 1} корт(а)</p>
                         :
                         null

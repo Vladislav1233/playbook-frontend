@@ -35,6 +35,7 @@ class DateCalendar extends Component {
         <Calendar className="b-date-calendar__calendar"
           onClickDay={this.onClickDay}
           minDetail='month'
+          minDate={new Date()}
           value={this.state.date}
         />
       </div>
