@@ -22,7 +22,7 @@ class App extends Component {
                 <Header />
                 <main 
                     className={
-                        `b-main ${this.props.location.pathname === '/schedule-court' ? 'b-main--schedule-court' : ''} ${this.props.location.pathname === '/schedule-court' ||  this.props.location.pathname === '/schedule-trainer' ? 'b-main--schedule' : ''}`
+                        `b-main ${this.props.location.pathname === '/ISport/schedule-court' ? 'b-main--schedule-court' : ''} ${this.props.location.pathname === '/ISport/schedule-court' ||  this.props.location.pathname === '/ISport/schedule-trainer' ? 'b-main--schedule' : ''}`
                     }
                 >
                     {
