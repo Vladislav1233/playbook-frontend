@@ -9,8 +9,8 @@ import ScheduleCourt from '../pages/ScheduleCourt/ScheduleCourt';
 // TODO: Убрать Redirect когда сделаю приветственную страницу
 export default () => (
     <Switch>
-        <Redirect from="/" exact to={{ pathname: '/schedule-court' }} />
-        <Route component={ScheduleTrainer} path="/schedule-trainer" />
-        <Route component={ScheduleCourt} path="/schedule-court" />
+        <Redirect from="/" exact to={{ pathname: '/ISport/schedule-court' }} />
+        <Route component={ScheduleTrainer} path="/ISport/schedule-trainer" />
+        <Route component={ScheduleCourt} path="/ISport/schedule-court" />
     </Switch>
 );
