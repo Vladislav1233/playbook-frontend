@@ -14,10 +14,10 @@ class HelloPage extends Component {
                         <Link className="b-hello-link" to="/schedule-court">Мне нужен корт</Link>
                     </li>
                     <li className="b-hello-page__item">
-                        <Link className="b-hello-link" to="/registration">Регистрация</Link>
+                        <Link className="b-hello-link" to="/authentication-trainer">Я тренер</Link>
                     </li>
                     <li className="b-hello-page__item">
-                        <Link className="b-hello-link" to="/authorization">Авторизация</Link>
+                        <Link className="b-hello-link" to="/authentication-administrator">Я администратор корта</Link>
                     </li>
                 </ul>
             </nav>
