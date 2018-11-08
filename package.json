@@ -60,7 +60,7 @@
     "start-js": "node scripts/start.js",
     "start": "npm-run-all -p start-js",
     "build-js": "node scripts/build.js",
-    "build": "npm-run-all build-js",
+    "build": "export PUBLIC_URL=/build && npm-run-all build-js",
     "test": "node scripts/test.js --env=jsdom",
     "lint": "./node_modules/.bin/eslint ./src",
     "jest": "./node_modules/.bin/jest --env=jsdom"
