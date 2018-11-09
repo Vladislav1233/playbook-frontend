@@ -1,5 +1,5 @@
 const REST_API: string = 'REST_API';
-const API_URL: string = 'http://207.154.236.8';
+const API_URL: string = 'http://httpbin.org';
 
 const GET: string = 'GET';
 const PUT: string = 'PUT';
@@ -19,4 +19,4 @@ type RequestDefaults = {
 
 const requestDefaults: RequestDefaults = { mode: 'cors', credentials: 'include' };
 
-export { REST_API, GET, POST, PUT, DELETE, REST_API_ERROR, requestDefaults, CONTENT_TYPE };
+export { REST_API, GET, POST, PUT, DELETE, REST_API_ERROR, requestDefaults, CONTENT_TYPE, API_URL };

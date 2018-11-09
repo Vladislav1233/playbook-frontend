@@ -1,4 +1,4 @@
-import { POST, PUT, requestDefaults, REST_API, CONTENT_TYPE, API_URL } from '../store/constants/restAPI';
+import { POST, PUT, CONTENT_TYPE, API_URL } from '../store/constants/restAPI';
 
 export const requestApi = ({
     types,
