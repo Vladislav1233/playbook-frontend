@@ -1,4 +1,6 @@
-import { combineReducers, createStore } from 'redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+
 import getDayFilter from './getDayFilter';
 import toggleMenu from './toggleMenu';
 import scheduleTrainer from './scheduleTrainer';
@@ -15,5 +17,5 @@ export default function(initialState = {}) {
         roleUser
     });
 
-    return createStore(rootReducer, initialState);
+    return createStore(rootReducer, initialState, applyMiddleware(thunkMiddleware));
 }

@@ -3,12 +3,8 @@ import React, { Component } from 'react';
 
 class Input extends Component {
 
-    // state = {
-        
-    // }
-
     render() {
-        const { labelText, typeInput, idInput, placeholder } = this.props;
+        const { labelText, typeInput, idInput, placeholder, value } = this.props;
 
         return(
             <div className='b-input'>
@@ -16,7 +12,14 @@ class Input extends Component {
                     <label htmlFor={idInput} className="b-input__label">{labelText}</label> 
                 : null}
                 
-                <input id={idInput} type={typeInput} placeholder={placeholder} />
+                <input 
+                    id={idInput}
+                    name={idInput}
+                    type={typeInput} 
+                    placeholder={placeholder} 
+                    value={value}
+                    onChange={this.props.onChange}
+                />
             </div>
         )
     }
