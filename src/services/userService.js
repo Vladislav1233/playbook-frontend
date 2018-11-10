@@ -60,7 +60,8 @@ function register(user) {
         headers: { 
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(user)
+        body: JSON.stringify(user),
+        mode: 'no-cors'
     };
 
     return fetch(`${API_URL}/api/register`, requestOptions).then(handleResponse);

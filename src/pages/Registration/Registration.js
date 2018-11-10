@@ -42,8 +42,8 @@ class Registration extends Component {
 
         console.log(user.first_name && user.last_name && user.phone && user.password && user.c_password);
 
+        // TODO: в условии сделать валидацию заполненных полей
         if (true) {
-            console.log('aaaa');
             dispatch(userActions.register(user));
         }
     }
@@ -78,7 +78,7 @@ class Registration extends Component {
                         <Input 
                             labelText="Номер телефона"
                             placeholder="Номер телефона"
-                            typeInput="number"
+                            typeInput="text"
                             idInput="phone"
                             value={user.numberTelephone}
                             onChange={this.handleChange}
@@ -96,8 +96,8 @@ class Registration extends Component {
                         <Input 
                             labelText="Повторите пароль"
                             placeholder="Повторите пароль"
-                            typeInput="c_password"
-                            idInput="registration_c-password"
+                            typeInput="password"
+                            idInput="c_password"
                             value={user.cPassword}
                             onChange={this.handleChange}
                         />
