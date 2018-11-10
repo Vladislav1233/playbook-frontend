@@ -1,4 +1,5 @@
 import { authHeader } from '../helpers/auth-header';
+import { API_URL } from '../store/constants/restAPI';
 
 export const userService = {
     login,
@@ -17,7 +18,7 @@ function login(username, password) {
         body: JSON.stringify({ username, password })
     };
 
-    return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
+    return fetch(`${API_URL}/users/authenticate`, requestOptions)
         .then(handleResponse)
         .then(user => {
             // login successful if there's a jwt token in the response
@@ -41,7 +42,7 @@ function getAll() {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
+    return fetch(`${API_URL}/users`, requestOptions).then(handleResponse);
 }
 
 function getById(id) {
@@ -50,17 +51,19 @@ function getById(id) {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${API_URL}/users/${id}`, requestOptions).then(handleResponse);
 }
 
 function register(user) {
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify(user)
     };
 
-    return fetch(`${config.apiUrl}/users/register`, requestOptions).then(handleResponse);
+    return fetch(`${API_URL}/api/register`, requestOptions).then(handleResponse);
 }
 
 function update(user) {
@@ -70,7 +73,7 @@ function update(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(`${config.apiUrl}/users/${user.id}`, requestOptions).then(handleResponse);;
+    return fetch(`${API_URL}/users/${user.id}`, requestOptions).then(handleResponse);;
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
@@ -80,7 +83,7 @@ function _delete(id) {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${API_URL}/users/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
@@ -90,7 +93,7 @@ function handleResponse(response) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api
                 logout();
-                location.reload(true);
+                // location.reload(true);
             }
 
             const error = (data && data.message) || response.statusText;

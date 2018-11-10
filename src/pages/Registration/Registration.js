@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 // components
 import Input from '../../components/ui-kit/Input/Input';
 import Checkbox from '../../components/ui-kit/Checkbox/Checkbox';
+import { userActions } from '../../store/actions/userAction';
 
 class Registration extends Component {
     state = {
@@ -12,7 +14,8 @@ class Registration extends Component {
             phone: '',
             password: '',
             c_password: ''
-        }
+        },
+        submitted: false
     }
 
     handleChange = (event) => {
@@ -30,13 +33,28 @@ class Registration extends Component {
         console.log(value);
     }
 
+    handleSubmit = (event) => {
+        event.preventDefault();
+
+        this.setState({submitted: true});
+        const { user } = this.state;
+        const { dispatch } = this.props;
+
+        console.log(user.first_name && user.last_name && user.phone && user.password && user.c_password);
+
+        if (true) {
+            console.log('aaaa');
+            dispatch(userActions.register(user));
+        }
+    }
+
     render() {
         const { user } = this.state;
 
         return(
             <div className="b-registration">
                 <div className="container">
-                    <form className="b-registration__form">
+                    <form name='register-user' onSubmit={this.handleSubmit} className="b-registration__form">
                         {/*props { labelText, typeInput, idInput, placeholder, value } */}
                         <Input 
                             labelText="Имя"
@@ -100,4 +118,4 @@ class Registration extends Component {
     }
 }
 
-export default Registration;
+export default connect()(Registration);
