@@ -1,6 +1,6 @@
 const initialState = [
     { // Note: Свободное время тренера, у которого один или несколько кортов
-        date: '04.11.18', // это брать как id key можно
+        date: '11.11.18', // это брать как id key можно
         nameDay: "Воскресенье",
         list: [{
             idItemScheduleList: 'idItemSchedule1',
@@ -49,7 +49,7 @@ const initialState = [
             status: false
         }]
     }, { // Note: Свободное время тренера, но кортов нет
-        date: '05.11.18',
+        date: '12.11.18',
         nameDay: "Понедельник",
         list: [{
             idItemScheduleList: 'idItemSchedule4',
@@ -73,7 +73,7 @@ const initialState = [
             }]
         }]
     }, { // Note: Тренер занят
-        date: '06.11.18',
+        date: '13.11.18',
         nameDay: "Вторник",
         list: [{
             id: '7',
@@ -83,7 +83,7 @@ const initialState = [
             status: false
         }]
     }, { // Note: Тренер занят
-        date: '07.11.18',
+        date: '14.11.18',
         nameDay: "Среда",
         list: [{
             id: '8',
