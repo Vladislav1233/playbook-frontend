@@ -1,16 +1,20 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 // component
 import ScheduleTrainer from '../pages/ScheduleTrainer/ScheduleTrainer';
 import ScheduleCourt from '../pages/ScheduleCourt/ScheduleCourt';
+import HelloPage from '../pages/HelloPage/HelloPage';
+import Registration from '../pages/Registration/Registration';
+import TestRequest from '../pages/TestRequest/TestRequest';
 
 // TODO: Добавить 404
-// TODO: Убрать Redirect когда сделаю приветственную страницу
 export default () => (
     <Switch>
-        <Redirect from="/" exact to={{ pathname: '/ISport/schedule-court' }} />
-        <Route component={ScheduleTrainer} path="/ISport/schedule-trainer" />
-        <Route component={ScheduleCourt} path="/ISport/schedule-court" />
+        <Route exact component={HelloPage} path='/' />
+        <Route component={ScheduleTrainer} path="/schedule-trainer" />
+        <Route component={ScheduleCourt} path="/schedule-court" />
+        <Route component={Registration} path="/authentication-trainer" />
+        <Route component={TestRequest} path="/test-request" />
     </Switch>
 );
