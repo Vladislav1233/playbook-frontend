@@ -2,6 +2,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+// style
+import '../../../style/bem-blocks/b-checkbox/index.scss';
+
 class Checkbox extends Component {
 
     static defaultProps = {
@@ -14,11 +17,16 @@ class Checkbox extends Component {
             PropTypes.string,
             PropTypes.number
         ]),
-        checked: PropTypes.bool
+        checked: PropTypes.bool,
+        modif: PropTypes.string
     }
 
-    state = {
-        isCheck: false
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isCheck: props.checked
+        }
     }
 
     handleChange = () => {
@@ -28,11 +36,11 @@ class Checkbox extends Component {
     }
 
     render() {
-        const { name, id, text, value} = this.props;
+        const { name, id, text, value, modif} = this.props;
         const { isCheck } = this.state;
 
         return(
-            <div className="b-checkbox">
+            <div className={`b-checkbox ${modif ? modif : ''}`}>
                 <input
                     className="b-checkbox__input"
                     type='checkbox' 

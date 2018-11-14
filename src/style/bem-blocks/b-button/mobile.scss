@@ -1,0 +1,21 @@
+// 320++
+.b-button {
+    background-color: $orange-diamond-yellow;
+    border: none;
+    background: linear-gradient(to right, #68a2b8, #55bc96);
+    border-radius: 20px;
+    font-family: $bold;
+    color: $black;
+    padding: 15px 30px;
+    transition: color $animation-time;
+    font-size: 14px;
+
+    &:focus {
+        outline: none;
+    }
+
+    .no-touchevents &:hover,
+    .touchevents &:active {
+        color: $white;
+    }
+}

@@ -1,8 +1,11 @@
 // react, redux
 import React, { Component } from 'react';
 
-class Input extends Component {
+// style
+import '../../../style/bem-blocks/b-input/index.scss';
 
+class Input extends Component {
+    // TODO: Отключить или стилизовать автозаполнение в input
     render() {
         const { labelText, typeInput, idInput, placeholder, value } = this.props;
 
@@ -13,6 +16,7 @@ class Input extends Component {
                 : null}
                 
                 <input 
+                    className="b-input__input"
                     id={idInput}
                     name={idInput}
                     type={typeInput} 

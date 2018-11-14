@@ -5,6 +5,10 @@ import { connect } from 'react-redux';
 import Input from '../../components/ui-kit/Input/Input';
 import Checkbox from '../../components/ui-kit/Checkbox/Checkbox';
 import { userActions } from '../../store/actions/userAction';
+import Button from '../../components/ui-kit/Button/Button';
+
+// style
+import '../../style/bem-blocks/b-registration/index.scss';
 
 class Registration extends Component {
     state = {
@@ -28,9 +32,6 @@ class Registration extends Component {
                 [name]: value
             }
         })
-
-        console.log(name);
-        console.log(value);
     }
 
     handleSubmit = (event) => {
@@ -55,9 +56,8 @@ class Registration extends Component {
             <div className="b-registration">
                 <div className="container">
                     <form name='register-user' onSubmit={this.handleSubmit} className="b-registration__form">
-                        {/*props { labelText, typeInput, idInput, placeholder, value } */}
-                        <Input 
-                            labelText="Имя"
+                        {/*props { labelText?, typeInput, idInput, placeholder, value } */}
+                        <Input
                             placeholder="Ваше имя"
                             typeInput="text"
                             idInput="first_name"
@@ -65,8 +65,7 @@ class Registration extends Component {
                             onChange={this.handleChange}
                         />
 
-                        <Input 
-                            labelText="Фамилия"
+                        <Input
                             placeholder="Ваша фамилия"
                             typeInput="text"
                             idInput="last_name"
@@ -75,8 +74,7 @@ class Registration extends Component {
                         />
 
                         {/*TODO: Сделать маску для номера телефона (для разных стран) */}
-                        <Input 
-                            labelText="Номер телефона"
+                        <Input
                             placeholder="Номер телефона"
                             typeInput="text"
                             idInput="phone"
@@ -84,8 +82,7 @@ class Registration extends Component {
                             onChange={this.handleChange}
                         />
 
-                        <Input 
-                            labelText="Пароль"
+                        <Input
                             placeholder="Пароль"
                             typeInput="password"
                             idInput="password"
@@ -93,8 +90,7 @@ class Registration extends Component {
                             onChange={this.handleChange}
                         />
 
-                        <Input 
-                            labelText="Повторите пароль"
+                        <Input
                             placeholder="Повторите пароль"
                             typeInput="password"
                             idInput="c_password"
@@ -102,15 +98,22 @@ class Registration extends Component {
                             onChange={this.handleChange}
                         />
                         
-                        {/* { name, id, text, value, checked } */}
+                        {/* { name, id, text, value, checked, modif } */}
                         <Checkbox 
                             name="registration_check-trainer"
                             id="registration_check-trainer"
                             text="Я тренер"
                             value="Я тренер"
+                            checked={true}
+                            modif={'b-checkbox--hide'}
                         />
-
-                        <button>Зарегистрироваться</button>
+                        
+                        <div className="b-registration__button-wrapper">
+                            {/* { name } */}
+                            <Button 
+                                name={'Зарегистрироваться'}
+                            />
+                        </div>
                     </form>
                 </div>
             </div>
