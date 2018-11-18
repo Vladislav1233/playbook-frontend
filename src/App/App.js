@@ -1,6 +1,7 @@
-// react, redux
+// react, redux, routing
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 // component
 // import ScheduleTrainer from '../pages/ScheduleTrainer/ScheduleTrainer';
@@ -14,15 +15,20 @@ import '../style/bem-blocks/b-main/index.scss';
 
 class App extends Component {
     render() {
-        const {roleUser} = this.props;
-        console.log(this.props.location);
+        const { roleUser, location } = this.props;
+        // console.log(this.props.location);
 
         return (
             <div className={`b-page-wrapper ${this.props.toggleMenu ? 'no-scroll' : ''}`}>
-                <Header />
+                {location.pathname !== '/authentication-trainer' ?
+                    <Header />
+                    :
+                    null
+                }
+
                 <main 
                     className={
-                        `b-main ${this.props.location.pathname === '/schedule-court' ? 'b-main--schedule-court' : ''} ${this.props.location.pathname === '/schedule-court' ||  this.props.location.pathname === '/schedule-trainer' ? 'b-main--schedule' : ''}`
+                        `b-main ${location.pathname === '/schedule-court' ? 'b-main--schedule-court' : ''} ${location.pathname === '/schedule-court' ||  this.props.location.pathname === '/schedule-trainer' ? 'b-main--schedule' : ''}`
                     }
                 >
                     {
@@ -45,4 +51,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps)(App);
+export default withRouter(connect(mapStateToProps)(App));

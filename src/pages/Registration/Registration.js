@@ -6,6 +6,7 @@ import Input from '../../components/ui-kit/Input/Input';
 import Checkbox from '../../components/ui-kit/Checkbox/Checkbox';
 import { userActions } from '../../store/actions/userAction';
 import Button from '../../components/ui-kit/Button/Button';
+import InputMask from 'react-input-mask';
 
 // style
 import '../../style/bem-blocks/b-registration/index.scss';
@@ -74,13 +75,13 @@ class Registration extends Component {
                         />
 
                         {/*TODO: Сделать маску для номера телефона (для разных стран) */}
-                        <Input
-                            placeholder="Номер телефона"
-                            typeInput="text"
-                            idInput="phone"
-                            value={user.numberTelephone}
-                            onChange={this.handleChange}
-                        />
+                        {/* <InputMask mask="+7 (999) 999-99-99" value={user.numberTelephone} onChange={this.handleChange}>
+                            {(inputProps) => <Input {...inputProps} type="tel"/>}
+                        </InputMask> */}
+
+                        <div className="b-input">
+                            <InputMask className="b-input__input" id="phone" mask="+7 (999) 999-99-99" maskChar={null} value={user.phone} onChange={this.handleChange} placeholder="Ваш номер телефона" />
+                        </div>
 
                         <Input
                             placeholder="Пароль"

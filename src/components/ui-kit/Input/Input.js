@@ -8,6 +8,7 @@ class Input extends Component {
     // TODO: Отключить или стилизовать автозаполнение в input
     render() {
         const { labelText, typeInput, idInput, placeholder, value } = this.props;
+        console.log(this.props);
 
         return(
             <div className='b-input'>
