@@ -62,7 +62,7 @@ class Registration extends Component {
                             placeholder="Ваше имя"
                             typeInput="text"
                             idInput="first_name"
-                            value={user.firstName}
+                            value={user.first_name}
                             onChange={this.handleChange}
                         />
 
@@ -70,7 +70,7 @@ class Registration extends Component {
                             placeholder="Ваша фамилия"
                             typeInput="text"
                             idInput="last_name"
-                            value={user.lastName}
+                            value={user.last_name}
                             onChange={this.handleChange}
                         />
 
@@ -80,7 +80,7 @@ class Registration extends Component {
                         </InputMask> */}
 
                         <div className="b-input">
-                            <InputMask className="b-input__input" id="phone" mask="+7 (999) 999-99-99" maskChar={null} value={user.phone} onChange={this.handleChange} placeholder="Ваш номер телефона" />
+                            <InputMask className="b-input__input" id="phone" name="phone" mask="+7 (999) 999-99-99" maskChar={null} value={user.phone} onChange={this.handleChange} placeholder="Ваш номер телефона" />
                         </div>
 
                         <Input
@@ -95,7 +95,7 @@ class Registration extends Component {
                             placeholder="Повторите пароль"
                             typeInput="password"
                             idInput="c_password"
-                            value={user.cPassword}
+                            value={user.c_password}
                             onChange={this.handleChange}
                         />
                         

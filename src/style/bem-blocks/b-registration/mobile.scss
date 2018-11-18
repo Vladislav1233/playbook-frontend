@@ -2,10 +2,13 @@
 .b-registration {
     height: 100vh;
     background: linear-gradient(to bottom right, #68a2b8, #55bc96);
+    overflow: auto;
 
     .container {
         display: flex;
-        height: 100%;
+        min-height: 100%;
+        padding-top: 25px;
+        margin-bottom: 25px
     }
 
     &__form {
