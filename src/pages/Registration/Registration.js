@@ -20,12 +20,28 @@ class Registration extends Component {
             password: '',
             c_password: ''
         },
+        validation: {
+            text: '',
+            fieldEmpty: false,
+            confirmPassword: false,
+            numberTel: 18
+        },
         submitted: false
     }
 
     handleChange = (event) => {
         const { name, value } = event.target;
-        const { user } = this.state;
+        const { user, validation } = this.state;
+        
+        // Note: Если была ошибка валидации и пользователь начинает изменять поля, то скрываем ошибку
+        if (validation.text !== '') {
+            this.setState({
+                validation: {
+                    ...validation,
+                    text: ''
+                }
+            })
+        }
 
         this.setState({
             user: {
@@ -38,25 +54,64 @@ class Registration extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
 
-        this.setState({submitted: true});
-        const { user } = this.state;
+        const { user, validation } = this.state;
         const { dispatch } = this.props;
 
-        console.log(user.first_name && user.last_name && user.phone && user.password && user.c_password);
-
-        // TODO: в условии сделать валидацию заполненных полей
-        if (true) {
-            dispatch(userActions.register(user));
+        // Note: Проверяем все ли поля заполнены
+        for (let key in user) {
+            if (!Boolean(user[key])) {
+                this.setState({
+                    validation: {
+                        ...validation,
+                        text: 'Все поля должны быть заполнены',
+                        fieldEmpty: true
+                    }
+                })
+                
+                return false;
+            }
         }
+
+        // Note: Проверяем ввел ли пользователь достаточное количество символов для номера телефона
+        // TODO: сделать такую проверку для всех стран
+        if (user.phone.length !== 18) {
+            this.setState({
+                validation: {
+                    ...validation,
+                    text: 'Недостаточное количество цифр номера телефона',
+                    numberTel: true
+                }
+            })
+
+            return false;
+        }
+
+        // Note: Проверяем совпадают ли введённые пароли
+        if (user.password !== user.c_password) {
+            this.setState({
+                validation: {
+                    ...validation,
+                    text: 'Пароли не совпадают',
+                    confirmPassword: true
+                }
+            })
+
+            return false;
+        }
+
+        // Note: Показываем, что уходит сабмит и диспатчим запрос
+        this.setState({submitted: true});
+        dispatch(userActions.register(user));
     }
 
     render() {
-        const { user } = this.state;
+        const { user, validation } = this.state;
 
         return(
             <div className="b-registration">
                 <div className="container">
                     <form name='register-user' onSubmit={this.handleSubmit} className="b-registration__form">
+
                         {/*props { labelText?, typeInput, idInput, placeholder, value } */}
                         <Input
                             placeholder="Ваше имя"
@@ -114,6 +169,12 @@ class Registration extends Component {
                             <Button 
                                 name={'Зарегистрироваться'}
                             />
+
+                            {validation.fieldEmpty || validation.confirmPassword ?
+                                <div className="b-registration__error">{validation.text}</div>
+                                :
+                                null
+                            }
                         </div>
                     </form>
                 </div>
