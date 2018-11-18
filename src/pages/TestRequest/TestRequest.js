@@ -6,20 +6,19 @@ class TestRequest extends Component {
         event.preventDefault();
 
         let payload = {
-            first_name: 'wityasq',
-            last_name: 'wityas',
-            phone: '+79178273459',
+            first_name: 'wityasqsi',
+            last_name: 'wityassa',
+            phone: '9178273457',
+            dial_code: "+7",
             password: '12345678123',
-            c_password: '12345678123'
+            c_password: '12345678123',
+            is_trainer: '1'
         }
-        let data = new FormData();
-        data.append( 'json', JSON.stringify( payload ) );
 
         fetch('http://207.154.236.8/api/register',
             {
                 method: 'POST',
-                body: data,
-                mode: 'no-cors'
+                body: JSON.stringify(payload)
             }
         )
     }
