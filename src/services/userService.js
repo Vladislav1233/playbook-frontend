@@ -1,5 +1,6 @@
 import { authHeader } from '../helpers/auth-header';
 import { API_URL } from '../store/constants/restAPI';
+import axios from 'axios';
 
 export const userService = {
     login,
@@ -10,6 +11,14 @@ export const userService = {
     // update,
     delete: _delete
 };
+
+function register(user) {
+    return axios({
+        method: 'post',
+        url: `${API_URL}/api/register`,
+        data: user
+    });
+}
 
 function login(username, password) {
     const requestOptions = {
@@ -52,18 +61,6 @@ function getById(id) {
     };
 
     return fetch(`${API_URL}/users/${id}`, requestOptions).then(handleResponse);
-}
-
-function register(user) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user),
-    };
-
-    return fetch(`${API_URL}/api/register`, requestOptions).then(handleResponse);
 }
 
 // function update(user) {
