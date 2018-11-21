@@ -7,14 +7,14 @@ class TestRequest extends Component {
 
         axios({
             method: 'post',
-            url: 'http://localhost:8001/api/register',
+            url: 'http://207.154.236.8/api/register',
             data: {
-                first_name: 'wityasqsi',
-                last_name: 'wityassa',
-                phone: '9178273457',
+                first_name: 'wityasqsiasa',
+                last_name: 'wityassaasaa',
+                phone: '9178103157',
                 dial_code: "+7",
-                password: '12345678123',
-                c_password: '12345678123',
+                password: '123452678121dd',
+                c_password: '123452678121dd',
                 is_trainer: '1'
             }
         });

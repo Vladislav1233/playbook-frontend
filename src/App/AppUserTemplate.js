@@ -7,6 +7,7 @@ import ScheduleCourt from '../pages/ScheduleCourt/ScheduleCourt';
 import HelloPage from '../pages/HelloPage/HelloPage';
 import Registration from '../pages/Registration/Registration';
 import TestRequest from '../pages/TestRequest/TestRequest';
+// import Auth from '../pages/Auth/Auth';
 
 // TODO: Добавить 404
 export default () => (
