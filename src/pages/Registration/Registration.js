@@ -13,20 +13,30 @@ import '../../style/bem-blocks/b-registration/index.scss';
 
 class Registration extends Component {
     state = {
+        // {
+        //     "first_name": "User first name.",
+        //     "last_name": "User last name.",
+        //     "phone": "User phone without '+' symbol",
+        //     "password": "User password.",
+        //     "c_password": "User password confirm.",
+        //     "is_trainer": "Boolean flag (0 or 1)"
+        // }
         user: {
             first_name: '',
             last_name: '',
-            phone: '',
+            phone: '', // "User phone without '+' symbol"
             password: '',
-            c_password: ''
+            c_password: '',
+            is_trainer: '0' // "Boolean flag (0 or 1)"
         },
         validation: {
             text: '',
             fieldEmpty: false,
             confirmPassword: false,
-            numberTel: 18
+            numberTel: 18 // Note: необходимое количество символов в номере телефона
         },
-        submitted: false
+        submitted: false,
+        isCheck: false
     }
 
     handleChange = (event) => {
@@ -48,6 +58,19 @@ class Registration extends Component {
                 ...user,
                 [name]: value
             }
+        })
+    }
+
+    handleCheck = () => {
+        const { user, isCheck } = this.state;
+        const isTrainer = !isCheck ? '1' : '0';
+
+        this.setState({
+            user: {
+                ...user,
+                is_trainer: isTrainer
+            },
+            isCheck: !isCheck
         })
     }
 
@@ -99,13 +122,19 @@ class Registration extends Component {
             return false;
         }
 
+        const userRequestData = {
+            ...this.state.user
+        }
+        // Note: Убираем символ + у номера телефона
+        userRequestData.phone = userRequestData.phone.replace(/\D/g, "");
+
         // Note: Показываем, что уходит сабмит и диспатчим запрос
         this.setState({submitted: true});
-        dispatch(userActions.register(user));
+        dispatch(userActions.register(userRequestData));
     }
 
     render() {
-        const { user, validation } = this.state;
+        const { user, validation, isCheck } = this.state;
 
         return(
             <div className="b-registration">
@@ -156,12 +185,12 @@ class Registration extends Component {
                         
                         {/* { name, id, text, value, checked, modif } */}
                         <Checkbox 
-                            name="registration_check-trainer"
-                            id="registration_check-trainer"
+                            name="is_trainer"
+                            id="is_trainer"
                             text="Я тренер"
-                            value="Я тренер"
-                            checked={true}
-                            modif={'b-checkbox--hide'}
+                            value="1"
+                            checked={isCheck}
+                            onChange={this.handleCheck}
                         />
                         
                         <div className="b-registration__button-wrapper">
