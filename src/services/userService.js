@@ -20,6 +20,9 @@ function register(user) {
     });
 }
 
+
+
+// Код ниже не закончен
 function login(username, password) {
     const requestOptions = {
         method: 'POST',

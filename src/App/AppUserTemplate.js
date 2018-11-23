@@ -8,6 +8,7 @@ import HelloPage from '../pages/HelloPage/HelloPage';
 import Registration from '../pages/Registration/Registration';
 import TestRequest from '../pages/TestRequest/TestRequest';
 import Auth from '../pages/Auth/Auth';
+import ErrorPage from '../pages/ErrorPage/ErrorPage';
 
 // TODO: Добавить 404
 export default () => (
@@ -18,5 +19,6 @@ export default () => (
         <Route component={Registration} path="/authentication-trainer" />
         <Route component={Auth} path="/auth" />
         <Route component={TestRequest} path="/test-request" />
+        <Route component={ErrorPage} path="/error" />
     </Switch>
 );
