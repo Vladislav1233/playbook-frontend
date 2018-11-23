@@ -17,14 +17,16 @@ function register(user) {
 
         userService.register(user)
             .then(
-                user => { 
+                user => {
                     dispatch(success());
-                    history.push('/login');
-                    dispatch(alertActions.success('Registration successful'));
+                    history.push('/auth');
+                    // dispatch(alertActions.success('Registration successful'));
                 },
+                // TODO: Обрабатывать ошибки от сервера при регистрации
                 error => {
+                    history.push('/error');
                     dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
+                    // dispatch(alertActions.error(error.toString()));
                 }
             );
     };
@@ -34,6 +36,9 @@ function register(user) {
     function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
 }
 
+
+
+// Код ниже не закончен и он пока не работает
 function login(username, password) {
     return dispatch => {
         dispatch(request({ username }));

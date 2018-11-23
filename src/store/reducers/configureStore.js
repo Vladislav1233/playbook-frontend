@@ -6,6 +6,7 @@ import toggleMenu from './toggleMenu';
 import scheduleTrainer from './scheduleTrainer';
 import scheduleCourt from './scheduleCourt';
 import roleUser from './roleUser';
+import registration from './registration';
 
 
 export default function(initialState = {}) {
@@ -14,7 +15,8 @@ export default function(initialState = {}) {
         getDayFilter,
         toggleMenu,
         scheduleTrainer,
-        roleUser
+        roleUser,
+        registration
     });
 
     return createStore(rootReducer, initialState, applyMiddleware(thunkMiddleware));

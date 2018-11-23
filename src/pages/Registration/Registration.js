@@ -7,6 +7,7 @@ import Checkbox from '../../components/ui-kit/Checkbox/Checkbox';
 import { userActions } from '../../store/actions/userAction';
 import Button from '../../components/ui-kit/Button/Button';
 import InputMask from 'react-input-mask';
+import Preloader from '../../components/Preloader/Preloader';
 
 // style
 import '../../style/bem-blocks/b-registration/index.scss';
@@ -135,6 +136,7 @@ class Registration extends Component {
 
     render() {
         const { user, validation, isCheck } = this.state;
+        const { preloader } = this.props;
 
         return(
             <div className="b-registration">
@@ -207,9 +209,19 @@ class Registration extends Component {
                         </div>
                     </form>
                 </div>
+                {preloader 
+                    ? <Preloader />
+                    : null
+                }
             </div>
         )
     }
 }
 
-export default connect()(Registration);
+const mapStateToProps = (state) => {
+    return {
+        preloader: state.registration.preloader
+    }
+}
+
+export default connect(mapStateToProps)(Registration);

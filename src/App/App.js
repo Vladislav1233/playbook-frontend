@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+
 // component
 // import ScheduleTrainer from '../pages/ScheduleTrainer/ScheduleTrainer';
 import Header from '../components/Template/Header';
@@ -14,6 +15,16 @@ import '../style/bem-blocks/b-page-wrapper/index.scss';
 import '../style/bem-blocks/b-main/index.scss';
 
 class App extends Component {
+    // constructor(props) {
+    //     super(props);
+
+    //     const { dispatch } = this.props;
+    //     history.listen((location, action) => {
+    //         // clear alert on location change
+    //         // dispatch(alertActions.clear());
+    //     });
+    // }
+
     render() {
         const { roleUser, location } = this.props;
         // console.log(this.props.location);
