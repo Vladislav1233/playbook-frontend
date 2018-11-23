@@ -2,29 +2,24 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 class TestRequest extends Component {
-    registration = (event) => {
+    request = (event) => {
         event.preventDefault();
 
         axios({
             method: 'post',
-            url: 'http://207.154.236.8/api/register',
+            url: 'http://207.154.236.8/api/login',
             data: {
-                first_name: 'wityasqsiasaa',
-                last_name: 'wityassaasaaa',
-                phone: '9178203127',
-                dial_code: "+7",
-                password: '123452678121dda',
-                c_password: '123452678121dda',
-                is_trainer: '1'
-            }
+                "phone": "79176297124",
+                "password": "lupeme"
+              }
         });
     };
     
     render() {
         return(
             <div>
-                <form onSubmit={this.registration}>
-                    <button>Регистрация</button>
+                <form onSubmit={this.request}>
+                    <button>Авторизация</button>
                 </form>
             </div>
         )
