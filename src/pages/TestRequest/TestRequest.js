@@ -5,13 +5,30 @@ class TestRequest extends Component {
     request = (event) => {
         event.preventDefault();
 
+        // {
+        //     "about": "Short information about trainer",
+        //     "min_price": "Min price in cents. Example: 7000. (70RUB)",
+        //     "max_price": "Max price in cents.",
+        //     "currency": "Currency: RUB, UAH, USD, etc. Default: RUB"
+        // }
+        // /api/trainer-info/create
+        let valueToken = localStorage.getItem('userToken');
+        console.log(valueToken);
+
         axios({
             method: 'post',
-            url: 'http://207.154.236.8/api/login',
+            url: 'http://207.154.236.8/api/trainer-info/create',
+            headers: {
+                'Authorization': `Bearer ${valueToken}`
+            },
             data: {
-                "phone": "79176297124",
-                "password": "lupeme"
+                "about": "Я супер тренер",
+                "min_price": "7000",
+                "max_price": "10000",
+                "currency": "RUB" 
               }
+        }).then(response => {
+            console.log(response);
         });
     };
     
@@ -19,7 +36,7 @@ class TestRequest extends Component {
         return(
             <div>
                 <form onSubmit={this.request}>
-                    <button>Авторизация</button>
+                    <button>Информация о тренере</button>
                 </form>
             </div>
         )
