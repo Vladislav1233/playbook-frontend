@@ -43,7 +43,6 @@ function login(data) {
         userService.login(data)
             .then(
                 user => {
-                    console.log(user);
                     dispatch(success(user));
                     history.push('/');
                 },

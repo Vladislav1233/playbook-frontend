@@ -27,13 +27,14 @@ function login(data) {
         url: `${API_URL}/api/login`,
         data: data
     }).then(user => {
-            console.log(user);
-            if (user.data.token) {
+            // console.log(user);
+            // console.log(user.data.data.access_token);
+            if (user.data.data.access_token) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user));
+                localStorage.setItem('user', JSON.stringify(user.data.data.access_token));
             }
             
-            return user;
+            return user.data.data;
         });
 }
 
