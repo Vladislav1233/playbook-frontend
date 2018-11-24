@@ -19,6 +19,9 @@ class HelloPage extends Component {
                     <li className="b-hello-page__item">
                         <Link className="b-hello-link" to="/authentication-administrator">Я администратор корта</Link>
                     </li>
+                    <li className="b-hello-page__item">
+                        <Link className="b-hello-link" to="/auth">Авторизация</Link>
+                    </li>
                 </ul>
             </nav>
         )
