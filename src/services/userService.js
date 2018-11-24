@@ -20,29 +20,25 @@ function register(user) {
     });
 }
 
-
-
-// Код ниже не закончен
-function login(username, password) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-    };
-
-    return fetch(`${API_URL}/users/authenticate`, requestOptions)
+function login(data) {
+    return axios({
+        method: 'post',
+        url: `${API_URL}/api/login`,
+        data: data
+    })
         .then(handleResponse)
         .then(user => {
-            // login successful if there's a jwt token in the response
-            if (user.token) {
+            if (user.data.token) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(user));
             }
-
+            
             return user;
         });
 }
 
+
+// Код ниже не закончен
 function logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('user');

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
+import { userActions } from '../../store/actions/userAction';
+import telWithoutPlus from '../../helpers/telWithoutPlus';
 
 // components
 import Input from '../../components/ui-kit/Input/Input';
@@ -18,6 +20,7 @@ class Auth extends Component {
             fieldEmpty: false,
             numberTel: 18 // Note: необходимое количество символов в номере телефона
         },
+        submitted: false
     }
 
     handleChange = (event) => {
@@ -42,46 +45,23 @@ class Auth extends Component {
         })
     }
 
-    handleSubmit = (event) => {
-        event.preventDefault();
+    handleSubmit = (e) => {
+        e.preventDefault();
 
-        const { user, validation } = this.state;
-        // const { dispatch } = this.props;
-
-        // Note: Проверяем все ли поля заполнены
-        for (let key in user) {
-            if (!Boolean(user[key])) {
-                this.setState({
-                    validation: {
-                        ...validation,
-                        text: 'Все поля должны быть заполнены',
-                        fieldEmpty: true
-                    }
-                })
-                
-                return false;
+        this.setState({ submitted: true });
+        const { phone, password } = this.state.user;
+        const { dispatch } = this.props;
+        if (phone && password) {
+            const dataRequest = {
+                phone,
+                password
             }
+
+            // Note: Убираем символ + у номера телефона
+            dataRequest.phone = telWithoutPlus(dataRequest.phone);
+            // Note: Диспатчим запрос
+            dispatch(userActions.login(dataRequest));
         }
-
-        // Note: Проверяем ввел ли пользователь достаточное количество символов для номера телефона
-        // TODO: сделать такую проверку для всех стран
-        if (user.phone.length !== 18) {
-            this.setState({
-                validation: {
-                    ...validation,
-                    text: 'Недостаточное количество цифр номера телефона',
-                    numberTel: true
-                }
-            })
-
-            return false;
-        }
-
-        // const userRequestData = {
-        //     ...this.state.user
-        // }
-        // Note: Убираем символ + у номера телефона
-        // userRequestData.phone = userRequestData.phone.replace(/\D/g, "");
     }
 
     render() {
@@ -91,7 +71,7 @@ class Auth extends Component {
         return (
             <div className="b-registration">
                 <div className="container">
-                    <form className="b-registration__form" name="authorization">
+                    <form className="b-registration__form" name="authorization" onSubmit={this.handleSubmit}>
                         <div className="b-input">
                             <InputMask className="b-input__input" id="phone" name="phone" mask="+7 (999) 999-99-99" maskChar={null} value={user.phone} onChange={this.handleChange} placeholder="Ваш номер телефона" />
                         </div>
@@ -127,4 +107,8 @@ class Auth extends Component {
     }
 }
 
-export default Auth;
+// const mapStateToProps = (state) => {
+
+// }
+
+export default connect()(Auth);

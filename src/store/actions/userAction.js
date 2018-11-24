@@ -36,14 +36,11 @@ function register(user) {
     function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
 }
 
-
-
-// Код ниже не закончен и он пока не работает
-function login(username, password) {
+function login(data) {
     return dispatch => {
-        dispatch(request({ username }));
+        dispatch(request(data));
 
-        userService.login(username, password)
+        userService.login(data)
             .then(
                 user => { 
                     dispatch(success(user));
@@ -60,6 +57,10 @@ function login(username, password) {
     function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
 }
+
+
+
+// Код ниже не закончен и он пока не работает
 
 function logout() {
     userService.logout();
