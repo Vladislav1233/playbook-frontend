@@ -20,14 +20,14 @@ function register(user) {
     });
 }
 
+// TODO: В логине реализовать функцию handleResponse, она есть в примере и обрабатывает ошибки логина. Её пример в конце файла
 function login(data) {
     return axios({
         method: 'post',
         url: `${API_URL}/api/login`,
         data: data
-    })
-        .then(handleResponse)
-        .then(user => {
+    }).then(user => {
+            console.log(user);
             if (user.data.token) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(user));
