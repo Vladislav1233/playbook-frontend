@@ -27,13 +27,15 @@ function login(data) {
         url: `${API_URL}/api/login`,
         data: data
     }).then(user => {
-            // console.log(user);
+            // console.log(user.data.data.roles);
             // console.log(user.data.data.access_token);
             if (user.data.data.access_token) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user.data.data.access_token));
+                localStorage.setItem('userToken', JSON.stringify(user.data.data.access_token));
+                // Note: Храним роль юзера
+                localStorage.setItem('rolesRoles', JSON.stringify(user.data.data.roles));
             }
-            
+            // Note: Возвращаем данные юзера в reducer.
             return user.data.data;
         });
 }
