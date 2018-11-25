@@ -20,29 +20,28 @@ function register(user) {
     });
 }
 
-
-
-// Код ниже не закончен
-function login(username, password) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-    };
-
-    return fetch(`${API_URL}/users/authenticate`, requestOptions)
-        .then(handleResponse)
-        .then(user => {
-            // login successful if there's a jwt token in the response
-            if (user.token) {
+// TODO: В логине реализовать функцию handleResponse, она есть в примере и обрабатывает ошибки логина. Её пример в конце файла
+function login(data) {
+    return axios({
+        method: 'post',
+        url: `${API_URL}/api/login`,
+        data: data
+    }).then(user => {
+            // console.log(user.data.data.roles);
+            // console.log(user.data.data.access_token);
+            if (user.data.data.access_token) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user));
+                localStorage.setItem('userToken', JSON.stringify(user.data.data.access_token));
+                // Note: Храним роль юзера
+                localStorage.setItem('rolesRoles', JSON.stringify(user.data.data.roles));
             }
-
-            return user;
+            // Note: Возвращаем данные юзера в reducer.
+            return user.data.data;
         });
 }
 
+
+// Код ниже не закончен
 function logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('user');

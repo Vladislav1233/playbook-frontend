@@ -1,5 +1,7 @@
+// react, redux, helpers
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import telWithoutPlus from '../../helpers/telWithoutPlus';
 
 // components
 import Input from '../../components/ui-kit/Input/Input';
@@ -127,7 +129,7 @@ class Registration extends Component {
             ...this.state.user
         }
         // Note: Убираем символ + у номера телефона
-        userRequestData.phone = userRequestData.phone.replace(/\D/g, "");
+        userRequestData.phone = telWithoutPlus(userRequestData.phone);
 
         // Note: Показываем, что уходит сабмит и диспатчим запрос
         this.setState({submitted: true});
