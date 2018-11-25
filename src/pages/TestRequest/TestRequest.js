@@ -17,7 +17,7 @@ class TestRequest extends Component {
 
         axios({
             method: 'post',
-            url: 'http://207.154.236.8/api/trainer-info/create',
+            url: 'http://playbook.ga/api/trainer-info/create',
             headers: {
                 'Authorization': `Bearer ${valueToken}`
             },

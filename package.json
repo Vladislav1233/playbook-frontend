@@ -1,8 +1,7 @@
 {
-  "name": "isport",
+  "name": "playbook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://vladislav1233.github.io/ISport",
   "dependencies": {
     "autoprefixer": "7.1.6",
     "axios": "^0.18.0",
@@ -66,7 +65,6 @@
     "start": "npm-run-all -p start-js",
     "build-js": "node scripts/build.js",
     "build": "export PUBLIC_URL=/build && npm-run-all build-js",
-    "test": "node scripts/test.js --env=jsdom",
     "lint": "./node_modules/.bin/eslint ./src",
     "jest": "./node_modules/.bin/jest --env=jsdom"
   },

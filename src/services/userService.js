@@ -31,7 +31,7 @@ function login(data) {
             // console.log(user.data.data.access_token);
             if (user.data.data.access_token) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('userToken', JSON.stringify(user.data.data.access_token));
+                localStorage.setItem('userToken', user.data.data.access_token);
                 // Note: Храним роль юзера
                 localStorage.setItem('rolesRoles', JSON.stringify(user.data.data.roles));
             }
