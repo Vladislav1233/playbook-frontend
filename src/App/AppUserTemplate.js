@@ -9,6 +9,7 @@ import Registration from '../pages/Registration/Registration';
 import TestRequest from '../pages/TestRequest/TestRequest';
 import Auth from '../pages/Auth/Auth';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
+import ProfileTrainer from '../pages/ProfileTrainer';
 
 // TODO: Добавить 404
 export default () => (
@@ -20,5 +21,6 @@ export default () => (
         <Route component={Auth} path="/auth" />
         <Route component={TestRequest} path="/test-request" />
         <Route component={ErrorPage} path="/error" />
+        <Route component={ProfileTrainer} path="/profile-trainer" />
     </Switch>
 );
