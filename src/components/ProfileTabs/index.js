@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import ProfileTab from './ProfileTab';
 import ProfileTabContent from './ProfileTabContent';
 
+// Note: style
+import '../../style/bem-blocks/b-profile-tabs/index.scss';
+
 class ProfileTabs extends Component {
     constructor(props) {
         super(props);
@@ -26,13 +29,14 @@ class ProfileTabs extends Component {
             <div className="b-profile-tabs">
                 <ul className="b-profile-tabs__list">
                     {children.map(child => {
-                        const { label } = child.props;
+                        const { label, src } = child.props;
 
                         return (
                             <ProfileTab 
                                 key={label}
                                 label={label}
                                 onClick={this.onClickTabItem}
+                                src={src}
                             />
                         )
                     })}                    

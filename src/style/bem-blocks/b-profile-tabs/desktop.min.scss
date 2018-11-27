@@ -1,0 +1,28 @@
+// 1024+
+.b-profile-tabs {
+
+    &__list {
+        width: 85px;
+        margin: 0;
+        text-align: center;
+        display: inline-block;
+        vertical-align: top;
+        height: 100vh;
+        background: #f4f8f9;
+        margin-left: -15px;
+        padding-left: 15px;
+        padding-right: 15px;  
+        padding-top: 60px;
+
+        &:not(:last-child) {
+            margin-bottom: 30px;
+        }
+    }
+
+    &__content {
+        display: inline-block;
+        width: calc(100% - 85px);
+        vertical-align: top;
+        padding-top: 60px;
+    }
+}

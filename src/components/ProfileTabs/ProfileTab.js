@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+// style
+import '../../style/bem-blocks/b-profile-tab/index.scss';
+
 class ProfileTab extends Component {
     onClick = () => {
         const { label, onClick } = this.props;
@@ -8,11 +11,11 @@ class ProfileTab extends Component {
     }
 
     render() {
-        const { label } = this.props;
+        const { src } = this.props;
 
         return(
             <li className="b-profile-tab" onClick={this.onClick}>
-                {label}
+                {src ? <img src={src} alt="Добавить расписание" /> : null}
             </li>
         )
     }
