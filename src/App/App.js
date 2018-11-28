@@ -13,7 +13,6 @@ import AppUserTemplate from './AppUserTemplate';
 // style
 import '../style/bem-blocks/b-page-wrapper/index.scss';
 import '../style/bem-blocks/b-main/index.scss';
-
 class App extends Component {
     // constructor(props) {
     //     super(props);
@@ -31,10 +30,9 @@ class App extends Component {
 
         return (
             <div className={`b-page-wrapper ${this.props.toggleMenu ? 'no-scroll' : ''}`}>
-                {location.pathname !== '/authentication-trainer' ?
-                    <Header />
-                    :
-                    null
+                {location.pathname !== '/authentication-trainer' 
+                    ? <Header />
+                    : null
                 }
 
                 <main 
@@ -42,10 +40,8 @@ class App extends Component {
                         `b-main ${location.pathname === '/schedule-court' ? 'b-main--schedule-court' : ''} ${location.pathname === '/schedule-court' ||  this.props.location.pathname === '/schedule-trainer' ? 'b-main--schedule' : ''}`
                     }
                 >
-                    {
-                        roleUser === 'guest' ?
-                            <AppUserTemplate />
-                    
+                    {roleUser === 'guest' 
+                        ? <AppUserTemplate />
                         : <div>404</div> // TODO: поставить страницу 404
                     }
                 </main>

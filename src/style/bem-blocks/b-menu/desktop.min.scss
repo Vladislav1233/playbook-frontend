@@ -3,4 +3,10 @@
     &__link {
         font-size: 18px;
     }
+
+    &__item {
+        &--cabinet {
+            display: none;
+        }
+    }
 }

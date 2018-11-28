@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import cn from 'classnames';
 
 // Note: components
 import ProfileTab from './ProfileTab';
@@ -22,14 +23,18 @@ class ProfileTabs extends Component {
     }
 
     render() {
-        const { children } = this.props;
+        const { children, isOpen } = this.props;
         const { activeTab } =this.state;
+
+        const classNameList = cn('b-profile-tabs__list', {
+            open: isOpen
+        });
 
         return(
             <div className="b-profile-tabs">
-                <ul className="b-profile-tabs__list">
+                <ul className={classNameList}>
                     {children.map(child => {
-                        const { label, src } = child.props;
+                        const { label, src} = child.props;
 
                         return (
                             <ProfileTab 
@@ -37,6 +42,7 @@ class ProfileTabs extends Component {
                                 label={label}
                                 onClick={this.onClickTabItem}
                                 src={src}
+                                isActive={label === activeTab ? true : false}
                             />
                         )
                     })}                    

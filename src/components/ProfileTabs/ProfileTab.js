@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import cn from 'classnames';
 
 // style
 import '../../style/bem-blocks/b-profile-tab/index.scss';
@@ -11,11 +12,16 @@ class ProfileTab extends Component {
     }
 
     render() {
-        const { src } = this.props;
+        const { src, label, isActive } = this.props;
+
+        const className = cn('b-profile-tab', {
+            active: isActive
+        })
 
         return(
-            <li className="b-profile-tab" onClick={this.onClick}>
-                {src ? <img src={src} alt="Добавить расписание" /> : null}
+            <li className={className} onClick={this.onClick}>
+                {src ? <img className="b-profile-tab__icon" src={src} alt={label} /> : null}
+                {label ? <p className="b-profile-tab__text">{label}</p> : null}
             </li>
         )
     }

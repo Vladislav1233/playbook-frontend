@@ -1,1 +1,23 @@
-// 320
+// 320++
+.b-profile-tabs {
+
+    &__list {
+        margin: 0px;
+        padding: 60px 15px;
+        background: #f4f8f9;
+
+        position: fixed;
+        z-index: 50;
+        top: 0px;
+        left: 0px;
+        height: 100%;
+        width: calc(100% - 60px);
+        transform: translateX(-100%);
+        transition-property: transform;
+        transition-duration: $animation-time;
+
+        &.open {
+            transform: translateX(0%);
+        }
+    }
+}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 
 // Note: Components
 import ProfileTabs from '../../components/ProfileTabs';
@@ -11,9 +12,11 @@ import myScheduleIcon from '../../style/images/icon/my-schedule.svg';
 
 class ProfileTrainer extends Component {
     render() {
+        const { toggleCabinet } = this.props;
+
         return (
             <div className="container">
-                <ProfileTabs>
+                <ProfileTabs isOpen={toggleCabinet}>
                     <div label="Добавить расписание" src={addScheduleIcon}>
                         Добавить расписание
                     </div>
@@ -27,4 +30,10 @@ class ProfileTrainer extends Component {
     }
 }
 
-export default ProfileTrainer;
+const mapStateToProps = ({ toggleCabinet }) => {
+    return {
+        toggleCabinet: toggleCabinet.toggleCabinet
+    }
+};
+
+export default connect(mapStateToProps)(ProfileTrainer);

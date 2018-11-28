@@ -8,7 +8,6 @@
         display: inline-block;
         vertical-align: top;
         height: 100vh;
-        background: #f4f8f9;
         margin-left: -15px;
         padding-left: 15px;
         padding-right: 15px;  
@@ -17,6 +16,9 @@
         &:not(:last-child) {
             margin-bottom: 30px;
         }
+
+        transform: translateX(0%);
+        position: static;
     }
 
     &__content {

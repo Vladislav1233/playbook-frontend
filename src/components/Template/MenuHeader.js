@@ -2,6 +2,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { toggleMenu } from '../../store/actions/toggleMenu';
+import { toggleCabinet } from '../../store/actions/toggleCabinet';
 
 // Style
 import '../../style/bem-blocks/b-menu/index.scss';
@@ -39,6 +40,9 @@ class MenuHeader extends Component {
                         <li className="b-menu__item">
                             <a className="b-menu__link" href="" title="Написать нам">Написать нам</a>
                         </li>
+                        <li className="b-menu__item b-menu__item--cabinet">
+                            <a className="b-menu__link" href="" title="Личный кабинет" onClick={e => this.props.onToggleCabinet(e)}>Личный кабинет ></a>
+                        </li>
 
                     </ul>
                 </div>
@@ -57,7 +61,11 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onToggleMenu: (e) => {
             e.preventDefault();
-            dispatch(toggleMenu())
+            dispatch(toggleMenu());
+        },
+        onToggleCabinet: (e) => {
+            e.preventDefault();
+            dispatch(toggleCabinet());
         }
     }
 }
