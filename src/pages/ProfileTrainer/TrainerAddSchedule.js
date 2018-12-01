@@ -14,17 +14,15 @@ class TrainerAddSchedule extends Component {
         this.state = {
             cards: [{
                 dates: [],
-                start_time: '', // Example 09:00:00
+                start_time: null, // Example 09:00:00
                 end_time: '', // Example 17:00:00
                 price_per_hour: '' // Example 7000 (70rub)
             }]
         }
     }
 
-    onChangeInput = (idx) => (event) => {
-        const { name, value } = event.target;
-        
-        const newCards = this.state.cards.map((card, sidx) => {
+    createDataCard = (idx, name, value) => {
+        return this.state.cards.map((card, sidx) => {
             if (idx !== sidx) return card;
 
             return {
@@ -32,6 +30,21 @@ class TrainerAddSchedule extends Component {
                 [name]: value
             }
         });
+    }
+
+    onChangeTime = (idx) => (value, name) => {
+        const newCards = this.createDataCard(idx, name, value.formatted24);
+
+        this.setState({
+            ...this.state,
+            cards: newCards
+        })
+    }
+
+    onChangeInput = (idx) => (event) => {
+        const { name, value } = event.target;
+        
+        const newCards = this.createDataCard(idx, name, value);
 
         this.setState({
             ...this.state,
@@ -45,9 +58,10 @@ class TrainerAddSchedule extends Component {
             ...this.state,
             cards: this.state.cards.concat([{
                 dates: [],
-                start_time: '',
-                end_time: '',
-                price_per_hour: ''
+                start_time: null,
+                end_time: null,
+                price_per_hour: '',
+                displayTimepicker: true
             }])
         })
     }
@@ -61,6 +75,7 @@ class TrainerAddSchedule extends Component {
 
     render() {
         const { cards } = this.state;
+        console.log(this.state);
 
         return(
             <div className="b-trainer-add-schedule">
@@ -79,6 +94,7 @@ class TrainerAddSchedule extends Component {
                             data={card}
                             idRender={idx}
                             onChangeInput={this.onChangeInput(idx)}
+                            onChangeTime={this.onChangeTime(idx)}
                         />
                     ))}
                 </div>

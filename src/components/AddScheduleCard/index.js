@@ -3,35 +3,34 @@ import React, { Component } from 'react';
 // Note: components
 import Input from '../ui-kit/Input/Input';
 import Checkbox from '../ui-kit/Checkbox/Checkbox';
+import TimePicker from 'react-timekeeper';
 
 class AddScheduleCard extends Component {
 
     render() {
-        const { idRender, data, isCheck } = this.props;
+        const { idRender, data, isCheck, onChangeTime } = this.props;
         // const { labelText, typeInput, idInput, placeholder, value, nameInput } = this.props;
 
         return(
             <div className="b-add-schedule-card">
                 <div className="b-add-schedule-card__field">
-                    <Input 
-                        labelText={'С'}
-                        idInput={`from-${idRender}`}
-                        placeholder='С'
-                        value={data.start_time}
-                        onChange={this.props.onChangeInput}
-                        nameInput={'start_time'}
+                    <TimePicker 
+                        time={data.start_time}
+                        onChange={(value) => onChangeTime(value, 'start_time')}
                     />
+                    <div className="b-add-schedule-card__time">
+                        {data.start_time ? data.start_time : '__ : __'}
+                    </div>
                 </div>
 
                 <div className="b-add-schedule-card__field">
-                    <Input 
-                        labelText={'До'}
-                        idInput={`to-${idRender}`}
-                        placeholder='До'
-                        value={data.end_time}
-                        onChange={this.props.onChangeInput}
-                        nameInput={'end_time'}
+                    <TimePicker
+                        time={data.end_time}
+                        onChange={(value) => onChangeTime(value, 'end_time')}
                     />
+                    <div className="b-add-schedule-card__time">
+                        {data.end_time ? data.end_time : '__ : __'}
+                    </div>
                 </div>
 
                 <div className="b-add-schedule-card__field">
