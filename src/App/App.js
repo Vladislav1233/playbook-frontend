@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
+import cn from 'classnames';
 
 // component
 // import ScheduleTrainer from '../pages/ScheduleTrainer/ScheduleTrainer';
@@ -13,6 +13,7 @@ import AppUserTemplate from './AppUserTemplate';
 // style
 import '../style/bem-blocks/b-page-wrapper/index.scss';
 import '../style/bem-blocks/b-main/index.scss';
+
 class App extends Component {
     // constructor(props) {
     //     super(props);
@@ -25,20 +26,27 @@ class App extends Component {
     // }
 
     render() {
-        const { roleUser, location } = this.props;
-        // console.log(this.props.location);
+        const { roleUser, location, toggleMenu } = this.props;
+
+        const pageWrapperClass = cn('b-page-wrapper', {
+            'no-scroll': toggleMenu,
+            'b-page-wrapper--overflow': location.pathname === '/authentication-trainer' || location.pathname ===  '/auth'
+        })
+
+        const mainClass = cn('b-main', {
+            'b-main--schedule-court': location.pathname === '/schedule-court',
+            'b-main--schedule': location.pathname === '/schedule-court' || location.pathname === '/schedule-trainer'
+        })
 
         return (
-            <div className={`b-page-wrapper ${this.props.toggleMenu ? 'no-scroll' : ''}`}>
+            <div className={pageWrapperClass}>
                 {location.pathname !== '/authentication-trainer' 
                     ? <Header />
                     : null
                 }
 
                 <main 
-                    className={
-                        `b-main ${location.pathname === '/schedule-court' ? 'b-main--schedule-court' : ''} ${location.pathname === '/schedule-court' ||  this.props.location.pathname === '/schedule-trainer' ? 'b-main--schedule' : ''}`
-                    }
+                    className={mainClass}
                 >
                     {roleUser === 'guest' 
                         ? <AppUserTemplate />

@@ -7,7 +7,7 @@ import '../../../style/bem-blocks/b-input/index.scss';
 class Input extends Component {
     // TODO: Отключить или стилизовать автозаполнение в input
     render() {
-        const { labelText, typeInput, idInput, placeholder, value } = this.props;
+        const { labelText, typeInput, idInput, placeholder, value, nameInput } = this.props;
 
         return(
             <div className='b-input'>
@@ -18,8 +18,8 @@ class Input extends Component {
                 <input 
                     className="b-input__input"
                     id={idInput}
-                    name={idInput}
-                    type={typeInput} 
+                    name={nameInput ? nameInput : idInput}
+                    type={typeInput ? typeInput : 'text'} 
                     placeholder={placeholder} 
                     value={value}
                     onChange={this.props.onChange}

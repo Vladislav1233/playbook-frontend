@@ -57,12 +57,15 @@ class Checkbox extends Component {
                         <polyline points="1 9 7 14 15 4"></polyline>
                     </svg>
                 </label>
-                <label 
-                    className="b-checkbox__label"
-                    htmlFor={id}
-                >
-                    {text ? <span>{text}</span> : null}
-                </label>
+                {text ? 
+                    ( 
+                    <label 
+                        className="b-checkbox__label"
+                        htmlFor={id}
+                    >
+                        <span>{text}</span>
+                    </label>
+                    ) : null}
             </div>
         )
     }

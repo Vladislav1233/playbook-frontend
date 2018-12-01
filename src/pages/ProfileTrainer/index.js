@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 // Note: Components
 import ProfileTabs from '../../components/ProfileTabs';
+import TrainerAddSchedule from './TrainerAddSchedule';
 
 // Note: images
 // import addInfoIcon from '../../style/images/icon/add-info.svg';
@@ -11,6 +12,7 @@ import addScheduleIcon from '../../style/images/icon/add-schedule.svg';
 import myScheduleIcon from '../../style/images/icon/my-schedule.svg';
 
 class ProfileTrainer extends Component {
+
     render() {
         const { toggleCabinet } = this.props;
 
@@ -18,7 +20,7 @@ class ProfileTrainer extends Component {
             <div className="container">
                 <ProfileTabs isOpen={toggleCabinet}>
                     <div label="Добавить расписание" src={addScheduleIcon}>
-                        Добавить расписание
+                        <TrainerAddSchedule />
                     </div>
                     
                     <div label="Моё расписание" src={myScheduleIcon}>
