@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import SettingChooseDay from '../../components/SettingChooseDay/SettingChooseDay';
 import Calendar from '../../components/Calendar';
 import AddScheduleCard from '../../components/AddScheduleCard';
+import Button from '../../components/ui-kit/Button/Button';
 
 class TrainerAddSchedule extends Component {
 
@@ -15,7 +16,7 @@ class TrainerAddSchedule extends Component {
             cards: [{
                 dates: [],
                 start_time: null, // Example 09:00:00
-                end_time: '', // Example 17:00:00
+                end_time: null, // Example 17:00:00
                 price_per_hour: '' // Example 7000 (70rub)
             }]
         }
@@ -60,8 +61,7 @@ class TrainerAddSchedule extends Component {
                 dates: [],
                 start_time: null,
                 end_time: null,
-                price_per_hour: '',
-                displayTimepicker: true
+                price_per_hour: ''
             }])
         })
     }
@@ -97,6 +97,12 @@ class TrainerAddSchedule extends Component {
                             onChangeTime={this.onChangeTime(idx)}
                         />
                     ))}
+                    
+                    <Button 
+                        name={'Добавить ещё'}
+                        theme={{orange: true}}
+                        onClick={this.handleAddCard}
+                    />
                 </div>
             </div>
         )
