@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 // Note: components
 import Input from '../ui-kit/Input/Input';
 import Checkbox from '../ui-kit/Checkbox/Checkbox';
-import TimePicker from 'react-timekeeper';
+import TimeField from '../TimeField';
 
 class AddScheduleCard extends Component {
 
@@ -14,23 +14,19 @@ class AddScheduleCard extends Component {
         return(
             <div className="b-add-schedule-card">
                 <div className="b-add-schedule-card__field">
-                    <TimePicker 
+                    <TimeField
                         time={data.start_time}
-                        onChange={(value) => onChangeTime(value, 'start_time')}
+                        name={'start_time'}
+                        onChangeTime={onChangeTime}
                     />
-                    <div className="b-add-schedule-card__time">
-                        {data.start_time ? data.start_time : '__ : __'}
-                    </div>
                 </div>
 
                 <div className="b-add-schedule-card__field">
-                    <TimePicker
+                    <TimeField
                         time={data.end_time}
-                        onChange={(value) => onChangeTime(value, 'end_time')}
+                        name={'end_time'}
+                        onChangeTime={onChangeTime}
                     />
-                    <div className="b-add-schedule-card__time">
-                        {data.end_time ? data.end_time : '__ : __'}
-                    </div>
                 </div>
 
                 <div className="b-add-schedule-card__field">
