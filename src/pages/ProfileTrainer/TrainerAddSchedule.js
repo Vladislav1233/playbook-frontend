@@ -7,6 +7,10 @@ import Calendar from '../../components/Calendar';
 import AddScheduleCard from '../../components/AddScheduleCard';
 import Button from '../../components/ui-kit/Button/Button';
 
+// Note: style
+// import '../../style/bem-blocks/b-hint-profile/index.scss';
+import '../../style/bem-blocks/b-trainer-add-schedule/index.scss';
+
 class TrainerAddSchedule extends Component {
 
     constructor(props) {
@@ -79,7 +83,8 @@ class TrainerAddSchedule extends Component {
 
         return(
             <div className="b-trainer-add-schedule">
-                <div className="b-hint-profile">Укажите дни, для которых установить время и добавьте свободные временные промежутки с ценой</div>
+                {/*TODO: Это лучше сделать отдельной всплывающей подсказкой или сообщением
+                <div className="b-hint-profile">Укажите дни, для которых установить время и добавьте свободные временные промежутки с ценой</div>*/}
                 
                 <div className="b-trainer-add-schedule__calendar">                
                     <Calendar />
@@ -97,12 +102,14 @@ class TrainerAddSchedule extends Component {
                             onChangeTime={this.onChangeTime(idx)}
                         />
                     ))}
-                    
-                    <Button 
-                        name={'Добавить ещё'}
-                        theme={{orange: true}}
-                        onClick={this.handleAddCard}
-                    />
+
+                    <div className="b-trainer-add-schedule__add-more">
+                        <Button 
+                            name={'Добавить ещё'}
+                            theme={{orange: true}}
+                            onClick={this.handleAddCard}
+                        />
+                    </div>
                 </div>
             </div>
         )

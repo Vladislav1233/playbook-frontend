@@ -1,0 +1,16 @@
+// 1280
+.b-trainer-add-schedule {
+    display: flex;
+
+    &__calendar {
+        margin: 0px -15px 0px 0px;
+        order: 1;
+        flex-shrink: 0;
+    }
+
+    &__schedule {
+        width: 100%;
+        padding-right: 15px;
+        padding-top: 20px;
+    }
+}

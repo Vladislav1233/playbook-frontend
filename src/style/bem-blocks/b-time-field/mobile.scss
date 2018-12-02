@@ -1,0 +1,38 @@
+// 320
+.b-time-field {
+    margin-bottom: 40px;
+
+    &__label {
+        @include label();
+        display: inline-block;
+        margin-bottom: 5px;
+    }
+
+    &__input {
+        @include input();
+        border-bottom: 2px solid $mint;
+        color: $black;
+        height: 40px;
+        display: flex;
+        align-items: center;
+    }
+
+    &__keeper-wrapper {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        height: 100%;
+        width: 100%;
+        z-index: 100;
+        display: flex;
+        padding: 15px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+
+        .react-timekeeper {
+            margin: auto;
+        }
+    }
+}

@@ -18,4 +18,8 @@
     .touchevents &:active {
         color: $white;
     }
+
+    &--orange {
+        background: $orange-diamond-yellow;
+    }
 }

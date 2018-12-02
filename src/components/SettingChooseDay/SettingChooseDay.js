@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
 
+// Note: style
+import '../../style/bem-blocks/b-setting-choose-day/index.scss';
+
 const optionsSelect = [{
     value: 'one',
     label: 'Один день'
@@ -32,7 +35,7 @@ class SettingChooseDay extends Component {
     render() {
         return (
             <div className="b-setting-choose-day">
-                <span>Выбрать на календаре:</span>
+                <span className="b-setting-choose-day__title">Выбрать на календаре:</span>
 
                 <div className="b-setting-choose-day__select">
                     <Select

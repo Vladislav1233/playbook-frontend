@@ -5,27 +5,31 @@ import Input from '../ui-kit/Input/Input';
 import Checkbox from '../ui-kit/Checkbox/Checkbox';
 import TimeField from '../TimeField';
 
+// Note: style
+import '../../style/bem-blocks/b-add-schedule-card/index.scss';
+
 class AddScheduleCard extends Component {
 
     render() {
         const { idRender, data, isCheck, onChangeTime } = this.props;
-        // const { labelText, typeInput, idInput, placeholder, value, nameInput } = this.props;
 
         return(
             <div className="b-add-schedule-card">
-                <div className="b-add-schedule-card__field">
+                <div className="b-add-schedule-card__field b-add-schedule-card__field--left">
                     <TimeField
                         time={data.start_time}
                         name={'start_time'}
                         onChangeTime={onChangeTime}
+                        label={"С"}
                     />
                 </div>
 
-                <div className="b-add-schedule-card__field">
+                <div className="b-add-schedule-card__field b-add-schedule-card__field--right">
                     <TimeField
                         time={data.end_time}
                         name={'end_time'}
                         onChangeTime={onChangeTime}
+                        label={"По"}
                     />
                 </div>
 
