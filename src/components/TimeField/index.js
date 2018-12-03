@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TimePicker from 'react-timekeeper';
+import cn from 'classnames';
 
 // Note: style
 import '../../style/bem-blocks/b-time-field/index.scss';
@@ -16,18 +17,20 @@ class TimeField extends Component {
 
     render() {
         const { time, onChangeTime, name, label } = this.props;
+        const keeperWrapperClass = cn('b-time-field__keeper-wrapper', {
+            'show': this.state.displayTimepicker
+        })
 
         return (
             <div className="b-time-field">
-                {this.state.displayTimepicker ? (
-                    <div className="b-time-field__keeper-wrapper">
+                    <div className={keeperWrapperClass}>
                         <TimePicker 
                             time={time}
                             onChange={(value) => onChangeTime(value, name)}
                             switchToMinuteOnHourSelect={true}
                             onDoneClick={() => this.toggleTimekeeper(false)}
                         />
-                    </div> ) : null}
+                    </div>
 
                 <div className="b-time-field__field">
                     {label 
