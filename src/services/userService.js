@@ -33,7 +33,7 @@ function login(data) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('userToken', user.data.data.access_token);
                 // Note: Храним роль юзера
-                localStorage.setItem('rolesRoles', JSON.stringify(user.data.data.roles));
+                localStorage.setItem('userRole', JSON.stringify(user.data.data.roles));
             }
             // Note: Возвращаем данные юзера в reducer.
             return user.data.data;
