@@ -21,4 +21,11 @@
         display: inline-block;
         margin-bottom: 5px;
     }
+
+    &--black-color & {
+
+        &__input {
+            color: $black;
+        }
+    }
 }

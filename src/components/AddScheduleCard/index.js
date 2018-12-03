@@ -41,6 +41,7 @@ class AddScheduleCard extends Component {
                         value={data.price_per_hour}
                         onChange={this.props.onChangeInput}
                         nameInput={'price_per_hour'}
+                        theme={{blackColor: true}}
                     />
                 </div>
 

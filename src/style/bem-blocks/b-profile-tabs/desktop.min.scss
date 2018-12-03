@@ -7,24 +7,28 @@
         text-align: center;
         display: inline-block;
         vertical-align: top;
-        height: 100vh;
+        height: calc(100vh - 60px);
         margin-left: -15px;
         padding-left: 15px;
         padding-right: 15px;  
         padding-top: 60px;
-
-        &:not(:last-child) {
-            margin-bottom: 30px;
-        }
-
+        background-color: $white;
+        border-right: 1px solid $border-color;
+        
+        position: sticky;
+        top: 0px;
+        margin-bottom: 0px;
         transform: translateX(0%);
-        position: static;
+        z-index: 1;
     }
 
     &__content {
         display: inline-block;
-        width: calc(100% - 70px);
+        width: calc(100% - 69px);
         vertical-align: top;
         padding-left: 15px;
+        padding-left: 15px;
+        margin-left: -1px;
+        border-left: 1px solid $border-color;
     }
 }

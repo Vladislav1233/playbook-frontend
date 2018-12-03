@@ -110,6 +110,14 @@ class TrainerAddSchedule extends Component {
                             onClick={this.handleAddCard}
                         />
                     </div>
+
+                    <div className="b-trainer-add-schedule__save"> 
+                        <Button
+                            modif="b-button--save"
+                            name={'Сохранить'}
+                            onClick={() => {}}
+                        />
+                    </div>
                 </div>
             </div>
         )
