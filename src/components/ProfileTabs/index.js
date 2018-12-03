@@ -17,36 +17,39 @@ class ProfileTabs extends Component {
         }
     }
 
-
     onClickTabItem = (tab) => {
         this.setState({ activeTab: tab });
     }
 
     render() {
-        const { children, isOpen } = this.props;
+        const { children, isOpen, onToggleCabinet } = this.props;
         const { activeTab } =this.state;
 
-        const classNameList = cn('b-profile-tabs__list', {
+        const classNameList = cn('b-profile-tabs__list-wrapper', {
             open: isOpen
         });
 
         return(
             <div className="b-profile-tabs">
-                <ul className={classNameList}>
-                    {children.map(child => {
-                        const { label, src} = child.props;
+                <div className={classNameList}>
+                    <div className="b-profile-tabs__back" onClick={(e) => onToggleCabinet(e)}>{`< Назад`}</div>
 
-                        return (
-                            <ProfileTab 
-                                key={label}
-                                label={label}
-                                onClick={this.onClickTabItem}
-                                src={src}
-                                isActive={label === activeTab ? true : false}
-                            />
-                        )
-                    })}                    
-                </ul>
+                    <ul className="b-profile-tabs__list">
+                        {children.map(child => {
+                            const { label, src} = child.props;
+
+                            return (
+                                <ProfileTab 
+                                    key={label}
+                                    label={label}
+                                    onClick={this.onClickTabItem}
+                                    src={src}
+                                    isActive={label === activeTab ? true : false}
+                                />
+                            )
+                        })}                    
+                    </ul>
+                </div>
 
                 <ProfileTabContent>
                     {children.map(child => {

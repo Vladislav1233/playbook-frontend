@@ -2,6 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { toggleMenu } from '../../store/actions/toggleMenu';
+import { toggleCabinet } from '../../store/actions/toggleCabinet';
 
 // style
 import '../../style/bem-blocks/b-cover-page/index.scss';
@@ -9,7 +10,12 @@ import '../../style/bem-blocks/b-cover-page/index.scss';
 function CoverPage(props) {
     console.log('render CoverPage');
     return (
-        <div className={`b-cover-page  ${props.toggleMenu ? "active" : ''}`} onClick={(e) => props.onToggleMenu(e)}></div>
+        <div className={`b-cover-page  ${props.toggleMenu ? "active" : ''}`} 
+            onClick={(e) => {
+                props.onToggleMenu(e);
+                props.onToggleCabinet(e, 'close');
+            }}
+        ></div>
     )
 }
 
@@ -24,6 +30,10 @@ const mapStateToDispatch = (dispatch) => {
         onToggleMenu: (e) => {
             e.preventDefault();
             dispatch(toggleMenu())
+        }, 
+        onToggleCabinet: (e, status) => {
+            e.preventDefault();
+            dispatch(toggleCabinet(status));
         }
     }
 }

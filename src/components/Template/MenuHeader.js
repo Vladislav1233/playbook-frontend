@@ -17,7 +17,12 @@ class MenuHeader extends Component {
         return (
             <Fragment>
 
-                <a href="" className={`b-hamburger ${this.props.toggleMenu ? 'open' : ''}`} onClick={e => this.props.onToggleMenu(e)}>
+                <a href="" className={`b-hamburger ${this.props.toggleMenu ? 'open' : ''}`} 
+                    onClick={e => {
+                        this.props.onToggleMenu(e);
+                        this.props.onToggleCabinet(e, 'close');
+                    }}
+                >
                     <svg viewBox="0 0 800 600">
                         <path d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200" className="b-hamburger__top-bar"></path>
                         <path d="M300,320 L540,320" className="b-hamburger__middle-bar"></path>
@@ -63,9 +68,9 @@ const mapDispatchToProps = (dispatch) => {
             e.preventDefault();
             dispatch(toggleMenu());
         },
-        onToggleCabinet: (e) => {
+        onToggleCabinet: (e, status) => {
             e.preventDefault();
-            dispatch(toggleCabinet());
+            dispatch(toggleCabinet(status));
         }
     }
 }

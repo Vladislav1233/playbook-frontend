@@ -1,8 +1,7 @@
 // 320++
 .b-profile-tabs {
 
-    &__list {
-        margin: 0px;
+    &__list-wrapper {
         padding: 60px 15px;
         background: #f4f8f9;
 
@@ -19,5 +18,20 @@
         &.open {
             transform: translateX(0%);
         }
+    }
+
+    &__list {
+        margin: 0px;
+        padding: 0;
+    }
+
+    &__back {
+        font-family: $medium;
+        font-size: 15px;
+        line-height: 1;
+        padding: 10px 0px;
+        display: block;
+        margin-top: -43px;
+        margin-bottom: 30px;
     }
 }

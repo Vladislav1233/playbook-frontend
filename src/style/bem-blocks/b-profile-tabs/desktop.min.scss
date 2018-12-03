@@ -1,7 +1,7 @@
 // 1024+
 .b-profile-tabs {
 
-    &__list {
+    &__list-wrapper {
         width: 85px;
         margin: 0;
         text-align: center;
@@ -14,7 +14,6 @@
         padding-top: 60px;
         background-color: $white;
         border-right: 1px solid $border-color;
-        
         position: sticky;
         top: 0px;
         margin-bottom: 0px;
@@ -30,5 +29,9 @@
         padding-left: 15px;
         margin-left: -1px;
         border-left: 1px solid $border-color;
+    }
+
+    &__back {
+        display: none;
     }
 }
