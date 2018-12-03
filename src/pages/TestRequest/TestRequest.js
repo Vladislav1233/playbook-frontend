@@ -6,27 +6,31 @@ class TestRequest extends Component {
         event.preventDefault();
 
         // {
-        //     "about": "Short information about trainer",
-        //     "min_price": "Min price in cents. Example: 7000. (70RUB)",
-        //     "max_price": "Max price in cents.",
+        //     "dates": "Array with dates of periods. Example: [2018-05-12, 2018-05-13]",
+        //     "start_time": "Period start time. Example: 09:00:00",
+        //     "end_time": "Period end time. Example: 17:00:00",
+        //     "price_per_hour": "Price per hour in cents. Example: 7000. (70RUB)",
         //     "currency": "Currency: RUB, UAH, USD, etc. Default: RUB"
-        // }
-        // /api/trainer-info/create
+        //   }
+        // /api/schedule/trainer/create
         let valueToken = localStorage.getItem('userToken');
+        let valueRole = localStorage.getItem('userRole');
         console.log(valueToken);
+        console.log(valueRole);
 
         axios({
             method: 'post',
-            url: 'http://playbook.ga/api/trainer-info/create',
+            url: 'http://playbook.ga/api/schedule/trainer/create',
             headers: {
                 'Authorization': `Bearer ${valueToken}`
             },
             data: {
-                "about": "Я супер тренер",
-                "min_price": "7000",
-                "max_price": "10000",
-                "currency": "RUB" 
-              }
+                "dates": ['2018-05-12', '2018-05-13'],
+                "start_time": '09:00:00',
+                "end_time": '17:00:00',
+                "price_per_hour": '7000',
+                "currency": 'RUB'
+            }
         }).then(response => {
             console.log(response);
         });
@@ -36,7 +40,7 @@ class TestRequest extends Component {
         return(
             <div>
                 <form onSubmit={this.request}>
-                    <button>Информация о тренере</button>
+                    <button>Create trainer schedule</button>
                 </form>
             </div>
         )
