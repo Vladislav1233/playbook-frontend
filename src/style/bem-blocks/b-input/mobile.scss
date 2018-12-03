@@ -3,16 +3,29 @@
     margin-bottom: 50px;
 
     &__input {
+        @include input();
         background-color: transparent;
         border: none;
         border-bottom: 2px solid $mint;
         width: 100%;
         color: $white;
-        font-size: 14px;
         height: 40px;
 
         &:focus {
             outline: none;
+        }
+    }
+
+    &__label {
+        @include label();
+        display: inline-block;
+        margin-bottom: 5px;
+    }
+
+    &--black-color & {
+
+        &__input {
+            color: $black;
         }
     }
 }

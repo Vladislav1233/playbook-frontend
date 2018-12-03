@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import cn from 'classnames';
 
 // style
 import '../../../style/bem-blocks/b-button/index.scss';
@@ -6,10 +7,18 @@ import '../../../style/bem-blocks/b-button/index.scss';
 class Button extends Component {
 
     render() {
-        const { name } = this.props;
+        const { name, theme, onClick, modif } = this.props;
+        const classButton = cn('b-button', modif, {
+            'b-button--orange': theme ? theme.orange : false
+        })
 
         return(
-            <button className="b-button">{name}</button>
+            <button 
+                className={classButton} 
+                onClick={onClick ? onClick : null}
+            >
+                {name}
+            </button>
         )
     }
 }

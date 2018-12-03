@@ -18,4 +18,14 @@
     .touchevents &:active {
         color: $white;
     }
+
+    &--orange {
+        background: $orange-diamond-yellow;
+    }
+
+    &--save {
+        width: 100%;
+        border-radius: 0;
+        padding: 12px 30px;
+    }
 }

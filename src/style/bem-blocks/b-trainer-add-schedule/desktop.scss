@@ -1,0 +1,28 @@
+// 1280
+.b-trainer-add-schedule {
+    display: flex;
+    min-height: 100%;
+
+    &__calendar {
+        margin: 0px -15px 0px 0px;
+        order: 1;
+        flex-shrink: 0;
+        background-color: $temperate-slate-blue;
+
+        .b-date-calendar {
+            position: sticky;
+            top: 0;
+        }
+    }
+
+    &__schedule {
+        width: 100%;
+        padding-right: 15px;
+        padding-top: 20px;
+    }
+
+    &__save {
+        width: calc(100% - 405px);
+        right: 320px;
+    }
+}

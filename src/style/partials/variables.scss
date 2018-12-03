@@ -4,6 +4,13 @@ $regular: 'montserratregular'; // 400
 $medium: 'montserratmedium'; // 500
 $bold: 'montserratbold' ; // 700
 
+// ----- media -----
+$tablet: 768px;
+$desktopMin: 1024px;
+$desktop: 1280px;
+$desktopBig: 1440px;
+$desktopFullHd: 1680px;
+
 // ----- animation time -----
 $animation-time: 0.2s;
 $animation-time-half: $animation-time / 2;
@@ -21,3 +28,32 @@ $white: #fff;
 
 $border-color: #ebebeb;
 $background-schedule: #f4f8f9;
+
+// ----- typography -----
+@mixin text() {
+    font-size: 14px;
+    line-height: 19px;
+
+    @media (min-width: $desktopMin) {
+        font-size: 15px;
+        line-height: 21px;
+    }
+
+    @media (min-width: $desktop) {
+        font-size: 16px;
+        line-height: 24px;
+    }
+}
+
+@mixin label() {
+    @include text();
+    font-family: $bold;
+}
+
+@mixin input() {
+    font-size: 15px;
+
+    @media (min-width: $desktop) {
+        font-size: 17px;
+    }
+}

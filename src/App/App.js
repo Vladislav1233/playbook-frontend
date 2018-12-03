@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
+import cn from 'classnames';
 
 // component
 // import ScheduleTrainer from '../pages/ScheduleTrainer/ScheduleTrainer';
@@ -26,26 +26,30 @@ class App extends Component {
     // }
 
     render() {
-        const { roleUser, location } = this.props;
-        // console.log(this.props.location);
+        const { roleUser, location, toggleMenu } = this.props;
+
+        const pageWrapperClass = cn('b-page-wrapper', {
+            'no-scroll': toggleMenu,
+            'b-page-wrapper--overflow': location.pathname === '/authentication-trainer' || location.pathname ===  '/auth'
+        })
+
+        const mainClass = cn('b-main', {
+            'b-main--schedule-court': location.pathname === '/schedule-court',
+            'b-main--schedule': location.pathname === '/schedule-court' || location.pathname === '/schedule-trainer'
+        })
 
         return (
-            <div className={`b-page-wrapper ${this.props.toggleMenu ? 'no-scroll' : ''}`}>
-                {location.pathname !== '/authentication-trainer' ?
-                    <Header />
-                    :
-                    null
+            <div className={pageWrapperClass}>
+                {location.pathname !== '/authentication-trainer' 
+                    ? <Header />
+                    : null
                 }
 
                 <main 
-                    className={
-                        `b-main ${location.pathname === '/schedule-court' ? 'b-main--schedule-court' : ''} ${location.pathname === '/schedule-court' ||  this.props.location.pathname === '/schedule-trainer' ? 'b-main--schedule' : ''}`
-                    }
+                    className={mainClass}
                 >
-                    {
-                        roleUser === 'guest' ?
-                            <AppUserTemplate />
-                    
+                    {roleUser === 'guest' 
+                        ? <AppUserTemplate />
                         : <div>404</div> // TODO: поставить страницу 404
                     }
                 </main>
