@@ -10,7 +10,8 @@ class TestRequest extends Component {
         //     "start_time": "Period start time. Example: 09:00:00",
         //     "end_time": "Period end time. Example: 17:00:00",
         //     "price_per_hour": "Price per hour in cents. Example: 7000. (70RUB)",
-        //     "currency": "Currency: RUB, UAH, USD, etc. Default: RUB"
+        //     "currency": "Currency: RUB, UAH, USD, etc. Default: RUB",
+        //     "playground_id": "Playground id. Required if type = playground"
         //   }
         // /api/schedule/trainer/create
         let valueToken = localStorage.getItem('userToken');
@@ -25,7 +26,7 @@ class TestRequest extends Component {
                 'Authorization': `Bearer ${valueToken}`
             },
             data: {
-                "dates": ['2018-05-12', '2018-05-13'],
+                "dates": ['2018-12-09', '2018-12-10'],
                 "start_time": '09:00:00',
                 "end_time": '17:00:00',
                 "price_per_hour": '7000',

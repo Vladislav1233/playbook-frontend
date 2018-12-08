@@ -27,12 +27,34 @@ class Schedule extends Component {
         }
     }
 
+    // TODO: Перенести в action
+    onClickDay = (value) => {
+        function formatDate(date) {
+
+        let dd = date.getDate();
+        if (dd < 10) dd = '0' + dd;
+
+        let mm = date.getMonth() + 1;
+        if (mm < 10) mm = '0' + mm;
+
+        let yy = date.getFullYear() % 100;
+        if (yy < 10) yy = '0' + yy;
+
+        return dd + '.' + mm + '.' + yy;
+        }
+        console.log(this.props);
+
+        this.props.onFilterSchedule(formatDate(value));
+    };
+
     render() {
         const { schedule, template } = this.props;
 
         return (
             <Fragment>
-                <DateCalendar onFilterSchedule={this.props.onFilterSchedule}/>
+                <DateCalendar
+                    onClickDay={this.onClickDay}
+                />
                 <div className="container container--schedule">
                     {schedule 
                         ?
