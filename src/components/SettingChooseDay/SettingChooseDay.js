@@ -8,17 +8,8 @@ const optionsSelect = [{
     value: 'one',
     label: 'Один день'
 }, {
-    value: 'multiple',
-    label: 'Несколько дней'
-}, {
     value: 'period',
     label: 'Период (от - до)'
-}, {
-    value: 'weekdays',
-    label: 'Все будние дни месяца'
-}, {
-    value: 'weekends',
-    label: 'Все выходные дни месяца'
 }]
 
 class SettingChooseDay extends Component {

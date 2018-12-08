@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getScheduleChooseDay } from '../../store/actions/Schedule';
+import { getScheduleChooseDay } from '../../store/actions/schedule';
 
 // component
 import Schedule from '../../components/Schedule/Schedule';
@@ -27,7 +27,7 @@ class ScheduleTrainer extends Component {
 
 const mapStateToProps = store => {
     return {
-        scheduleTrainer: filterSchedule(store.scheduleTrainer, store.getDayFilter)
+        scheduleTrainer: filterSchedule(store.scheduleTrainer.scheduleTrainer, store.getDayFilter)
     }
 }
   

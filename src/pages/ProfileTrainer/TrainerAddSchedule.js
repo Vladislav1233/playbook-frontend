@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import { createScheduleTrainer } from '../../store/actions/schedule';
 
 // Note: components
 import SettingChooseDay from '../../components/SettingChooseDay/SettingChooseDay';
@@ -63,9 +64,10 @@ class TrainerAddSchedule extends Component {
             ...this.state,
             cards: this.state.cards.concat([{
                 dates: [],
-                start_time: null,
+                start_time: 10,
                 end_time: null,
-                price_per_hour: ''
+                price_per_hour: '',
+                currency: 'RUB'
             }])
         })
     }
@@ -74,6 +76,33 @@ class TrainerAddSchedule extends Component {
         this.setState({
             ...this.state,
             cards: this.state.cards.filter((s, sidx) => idx !== sidx)
+        });
+    }
+
+    onClickDateCalendar = (value) => {
+        console.log(value);
+    }
+
+    onSubmitCreateSchedule = () => {
+        const { dispatch } = this.props;
+
+        // NOTE: Создается один запрос на одну карточку.
+        this.state.cards.forEach(function(card) {
+            // TODO: дату на массив range;
+            let arrayDates = card.dates;
+            // TODO: преобразовать из копеек в рубли;
+            let formatPrice = card.price_per_hour;
+
+            const data = {
+                dates: arrayDates,
+                start_time: card.start_time,
+                end_time: card.end_time,
+                price_per_hour: formatPrice,
+                currency: card.currency
+            };
+            console.log(data);
+
+            dispatch(createScheduleTrainer(data));
         });
     }
 
@@ -87,7 +116,11 @@ class TrainerAddSchedule extends Component {
                 <div className="b-hint-profile">Укажите дни, для которых установить время и добавьте свободные временные промежутки с ценой</div>*/}
                 
                 <div className="b-trainer-add-schedule__calendar">                
-                    <Calendar />
+                    <Calendar 
+                        selectRange={true}
+                        returnValue={'start'}
+                        onChange={this.onClickDateCalendar}
+                    />
                 </div>
                 
                 <div className="b-trainer-add-schedule__schedule">
@@ -115,7 +148,7 @@ class TrainerAddSchedule extends Component {
                         <Button
                             modif="b-button--save"
                             name={'Сохранить'}
-                            onClick={() => {}}
+                            onClick={() => this.onSubmitCreateSchedule()}
                         />
                     </div>
                 </div>

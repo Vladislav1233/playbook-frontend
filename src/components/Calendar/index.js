@@ -7,7 +7,7 @@ import '../../style/bem-blocks/b-date-calendar/index.scss';
 class DateCalendar extends Component {
 
     static defaultProps = {
-        value: new Date(),
+        value: [new Date(2018, 11, 9), new Date(2018, 11, 20)],
         minDate: new Date()
     };
 

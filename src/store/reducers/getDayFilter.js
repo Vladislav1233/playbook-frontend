@@ -1,4 +1,4 @@
-import { GET_SCHEDULE_CHOOSE_DAY } from '../constants/Schedule';
+import { GET_SCHEDULE_CHOOSE_DAY } from '../constants/schedule';
 
 const initialState = ''
 
