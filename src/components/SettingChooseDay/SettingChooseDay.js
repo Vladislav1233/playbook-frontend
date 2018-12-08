@@ -4,26 +4,31 @@ import Select from 'react-select';
 // Note: style
 import '../../style/bem-blocks/b-setting-choose-day/index.scss';
 
-const optionsSelect = [{
-    value: 'one',
-    label: 'Один день'
-}, {
-    value: 'period',
-    label: 'Период (от - до)'
-}]
-
 class SettingChooseDay extends Component {
-    state = {
-        selectedOption: optionsSelect[0]
+
+    static defaultProps = {
+        optionsSelect: []
+    }
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            selectedOption: props.optionsSelect[0]
+        }
     }
 
     handleChange = (selectedOption) => {
         this.setState({
             selectedOption
         });
+
+        this.props.getValueSelect(selectedOption);
     }
 
     render() {
+        const { optionsSelect } = this.props;
+
         return (
             <div className="b-setting-choose-day">
                 <span className="b-setting-choose-day__title">Выбрать на календаре:</span>
@@ -43,6 +48,7 @@ class SettingChooseDay extends Component {
                                 neutral20: '#ccc'
                             }
                         })}
+                        {...this.props}
                     />
                 </div>
             </div>

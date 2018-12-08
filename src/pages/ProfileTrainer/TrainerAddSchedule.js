@@ -23,7 +23,8 @@ class TrainerAddSchedule extends Component {
                 start_time: null, // Example 09:00:00
                 end_time: null, // Example 17:00:00
                 price_per_hour: '' // Example 7000 (70rub)
-            }]
+            }],
+            selectChooseDay: 'one' // Note: это для настроек календаря: one - выбрать можно 1 день, period - выбрать можно период от / до 
         }
     }
 
@@ -83,6 +84,13 @@ class TrainerAddSchedule extends Component {
         console.log(value);
     }
 
+    // Note: настраиваем выбор даты на календаре с помощью селекта
+    onSelectChooseDay = (value) => {
+        this.setState({
+            selectChooseDay: value.value
+        });
+    }
+
     onSubmitCreateSchedule = () => {
         const { dispatch } = this.props;
 
@@ -107,8 +115,15 @@ class TrainerAddSchedule extends Component {
     }
 
     render() {
-        const { cards } = this.state;
-        console.log(this.state);
+        const { cards, selectChooseDay } = this.state;
+
+        const optionsSelect = [{
+            value: 'one',
+            label: 'Один день'
+        }, {
+            value: 'period',
+            label: 'Период (от - до)'
+        }]
 
         return(
             <div className="b-trainer-add-schedule">
@@ -117,14 +132,17 @@ class TrainerAddSchedule extends Component {
                 
                 <div className="b-trainer-add-schedule__calendar">                
                     <Calendar 
-                        selectRange={true}
-                        returnValue={'start'}
+                        selectRange={selectChooseDay === 'period' ? true : false}
+                        returnValue={selectChooseDay === 'period' ? 'range' : 'start'}
                         onChange={this.onClickDateCalendar}
                     />
                 </div>
                 
                 <div className="b-trainer-add-schedule__schedule">
-                    <SettingChooseDay />
+                    <SettingChooseDay 
+                        optionsSelect={optionsSelect}
+                        getValueSelect={this.onSelectChooseDay}
+                    />
 
                     {cards.map((card, idx) => (
                         <AddScheduleCard
