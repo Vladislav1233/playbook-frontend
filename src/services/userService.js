@@ -34,6 +34,8 @@ function login(data) {
                 localStorage.setItem('userToken', user.data.data.access_token);
                 // Note: Храним роль юзера
                 localStorage.setItem('userRole', JSON.stringify(user.data.data.roles));
+                // Note: храним id юзера
+                localStorage.setItem('userId', user.data.data.id);
             }
             // Note: Возвращаем данные юзера в reducer.
             return user.data.data;

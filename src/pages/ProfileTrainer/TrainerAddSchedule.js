@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { createScheduleTrainer } from '../../store/actions/schedule';
+import { createScheduleTrainer, getTrainerSchedule } from '../../store/actions/schedule';
 import moment from 'moment';
 import getArrayDateRange from '../../helpers/getArrayDateRange';
 
@@ -29,6 +29,17 @@ class TrainerAddSchedule extends Component {
             }],
             selectChooseDay: 'one' // Note: это для настроек календаря: one - выбрать можно 1 день, period - выбрать можно период от / до 
         }
+    }
+
+    componentDidMount() {
+        const { dispatch } = this.props;
+
+        const data = {
+            start_time: '2018-12-01 00:00:01',
+            end_time: '2018-12-31 23:59:59'
+        }
+
+        dispatch(getTrainerSchedule(1, data));
     }
 
     createDataCard = (idx, name, value) => {
