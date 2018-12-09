@@ -11,6 +11,10 @@ class DateCalendar extends Component {
         minDate: new Date()
     };
 
+    componentDidMount() {
+        this.props.onChange(this.props.value);
+    }
+
     render() {
         return (
             <div className="b-date-calendar">

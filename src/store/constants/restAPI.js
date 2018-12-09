@@ -1,5 +1,5 @@
 const REST_API: string = 'REST_API';
-const API_URL: string = 'http://playbook.ga';
+const API_URL: string = 'http://207.154.236.8';
 
 const GET: string = 'GET';
 const PUT: string = 'PUT';

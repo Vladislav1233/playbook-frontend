@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { createScheduleTrainer } from '../../store/actions/schedule';
+import moment from 'moment';
 
 // Note: components
 import SettingChooseDay from '../../components/SettingChooseDay/SettingChooseDay';
@@ -22,7 +23,8 @@ class TrainerAddSchedule extends Component {
                 dates: [],
                 start_time: null, // Example 09:00:00
                 end_time: null, // Example 17:00:00
-                price_per_hour: '' // Example 7000 (70rub)
+                price_per_hour: '', // Example 7000 (70rub)
+                currency: 'RUB'
             }],
             selectChooseDay: 'one' // Note: это для настроек календаря: one - выбрать можно 1 день, period - выбрать можно период от / до 
         }
@@ -81,7 +83,20 @@ class TrainerAddSchedule extends Component {
     }
 
     onClickDateCalendar = (value) => {
-        console.log(value);
+        const { selectChooseDay, cards } = this.state;
+
+        if (selectChooseDay === 'one') {
+            const newCards = cards.map((card) => {
+                return {
+                    ...card,
+                    dates: [moment(value).format('YYYY-MM-DD')]
+                }
+            });
+
+            this.setState({
+                cards: newCards
+            })
+        }
     }
 
     // Note: настраиваем выбор даты на календаре с помощью селекта
@@ -116,6 +131,7 @@ class TrainerAddSchedule extends Component {
 
     render() {
         const { cards, selectChooseDay } = this.state;
+        console.log(this.state);
 
         const optionsSelect = [{
             value: 'one',
