@@ -8,6 +8,7 @@
     margin-right: -15px;
     padding-left: 15px;
     padding-right: 15px;
+    position: relative;
 
     &__field {
 
@@ -43,5 +44,14 @@
         .b-checkbox {
             margin-bottom: 0;
         }
+    }
+
+    &__delete {
+        width: 25px;
+        position: absolute;
+        right: 5px;
+        top: -10px;
+        padding: 3px;
+        cursor: pointer;
     }
 }

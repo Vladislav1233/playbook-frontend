@@ -77,6 +77,11 @@ class TrainerAddSchedule extends Component {
     }
 
     handleRemoveCard = (idx) => () => {
+        if (this.state.cards.length === 1) {
+            alert("Нельзя удалять последнюю карточку");
+            return false;
+        }
+
         this.setState({
             ...this.state,
             cards: this.state.cards.filter((s, sidx) => idx !== sidx)
@@ -130,7 +135,6 @@ class TrainerAddSchedule extends Component {
                 price_per_hour: formatPrice,
                 currency: card.currency
             };
-            console.log(data);
 
             dispatch(createScheduleTrainer(data));
         });
@@ -174,6 +178,7 @@ class TrainerAddSchedule extends Component {
                             idRender={idx}
                             onChangeInput={this.onChangeInput(idx)}
                             onChangeTime={this.onChangeTime(idx)}
+                            onRemoveCard={this.handleRemoveCard(idx)}
                         />
                     ))}
 

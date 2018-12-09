@@ -8,13 +8,19 @@ import TimeField from '../TimeField';
 // Note: style
 import '../../style/bem-blocks/b-add-schedule-card/index.scss';
 
+// Note: image
+import deleteIcon from '../../style/images/icon/delete.svg';
+
 class AddScheduleCard extends Component {
 
     render() {
-        const { idRender, data, isCheck, onChangeTime } = this.props;
+        const { idRender, data, isCheck, onChangeTime, onRemoveCard } = this.props;
 
         return(
             <div className="b-add-schedule-card">
+                <div onClick={onRemoveCard} className="b-add-schedule-card__delete">
+                    <img className="b-add-schedule-card__delete-icon" src={deleteIcon} alt="Удалить" />
+                </div>
                 <div className="b-add-schedule-card__field b-add-schedule-card__field--left">
                     <TimeField
                         time={data.start_time}

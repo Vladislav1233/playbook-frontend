@@ -7,4 +7,9 @@
     border-radius: 6px;
     border: 1px solid $border-color;
     background-color: $white;
+
+    &__delete {
+        right: 16px;
+        top: 16px;
+    }
 }
