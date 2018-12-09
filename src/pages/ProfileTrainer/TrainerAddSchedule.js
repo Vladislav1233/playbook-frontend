@@ -68,7 +68,7 @@ class TrainerAddSchedule extends Component {
             ...this.state,
             cards: this.state.cards.concat([{
                 dates: this.state.cards[0].dates,
-                start_time: 10,
+                start_time: null,
                 end_time: null,
                 price_per_hour: '',
                 currency: 'RUB'
@@ -120,15 +120,13 @@ class TrainerAddSchedule extends Component {
 
         // NOTE: Создается один запрос на одну карточку.
         this.state.cards.forEach(function(card) {
-            // TODO: дату на массив range;
-            let arrayDates = card.dates;
             // TODO: преобразовать из копеек в рубли;
             let formatPrice = card.price_per_hour;
 
             const data = {
-                dates: arrayDates,
-                start_time: card.start_time,
-                end_time: card.end_time,
+                dates: card.dates,
+                start_time: `${card.start_time}:00`,
+                end_time: `${card.end_time}:00`,
                 price_per_hour: formatPrice,
                 currency: card.currency
             };
