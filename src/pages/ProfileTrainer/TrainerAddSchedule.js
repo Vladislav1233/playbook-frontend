@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { createScheduleTrainer } from '../../store/actions/schedule';
 import moment from 'moment';
+import getArrayDateRange from '../../helpers/getArrayDateRange';
 
 // Note: components
 import SettingChooseDay from '../../components/SettingChooseDay/SettingChooseDay';
@@ -66,7 +67,7 @@ class TrainerAddSchedule extends Component {
         this.setState({
             ...this.state,
             cards: this.state.cards.concat([{
-                dates: [],
+                dates: this.state.cards[0].dates,
                 start_time: 10,
                 end_time: null,
                 price_per_hour: '',
@@ -85,17 +86,25 @@ class TrainerAddSchedule extends Component {
     onClickDateCalendar = (value) => {
         const { selectChooseDay, cards } = this.state;
 
-        if (selectChooseDay === 'one') {
+        const dateData = (dateData) => {
             const newCards = cards.map((card) => {
                 return {
                     ...card,
-                    dates: [moment(value).format('YYYY-MM-DD')]
+                    dates: dateData
                 }
             });
 
             this.setState({
                 cards: newCards
             })
+        }
+
+        if (selectChooseDay === 'one') {
+            dateData([moment(value).format('YYYY-MM-DD')]);
+        }
+
+        if (selectChooseDay === 'period') {
+            dateData(getArrayDateRange(value[0], value[1]));
         }
     }
 
