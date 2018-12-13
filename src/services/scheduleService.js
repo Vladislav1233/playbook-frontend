@@ -20,7 +20,6 @@ function createSchedule (type, data) {
 }
 
 function getSchedule (type, userId, data) {
-    console.log(data);
     return axios({
         method: 'get',
         url: `${API_URL}/api/schedule/${type}/${userId}`,

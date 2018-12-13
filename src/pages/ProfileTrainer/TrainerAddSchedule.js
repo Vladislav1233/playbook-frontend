@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { createScheduleTrainer, getTrainerSchedule } from '../../store/actions/schedule';
 import moment from 'moment';
 import getArrayDateRange from '../../helpers/getArrayDateRange';
+import { dataTime } from '../../helpers/dataTime';
 
 // Note: components
 import SettingChooseDay from '../../components/SettingChooseDay/SettingChooseDay';
@@ -34,12 +35,11 @@ class TrainerAddSchedule extends Component {
     componentDidMount() {
         const { dispatch } = this.props;
 
-        const data = {
-            start_time: '2018-12-01 00:00:01',
-            end_time: '2018-12-31 23:59:59'
-        }
-
-        dispatch(getTrainerSchedule(1, data));
+        // Note: собираем данные для get запроса расписания при инициализации страницы. Берём текущий день
+        const data = dataTime();
+        console.log(data);
+        // const userId = localStorage.getItem('userId');
+        // dispatch(getTrainerSchedule(userId, data));
     }
 
     createDataCard = (idx, name, value) => {
@@ -101,7 +101,9 @@ class TrainerAddSchedule extends Component {
 
     onClickDateCalendar = (value) => {
         const { selectChooseDay, cards } = this.state;
+        console.log(value);
 
+        // Note: собираем данные по дате для post запроса create schedule
         const dateData = (dateData) => {
             const newCards = cards.map((card) => {
                 return {
@@ -117,10 +119,28 @@ class TrainerAddSchedule extends Component {
 
         if (selectChooseDay === 'one') {
             dateData([moment(value).format('YYYY-MM-DD')]);
+
+            // Note: получаем данные расписания по этому дню
+            const data = dataTime({
+                valueStart: value,
+                valueEnd: value
+            });
+            console.log(data);
+            // const userId = localStorage.getItem('userId');
+            // dispatch(getTrainerSchedule(userId, data));
         }
 
         if (selectChooseDay === 'period') {
             dateData(getArrayDateRange(value[0], value[1]));
+
+            // Note: получаем данные расписания по дню начала периода
+            const data = dataTime({
+                valueStart: value[0],
+                valueEnd: value[0]
+            });
+            console.log(data);
+            // const userId = localStorage.getItem('userId');
+            // dispatch(getTrainerSchedule(userId, data));
         }
     }
 
