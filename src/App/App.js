@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import cn from 'classnames';
+import { configPathRouter } from './configPathRouter';
 
 // component
 // import ScheduleTrainer from '../pages/ScheduleTrainer/ScheduleTrainer';
@@ -26,6 +27,7 @@ class App extends Component {
     // }
 
     render() {
+        console.log(configPathRouter.scheduleTrainer);
         const { roleUser, location, toggleMenu } = this.props;
 
         const pageWrapperClass = cn('b-page-wrapper', {
@@ -34,14 +36,14 @@ class App extends Component {
         })
 
         const mainClass = cn('b-main', {
-            'b-main--schedule-court': location.pathname === '/schedule-court',
-            'b-main--schedule': location.pathname === '/schedule-court' || location.pathname === '/schedule-trainer'
+            'b-main--schedule-court': location.pathname === configPathRouter.scheduleCourt,
+            'b-main--schedule': location.pathname === configPathRouter.scheduleCourt || location.pathname === configPathRouter.scheduleTrainer
         })
 
         return (
             <div className={pageWrapperClass}>
-                {location.pathname !== '/authentication-trainer' 
-                    ? <Header />
+                {location.pathname !== configPathRouter.authorization
+                    ? <Header location={location.pathname} />
                     : null
                 }
 

@@ -3,6 +3,9 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { toggleMenu } from '../../store/actions/toggleMenu';
 import { toggleCabinet } from '../../store/actions/toggleCabinet';
+import { Link } from 'react-router-dom';
+import { configPathRouter } from '../../App/configPathRouter';
+import cn from 'classnames';
 
 // Style
 import '../../style/bem-blocks/b-menu/index.scss';
@@ -13,6 +16,74 @@ class MenuHeader extends Component {
 
     render() {
         console.log('render MenuHeader');
+
+        const { isAuthorization, location } = this.props;
+        const profileClassName = cn({
+            'b-menu__item--cabinet': location === configPathRouter.profileUser || location === configPathRouter.profileTrainer || location ===  configPathRouter.profileCourt
+        }) 
+
+        const profileLink = () => {
+            console.log(isAuthorization.roleUser);
+            const nameLink = 'Личный кабинет >';
+
+            const onToggle = () => {
+                return (
+                    <li className={`b-menu__item ${profileClassName}`}>
+                        <a className="b-menu__link" href="" title="Личный кабинет" onClick={e => this.props.onToggleCabinet(e)}>{nameLink}</a>
+                    </li>
+                )
+            }
+
+            if (isAuthorization.roleUser === 'user') {
+                if (location === configPathRouter.profileUser) {
+                    return (
+                        onToggle()
+                    )
+                } else {
+                    return (
+                        <li className={`b-menu__item ${profileClassName}`}>
+                            <Link className="b-menu__link" to={configPathRouter.profileUser} title="Личный кабинет">
+                                {nameLink}
+                            </Link>
+                        </li>
+                    )
+                }
+            }
+
+            if (isAuthorization.roleUser === 'trainer') {
+                console.log(location === configPathRouter.profileTrainer)
+                if (location === configPathRouter.profileTrainer) {
+                    return (
+                        onToggle()
+                    )
+                } else {
+                    console.log('я туту')
+                    return (
+                        <li className={`b-menu__item ${profileClassName}`}>
+                            <Link className="b-menu__link" to={configPathRouter.profileTrainer} title="Личный кабинет">
+                                {nameLink}
+                            </Link>
+                        </li>
+                    )
+                }
+            }
+
+            if (isAuthorization.roleUser === 'organization-admin') {
+                if (location === configPathRouter.profileCourt) {
+                    return (
+                        onToggle()
+                    )
+                } else {
+                    return (
+                        <li className={`b-menu__item ${profileClassName}`}>
+                            <Link className="b-menu__link" to={configPathRouter.profileCourt} title="Личный кабинет">
+                                {nameLink}
+                            </Link>
+                        </li>
+                    )
+                }
+            }
+        };
 
         return (
             <Fragment>
@@ -34,19 +105,29 @@ class MenuHeader extends Component {
                     <ul className="b-menu__list">
 
                         <li className="b-menu__item">
-                            <a className="b-menu__link" href="" title="Отменить бронь">Отменить бронь</a>
+                            <Link className="b-menu__link" to={configPathRouter.listCourt}>Мне нужен корт</Link>
                         </li>
                         <li className="b-menu__item">
+                            <Link className="b-menu__link" to={configPathRouter.listTrainer}>Мне нужен тренер</Link>
+                        </li>
+                        <li className="b-menu__item">
+                            {/* TODO: Эта ссылка должна открывать попап, далее в попап вводим номер телефона, получаем свои брони и отменяем нужную, вобщем на клик по ссылке нужен обработчик дальнейшего шага (видимо попап уже) */}
+                            <a className="b-menu__link" href="">Отменить бронь</a>
+                        </li>
+                        
+                        { !isAuthorization.is ? (
+                            <li className="b-menu__item">
+                                <Link className="b-menu__link" to={configPathRouter.authorization}>Авторизация</Link>
+                                <Link className="b-menu__link" to={configPathRouter.registration}>Регистрация</Link>
+                            </li>
+                        ) : profileLink()}
+
+                        <li className="b-menu__item">
+                            {/* TODO: Сделать попап с выбором городов. По клику на ссылку менять город */}
                             <a className="b-menu__link" href="" title="Ваш город">Ваш город: Ульяновск</a>
                         </li>
                         <li className="b-menu__item">
-                            <a className="b-menu__link" href="" title="Войти в кабинет">Войти в кабинет</a>
-                        </li>
-                        <li className="b-menu__item">
                             <a className="b-menu__link" href="" title="Написать нам">Написать нам</a>
-                        </li>
-                        <li className="b-menu__item b-menu__item--cabinet">
-                            <a className="b-menu__link" href="" title="Личный кабинет" onClick={e => this.props.onToggleCabinet(e)}>Личный кабинет ></a>
                         </li>
 
                     </ul>
