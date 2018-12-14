@@ -10,25 +10,31 @@ import { configPathRouter } from './configPathRouter';
 import Header from '../components/Template/Header';
 import CoverPage from '../components/CoverPage/CoverPage';
 import AppUserTemplate from './AppUserTemplate';
+import AppTrainerTemplate from './AppTrainerTemplate';
 
 // style
 import '../style/bem-blocks/b-page-wrapper/index.scss';
 import '../style/bem-blocks/b-main/index.scss';
 
 class App extends Component {
-    // constructor(props) {
-    //     super(props);
+    constructor(props) {
+        super(props);
 
-    //     const { dispatch } = this.props;
-    //     history.listen((location, action) => {
-    //         // clear alert on location change
-    //         // dispatch(alertActions.clear());
-    //     });
-    // }
+        // const { dispatch } = this.props;
+        // history.listen((location, action) => {
+        //     // clear alert on location change
+        //     // dispatch(alertActions.clear());
+        // });
+        const roleUser = localStorage.getItem('userRole');
+
+        this.state = {
+            roleUser: roleUser
+        }
+    }
 
     render() {
-        console.log(configPathRouter.scheduleTrainer);
-        const { roleUser, location, toggleMenu } = this.props;
+        const { location, toggleMenu } = this.props;
+        console.log(this.state.roleUser);
 
         const pageWrapperClass = cn('b-page-wrapper', {
             'no-scroll': toggleMenu,
@@ -38,7 +44,27 @@ class App extends Component {
         const mainClass = cn('b-main', {
             'b-main--schedule-court': location.pathname === configPathRouter.scheduleCourt,
             'b-main--schedule': location.pathname === configPathRouter.scheduleCourt || location.pathname === configPathRouter.scheduleTrainer
-        })
+        });
+
+        const renderRoutePage = () => {
+            // TODO: Ещё 404 страницу сделать
+            switch (this.state.roleUser) {
+                case 'user':
+                    return <AppUserTemplate />
+
+                case 'trainer':
+                    return <AppTrainerTemplate />
+
+                case 'organization-admin':
+                    break;
+
+                case 'admin':
+                    break;
+
+                default: 
+                    return <AppUserTemplate />
+            }
+        }
 
         return (
             <div className={pageWrapperClass}>
@@ -47,13 +73,8 @@ class App extends Component {
                     : null
                 }
 
-                <main 
-                    className={mainClass}
-                >
-                    {roleUser === 'guest' 
-                        ? <AppUserTemplate />
-                        : <div>404</div> // TODO: поставить страницу 404
-                    }
+                <main className={mainClass}>
+                    {renderRoutePage()}
                 </main>
                 <CoverPage />
             </div>
@@ -63,8 +84,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        toggleMenu: state.toggleMenu.toggleMenu,
-        roleUser: state.roleUser.role
+        toggleMenu: state.toggleMenu.toggleMenu
     }
 };
 

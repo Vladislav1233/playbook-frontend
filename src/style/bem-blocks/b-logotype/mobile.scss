@@ -1,0 +1,17 @@
+// 320
+.b-logotype {
+    display: inline-block;
+    width: auto;
+    text-align: center;
+
+    &__image {
+        width: 30px;
+        display: inline-block;
+        margin-bottom: 5px;
+    }
+
+    &__text {
+        font-size: 10px;
+        display: block;
+    }
+}

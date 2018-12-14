@@ -1,0 +1,17 @@
+// 320
+.b-hello-page {
+    
+    &__list {
+        text-align: center;
+        padding-left: 0px;
+        margin-bottom: 35px;
+    }
+
+    &__item {
+        list-style-type: none;
+
+        &:not(:last-child) {
+            margin-bottom: 10px;
+        }
+    }
+}

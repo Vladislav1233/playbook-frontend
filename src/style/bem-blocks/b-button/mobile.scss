@@ -9,6 +9,7 @@
     padding: 15px 30px;
     transition: color $animation-time;
     font-size: 14px;
+    display: inline-block;
 
     &:focus {
         outline: none;
@@ -27,5 +28,9 @@
         width: 100%;
         border-radius: 0;
         padding: 12px 30px;
+    }
+
+    &--hello-page {
+        width: 260px;
     }
 }

@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import { configPathRouter } from '../../App/configPathRouter';
+
+// style
+import '../../style/bem-blocks/b-button/index.scss';
+import '../../style/bem-blocks/b-hello-page/index.scss';
 
 class HelloPage extends Component {
 
@@ -8,22 +13,19 @@ class HelloPage extends Component {
             <nav className="b-hello-page">
                 <ul className="b-hello-page__list">
                     <li className="b-hello-page__item">
-                        <Link className="b-hello-link" to="/schedule-trainer">Мне нужен тренер</Link>
+                        <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.listCourt}>Мне нужен корт</Link>
                     </li>
                     <li className="b-hello-page__item">
-                        <Link className="b-hello-link" to="/schedule-court">Мне нужен корт</Link>
+                        <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.listTrainer}>Мне нужен тренер</Link>
+                    </li>
+                </ul>
+
+                <ul className="b-hello-page__list">
+                    <li className="b-hello-page__item">
+                        <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.authorization}>Авторизация</Link>
                     </li>
                     <li className="b-hello-page__item">
-                        <Link className="b-hello-link" to="/authentication-trainer">Я тренер</Link>
-                    </li>
-                    <li className="b-hello-page__item">
-                        <Link className="b-hello-link" to="/authentication-administrator">Я администратор корта</Link>
-                    </li>
-                    <li className="b-hello-page__item">
-                        <Link className="b-hello-link" to="/auth">Авторизация</Link>
-                    </li>
-                    <li className="b-hello-page__item">
-                        <Link className="b-hello-link" to="/profile-trainer">Профиль тренера</Link>
+                        <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.registration}>Регистрация</Link>
                     </li>
                 </ul>
             </nav>
