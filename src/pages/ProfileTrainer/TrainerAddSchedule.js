@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { createScheduleTrainer, getTrainerSchedule } from '../../store/actions/schedule';
 import moment from 'moment';
 import getArrayDateRange from '../../helpers/getArrayDateRange';
-import { dataTime } from '../../helpers/dataTime';
 
 // Note: components
 import SettingChooseDay from '../../components/SettingChooseDay/SettingChooseDay';
@@ -33,13 +32,7 @@ class TrainerAddSchedule extends Component {
     }
 
     componentDidMount() {
-        const { dispatch } = this.props;
-
-        // Note: собираем данные для get запроса расписания при инициализации страницы. Берём текущий день
-        const data = dataTime();
-        console.log(data);
-        // const userId = localStorage.getItem('userId');
-        // dispatch(getTrainerSchedule(userId, data));
+        console.log(this.props);
     }
 
     createDataCard = (idx, name, value) => {
@@ -119,28 +112,10 @@ class TrainerAddSchedule extends Component {
 
         if (selectChooseDay === 'one') {
             dateData([moment(value).format('YYYY-MM-DD')]);
-
-            // Note: получаем данные расписания по этому дню
-            const data = dataTime({
-                valueStart: value,
-                valueEnd: value
-            });
-            console.log(data);
-            // const userId = localStorage.getItem('userId');
-            // dispatch(getTrainerSchedule(userId, data));
         }
 
         if (selectChooseDay === 'period') {
             dateData(getArrayDateRange(value[0], value[1]));
-
-            // Note: получаем данные расписания по дню начала периода
-            const data = dataTime({
-                valueStart: value[0],
-                valueEnd: value[0]
-            });
-            console.log(data);
-            // const userId = localStorage.getItem('userId');
-            // dispatch(getTrainerSchedule(userId, data));
         }
     }
 
@@ -158,13 +133,14 @@ class TrainerAddSchedule extends Component {
         this.state.cards.forEach(function(card) {
             // TODO: преобразовать из копеек в рубли;
             let formatPrice = card.price_per_hour;
-
+            // TODO: добавить чек-бокс playgrounds
             const data = {
                 dates: card.dates,
                 start_time: `${card.start_time}:00`,
                 end_time: `${card.end_time}:00`,
                 price_per_hour: formatPrice,
-                currency: card.currency
+                currency: card.currency,
+                playgrounds: ['1']
             };
 
             dispatch(createScheduleTrainer(data));
@@ -173,7 +149,6 @@ class TrainerAddSchedule extends Component {
 
     render() {
         const { cards, selectChooseDay } = this.state;
-        console.log(this.state);
 
         const optionsSelect = [{
             value: 'one',
