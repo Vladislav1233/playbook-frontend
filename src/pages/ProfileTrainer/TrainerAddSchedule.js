@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { createScheduleTrainer, getTrainerSchedule } from '../../store/actions/schedule';
+import { createScheduleTrainer } from '../../store/actions/schedule';
 import moment from 'moment';
 import getArrayDateRange from '../../helpers/getArrayDateRange';
 

@@ -8,6 +8,7 @@ import {
     GET_SUCCESS_SCHEDULE_TRAINER,
     GET_FAILURE_SCHEDULE_TRAINER
 } from '../constants/schedule';
+
 import { scheduleService } from '../../services/scheduleService';
 
 export function getScheduleChooseDay(date) {

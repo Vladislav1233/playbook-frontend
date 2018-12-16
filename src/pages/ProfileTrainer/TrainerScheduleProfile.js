@@ -19,7 +19,10 @@ class TrainerScheduleProfile extends Component {
         // console.log(this.props);
 
         // Note: собираем данные для get запроса расписания при инициализации страницы. Берём текущий день
-        const data = dataTime();
+        const data = {
+            start_time: '2018-12-16 00:00:00',
+            end_time: '2018-12-31 23:00:00'
+        }
         console.log(data);
         const userId = localStorage.getItem('userId');
         dispatch(getTrainerSchedule(userId, data));

@@ -1,14 +1,18 @@
 import { 
     POST_START_SCHEDULE_TRAINER,
     POST_SUCCESS_SCHEDULE_TRAINER,
-    POST_FAILURE_SCHEDULE_TRAINER
+    POST_FAILURE_SCHEDULE_TRAINER,
+    
+    GET_START_SCHEDULE_TRAINER,
+    GET_SUCCESS_SCHEDULE_TRAINER,
+    GET_FAILURE_SCHEDULE_TRAINER
 } from '../constants/schedule';
 
 const initialState = {
     preloader: false,
     scheduleTrainer: [
         { // Note: Свободное время тренера, у которого один или несколько кортов
-            date: '16.12.18', // это брать как id key можно
+            date: '16.12.2018', // это брать как id key можно
             nameDay: "Воскресенье",
             list: [{
                 idItemScheduleList: 'idItemSchedule1',
@@ -57,7 +61,7 @@ const initialState = {
                 status: false
             }]
         }, { // Note: Свободное время тренера, но кортов нет
-            date: '17.12.18',
+            date: '17.12.2018',
             nameDay: "Понедельник",
             list: [{
                 idItemScheduleList: 'idItemSchedule4',
@@ -81,7 +85,7 @@ const initialState = {
                 }]
             }]
         }, { // Note: Тренер занят
-            date: '18.12.18',
+            date: '18.12.2018',
             nameDay: "Вторник",
             list: [{
                 id: '7',
@@ -91,7 +95,7 @@ const initialState = {
                 status: false
             }]
         }, { // Note: Тренер занят
-            date: '19.12.18',
+            date: '19.12.2018',
             nameDay: "Среда",
             list: [{
                 id: '8',
@@ -128,16 +132,38 @@ export default function(state = initialState, action) {
     switch (action.type) {
         case POST_START_SCHEDULE_TRAINER:
             return {
+                ...state,
                 preloader: true
             }
         
         case POST_SUCCESS_SCHEDULE_TRAINER:
             return {
+                ...state,
                 preloader: false
             }
         
         case POST_FAILURE_SCHEDULE_TRAINER:
             return {
+                ...state,
+                preloader: false
+            }
+
+        case GET_START_SCHEDULE_TRAINER:
+            return {
+                ...state,
+                preloader: true
+            }
+
+        case GET_SUCCESS_SCHEDULE_TRAINER:
+            console.log(action.payload);
+            return {
+                ...state,
+                preloader: false
+            }
+
+        case GET_FAILURE_SCHEDULE_TRAINER:
+            return {
+                ...state,
                 preloader: false
             }
 
