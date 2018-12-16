@@ -5,6 +5,7 @@ import { toggleCabinet } from '../../store/actions/toggleCabinet';
 // Note: Components
 import ProfileTabs from '../../components/ProfileTabs';
 import TrainerAddSchedule from './TrainerAddSchedule';
+import TrainerScheduleProfile from './TrainerScheduleProfile';
 
 // Note: images
 import addInfoIcon from '../../style/images/icon/add-info.svg';
@@ -25,7 +26,7 @@ class ProfileTrainer extends Component {
                     </div>
                     
                     <div label="Моё расписание" src={myScheduleIcon}>
-                        Моё расписание
+                        <TrainerScheduleProfile />
                     </div>
 
                     <div label="Заявки на бронь" src={invitationReserveIcon}>
