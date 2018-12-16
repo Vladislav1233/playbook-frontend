@@ -17,10 +17,18 @@ class MenuHeader extends Component {
     render() {
         console.log('render MenuHeader');
 
-        const { isAuthorization, location } = this.props;
+        const { location } = this.props;
         const profileClassName = cn({
             'b-menu__item--cabinet': location === configPathRouter.profileUser || location === configPathRouter.profileTrainer || location ===  configPathRouter.profileCourt
-        }) 
+        });
+        const hamburgerStyle = cn('b-hamburger', {
+            'open': this.props.toggleMenu
+        });
+
+        const isAuthorization = {
+            is: localStorage.getItem('userRole') ? true : false,
+            roleUser: localStorage.getItem('userRole')
+        }
 
         const profileLink = () => {
             console.log(isAuthorization.roleUser);
@@ -34,53 +42,37 @@ class MenuHeader extends Component {
                 )
             }
 
+            const onLink = (to) => {
+                return (
+                    <li className={`b-menu__item ${profileClassName}`}>
+                        <Link className="b-menu__link" to={to} title="Личный кабинет">
+                            {nameLink}
+                        </Link>
+                    </li>
+                )
+            }
+
             if (isAuthorization.roleUser === 'user') {
                 if (location === configPathRouter.profileUser) {
-                    return (
-                        onToggle()
-                    )
+                    return onToggle();
                 } else {
-                    return (
-                        <li className={`b-menu__item ${profileClassName}`}>
-                            <Link className="b-menu__link" to={configPathRouter.profileUser} title="Личный кабинет">
-                                {nameLink}
-                            </Link>
-                        </li>
-                    )
+                    return onLink(configPathRouter.profileUser);
                 }
             }
 
             if (isAuthorization.roleUser === 'trainer') {
-                console.log(location === configPathRouter.profileTrainer)
                 if (location === configPathRouter.profileTrainer) {
-                    return (
-                        onToggle()
-                    )
+                    return onToggle();
                 } else {
-                    console.log('я туту')
-                    return (
-                        <li className={`b-menu__item ${profileClassName}`}>
-                            <Link className="b-menu__link" to={configPathRouter.profileTrainer} title="Личный кабинет">
-                                {nameLink}
-                            </Link>
-                        </li>
-                    )
+                    return onLink(configPathRouter.profileTrainer);
                 }
             }
 
             if (isAuthorization.roleUser === 'organization-admin') {
                 if (location === configPathRouter.profileCourt) {
-                    return (
-                        onToggle()
-                    )
+                    return onToggle();
                 } else {
-                    return (
-                        <li className={`b-menu__item ${profileClassName}`}>
-                            <Link className="b-menu__link" to={configPathRouter.profileCourt} title="Личный кабинет">
-                                {nameLink}
-                            </Link>
-                        </li>
-                    )
+                    return onLink(configPathRouter.profileCourt);
                 }
             }
         };
@@ -88,7 +80,7 @@ class MenuHeader extends Component {
         return (
             <Fragment>
 
-                <a href="" className={`b-hamburger ${this.props.toggleMenu ? 'open' : ''}`} 
+                <a href="" className={hamburgerStyle}
                     onClick={e => {
                         this.props.onToggleMenu(e);
                         this.props.onToggleCabinet(e, 'close');

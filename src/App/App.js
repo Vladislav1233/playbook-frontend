@@ -17,24 +17,24 @@ import '../style/bem-blocks/b-page-wrapper/index.scss';
 import '../style/bem-blocks/b-main/index.scss';
 
 class App extends Component {
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
 
-        // const { dispatch } = this.props;
-        // history.listen((location, action) => {
-        //     // clear alert on location change
-        //     // dispatch(alertActions.clear());
-        // });
-        const roleUser = localStorage.getItem('userRole');
+    //     // const { dispatch } = this.props;
+    //     // history.listen((location, action) => {
+    //     //     // clear alert on location change
+    //     //     // dispatch(alertActions.clear());
+    //     // });
+        
 
-        this.state = {
-            roleUser: roleUser
-        }
-    }
+    //     this.state = {
+    //         roleUser: roleUser
+    //     }
+    // }
 
     render() {
         const { location, toggleMenu } = this.props;
-        console.log(this.state.roleUser);
+        const roleUser = localStorage.getItem('userRole');
 
         const pageWrapperClass = cn('b-page-wrapper', {
             'no-scroll': toggleMenu,
@@ -48,7 +48,7 @@ class App extends Component {
 
         const renderRoutePage = () => {
             // TODO: Ещё 404 страницу сделать
-            switch (this.state.roleUser) {
+            switch (roleUser) {
                 case 'user':
                     return <AppUserTemplate />
 

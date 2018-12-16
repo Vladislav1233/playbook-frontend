@@ -9,6 +9,21 @@ import '../../style/bem-blocks/b-hello-page/index.scss';
 class HelloPage extends Component {
 
     render() {
+        const isAuthorization = localStorage.getItem('userRole') ? true : false;
+        console.log(isAuthorization); 
+
+        const profileTo = () => {
+            const userRole = localStorage.getItem('userRole');
+
+            if (userRole === 'trainer') {
+                return configPathRouter.profileTrainer;
+            } else if (userRole === 'organization-admin') {
+                return configPathRouter.profileCourt;
+            } else if (userRole === 'user') {
+                return configPathRouter.profileUser;
+            }
+        };
+
         return(
             <nav className="b-hello-page">
                 <ul className="b-hello-page__list">
@@ -20,14 +35,22 @@ class HelloPage extends Component {
                     </li>
                 </ul>
 
-                <ul className="b-hello-page__list">
-                    <li className="b-hello-page__item">
-                        <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.authorization}>Авторизация</Link>
-                    </li>
-                    <li className="b-hello-page__item">
-                        <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.registration}>Регистрация</Link>
-                    </li>
-                </ul>
+                {!isAuthorization ? 
+                    <ul className="b-hello-page__list">
+                        <li className="b-hello-page__item">
+                            <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.authorization}>Авторизация</Link>
+                        </li>
+                        <li className="b-hello-page__item">
+                            <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.registration}>Регистрация</Link>
+                        </li>
+                    </ul>
+                    :
+                    <ul className="b-hello-page__list">
+                        <li className="b-hello-page__item">
+                            <Link className="b-button b-button--orange b-button--hello-page" to={profileTo()}>Личный кабинет</Link>
+                        </li>
+                    </ul> 
+                }
             </nav>
         )
     }
