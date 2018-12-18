@@ -1,5 +1,4 @@
 import { 
-    GET_SCHEDULE_CHOOSE_DAY,
     POST_START_SCHEDULE_TRAINER,
     POST_SUCCESS_SCHEDULE_TRAINER,
     POST_FAILURE_SCHEDULE_TRAINER,
@@ -10,13 +9,6 @@ import {
 } from '../constants/schedule';
 
 import { scheduleService } from '../../services/scheduleService';
-
-export function getScheduleChooseDay(date) {
-    return {
-        type: GET_SCHEDULE_CHOOSE_DAY, 
-        payload: date
-    };
-}
 
 // Note: Отправляем запрос на создание расписания тренера
 export function createScheduleTrainer(data) {
@@ -83,7 +75,8 @@ export function getTrainerSchedule(userId, data) {
     function success(response) {
         return {
             type: GET_SUCCESS_SCHEDULE_TRAINER,
-            payload: response
+            payload: response.data,
+            date: data.start_time
         }
     }
 

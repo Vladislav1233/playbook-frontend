@@ -31,10 +31,6 @@ class TrainerAddSchedule extends Component {
         }
     }
 
-    componentDidMount() {
-        console.log(this.props);
-    }
-
     createDataCard = (idx, name, value) => {
         return this.state.cards.map((card, sidx) => {
             if (idx !== sidx) return card;

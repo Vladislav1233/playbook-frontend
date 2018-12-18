@@ -5,7 +5,7 @@ import { configPathRouter } from './configPathRouter';
 // Note: component
 // --- default ---
 import ScheduleTrainer from '../pages/ScheduleTrainer/ScheduleTrainer';
-import ScheduleCourt from '../pages/ScheduleCourt/ScheduleCourt';
+// import ScheduleCourt from '../pages/ScheduleCourt/ScheduleCourt';
 import HelloPage from '../pages/HelloPage/HelloPage';
 import Registration from '../pages/Registration/Registration';
 import TestRequest from '../pages/TestRequest/TestRequest';
@@ -21,7 +21,7 @@ export default () => (
         <Route component={ListCourt} path={configPathRouter.listCourt} />
         <Route component={ListTrainer} path={configPathRouter.listTrainer} />
         <Route component={ScheduleTrainer} path={configPathRouter.scheduleTrainer} />
-        <Route component={ScheduleCourt} path={configPathRouter.scheduleCourt} />
+        {/*<Route component={ScheduleCourt} path={configPathRouter.scheduleCourt} />*/}
         <Route component={Registration} path={configPathRouter.registration} />
         <Route component={Auth} path={configPathRouter.authorization} />
         <Route component={ErrorPage} path="/error" />
