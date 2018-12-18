@@ -1,0 +1,105 @@
+// 320+
+.b-checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 50px;
+
+    &--hide {
+        display: none;
+    }
+
+    &__input {
+        display: none;
+    }
+
+    &__label {
+        color: #757575;;
+        font-size: 14px;
+        cursor: pointer;
+        display: inline-block;
+        padding-top: 3px;
+        transition: color $animation-time;
+
+        .no-touchevents &:hover,
+        .touchevents &:active {
+            color: $white;
+        }
+    }
+
+    &__check {
+        cursor: pointer;
+        position: relative;
+        margin: 0;
+        margin-right: 10px;
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+        -webkit-tap-highlight-color: transparent;
+        transform: translate3d(0, 0, 0);
+
+        .no-touchevents &:hover + .b-checkbox__label,
+        .touchevents &:active + .b-checkbox__label {
+            color: $white;
+        }
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(34,50,84,0.03);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        svg {
+            position: relative;
+            z-index: 1;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke: $mint;
+            stroke-width: 1.5;
+            transform: translate3d(0, 0, 0);
+            transition: all 0.2s ease;
+
+            path {
+                stroke-dasharray: 60;
+                stroke-dashoffset: 0;
+            }
+
+            polyline {
+                stroke-dasharray: 22;
+                stroke-dashoffset: 66;
+            }
+        }
+
+        &:hover  {
+            &:before {
+                opacity: 1;
+            }
+            svg {
+                stroke: $mint;
+            }
+        }
+
+        &--check {
+            svg {
+                stroke: $mint;
+                path {
+                    stroke-dashoffset: 60;
+                    transition: all 0.3s linear;
+                }
+                polyline {
+                    stroke-dashoffset: 42;
+                    transition: all 0.2s linear;
+                    transition-delay: 0.15s;
+                }
+            }
+        }
+    }
+}

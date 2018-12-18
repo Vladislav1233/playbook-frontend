@@ -1,0 +1,21 @@
+// 1024+
+.b-profile-tab {
+    border: 2px solid transparent;
+    transition: border-color $animation-time;
+    padding: 8px;
+    margin-bottom: 25px;
+
+    &.active {
+        border-color: $mint;
+    }
+
+    &__icon {
+        max-width: 100%;
+        width: auto;
+        margin: 0px;
+    }
+
+    &__text {
+        display: none;
+    }
+}

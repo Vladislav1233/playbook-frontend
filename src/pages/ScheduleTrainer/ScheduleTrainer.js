@@ -1,41 +1,64 @@
-import React, { Component } from 'react';
+import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
-import { getScheduleChooseDay } from '../../store/actions/Schedule';
+import { getTrainerSchedule } from '../../store/actions/schedule';
+import { dataTime } from '../../helpers/dataTime';
 
 // component
 import Schedule from '../../components/Schedule/Schedule';
-
-// helpers
-import { filterSchedule } from '../../helpers/filterSchedule';
+import Preloader from '../../components/Preloader/Preloader';
 
 class ScheduleTrainer extends Component {
 
+    componentDidMount() {
+        const { getTrainerSchedule } = this.props;
+
+        // Note: собираем данные для get запроса расписания при инициализации страницы. Берём текущий день
+        const data = dataTime();
+        // TODO: брать из link наверное, в общем это от бэка будет приходить
+        const userId = 1;
+        getTrainerSchedule(userId, data);
+    }
+
     render() {
-        console.log('render ScheduleTrainer');
-        const { scheduleTrainer, onFilterSchedule } = this.props;
+        const { scheduleTrainer, getTrainerSchedule } = this.props;
+
+        // Note: userId - это id пользователя (тренера) расписание которого надо получить, в нашем случае мы находимся в личном кабинете и запрашиваем свой id тренера
+        // TODO: из бэка
+        const userId = 1;
 
         return (
-            <Schedule 
-                schedule={scheduleTrainer}
-                onFilterSchedule={onFilterSchedule}
-                template={'trainer'}
-            />
+            <Fragment>
+                <Schedule 
+                    schedule={scheduleTrainer}
+                    template={'trainer'}
+                    getTrainerSchedule={getTrainerSchedule}
+                    userId={userId}
+                />
+
+                { this.props.preloader ? <Preloader /> : null }
+            </Fragment>
         )
     }
 }
 
 
-const mapStateToProps = store => {
+const mapStateToProps = ({ scheduleTrainer }) => {
     return {
-        scheduleTrainer: filterSchedule(store.scheduleTrainer, store.getDayFilter)
+        // ЭТО НЕ НАДО -УДАЛИТЬ ИЗ РЕДЬЮСЕРА
+        // scheduleTrainer: filterSchedule(store.scheduleTrainer.scheduleTrainer, store.getDayFilter),
+        scheduleTrainer: scheduleTrainer.scheduleTrainer,
+        preloader: scheduleTrainer.preloader
     }
 }
   
 const mapStateToDispatch = (dispatch) => {
     return {
-        onFilterSchedule: (date) => {
-            dispatch(getScheduleChooseDay(date));
-        }
+        /*
+        * getTrainerSchedule - Запрос на получение расписания тренера
+        * userId - id пользователя (тренера) расписание которого запрашиваем
+        * data - принимает объект с ключами start_time и end_time - период на который прийдет расписание.
+        */
+        getTrainerSchedule: (userId, data) => dispatch(getTrainerSchedule(userId, data))
     }
 }
   

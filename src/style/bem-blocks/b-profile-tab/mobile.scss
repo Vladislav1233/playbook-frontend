@@ -1,0 +1,29 @@
+// 320
+.b-profile-tab {
+    list-style-type: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 40px;
+
+    &.active {
+
+        .b-profile-tab__text {
+            color: $mint;
+        }
+    }
+
+    &__icon {
+        width: 30px;
+        flex-shrink: 0;
+        margin-right: 20px;
+    }
+
+    &__text {
+        display: inline-block;
+        margin: 0;
+        font-size: 14px;
+        transition: color $animation-time;
+    }
+}

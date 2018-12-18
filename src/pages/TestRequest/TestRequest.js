@@ -1,34 +1,47 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class TestRequest extends Component {
-    
-    registration = (event) => {
+    request = (event) => {
         event.preventDefault();
 
-        let payload = {
-            first_name: 'wityasq',
-            last_name: 'wityas',
-            phone: '+79178273459',
-            password: '12345678123',
-            c_password: '12345678123'
-        }
-        let data = new FormData();
-        data.append( 'json', JSON.stringify( payload ) );
+        // {
+        //     "dates": "Array with dates of periods. Example: [2018-05-12, 2018-05-13]",
+        //     "start_time": "Period start time. Example: 09:00:00",
+        //     "end_time": "Period end time. Example: 17:00:00",
+        //     "price_per_hour": "Price per hour in cents. Example: 7000. (70RUB)",
+        //     "currency": "Currency: RUB, UAH, USD, etc. Default: RUB",
+        //     "playground_id": "Playground id. Required if type = playground"
+        //   }
+        // /api/schedule/trainer/create
+        let valueToken = localStorage.getItem('userToken');
+        let valueRole = localStorage.getItem('userRole');
+        console.log(valueToken);
+        console.log(valueRole);
 
-        fetch('http://207.154.236.8/api/register',
-            {
-                method: 'POST',
-                body: data,
-                mode: 'no-cors'
+        axios({
+            method: 'post',
+            url: 'http://playbook.ga/api/schedule/trainer/create',
+            headers: {
+                'Authorization': `Bearer ${valueToken}`
+            },
+            data: {
+                "dates": ['2018-12-09', '2018-12-10'],
+                "start_time": '09:00:00',
+                "end_time": '17:00:00',
+                "price_per_hour": '7000',
+                "currency": 'RUB'
             }
-        )
-    }
+        }).then(response => {
+            console.log(response);
+        });
+    };
     
     render() {
         return(
             <div>
-                <form onSubmit={this.registration}>
-                    <button>Регистрация</button>
+                <form onSubmit={this.request}>
+                    <button>Create trainer schedule</button>
                 </form>
             </div>
         )

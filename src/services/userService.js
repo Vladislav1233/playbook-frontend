@@ -1,5 +1,6 @@
 import { authHeader } from '../helpers/auth-header';
 import { API_URL } from '../store/constants/restAPI';
+import axios from 'axios';
 
 export const userService = {
     login,
@@ -11,26 +12,38 @@ export const userService = {
     delete: _delete
 };
 
-function login(username, password) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-    };
+function register(user) {
+    return axios({
+        method: 'post',
+        url: `${API_URL}/api/register`,
+        data: user
+    });
+}
 
-    return fetch(`${API_URL}/users/authenticate`, requestOptions)
-        .then(handleResponse)
-        .then(user => {
-            // login successful if there's a jwt token in the response
-            if (user.token) {
+// TODO: В логине реализовать функцию handleResponse, она есть в примере и обрабатывает ошибки логина. Её пример в конце файла
+function login(data) {
+    return axios({
+        method: 'post',
+        url: `${API_URL}/api/login`,
+        data: data
+    }).then(user => {
+            // console.log(user.data.data.roles);
+            // console.log(user.data.data.access_token);
+            if (user.data.data.access_token) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user));
+                localStorage.setItem('userToken', user.data.data.access_token);
+                // Note: Храним роль юзера
+                localStorage.setItem('userRole', user.data.data.roles);
+                // Note: храним id юзера
+                localStorage.setItem('userId', user.data.data.id);
             }
-
-            return user;
+            // Note: Возвращаем данные юзера в reducer.
+            return user.data.data;
         });
 }
 
+
+// Код ниже не закончен
 function logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('user');
@@ -52,19 +65,6 @@ function getById(id) {
     };
 
     return fetch(`${API_URL}/users/${id}`, requestOptions).then(handleResponse);
-}
-
-function register(user) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user),
-        mode: 'no-cors'
-    };
-
-    return fetch(`${API_URL}/api/register`, requestOptions).then(handleResponse);
 }
 
 // function update(user) {

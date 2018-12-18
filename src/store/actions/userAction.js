@@ -11,13 +11,38 @@ export const userActions = {
     delete: _delete
 };
 
-function login(username, password) {
+function register(user) {
     return dispatch => {
-        dispatch(request({ username }));
+        dispatch(request(user));
 
-        userService.login(username, password)
+        userService.register(user)
             .then(
-                user => { 
+                user => {
+                    dispatch(success());
+                    history.push('/auth');
+                    // dispatch(alertActions.success('Registration successful'));
+                },
+                // TODO: Обрабатывать ошибки от сервера при регистрации
+                error => {
+                    history.push('/error');
+                    dispatch(failure(error.toString()));
+                    // dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
+    function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
+    function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
+}
+
+function login(data) {
+    return dispatch => {
+        dispatch(request(data));
+
+        userService.login(data)
+            .then(
+                user => {
                     dispatch(success(user));
                     history.push('/');
                 },
@@ -33,32 +58,13 @@ function login(username, password) {
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
 }
 
+
+
+// Код ниже не закончен и он пока не работает
+
 function logout() {
     userService.logout();
     return { type: userConstants.LOGOUT };
-}
-
-function register(user) {
-    return dispatch => {
-        dispatch(request(user));
-
-        userService.register(user)
-            .then(
-                user => { 
-                    dispatch(success());
-                    history.push('/login');
-                    dispatch(alertActions.success('Registration successful'));
-                },
-                error => {
-                    dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
-                }
-            );
-    };
-
-    function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
-    function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
-    function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
 }
 
 function getAll() {
