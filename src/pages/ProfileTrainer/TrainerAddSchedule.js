@@ -40,27 +40,28 @@ class TrainerAddSchedule extends Component {
                 [name]: value
             }
         });
-    }
+    };
 
     onChangeTime = (idx) => (value, name) => {
         const newCards = this.createDataCard(idx, name, value.formatted24);
+
+        console.log(value);
 
         this.setState({
             ...this.state,
             cards: newCards
         })
-    }
+    };
 
     onChangeInput = (idx) => (event) => {
         const { name, value } = event.target;
-        
         const newCards = this.createDataCard(idx, name, value);
 
         this.setState({
             ...this.state,
             cards: newCards
         });
-    }
+    };
 
     // Note: Добавляем ещё одну карточку для заполения расписания
     handleAddCard = () => {
@@ -74,7 +75,7 @@ class TrainerAddSchedule extends Component {
                 currency: 'RUB'
             }])
         })
-    }
+    };
 
     handleRemoveCard = (idx) => () => {
         if (this.state.cards.length === 1) {
@@ -86,7 +87,7 @@ class TrainerAddSchedule extends Component {
             ...this.state,
             cards: this.state.cards.filter((s, sidx) => idx !== sidx)
         });
-    }
+    };
 
     onClickDateCalendar = (value) => {
         const { selectChooseDay, cards } = this.state;
@@ -113,14 +114,14 @@ class TrainerAddSchedule extends Component {
         if (selectChooseDay === 'period') {
             dateData(getArrayDateRange(value[0], value[1]));
         }
-    }
+    };
 
     // Note: настраиваем выбор даты на календаре с помощью селекта
     onSelectChooseDay = (value) => {
         this.setState({
             selectChooseDay: value.value
         });
-    }
+    };
 
     onSubmitCreateSchedule = () => {
         const { dispatch } = this.props;
@@ -141,7 +142,7 @@ class TrainerAddSchedule extends Component {
 
             dispatch(createScheduleTrainer(data));
         });
-    }
+    };
 
     render() {
         const { cards, selectChooseDay } = this.state;

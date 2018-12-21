@@ -28,7 +28,7 @@ class ScheduleTrainer extends Component {
 
         return (
             <Fragment>
-                <Schedule 
+                <Schedule
                     schedule={scheduleTrainer}
                     template={'trainer'}
                     getTrainerSchedule={getTrainerSchedule}
@@ -49,7 +49,7 @@ const mapStateToProps = ({ scheduleTrainer }) => {
         scheduleTrainer: scheduleTrainer.scheduleTrainer,
         preloader: scheduleTrainer.preloader
     }
-}
+};
   
 const mapStateToDispatch = (dispatch) => {
     return {
@@ -60,6 +60,6 @@ const mapStateToDispatch = (dispatch) => {
         */
         getTrainerSchedule: (userId, data) => dispatch(getTrainerSchedule(userId, data))
     }
-}
+};
   
 export default connect(mapStateToProps, mapStateToDispatch)(ScheduleTrainer)
