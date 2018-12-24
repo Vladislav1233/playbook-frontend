@@ -27,7 +27,6 @@ class TrainerScheduleProfile extends Component {
         // Note: userId - это id пользователя (тренера) расписание которого надо получить, в нашем случае мы находимся в личном кабинете и запрашиваем свой id тренера
         const userId = localStorage.getItem('userId');
 
-        console.log(this.props);
         return(
             <div className="b-trainer-schedule-profile">
                 <Schedule 

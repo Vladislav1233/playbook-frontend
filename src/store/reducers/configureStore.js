@@ -7,6 +7,7 @@ import scheduleCourt from './scheduleCourt';
 import roleUser from './roleUser';
 import registration from './registration';
 import toggleCabinet from './toggleCabinet';
+import searchPlayground from './searchPlayground';
 
 
 export default function(initialState = {}) {
@@ -16,7 +17,8 @@ export default function(initialState = {}) {
         scheduleTrainer,
         roleUser,
         registration,
-        toggleCabinet
+        toggleCabinet,
+        searchPlayground
     });
 
     return createStore(rootReducer, initialState, applyMiddleware(thunkMiddleware));

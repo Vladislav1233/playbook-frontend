@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
+import { searchPlayground } from '../../store/actions/searchPlayground';
 
 // Note: components
 import Input from '../../components/ui-kit/Input/Input';
@@ -13,7 +15,8 @@ class TrainerInfo extends Component {
             surname: '',
             about: '',
             minPrice: '',
-            maxPrice: ''
+            maxPrice: '',
+            searchCourt: ''
         }
     }
 
@@ -28,6 +31,17 @@ class TrainerInfo extends Component {
             }
         })
     }
+
+    onSearchCourt = (event) => {
+        const { value } = event.target; 
+        let data = {
+            query: value
+        };
+        this.props.searchPlayground(data);
+        // TODO: Сделать, что запрос будет отправляться после ввода трёх символов. + подсказку в поле, что нужно больше 3-х символов.
+        // playgroundService.searchPlayground(data);
+    }
+
     render() {
         // const { labelText, typeInput, idInput, placeholder, value, nameInput, modif, theme } = this.props;
         const { trainerInfo } = this.state;
@@ -103,10 +117,33 @@ class TrainerInfo extends Component {
 
                 <div className="b-trainer-info__playground">
                     <div className="b-trainer-info__title-field">Список кортов, на которых вы тренируете</div>
+                    <Input
+                        idInput="profile_search-court"
+                        nameInput="searchCourt"
+                        placeholder="Поиск корта"
+                        value={trainerInfo.searchCourt}
+                        onChange={e => {
+                            this.handleChangeInput(e);
+                            this.onSearchCourt(e);
+                        }}
+                        theme={{blackColor: true}}
+                    />
                 </div>
             </div>
         )
     }
 }
 
-export default TrainerInfo;
+const mapStateToProps = ({ searchPlayground }) => {
+    return {
+        findPlagrounds: searchPlayground.playgrounds
+    }
+}
+
+const mapStateToDispatch = dispatch => {
+    return {
+        searchPlayground: (data) => dispatch(searchPlayground(data))
+    }
+}
+
+export default connect(mapStateToProps, mapStateToDispatch)(TrainerInfo);
