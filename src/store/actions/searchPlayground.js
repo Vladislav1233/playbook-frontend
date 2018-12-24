@@ -27,7 +27,7 @@ export function searchPlayground(data) {
     function success(response) {
         return {
             type: GET_SUCCESS_SEARCH_PLAYGROUND,
-            payload: response
+            payload: response.data
         }
     }
 

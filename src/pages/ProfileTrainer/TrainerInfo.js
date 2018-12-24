@@ -5,6 +5,7 @@ import { searchPlayground } from '../../store/actions/searchPlayground';
 // Note: components
 import Input from '../../components/ui-kit/Input/Input';
 import Textarea from '../../components/ui-kit/Textarea';
+import SearchListPlayground from '../../components/SearchListPlayground';
 
 class TrainerInfo extends Component {
 
@@ -37,14 +38,15 @@ class TrainerInfo extends Component {
         let data = {
             query: value
         };
-        this.props.searchPlayground(data);
         // TODO: Сделать, что запрос будет отправляться после ввода трёх символов. + подсказку в поле, что нужно больше 3-х символов.
-        // playgroundService.searchPlayground(data);
+        this.props.searchPlayground(data);
     }
 
     render() {
         // const { labelText, typeInput, idInput, placeholder, value, nameInput, modif, theme } = this.props;
         const { trainerInfo } = this.state;
+        const { foundPlagrounds } = this.props;
+        console.log(foundPlagrounds);
 
         return(
             <div className="b-trainer-info">
@@ -128,6 +130,23 @@ class TrainerInfo extends Component {
                         }}
                         theme={{blackColor: true}}
                     />
+                    
+                    {foundPlagrounds.length > 0 ?
+                        <ul className='b-trainer-info__playground-list'>
+                            {foundPlagrounds.map(item => {
+                                return(
+                                    <li key={item.id} className="b-trainer-info__playground-item">
+                                        <SearchListPlayground 
+                                            namePlayground={item.name}
+                                            addressPlayground={item.address}
+                                        />
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                        :
+                        null
+                    }
                 </div>
             </div>
         )
@@ -136,7 +155,7 @@ class TrainerInfo extends Component {
 
 const mapStateToProps = ({ searchPlayground }) => {
     return {
-        findPlagrounds: searchPlayground.playgrounds
+        foundPlagrounds: searchPlayground.playgrounds
     }
 }
 
