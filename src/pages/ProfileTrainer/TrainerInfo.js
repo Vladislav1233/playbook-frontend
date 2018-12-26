@@ -89,10 +89,9 @@ class TrainerInfo extends Component {
 
         if (event.target.checked) {
             const getCheckPlayground = this.props.foundPlagrounds.filter(item => {
-                return item.id === +event.target.value && playgrounds.every(itemSome => {
-                    return item.id !== itemSome.id
-                });
+                return item.id === +event.target.value && playgrounds.every(itemSome =>  item.id !== itemSome.id);
             });
+
             this.setState({
                 ...this.state,
                 trainerInfo: {
@@ -101,7 +100,17 @@ class TrainerInfo extends Component {
                 }
             })
         } else {
+            const getUnCheckPlayground = playgrounds.filter(item => {
+                return item.id !== +event.target.value;
+            });
 
+            this.setState({
+                ...this.state,
+                trainerInfo: {
+                    ...this.state.trainerInfo,
+                    playgrounds: getUnCheckPlayground
+                }
+            })
         };
     }
 
