@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from "react-redux";
 import { searchPlayground } from '../../store/actions/searchPlayground';
 import { trainerInfoService } from '../../services/trainerInfoService';
@@ -25,6 +25,7 @@ class TrainerInfo extends Component {
                 searchCourt: '',
                 playgrounds: []
             },
+            playgroundsWorkAdd: []
         }
     }
 
@@ -82,8 +83,25 @@ class TrainerInfo extends Component {
         this.props.searchPlayground(data);
     }
 
+    // Note: По клику найденный корт добавлять его в массив с кортами на которых работаешь или удалять
+    handlePlayground = (event) => {
+
+        if (event.target.checked) {
+            const getCheckPlayground = this.props.foundPlagrounds.filter(item => {
+                return item.id === +event.target.value;
+            });
+            this.setState({
+                ...this.state,
+                playgroundsWorkAdd: this.state.playgroundsWorkAdd.concat(getCheckPlayground)
+            })
+        } else {
+
+        };
+    }
+
     onSaveInformation = () => {
         // TODO: здесь надо будет обсудить и доделать так, чтобы найденные новые площадки не пересекались с уже добавленными себе, чтобы лишнего не выводилось тренеру. + Надо придумать как удалять площадку на которой тренируешь.
+        const { playgroundsWorkAdd } = this.state;
         const { 
             playgrounds,
             about,
@@ -91,8 +109,15 @@ class TrainerInfo extends Component {
             maxPrice
         } = this.state.trainerInfo;
 
+        const playgroundsId = playgrounds.length > 0 ? playgrounds.map(item => {
+            return item.id;
+        }) : [];
+        const playgroundsWorkAddId = playgroundsWorkAdd.length > 0 ? playgroundsWorkAdd.map(item => {
+            return item.id;
+        }) : [];
+
         const data = {
-            playgrounds,
+            playgrounds: [...playgroundsWorkAddId, ...playgroundsId],
             about,
             min_price: minPrice,
             max_price: maxPrice,
@@ -191,21 +216,51 @@ class TrainerInfo extends Component {
                     />
                     
                     {foundPlagrounds.length > 0 ?
-                        <ul className='b-trainer-info__playground-list'>
-                            {foundPlagrounds.map(item => {
-                                return(
-                                    <li key={item.id} className="b-trainer-info__playground-item">
-                                        <SearchListPlayground 
-                                            namePlayground={item.name}
-                                            addressPlayground={item.address}
-                                        />
-                                    </li>
-                                );
-                            })}
-                        </ul>
+                        <Fragment>
+                            <div>Список найденных кортов</div>
+                            <ul className='b-trainer-info__playground-list'>
+                                {foundPlagrounds.map(item => {
+                                    return(
+                                        <li key={item.id} className="b-trainer-info__playground-item">
+                                            <SearchListPlayground 
+                                                id={`search_${item.id}`}
+                                                namePlayground={item.name}
+                                                addressPlayground={item.address}
+                                                onChange={this.handlePlayground}
+                                                value={item.id}
+                                            />
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </Fragment>
                         :
                         null
                     }
+
+                    {trainerInfo.playgrounds.length > 0 ?
+                        <Fragment>
+                            <div>Корты, на которых работаю</div>
+                            <ul className='b-trainer-info__playground-list'>
+                                {trainerInfo.playgrounds.map(item => {
+                                    return(
+                                        <li key={item.id} className="b-trainer-info__playground-item">
+                                            <SearchListPlayground
+                                                id={`work_${item.id}`}
+                                                namePlayground={item.name}
+                                                addressPlayground={item.address}
+                                                disabled
+                                                value={item.id}
+                                            />
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </Fragment>
+                        :
+                        null
+                    }
+
                 </div>
                 <Button 
                     name="Сохранить"
