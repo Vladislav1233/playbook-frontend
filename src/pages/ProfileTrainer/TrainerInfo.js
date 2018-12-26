@@ -1,24 +1,64 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { searchPlayground } from '../../store/actions/searchPlayground';
+import { trainerInfoService } from '../../services/trainerInfoService';
 
 // Note: components
 import Input from '../../components/ui-kit/Input/Input';
 import Textarea from '../../components/ui-kit/Textarea';
 import SearchListPlayground from '../../components/SearchListPlayground';
+import Button from '../../components/ui-kit/Button/Button';
 
 class TrainerInfo extends Component {
 
-    state = {
-        trainerInfo: {
-            name: '',
-            patronymic: '',
-            surname: '',
-            about: '',
-            minPrice: '',
-            maxPrice: '',
-            searchCourt: ''
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            trainerInfo: {
+                name: '',
+                patronymic: '',
+                surname: '',
+                about: '',
+                minPrice: '',
+                maxPrice: '',
+                searchCourt: '',
+                playgrounds: []
+            },
         }
+    }
+
+    componentDidMount() {
+        const userId = localStorage.getItem('userId');
+        trainerInfoService.getTrainerInformation(userId)
+            .then(
+                response => {
+                    const { 
+                        about,
+                        min_price,
+                        max_price,
+                        playgrounds,
+                        user
+                    } = response.data.data;
+
+                    this.setState({
+                        ...this.state,
+                        trainerInfo: {
+                            ...this.state.trainerInfo,
+                            name: user.first_name,
+                            patronymic: '', // TODO
+                            surname: user.last_name,
+                            about,
+                            minPrice: min_price,
+                            maxPrice: max_price,
+                            playgrounds: playgrounds
+                        }
+                    })
+                },
+                error => {
+                    alert(error);
+                }
+            )
     }
 
     handleChangeInput = (event) => {
@@ -42,11 +82,30 @@ class TrainerInfo extends Component {
         this.props.searchPlayground(data);
     }
 
+    onSaveInformation = () => {
+        // TODO: здесь надо будет обсудить и доделать так, чтобы найденные новые площадки не пересекались с уже добавленными себе, чтобы лишнего не выводилось тренеру. + Надо придумать как удалять площадку на которой тренируешь.
+        const { 
+            playgrounds,
+            about,
+            minPrice,
+            maxPrice
+        } = this.state.trainerInfo;
+
+        const data = {
+            playgrounds,
+            about,
+            min_price: minPrice,
+            max_price: maxPrice,
+            currency: "RUB"
+        };
+
+        trainerInfoService.postTrainerInformation(data);
+    }
+
     render() {
         // const { labelText, typeInput, idInput, placeholder, value, nameInput, modif, theme } = this.props;
         const { trainerInfo } = this.state;
         const { foundPlagrounds } = this.props;
-        console.log(foundPlagrounds);
 
         return(
             <div className="b-trainer-info">
@@ -148,6 +207,10 @@ class TrainerInfo extends Component {
                         null
                     }
                 </div>
+                <Button 
+                    name="Сохранить"
+                    onClick={this.onSaveInformation}
+                />
             </div>
         )
     }
