@@ -24,8 +24,7 @@ class TrainerInfo extends Component {
                 maxPrice: '',
                 searchCourt: '',
                 playgrounds: []
-            },
-            playgroundsWorkAdd: []
+            }
         }
     }
 
@@ -86,13 +85,20 @@ class TrainerInfo extends Component {
     // Note: По клику найденный корт добавлять его в массив с кортами на которых работаешь или удалять
     handlePlayground = (event) => {
 
+        const { playgrounds } = this.state.trainerInfo;
+
         if (event.target.checked) {
             const getCheckPlayground = this.props.foundPlagrounds.filter(item => {
-                return item.id === +event.target.value;
+                return item.id === +event.target.value && playgrounds.every(itemSome => {
+                    return item.id !== itemSome.id
+                });
             });
             this.setState({
                 ...this.state,
-                playgroundsWorkAdd: this.state.playgroundsWorkAdd.concat(getCheckPlayground)
+                trainerInfo: {
+                    ...this.state.trainerInfo,
+                    playgrounds: playgrounds.concat(getCheckPlayground)
+                }
             })
         } else {
 
@@ -101,7 +107,6 @@ class TrainerInfo extends Component {
 
     onSaveInformation = () => {
         // TODO: здесь надо будет обсудить и доделать так, чтобы найденные новые площадки не пересекались с уже добавленными себе, чтобы лишнего не выводилось тренеру. + Надо придумать как удалять площадку на которой тренируешь.
-        const { playgroundsWorkAdd } = this.state;
         const { 
             playgrounds,
             about,
@@ -112,12 +117,9 @@ class TrainerInfo extends Component {
         const playgroundsId = playgrounds.length > 0 ? playgrounds.map(item => {
             return item.id;
         }) : [];
-        const playgroundsWorkAddId = playgroundsWorkAdd.length > 0 ? playgroundsWorkAdd.map(item => {
-            return item.id;
-        }) : [];
 
         const data = {
-            playgrounds: [...playgroundsWorkAddId, ...playgroundsId],
+            playgrounds: playgroundsId,
             about,
             min_price: minPrice,
             max_price: maxPrice,
