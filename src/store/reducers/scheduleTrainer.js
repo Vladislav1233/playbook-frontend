@@ -104,7 +104,6 @@ export default function(state = initialState, action) {
             }
 
         case GET_SUCCESS_SCHEDULE_TRAINER:
-            console.log(action.payload);
             const newScheduleTrainer = action.payload.data ? action.payload.data.map(item => {
                 return {
                     idItemScheduleList: `idItemSchedule${item.id}`,
@@ -124,8 +123,6 @@ export default function(state = initialState, action) {
                     })
                 }
             }) : null;
-
-            console.log(newScheduleTrainer);
 
             return {
                 ...state,

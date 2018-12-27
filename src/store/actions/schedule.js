@@ -56,7 +56,6 @@ export function getTrainerSchedule(userId, data) {
         scheduleService.getSchedule('trainer', userId, data)
             .then(
                 response => {
-                    console.log(response);
                     dispatch(success(response));
                 },
                 error => {

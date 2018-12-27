@@ -40,7 +40,6 @@ class Schedule extends Component {
 
     render() {
         const { schedule, template } = this.props;
-        console.log(schedule);
 
         return (
             <Fragment>
