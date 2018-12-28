@@ -90,7 +90,7 @@ export default function(state = initialState, action) {
                 }
             });
 
-            // Фильтруем диапазон, чтобы в нём не было свободного времени для "занято"
+            // Note: Фильтруем диапазон, чтобы в нём не было свободного времени для "занято" (убираем занятые промежутки из свободного времени)
             imitationBusy.forEach((itemBusy, iBusy, arrBusy) => {
 
                 rangeSchedule.forEach((itemFree, iFree, arrFree) => {
@@ -99,28 +99,17 @@ export default function(state = initialState, action) {
                     
                     // Note: если занятое время входит в диапазон
                     if( rangeFree.engulfs(rangeBusy) ) {
-                        let getRangeWithBusy = rangeFree.xor(rangeBusy);
-                        const newRangeScheduleItem = getRangeWithBusy.map(getRangeWithBusyItem => {
+                        let getRangeWithoutBusy = rangeFree.xor(rangeBusy);
+                        const newRangeScheduleItem = getRangeWithoutBusy.map(getRangeWithoutBusyItem => {
                             return {
-                                start: getRangeWithBusyItem.start().format('YYYY-MM-DD HH:MM'),
-                                end: getRangeWithBusyItem.end().format('YYYY-MM-DD HH:MM')
+                                start:  getRangeWithoutBusyItem.start().format('YYYY-MM-DD HH:mm'),
+                                end: getRangeWithoutBusyItem.end().format('YYYY-MM-DD HH:mm')
                             }
                         });
                         rangeSchedule.splice(iFree, 1, ...newRangeScheduleItem);
                     }
-                    // console.log(rangeFree.engulfs(rangeBusy));
                 });
             });
-
-            var range1 = moment("1982-01-23 8:00").twix("1982-01-23 15:00");
-            var range2 = moment("1982-01-23 9:00").twix("1982-01-23 14:00");
-
-            let didi = range1.difference(range2);
-            // console.log(didi[0].format(), didi[1].format());
-
-            // const dataAllSchedule = responseSchedule;
-
-
 
             const newScheduleTrainer = action.payload.data ? action.payload.data.map(item => {
                 return {
