@@ -9,6 +9,7 @@ import {
 } from '../constants/schedule';
 
 import moment from 'moment';
+import 'moment/locale/ru';
 import twix from 'twix';
 
 const initialState = {
@@ -16,15 +17,7 @@ const initialState = {
     scheduleTrainer: {
         date: moment().format('DD.MM.YYYY'),
         nameDay: moment().format('dddd'), 
-        schedule: [{
-            startTime: '12:00',
-            endTime: '14:00',
-            status: 'free'
-        }, {
-            startTime: '14:00',
-            endTime: '15:00',
-            status: 'busy'
-        }],
+        schedule: [],
         cost: [], // TODO
         message: [], // TODO, месседж на каких кортах могу с какого времени, его же и выводить в форме букинга
         list: null
@@ -70,8 +63,8 @@ export default function(state = initialState, action) {
             }]
 
             let rangeSchedule = [{
-                start: responseSchedule[0].start_time,
-                end: responseSchedule[0].end_time
+                startTime: responseSchedule[0].start_time,
+                endTime: responseSchedule[0].end_time
             }];
             console.log(rangeSchedule);
 
@@ -79,31 +72,31 @@ export default function(state = initialState, action) {
             responseSchedule.forEach((item, i, arr) => {
 
                 if(arr.length - 1 !== i) {
-                    if (rangeSchedule[rangeSchedule.length - 1].end === arr[i + 1].start_time) {
-                        rangeSchedule[rangeSchedule.length - 1].end = arr[i + 1].end_time
+                    if (rangeSchedule[rangeSchedule.length - 1].endTime === arr[i + 1].start_time) {
+                        rangeSchedule[rangeSchedule.length - 1].endTime = arr[i + 1].end_time
                     } else {
                         rangeSchedule.push({
-                            start: arr[i + 1].start_time,
-                            end: arr[i + 1].end_time
+                            startTime: arr[i + 1].start_time,
+                            endTime: arr[i + 1].end_time
                         });
                     };
                 }
             });
 
             // Note: Фильтруем диапазон, чтобы в нём не было свободного времени для "занято" (убираем занятые промежутки из свободного времени)
-            imitationBusy.forEach((itemBusy, iBusy, arrBusy) => {
+            imitationBusy.forEach((itemBusy) => {
 
-                rangeSchedule.forEach((itemFree, iFree, arrFree) => {
+                rangeSchedule.forEach((itemFree, iFree) => {
                     let rangeBusy = moment(itemBusy.start_time).twix(itemBusy.end_time);
-                    let rangeFree = moment(itemFree.start).twix(itemFree.end);
+                    let rangeFree = moment(itemFree.startTime).twix(itemFree.endTime);
                     
                     // Note: если занятое время входит в диапазон
                     if( rangeFree.engulfs(rangeBusy) ) {
                         let getRangeWithoutBusy = rangeFree.xor(rangeBusy);
                         const newRangeScheduleItem = getRangeWithoutBusy.map(getRangeWithoutBusyItem => {
                             return {
-                                start:  getRangeWithoutBusyItem.start().format('YYYY-MM-DD HH:mm'),
-                                end: getRangeWithoutBusyItem.end().format('YYYY-MM-DD HH:mm')
+                                startTime:  getRangeWithoutBusyItem.start().format('YYYY-MM-DD HH:mm'),
+                                endTime: getRangeWithoutBusyItem.end().format('YYYY-MM-DD HH:mm')
                             }
                         });
                         rangeSchedule.splice(iFree, 1, ...newRangeScheduleItem);
@@ -130,15 +123,28 @@ export default function(state = initialState, action) {
                     })
                 }
             }) : null;
+            
+            // Получаем стоимость часа во всех промежутках времени
+            const newCost = responseSchedule ? responseSchedule.map(item => {
+                return {
+                    time: moment(item.start_time).twix(item.end_time).format({hideDate: true}),
+                    cost: item.price_per_hour
+                }
+            }) : [];
+
+            console.log(newCost);
 
             return {
                 ...state,
                 preloader: false,
                 scheduleTrainer: {
                     ...state.scheduleTrainer,
+                    list: newScheduleTrainer, // TODO: устаревшее значение, убрать когда будет новая карточка UI
+
                     date: moment(action.date).format('DD.MM.YYYY'),
                     nameDay: moment(action.date).format('dddd'), // TODO: сделать перевод на русский
-                    list: newScheduleTrainer
+                    schedule: rangeSchedule,
+                    cost: newCost
                 }
             }
 
