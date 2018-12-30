@@ -42,6 +42,10 @@ class Schedule extends Component {
         const { schedule, template, bookedTime } = this.props;
         console.log(schedule);
 
+        const notScheduleTemplate = () => (
+            <div className="b-schedule__not">Нет свободного времени</div>
+        );
+
         return (
             <Fragment>
                 <DateCalendar onClickDay={this.onClickDay}/>
@@ -51,12 +55,18 @@ class Schedule extends Component {
                             {schedule.timeWork ? <div className="b-schedule__timetable">Время работы: {schedule.timeWork}</div> : null}
                         </div>
                         
-                        {schedule.schedule
-                            ? <ScheduleList 
-                                list={schedule.schedule}
-                                template={template} />
-
-                            : schedule.court
+                        {/* Note: расписание свободного времени тренера */}
+                        {template === 'trainer' ?
+                            schedule.schedule.length > 0
+                                ? <ScheduleList 
+                                    list={schedule.schedule}
+                                    template={template} />
+                                : notScheduleTemplate()
+                        : null}
+                        
+                        {/* Note: Расписание свободного времени кортов */}
+                        {template === 'court' ? 
+                            schedule.court
                                 ? <TinySlider className="b-slider-schedule" settings={this.props.settingSlider} ref={ts => this.ts = ts}>
                                     {schedule.court.map((schedule) => (
                                         <div className="b-slider-schedule__slide" key={schedule.id}>
@@ -67,19 +77,18 @@ class Schedule extends Component {
                                             <ScheduleList 
                                                 list={schedule.list} 
                                                 template={template} 
-                                                key={schedule.id}
-                                            />
+                                                key={schedule.id} />
                                         </div>
                                     ))}
                                 </TinySlider>
-                                : <div className="b-schedule__not">На этот день расписание не составлено</div>
-                        }
-
-                        {bookedTime.length > 0 ?
-                            <ScheduleList 
+                                : notScheduleTemplate()
+                        : null}
+                        
+                        {/* Note: Расписание забронированного времени */}
+                        {bookedTime.length > 0 
+                            ? <ScheduleList 
                                 list={bookedTime}
-                                template={template}
-                            />
+                                template={template} />
                             : null
                         }
 

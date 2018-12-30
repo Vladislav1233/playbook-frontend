@@ -63,11 +63,12 @@ export default function(state = initialState, action) {
             // }]
             
             // Note: Инициализация первого диапазона времени
-            let rangeSchedule = [{
-                start_time: responseSchedule[0].start_time,
-                end_time: responseSchedule[0].end_time,
-                status: true
-            }];
+            let rangeSchedule = responseSchedule.length > 0  
+                ? [{
+                    start_time: responseSchedule[0].start_time,
+                    end_time: responseSchedule[0].end_time,
+                    status: true
+                }] : [];
 
             // Note: получаем дипазоны всего расписания
             responseSchedule.forEach((item, i, arr) => {
@@ -87,7 +88,7 @@ export default function(state = initialState, action) {
             });
 
             // Note: Фильтруем диапазон, чтобы в нём не было свободного времени для "занято" (убираем занятые промежутки из свободного времени)
-            responseSchedule.confirmed_bookings ? (
+            const filterRange = () => {
                 responseSchedule.confirmed_bookings.forEach((itemBusy) => {
 
                     rangeSchedule.forEach((itemFree, iFree) => {
@@ -107,8 +108,9 @@ export default function(state = initialState, action) {
                             rangeSchedule.splice(iFree, 1, ...newRangeScheduleItem);
                         }
                     });
-                }) 
-            ) : false;
+                });
+            };
+            responseSchedule.confirmed_bookings ? filterRange() : false;
             
             // Получаем стоимость часа во всех промежутках времени
             const newCost = responseSchedule ? responseSchedule.map(item => {
