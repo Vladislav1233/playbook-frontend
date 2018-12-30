@@ -21,14 +21,17 @@ class TestRequest extends Component {
 
         axios({
             method: 'post',
-            url: 'http://playbook.ga/api/booking/trainer/create',
+            url: 'http://playbook.ga/api/schedule/edit/34',
             headers: {
                 'Authorization': `Bearer ${valueToken}`
             },
             data: {
-                "start_time": "2018-12-24 12:00:00",
-                "end_time": "2018-12-24 17:59:59",
-                "bookable_id": "1"
+                "dates": ['2018-12-30'],
+                "start_time": "2018-12-30 12:00:00",
+                "end_time": "2018-12-30 14:00:00",
+                "price_per_hour": '500',
+                'playgrounds': ['1'],
+                "currency": 'RUB'
               }
         }).then(response => {
             console.log(response);
@@ -39,7 +42,7 @@ class TestRequest extends Component {
         return(
             <div>
                 <form onSubmit={this.request}>
-                    <button>Create booking</button>
+                    <button>Edit schedule</button>
                 </form>
             </div>
         )
