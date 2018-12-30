@@ -8,11 +8,22 @@
         margin-bottom: 30px; 
     }
 
-    &__cost {
+    &__cost,
+    &__playground {
         font-size: 16px;
+    }
+
+    &__playground-name {
+        font-size: 17px;
     }
 
     &__price {
         margin-bottom: 50px;
+    }
+
+    &__playground {
+        &:not(:last-child) {
+            margin-bottom: 50px;
+        }
     }
 }

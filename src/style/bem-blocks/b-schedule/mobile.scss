@@ -35,10 +35,6 @@
         margin-bottom: 20px;
     }
 
-    &__price {
-        margin-bottom: 40px;
-    }
-
     &__price-value {
         display: inline-block;
         padding: 4px 4px 2px;
@@ -50,7 +46,8 @@
         vertical-align: baseline;
     }
 
-    &__cost {
+    &__cost,
+    &__playground {
         display: block;
         color: $mint;
         font-size: 14px;
@@ -59,5 +56,26 @@
         &:not(:last-child) {
             margin-bottom: 10px;
         }
+    }
+
+    &__price {
+        margin-bottom: 40px;
+    }
+
+    &__playground {
+        margin-bottom: 40px;
+
+        &:not(:last-child) {
+            margin-bottom: 40px;
+        }
+    }
+
+    &__playground-name {
+        margin-bottom: 5px;
+        font-size: 15px;
+    }
+
+    &__playground-address {
+        color: $carmine-pink;
     }
 }

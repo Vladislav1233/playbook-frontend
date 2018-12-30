@@ -15,6 +15,7 @@ import twix from 'twix';
 const initialState = {
     preloader: false,
     bookedTime: [],
+    playgroundsForTraining: [],
     scheduleTrainer: {
         date: moment().format('DD.MM.YYYY'),
         nameDay: moment().format('dddd'), 
@@ -112,16 +113,36 @@ export default function(state = initialState, action) {
                 }
             }) : [];
 
-            console.log(newCost);
+            // Note: получаем площадки на которых в этот день тренирует тренер
+            let arrayPlaygrounds = [];
+            responseSchedule.forEach(item => {
+                arrayPlaygrounds.push(...item.playgrounds);
+            });
+            const uniquePlaygrounds = (arr) => {
+                let result = [];
+
+                nextInput:
+                    for (let i = 0; i < arr.length; i++) {
+                        let str = arr[i].id; // для каждого элемента
+                        for (let j = 0; j < result.length; j++) { // ищем, был ли он уже?
+                            if (result[j].id === str) continue nextInput; // если да, то следующий
+                        }
+                        result.push(arr[i]);
+                    }
+
+                return result;
+            };
+            const newPlaygroundsForTraining = uniquePlaygrounds(arrayPlaygrounds);
 
             return {
                 ...state,
                 preloader: false,
                 bookedTime: responseSchedule.confirmed_bookings ? responseSchedule.confirmed_bookings : [],
+                playgroundsForTraining: newPlaygroundsForTraining,
                 scheduleTrainer: {
                     ...state.scheduleTrainer,
                     date: moment(action.date).format('DD.MM.YYYY'),
-                    nameDay: moment(action.date).format('dddd'), // TODO: сделать перевод на русский
+                    nameDay: moment(action.date).format('dddd'),
                     schedule: rangeSchedule,
                     cost: newCost
                 }

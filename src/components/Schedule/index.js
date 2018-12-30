@@ -39,8 +39,8 @@ class Schedule extends Component {
     };
 
     render() {
-        const { schedule, template, bookedTime, cost } = this.props;
-        console.log(cost);
+        const { schedule, template, bookedTime, cost, playgroundsForTraining } = this.props;
+        console.log(playgroundsForTraining);
 
         const notScheduleTemplate = () => (
             <div className="b-schedule__not">Нет свободного времени</div>
@@ -55,6 +55,7 @@ class Schedule extends Component {
                             {schedule.timeWork ? <div className="b-schedule__timetable">Время работы: {schedule.timeWork}</div> : null}
                         </div>
                         
+                        {/* Note: блок стоимости */}
                         {cost.length > 0 
                             ? 
                             <div className="b-schedule__price">
@@ -74,6 +75,21 @@ class Schedule extends Component {
                             
                             : null
                         }
+
+                        {playgroundsForTraining.length > 0 ? 
+                            <div className='b-schedule__playground'>
+                                <div className="b-schedule__title">Тренирую на</div>
+                                
+                                {playgroundsForTraining.map(item => {
+                                    return (
+                                        <div className="b-schedule__playground-item" key={item.id}>
+                                            <div className="b-schedule__playground-name">{item.name}</div>
+                                            <div className="b-schedule__playground-address">{item.address}</div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        : null}
                         
                         <div className="b-schedule__title">Расписание</div>
                         {/* Note: расписание свободного времени тренера */}
