@@ -53,14 +53,6 @@ export default function(state = initialState, action) {
         case GET_SUCCESS_SCHEDULE_TRAINER:
             console.log(action.payload.data);
             const responseSchedule = action.payload.data;
-
-            // const imitationBusy = [{ // удалить потом
-            //     start_time: '2018-12-28 14:00',
-            //     end_time: '2018-12-28 15:00'
-            // }, {
-            //     start_time: '2018-12-28 17:00',
-            //     end_time: '2018-12-28 18:00'
-            // }]
             
             // Note: Инициализация первого диапазона времени
             let rangeSchedule = responseSchedule.length > 0  

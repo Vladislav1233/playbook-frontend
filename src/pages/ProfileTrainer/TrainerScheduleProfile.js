@@ -35,6 +35,7 @@ class TrainerScheduleProfile extends Component {
                     getTrainerSchedule={getTrainerSchedule}
                     userId={userId}
                     bookedTime={bookedTime}
+                    cost={scheduleTrainer.cost}
                 />
 
                 { this.props.preloader ? <Preloader /> : null }

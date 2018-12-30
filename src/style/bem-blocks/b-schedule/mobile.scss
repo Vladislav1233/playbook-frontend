@@ -26,4 +26,38 @@
         text-transform: none;
         font-family: $light;
     }
+
+    &__title {
+        font-family: $bold;
+        font-size: 18px;
+        line-height: 16px;
+        color: $temperate-slate-blue;
+        margin-bottom: 20px;
+    }
+
+    &__price {
+        margin-bottom: 40px;
+    }
+
+    &__price-value {
+        display: inline-block;
+        padding: 4px 4px 2px;
+        border: 1px solid #eee;
+        background-color: #f2f4f5;
+        color: $carmine-pink;
+        border-radius: 3px;
+        line-height: 22px;
+        vertical-align: baseline;
+    }
+
+    &__cost {
+        display: block;
+        color: $mint;
+        font-size: 14px;
+        font-family: $medium;
+
+        &:not(:last-child) {
+            margin-bottom: 10px;
+        }
+    }
 }

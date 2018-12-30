@@ -39,8 +39,8 @@ class Schedule extends Component {
     };
 
     render() {
-        const { schedule, template, bookedTime } = this.props;
-        console.log(schedule);
+        const { schedule, template, bookedTime, cost } = this.props;
+        console.log(cost);
 
         const notScheduleTemplate = () => (
             <div className="b-schedule__not">Нет свободного времени</div>
@@ -55,6 +55,27 @@ class Schedule extends Component {
                             {schedule.timeWork ? <div className="b-schedule__timetable">Время работы: {schedule.timeWork}</div> : null}
                         </div>
                         
+                        {cost.length > 0 
+                            ? 
+                            <div className="b-schedule__price">
+                                <div className="b-schedule__title">Стоимость</div>
+                                {cost.map((item, index) => {
+                                    return (
+                                        <span className="b-schedule__cost" key={index}> 
+                                            {`${item.time} будет `}
+
+                                            <span className="b-schedule__price-value">
+                                                {`${item.cost} р/час`}
+                                            </span>
+                                        </span>
+                                    );
+                                })}
+                            </div>
+                            
+                            : null
+                        }
+                        
+                        <div className="b-schedule__title">Расписание</div>
                         {/* Note: расписание свободного времени тренера */}
                         {template === 'trainer' ?
                             schedule.schedule.length > 0
