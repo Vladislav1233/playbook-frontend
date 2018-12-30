@@ -7,10 +7,9 @@ import '../../style/bem-blocks/b-schedule-item/index.scss';
 class ScheduleItem extends Component {
   
   render() {
-    // const {startTime, endTime, court, price, status} = this.props.dataScheduleItem;
     const { 
-        startTime, 
-        endTime,
+        start_time, 
+        end_time,
         status // true - это время свободно, false - это время занято
     } = this.props.dataScheduleItem;
     
@@ -44,8 +43,8 @@ class ScheduleItem extends Component {
     return (
         <div className="b-schedule-item">
             <div className="b-schedule-item__time-wrap">
-                <div className="b-schedule-item__time">{moment(startTime).format('HH:mm')}</div>
-                <div className="b-schedule-item__time b-schedule-item__time--finish">{moment(endTime).format('HH:mm')}</div>
+                <div className="b-schedule-item__time">{moment(start_time).format('HH:mm')}</div>
+                <div className="b-schedule-item__time b-schedule-item__time--finish">{moment(end_time).format('HH:mm')}</div>
             </div>
 
             <div className="b-schedule-item__info">

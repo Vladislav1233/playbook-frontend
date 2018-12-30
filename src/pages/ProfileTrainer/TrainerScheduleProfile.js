@@ -22,9 +22,7 @@ class TrainerScheduleProfile extends Component {
     }
 
     render() {
-        const { scheduleTrainer, getTrainerSchedule } = this.props;
-
-        console.log(this.props);
+        const { scheduleTrainer, getTrainerSchedule, bookedTime } = this.props;
         
         // Note: userId - это id пользователя (тренера) расписание которого надо получить, в нашем случае мы находимся в личном кабинете и запрашиваем свой id тренера
         const userId = localStorage.getItem('userId');
@@ -36,6 +34,7 @@ class TrainerScheduleProfile extends Component {
                     template={'trainer'}
                     getTrainerSchedule={getTrainerSchedule}
                     userId={userId}
+                    bookedTime={bookedTime}
                 />
 
                 { this.props.preloader ? <Preloader /> : null }
@@ -48,6 +47,7 @@ const mapStateToProps = ({ scheduleTrainer }) => {
     console.log(scheduleTrainer);
     return {
         scheduleTrainer: scheduleTrainer.scheduleTrainer,
+        bookedTime: scheduleTrainer.bookedTime,
         preloader: scheduleTrainer.preloader
     }
 }

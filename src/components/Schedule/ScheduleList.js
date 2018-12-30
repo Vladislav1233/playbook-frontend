@@ -17,7 +17,10 @@ class ScheduleList extends Component {
             {
                 list ? list.map((item, index) => (
                     <li className={`b-schedule-list__item ${item.status || item.freeCourt ? 'b-schedule-list__item--hover' : ''}`} key={index}>
-                        <ScheduleItem dataScheduleItem={item} telTrainer={this.props.telTrainer} template={template}/>
+                        <ScheduleItem 
+                            dataScheduleItem={item}
+                            template={template} 
+                        />
                     </li>
                 ))
                 :

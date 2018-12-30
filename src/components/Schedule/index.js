@@ -39,7 +39,7 @@ class Schedule extends Component {
     };
 
     render() {
-        const { schedule, template } = this.props;
+        const { schedule, template, bookedTime } = this.props;
         console.log(schedule);
 
         return (
@@ -52,7 +52,10 @@ class Schedule extends Component {
                         </div>
                         
                         {schedule.schedule
-                            ? <ScheduleList list={schedule.schedule} telTrainer={schedule.telTrainer} template={template} />
+                            ? <ScheduleList 
+                                list={schedule.schedule}
+                                template={template} />
+
                             : schedule.court
                                 ? <TinySlider className="b-slider-schedule" settings={this.props.settingSlider} ref={ts => this.ts = ts}>
                                     {schedule.court.map((schedule) => (
@@ -60,11 +63,24 @@ class Schedule extends Component {
                                             <div className="b-slider-schedule__header">
                                                 <div className="b-slider-schedule__title">{schedule.name}: {schedule.type}</div>
                                             </div>
-                                            <ScheduleList list={schedule.list} template={template} key={schedule.id}/>
+
+                                            <ScheduleList 
+                                                list={schedule.list} 
+                                                template={template} 
+                                                key={schedule.id}
+                                            />
                                         </div>
                                     ))}
                                 </TinySlider>
                                 : <div className="b-schedule__not">На этот день расписание не составлено</div>
+                        }
+
+                        {bookedTime.length > 0 ?
+                            <ScheduleList 
+                                list={bookedTime}
+                                template={template}
+                            />
+                            : null
                         }
 
                     </div>
