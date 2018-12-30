@@ -4,7 +4,7 @@ import { getTrainerSchedule } from '../../store/actions/schedule';
 import { dataTime } from '../../helpers/dataTime';
 
 // Note: component
-import Schedule from '../../components/Schedule/Schedule';
+import Schedule from '../../components/Schedule';
 import Preloader from '../../components/Preloader/Preloader';
 
 // Note: style
