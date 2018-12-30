@@ -40,6 +40,7 @@ class Schedule extends Component {
 
     render() {
         const { schedule, template } = this.props;
+        console.log(schedule);
 
         return (
             <Fragment>
@@ -50,8 +51,8 @@ class Schedule extends Component {
                             {schedule.timeWork ? <div className="b-schedule__timetable">Время работы: {schedule.timeWork}</div> : null}
                         </div>
                         
-                        {schedule.list
-                            ? <ScheduleList list={schedule.list} telTrainer={schedule.telTrainer} template={template} />
+                        {schedule.schedule
+                            ? <ScheduleList list={schedule.schedule} telTrainer={schedule.telTrainer} template={template} />
                             : schedule.court
                                 ? <TinySlider className="b-slider-schedule" settings={this.props.settingSlider} ref={ts => this.ts = ts}>
                                     {schedule.court.map((schedule) => (

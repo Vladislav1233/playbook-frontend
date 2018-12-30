@@ -45,6 +45,7 @@ class TrainerScheduleProfile extends Component {
 }
 
 const mapStateToProps = ({ scheduleTrainer }) => {
+    console.log(scheduleTrainer);
     return {
         scheduleTrainer: scheduleTrainer.scheduleTrainer,
         preloader: scheduleTrainer.preloader

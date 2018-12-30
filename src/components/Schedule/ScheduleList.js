@@ -15,8 +15,8 @@ class ScheduleList extends Component {
     return (
         <ul className="b-schedule-list">
             {
-                list ? list.map(item => (
-                    <li className={`b-schedule-list__item ${item.status || item.freeCourt ? 'b-schedule-list__item--hover' : ''}`} key={item.idItemScheduleList}>
+                list ? list.map((item, index) => (
+                    <li className={`b-schedule-list__item ${item.status || item.freeCourt ? 'b-schedule-list__item--hover' : ''}`} key={index}>
                         <ScheduleItem dataScheduleItem={item} telTrainer={this.props.telTrainer} template={template}/>
                     </li>
                 ))

@@ -19,9 +19,9 @@ const initialState = {
         nameDay: moment().format('dddd'), 
         schedule: [],
         cost: [], // TODO
-        message: [], // TODO, месседж на каких кортах могу с какого времени, его же и выводить в форме букинга
-        list: null
-    }
+        message: [] // TODO, месседж на каких кортах могу с какого времени, его же и выводить в форме букинга
+    },
+    busyTime: []
 }
 
 export default function(state = initialState, action) {
@@ -61,10 +61,12 @@ export default function(state = initialState, action) {
                 start_time: '2018-12-28 17:00',
                 end_time: '2018-12-28 18:00'
             }]
-
+            
+            // Note: Инициализация первого диапазона времени
             let rangeSchedule = [{
                 startTime: responseSchedule[0].start_time,
-                endTime: responseSchedule[0].end_time
+                endTime: responseSchedule[0].end_time,
+                status: true
             }];
             console.log(rangeSchedule);
 
@@ -72,12 +74,14 @@ export default function(state = initialState, action) {
             responseSchedule.forEach((item, i, arr) => {
 
                 if(arr.length - 1 !== i) {
+                    // Note: если следующий объект времени идет следом за предыдущим, то объеденяем диапазоны в один
                     if (rangeSchedule[rangeSchedule.length - 1].endTime === arr[i + 1].start_time) {
                         rangeSchedule[rangeSchedule.length - 1].endTime = arr[i + 1].end_time
-                    } else {
+                    } else { // Note: Или создаем новый диапазон (разрыв после предыдущего)
                         rangeSchedule.push({
                             startTime: arr[i + 1].start_time,
-                            endTime: arr[i + 1].end_time
+                            endTime: arr[i + 1].end_time,
+                            status: true
                         });
                     };
                 }
@@ -95,34 +99,15 @@ export default function(state = initialState, action) {
                         let getRangeWithoutBusy = rangeFree.xor(rangeBusy);
                         const newRangeScheduleItem = getRangeWithoutBusy.map(getRangeWithoutBusyItem => {
                             return {
-                                startTime:  getRangeWithoutBusyItem.start().format('YYYY-MM-DD HH:mm'),
-                                endTime: getRangeWithoutBusyItem.end().format('YYYY-MM-DD HH:mm')
+                                startTime: getRangeWithoutBusyItem.start().format('YYYY-MM-DD HH:mm'),
+                                endTime: getRangeWithoutBusyItem.end().format('YYYY-MM-DD HH:mm'),
+                                status: true
                             }
                         });
                         rangeSchedule.splice(iFree, 1, ...newRangeScheduleItem);
                     }
                 });
             });
-
-            const newScheduleTrainer = action.payload.data ? action.payload.data.map(item => {
-                return {
-                    idItemScheduleList: `idItemSchedule${item.id}`,
-                    startTime: moment(item.start_time).format('HH:mm'),
-                    finishTime: moment(item.end_time).format('HH:mm'),
-                    status: true, // TODO
-                    price: item.price_per_hour,
-                    freeCourt: true, // TODO
-                    courts: item.playgrounds.map(itemCourt => {
-                        return {
-                            id: `playgroundId${itemCourt.id}`,
-                            name: itemCourt.name,
-                            street: itemCourt.address,
-                            number: 59,
-                            priority: true // TODO
-                        }
-                    })
-                }
-            }) : null;
             
             // Получаем стоимость часа во всех промежутках времени
             const newCost = responseSchedule ? responseSchedule.map(item => {
@@ -139,7 +124,6 @@ export default function(state = initialState, action) {
                 preloader: false,
                 scheduleTrainer: {
                     ...state.scheduleTrainer,
-                    list: newScheduleTrainer, // TODO: устаревшее значение, убрать когда будет новая карточка UI
 
                     date: moment(action.date).format('DD.MM.YYYY'),
                     nameDay: moment(action.date).format('dddd'), // TODO: сделать перевод на русский

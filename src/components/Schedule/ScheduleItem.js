@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import moment from 'moment';
 
 // style
 import '../../style/bem-blocks/b-schedule-item/index.scss';
@@ -6,21 +7,18 @@ import '../../style/bem-blocks/b-schedule-item/index.scss';
 class ScheduleItem extends Component {
   
   render() {
-    // const {startTime, finishTime, court, price, status} = this.props.dataScheduleItem;
+    // const {startTime, endTime, court, price, status} = this.props.dataScheduleItem;
     const { 
         startTime, 
-        finishTime,
-        status, // true - это время свободно, false - это время занято
-        price,
-        freeCourt,
-        courts
+        endTime,
+        status // true - это время свободно, false - это время занято
     } = this.props.dataScheduleItem;
     
     const { template } = this.props;
     const textBooking = 'Нажми, чтобы забронировать';
 
     const itemTrainer = () => (
-        status ? freeCourt ?
+        status ? 
             <Fragment>
                 {/* <div className='b-schedule-item__court-info'>
                     <p className='b-schedule-item__name-court'>{courts[0].name}</p>
@@ -34,10 +32,7 @@ class ScheduleItem extends Component {
                 <div className="b-schedule-item__click">{ textBooking }</div>
             </Fragment>
             :
-            <div className="b-schedule-item__court-info">
-                Нет свободных кортов на это время. Теория или знаешь где свободный корт? - наибрай <span className="b-schedule-item__tel">89176786243</span>
-            </div>
-            : null
+            null
     );
 
     const itemCourt = () => (
@@ -49,8 +44,8 @@ class ScheduleItem extends Component {
     return (
         <div className="b-schedule-item">
             <div className="b-schedule-item__time-wrap">
-                <div className="b-schedule-item__time">{startTime}</div>
-                <div className="b-schedule-item__time b-schedule-item__time--finish">{finishTime}</div>
+                <div className="b-schedule-item__time">{moment(startTime).format('HH:mm')}</div>
+                <div className="b-schedule-item__time b-schedule-item__time--finish">{moment(endTime).format('HH:mm')}</div>
             </div>
 
             <div className="b-schedule-item__info">
