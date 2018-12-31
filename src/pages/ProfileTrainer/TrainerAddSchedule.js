@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { createScheduleTrainer, editTrainerSchedule } from '../../store/actions/schedule';
+import { createScheduleTrainer, editTrainerSchedule, toggleResponse } from '../../store/actions/schedule';
 import moment from 'moment';
 import 'moment/locale/ru';
 import getArrayDateRange from '../../helpers/getArrayDateRange';
@@ -25,20 +25,47 @@ class TrainerAddSchedule extends Component {
         this.state = {
             cards: [{
                 dates: [],
-                start_time: null, // Example 09:00:00
-                end_time: null, // Example 17:00:00
-                price_per_hour: '', // Example 7000 (70rub)
+                start_time: null,
+                end_time: null,
+                price_per_hour: '',
                 currency: 'RUB',
                 schedule_id: -1
             }],
             selectChooseDay: 'one', // Note: это для настроек календаря: one - выбрать можно 1 день, period - выбрать можно период от / до
-            dateCalendar: `${moment(new Date()).format('YYYY-MM-DD')}`
+            dateCalendar: `${moment(new Date()).format('YYYY-MM-DD')}`,
+            successPostResponse: false
         }
     };
+
+    static getDerivedStateFromProps(props, state) {
+        if(props.successPostResponse === true) {
+            return {
+                ...state,
+                successPostResponse: true
+            }
+        } else {
+            return {
+                ...state,
+                successPostResponse: false
+            }
+        }
+    }
 
     componentDidMount() {
         const data = dataTime();
         this.getTrainerScheduleRequest(this.state.dateCalendar, data);
+    }
+
+    componentDidUpdate() {
+        if(this.state.successPostResponse === true) {
+            const dataForGet = dataTime({
+                valueStart: this.state.dateCalendar,
+                valueEnd: this.state.dateCalendar
+            });
+            const dateForGet = moment(this.state.dateCalendar).format('YYYY-MM-DD');
+
+            this.getTrainerScheduleRequest(dateForGet, dataForGet);
+        }
     }
 
     getTrainerScheduleRequest = (date, data) => {
@@ -48,6 +75,7 @@ class TrainerAddSchedule extends Component {
         scheduleService.getSchedule('trainer', userId, data)
             .then(
                 response => {
+                    this.props.dispatch(toggleResponse());
                     if(response.data.data.length > 0) {
                         const answerData = response.data.data;
                         const newCards = answerData.map(item => {
@@ -231,7 +259,6 @@ class TrainerAddSchedule extends Component {
 
     onSubmitCreateSchedule = () => {
         const { dispatch } = this.props;
-
         // NOTE: Создается один запрос на одну карточку. Добавление расписания
         this.state.cards.forEach(function(card) {
             // TODO: преобразовать из копеек в рубли;
@@ -260,6 +287,7 @@ class TrainerAddSchedule extends Component {
                 if (card.schedule_id >= 0) {
                     dispatch(editTrainerSchedule(card.schedule_id, dataForEdit));
                 }
+                await create();
             }
 
             const create = () => {
@@ -267,9 +295,8 @@ class TrainerAddSchedule extends Component {
                     dispatch(createScheduleTrainer(dataForCreate));
                 };
             };
-            edit().then(() => {
-                create();
-            });
+
+            edit();
         });
     };
 
@@ -335,4 +362,10 @@ class TrainerAddSchedule extends Component {
     }
 }
 
-export default connect()(TrainerAddSchedule);
+const mapStateToProps = ({ scheduleTrainer }) => {
+    return {
+        successPostResponse: scheduleTrainer.successPostResponse
+    }
+};
+
+export default connect(mapStateToProps)(TrainerAddSchedule);

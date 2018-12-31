@@ -5,7 +5,9 @@ import {
     
     GET_START_SCHEDULE_TRAINER,
     GET_SUCCESS_SCHEDULE_TRAINER,
-    GET_FAILURE_SCHEDULE_TRAINER
+    GET_FAILURE_SCHEDULE_TRAINER,
+
+    TOGGLE_RESPONSE
 } from '../constants/schedule';
 
 import moment from 'moment';
@@ -22,11 +24,19 @@ const initialState = {
         schedule: [],
         cost: [],
         message: [] // TODO, месседж на каких кортах могу с какого времени, его же и выводить в форме букинга
-    }
+    },
+    successPostResponse: false
 }
 
 export default function(state = initialState, action) {
     switch (action.type) {
+
+        case TOGGLE_RESPONSE: 
+            return {
+                ...state,
+                successPostResponse: false
+            }
+
         case POST_START_SCHEDULE_TRAINER:
             return {
                 ...state,
@@ -36,7 +46,8 @@ export default function(state = initialState, action) {
         case POST_SUCCESS_SCHEDULE_TRAINER:
             return {
                 ...state,
-                preloader: false
+                preloader: false,
+                successPostResponse: action.payload.data.success
             }
         
         case POST_FAILURE_SCHEDULE_TRAINER:

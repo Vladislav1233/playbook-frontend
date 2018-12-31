@@ -9,7 +9,9 @@ import {
 
     GET_START_SCHEDULE_TRAINER,
     GET_SUCCESS_SCHEDULE_TRAINER,
-    GET_FAILURE_SCHEDULE_TRAINER
+    GET_FAILURE_SCHEDULE_TRAINER,
+
+    TOGGLE_RESPONSE
 } from '../constants/schedule';
 
 import { scheduleService } from '../../services/scheduleService';
@@ -126,5 +128,11 @@ export function getTrainerSchedule(userId, data) {
             type: GET_FAILURE_SCHEDULE_TRAINER,
             payload: response
         }
+    }
+}
+
+export function toggleResponse() {
+    return {
+        type: TOGGLE_RESPONSE
     }
 }
