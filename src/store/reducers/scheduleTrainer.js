@@ -20,7 +20,7 @@ const initialState = {
         date: moment().format('DD.MM.YYYY'),
         nameDay: moment().format('dddd'), 
         schedule: [],
-        cost: [], // TODO
+        cost: [],
         message: [] // TODO, месседж на каких кортах могу с какого времени, его же и выводить в форме букинга
     }
 }

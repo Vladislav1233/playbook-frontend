@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { createScheduleTrainer, editTrainerSchedule, getTrainerSchedule } from '../../store/actions/schedule';
+import { createScheduleTrainer, editTrainerSchedule } from '../../store/actions/schedule';
 import moment from 'moment';
 import 'moment/locale/ru';
 import getArrayDateRange from '../../helpers/getArrayDateRange';
@@ -133,15 +133,35 @@ class TrainerAddSchedule extends Component {
     };
 
     handleRemoveCard = (idx) => () => {
-        if (this.state.cards.length === 1) {
+        const { cards } = this.state;
+
+        //  Note: если карточка с сервера то удаляем её совсем
+        if (cards[idx].schedule_id >= 0) {
+            scheduleService.deleteSchedule(cards[idx].schedule_id);
+        };
+
+        // Note: если последняя карточка с сервера, то очищаем её.
+        if (cards.length === 1 && cards[idx].schedule_id >= 0) {
+            this.setState({
+                ...this.state,
+                cards: [{
+                    dates: [],
+                    start_time: null,
+                    end_time: null,
+                    price_per_hour: '',
+                    currency: 'RUB',
+                    schedule_id: -1
+                }]
+            })
+        } else if(cards.length === 1) {
             alert("Нельзя удалять последнюю карточку");
             return false;
-        }
-
-        this.setState({
-            ...this.state,
-            cards: this.state.cards.filter((s, sidx) => idx !== sidx)
-        });
+        } else {
+            this.setState({
+                ...this.state,
+                cards: cards.filter((s, sidx) => idx !== sidx)
+            });
+        };
     };
 
     onClickDateCalendar = (value) => {

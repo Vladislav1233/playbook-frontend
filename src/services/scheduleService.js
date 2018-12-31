@@ -4,6 +4,7 @@ import axios from 'axios';
 export const scheduleService = {
     createSchedule,
     editSchedule,
+    deleteSchedule,
     getSchedule
 }
 
@@ -32,6 +33,18 @@ function editSchedule (schedule_id, data) {
         data: data
     });
 };
+
+function deleteSchedule (schedule_id) {
+    let valueToken = localStorage.getItem('userToken');
+
+    return axios ({
+        method: 'delete',
+        url: `${API_URL}/api/schedule/delete/${schedule_id}`,
+        headers: {
+            'Authorization': `Bearer ${valueToken}`
+        }
+    })
+}
 
 function getSchedule (type, userId, data) {
     return axios({
