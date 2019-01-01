@@ -15,6 +15,7 @@ import Auth from '../pages/Auth/Auth';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
 import ListCourt from '../pages/ListCourt';
 import ListTrainer from '../pages/ListTrainer';
+import TestRequest from '../pages/TestRequest/TestRequest';
 
 export default () => (
     <Switch>
@@ -28,5 +29,7 @@ export default () => (
         <Route component={Registration} path={configPathRouter.registration} />
         <Route component={Auth} path={configPathRouter.authorization} />
         <Route component={ErrorPage} path="/error" />
+
+        <Route component={TestRequest} path="/test-request" />
     </Switch>
 );

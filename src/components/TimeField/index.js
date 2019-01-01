@@ -8,25 +8,40 @@ import '../../style/bem-blocks/b-time-field/index.scss';
 class TimeField extends Component {
     state = {
         displayTimepicker: false
-    }
+    };
 
+    /**
+     * Toggle time keeper
+     * @return void
+     */
     toggleTimekeeper = (val) => {
-        console.log('click');
         this.setState({displayTimepicker: val})
+    };
+
+    /**
+     * Handle time picker change event
+     * @return void
+     */
+    onChange(value, name) {
+        if (value.hour24 < 10) {
+            value.formatted24 = '0' + value.formatted24;
+        }
+
+        this.props.onChangeTime(value, name);
     }
 
     render() {
-        const { time, onChangeTime, name, label } = this.props;
+        const { time, name, label } = this.props;
         const keeperWrapperClass = cn('b-time-field__keeper-wrapper', {
             'show': this.state.displayTimepicker
-        })
+        });
 
         return (
             <div className="b-time-field">
                     <div className={keeperWrapperClass}>
                         <TimePicker 
                             time={time}
-                            onChange={(value) => onChangeTime(value, name)}
+                            onChange={(value) => this.onChange(value, name)}
                             switchToMinuteOnHourSelect={true}
                             onDoneClick={() => this.toggleTimekeeper(false)}
                         />

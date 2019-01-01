@@ -3,9 +3,15 @@ import {
     POST_SUCCESS_SCHEDULE_TRAINER,
     POST_FAILURE_SCHEDULE_TRAINER,
 
+    EDIT_START_SCHEDULE_TRAINER,
+    EDIT_SUCCESS_SCHEDULE_TRAINER,
+    EDIT_FAILURE__SCHEDULE_TRAINER,
+
     GET_START_SCHEDULE_TRAINER,
     GET_SUCCESS_SCHEDULE_TRAINER,
-    GET_FAILURE_SCHEDULE_TRAINER
+    GET_FAILURE_SCHEDULE_TRAINER,
+
+    TOGGLE_RESPONSE
 } from '../constants/schedule';
 
 import { scheduleService } from '../../services/scheduleService';
@@ -48,6 +54,44 @@ export function createScheduleTrainer(data) {
     }
 }
 
+export function editTrainerSchedule(schedule_id, data) {
+    return dispatch => {
+        dispatch(start());
+
+        scheduleService.editSchedule(schedule_id, data)
+            .then(
+                response => {
+                    dispatch(success(response));
+                },
+                error => {
+                    console.log(error);
+                    dispatch(failure(error));
+                }
+            );
+    }
+
+    function start() {
+        return {
+            type: EDIT_START_SCHEDULE_TRAINER
+        }
+    }
+
+    function success(response) {
+        console.log(response);
+        return {
+            type: EDIT_SUCCESS_SCHEDULE_TRAINER,
+            payload: response
+        }
+    }
+
+    function failure(error) {
+        return {
+            type: EDIT_FAILURE__SCHEDULE_TRAINER,
+            payload: error
+        }
+    }
+}
+
 // Note: отправляем запрос на получение расписания тренера
 export function getTrainerSchedule(userId, data) {
     return dispatch => {
@@ -56,7 +100,6 @@ export function getTrainerSchedule(userId, data) {
         scheduleService.getSchedule('trainer', userId, data)
             .then(
                 response => {
-                    console.log(response);
                     dispatch(success(response));
                 },
                 error => {
@@ -85,5 +128,11 @@ export function getTrainerSchedule(userId, data) {
             type: GET_FAILURE_SCHEDULE_TRAINER,
             payload: response
         }
+    }
+}
+
+export function toggleResponse() {
+    return {
+        type: TOGGLE_RESPONSE
     }
 }

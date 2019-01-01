@@ -87,16 +87,16 @@
         color: $temperate-slate-blue;
     }
 
-    &__price {
-        display: inline-block;
-        padding: 4px 4px 2px;
-        border: 1px solid #eee;
-        background-color: #f2f4f5;
-        color: $temperate-slate-blue;
-        border-radius: 3px;
-        line-height: 22px;
-        vertical-align: middle;
-    }
+    // &__price {
+    //     display: inline-block;
+    //     padding: 4px 4px 2px;
+    //     border: 1px solid #eee;
+    //     background-color: #f2f4f5;
+    //     color: $temperate-slate-blue;
+    //     border-radius: 3px;
+    //     line-height: 22px;
+    //     vertical-align: middle;
+    // }
 
     &__name-court {
         font-family: $bold;

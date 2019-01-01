@@ -4,7 +4,7 @@ import { getTrainerSchedule } from '../../store/actions/schedule';
 import { dataTime } from '../../helpers/dataTime';
 
 // component
-import Schedule from '../../components/Schedule/Schedule';
+import Schedule from '../../components/Schedule';
 import Preloader from '../../components/Preloader/Preloader';
 
 class ScheduleTrainer extends Component {
@@ -20,7 +20,7 @@ class ScheduleTrainer extends Component {
     }
 
     render() {
-        const { scheduleTrainer, getTrainerSchedule } = this.props;
+        const { scheduleTrainer, getTrainerSchedule, bookedTime, playgroundsForTraining } = this.props;
 
         // Note: userId - это id пользователя (тренера) расписание которого надо получить, в нашем случае мы находимся в личном кабинете и запрашиваем свой id тренера
         // TODO: из бэка
@@ -28,11 +28,14 @@ class ScheduleTrainer extends Component {
 
         return (
             <Fragment>
-                <Schedule 
+                <Schedule
                     schedule={scheduleTrainer}
                     template={'trainer'}
                     getTrainerSchedule={getTrainerSchedule}
                     userId={userId}
+                    bookedTime={bookedTime}
+                    cost={scheduleTrainer.cost}
+                    playgroundsForTraining={playgroundsForTraining}
                 />
 
                 { this.props.preloader ? <Preloader /> : null }
@@ -47,9 +50,11 @@ const mapStateToProps = ({ scheduleTrainer }) => {
         // ЭТО НЕ НАДО -УДАЛИТЬ ИЗ РЕДЬЮСЕРА
         // scheduleTrainer: filterSchedule(store.scheduleTrainer.scheduleTrainer, store.getDayFilter),
         scheduleTrainer: scheduleTrainer.scheduleTrainer,
-        preloader: scheduleTrainer.preloader
+        bookedTime: scheduleTrainer.bookedTime,
+        preloader: scheduleTrainer.preloader,
+        playgroundsForTraining: scheduleTrainer.playgroundsForTraining
     }
-}
+};
   
 const mapStateToDispatch = (dispatch) => {
     return {
@@ -60,6 +65,6 @@ const mapStateToDispatch = (dispatch) => {
         */
         getTrainerSchedule: (userId, data) => dispatch(getTrainerSchedule(userId, data))
     }
-}
+};
   
 export default connect(mapStateToProps, mapStateToDispatch)(ScheduleTrainer)

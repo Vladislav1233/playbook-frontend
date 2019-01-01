@@ -27,7 +27,7 @@ class Schedule extends Component {
                 this.ts.ref.style.transitionDuration = '0s';
             }
         }
-    }
+    };
 
     // TODO: Перенести в action
     onClickDay = (value) => {
@@ -40,35 +40,29 @@ class Schedule extends Component {
 
     render() {
         const { schedule, template } = this.props;
-        console.log(schedule);
 
         return (
             <Fragment>
-                <DateCalendar
-                    onClickDay={this.onClickDay}
-                />
+                <DateCalendar onClickDay={this.onClickDay}/>
                 <div className="container container--schedule">
                     <div className="b-schedule">
-                        <div className="b-schedule__date">{schedule.nameDay}, {schedule.date}. 
+                        <div className="b-schedule__date">{schedule.nameDay}, {schedule.date}.
                             {schedule.timeWork ? <div className="b-schedule__timetable">Время работы: {schedule.timeWork}</div> : null}
                         </div>
-                        {schedule.list ? 
-                            <ScheduleList list={schedule.list} telTrainer={schedule.telTrainer} template={template} />
-                            :
-                        schedule.court ? 
-                            <TinySlider className="b-slider-schedule" settings={this.props.settingSlider} ref={ts => this.ts = ts}>
-                                {schedule.court.map((schedule) => (
-                                    <div className="b-slider-schedule__slide" key={schedule.id}>
-                                        <div className="b-slider-schedule__header">
-                                            <div className="b-slider-schedule__title">{schedule.name}: {schedule.type}</div>
+                        {schedule.list
+                            ? <ScheduleList list={schedule.list} telTrainer={schedule.telTrainer} template={template} />
+                            : schedule.court
+                                ? <TinySlider className="b-slider-schedule" settings={this.props.settingSlider} ref={ts => this.ts = ts}>
+                                    {schedule.court.map((schedule) => (
+                                        <div className="b-slider-schedule__slide" key={schedule.id}>
+                                            <div className="b-slider-schedule__header">
+                                                <div className="b-slider-schedule__title">{schedule.name}: {schedule.type}</div>
+                                            </div>
+                                            <ScheduleList list={schedule.list} template={template} key={schedule.id}/>
                                         </div>
-                                        <ScheduleList list={schedule.list} template={template} key={schedule.id}/>
-                                    </div>
-                                ))}
-                            </TinySlider>
-                            
-                            :
-                            <div className="b-schedule__not">На этот день расписание не составлено</div>
+                                    ))}
+                                </TinySlider>
+                                : <div className="b-schedule__not">На этот день расписание не составлено</div>
                         }
                     </div>
                 </div>
