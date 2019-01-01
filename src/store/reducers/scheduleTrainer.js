@@ -12,6 +12,7 @@ import {
 
 import moment from 'moment';
 import 'moment/locale/ru';
+// eslint-disable-next-line
 import twix from 'twix';
 
 const initialState = {
@@ -114,6 +115,7 @@ export default function(state = initialState, action) {
                     });
                 });
             };
+            // eslint-disable-next-line
             responseSchedule.confirmed_bookings ? filterRange() : false;
             
             // Получаем стоимость часа во всех промежутках времени

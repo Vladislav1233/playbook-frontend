@@ -68,13 +68,13 @@ export function editTrainerSchedule(schedule_id, data) {
                     dispatch(failure(error));
                 }
             );
-    };
+    }
 
     function start() {
         return {
             type: EDIT_START_SCHEDULE_TRAINER
         }
-    };
+    }
 
     function success(response) {
         console.log(response);
@@ -82,7 +82,7 @@ export function editTrainerSchedule(schedule_id, data) {
             type: EDIT_SUCCESS_SCHEDULE_TRAINER,
             payload: response
         }
-    };
+    }
 
     function failure(error) {
         return {
