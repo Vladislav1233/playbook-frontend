@@ -20,7 +20,7 @@ class ScheduleTrainer extends Component {
     }
 
     render() {
-        const { scheduleTrainer, getTrainerSchedule } = this.props;
+        const { scheduleTrainer, getTrainerSchedule, bookedTime, playgroundsForTraining } = this.props;
 
         // Note: userId - это id пользователя (тренера) расписание которого надо получить, в нашем случае мы находимся в личном кабинете и запрашиваем свой id тренера
         // TODO: из бэка
@@ -33,6 +33,9 @@ class ScheduleTrainer extends Component {
                     template={'trainer'}
                     getTrainerSchedule={getTrainerSchedule}
                     userId={userId}
+                    bookedTime={bookedTime}
+                    cost={scheduleTrainer.cost}
+                    playgroundsForTraining={playgroundsForTraining}
                 />
 
                 { this.props.preloader ? <Preloader /> : null }
@@ -47,7 +50,9 @@ const mapStateToProps = ({ scheduleTrainer }) => {
         // ЭТО НЕ НАДО -УДАЛИТЬ ИЗ РЕДЬЮСЕРА
         // scheduleTrainer: filterSchedule(store.scheduleTrainer.scheduleTrainer, store.getDayFilter),
         scheduleTrainer: scheduleTrainer.scheduleTrainer,
-        preloader: scheduleTrainer.preloader
+        bookedTime: scheduleTrainer.bookedTime,
+        preloader: scheduleTrainer.preloader,
+        playgroundsForTraining: scheduleTrainer.playgroundsForTraining
     }
 };
   
