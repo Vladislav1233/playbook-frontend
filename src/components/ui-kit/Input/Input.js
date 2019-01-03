@@ -8,11 +8,13 @@ import '../../../style/bem-blocks/b-input/index.scss';
 class Input extends Component {
     static defaultProps = {
         typeInput: 'text',
-        autoComplete: 'off'
+        autoComplete: 'off',
+        maxValue: '',
+        minValue: ''
     }
     // TODO: Отключить или стилизовать автозаполнение в input
     render() {
-        const { labelText, typeInput, idInput, placeholder, value, nameInput, modif, theme, onChange, autoComplete } = this.props;
+        const { labelText, typeInput, idInput, placeholder, value, nameInput, modif, theme, onChange, autoComplete, maxValue, minValue } = this.props;
 
         const classInput = cn('b-input', modif, {
             'b-input--black-color': theme ? theme.blackColor : false
@@ -33,6 +35,8 @@ class Input extends Component {
                     value={value}
                     onChange={onChange}
                     autoComplete={autoComplete}
+                    max={maxValue}
+                    min={minValue}
                 />
             </div>
         )

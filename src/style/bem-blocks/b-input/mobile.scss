@@ -2,6 +2,10 @@
 .b-input {
     margin-bottom: 50px;
 
+    &--inline {
+        display: inline-block;
+    }
+
     &__input {
         @include input();
         background-color: transparent;
