@@ -3,6 +3,7 @@ import moment from 'moment';
 
 // Note: components
 import BookingModal from '../BookingModal';
+import BookingNotAuthorized from '../BookingNotAuthorized';
 
 // style
 import '../../style/bem-blocks/b-schedule-item/index.scss';
@@ -18,14 +19,11 @@ class ScheduleItem extends Component {
     }
 
     openModal = () => {
-        console.log('click open');
         this.setState({ showModal: true });
     }
 
     closeModal = () => {
-        console.log('click close');
         this.setState({ showModal: false });
-        console.log(this.state.showModal);
     }
   
     render() {
@@ -37,6 +35,7 @@ class ScheduleItem extends Component {
     
         const { template } = this.props;
         const textBooking = 'Нажми, чтобы забронировать';
+        const valueToken = localStorage.getItem('userToken');
 
         const itemTrainer = () => (
             status ? 
@@ -86,10 +85,19 @@ class ScheduleItem extends Component {
                     </div>
                 </div>
 
-                <BookingModal 
-                    isOpenModal={this.state.showModal}
-                    closeModal={this.closeModal}
-                />
+                {valueToken ? 
+                    <BookingModal 
+                        isOpenModal={this.state.showModal}
+                        closeModal={this.closeModal}
+                        typeBooking='trainer'
+                        dateBooking={moment(start_time).format('YYYY-MM-DD')}
+                    />
+                :
+                    <BookingNotAuthorized 
+                        isOpenModal={this.state.showModal}
+                        closeModal={this.closeModal}
+                    />
+                }
             </Fragment>
         )
   }

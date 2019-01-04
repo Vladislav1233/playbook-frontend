@@ -3,7 +3,11 @@ import Modal from 'react-modal';
 
 // Note: components
 import Input from '../ui-kit/Input/Input';
-import InputMask from 'react-input-mask';
+// import InputMask from 'react-input-mask';
+import Button from '../ui-kit/Button/Button';
+
+// Note: services
+import { bookingService } from '../../services/booking';
 
 Modal.setAppElement('#root');
 
@@ -11,10 +15,10 @@ class BookingModal extends Component {
 
     state = {
         start_time: '',
-        end_time: '',
-        first_name: '',
-        last_name: '',
-        phone: ''
+        end_time: ''
+        // first_name: '',
+        // last_name: '',
+        // phone: ''
     }
 
     onChangeInput = (e) => {
@@ -24,6 +28,28 @@ class BookingModal extends Component {
             ...this.state,
             [name]: value
         })
+    };
+
+    onSubmitBooking = (e) => {
+        e.preventDefault();
+        const { typeBooking, dateBooking } = this.props;
+        const { start_time, end_time } = this.state;
+
+        const data = {
+            start_time: `${dateBooking} ${start_time}:00`,
+            end_time: `${dateBooking} ${end_time}:00`,
+            bookable_id: 1
+        };
+
+
+        bookingService.createBooking(typeBooking, data)
+            .then(
+                res => {
+                    console.log(res);       
+            }, 
+                err => {
+                    console.log(err);
+            });
     };
 
     render() {
@@ -87,8 +113,8 @@ class BookingModal extends Component {
                         {templateCost('Оплата услуг корта', '3000 рублей')}
                         {templateCost('Итого к оплате', '4500 рублей')}
                     </fieldset>
-                    {/* const { labelText, typeInput, idInput, placeholder, value, nameInput, modif, theme, onChange, autoComplete } = this.props; */}
-                    <fieldset className="b-booking-form__fieldset">
+
+                    {/* <fieldset className="b-booking-form__fieldset">
                         <legend>Данные о вас</legend>
 
                         <Input 
@@ -122,7 +148,24 @@ class BookingModal extends Component {
                                 onChange={this.onChangeInput} 
                                 placeholder="Ваш номер телефона" />
                         </div>
-                    </fieldset>
+                    </fieldset> */}
+
+                    <div className="b-booking-form__button-wrapper">
+                        <div className="b-booking-form__button">
+                            <Button
+                                name="Забронировать"
+                                theme={{orange: true}}
+                                onClick={e => this.onSubmitBooking(e)}
+                            />
+                        </div>
+
+                        <div className="b-booking-form__button">
+                            <Button
+                                name="Отмена"
+                                theme={{orange: true}}
+                            />
+                        </div>
+                    </div>
                 </form>
             </Modal>
         )
