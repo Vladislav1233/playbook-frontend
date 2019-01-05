@@ -1,0 +1,22 @@
+// 320
+.b-cost-information {
+    font-size: 14px;
+    font-family: $medium;
+    margin-bottom: 25px;
+
+    &__title {
+        color: $mint;
+        line-height: 18px;
+        margin-bottom: 5px;
+    }
+
+    &__cost {
+        padding: 4px 4px 2px;
+        border: 1px solid #eee;
+        background-color: #f2f4f5;
+        color: $carmine-pink;
+        border-radius: 3px;
+        line-height: 22px;
+        vertical-align: baseline;
+    }
+}
