@@ -1,0 +1,24 @@
+// 320
+.b-booking-form {
+    max-width: 480px;
+    margin: 0px auto;
+
+    &__fieldset {
+        padding: 30px 15px 0px;
+        margin-bottom: 50px;
+    }
+
+    &__note {
+        color: $telegray;
+        font-size: 14px;
+        line-height: 18px;
+        margin-bottom: 10px;
+        font-family: $regular;
+    }
+
+    &__button {
+        &:not(:last-child) {
+            margin-bottom: 25px;
+        }
+    }
+}
