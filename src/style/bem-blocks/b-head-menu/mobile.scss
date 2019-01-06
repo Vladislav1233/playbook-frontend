@@ -8,6 +8,12 @@
     &__open-button {
         display: inline-block;
         height: 100%;
+
+        .no-touchevents &:hover {
+            .b-head-menu__image-wrapper {
+                border-color: $orange-diamond-yellow;
+            }   
+        }
     }
 
     &__image-wrapper {
@@ -17,6 +23,8 @@
         border-radius: 100%;
         border: 2px solid $bright-telegray;
         text-align: center;
+        transition-property: border-color;
+        transition-duration: $animation-time;
     }
 
     &__image {
@@ -74,5 +82,12 @@
         font-size: 12px;
         line-height: 16px;
         color: $telegray;
+    }
+
+    &--open & {
+        
+        &__image-wrapper {
+            border-color: $carmine-pink;
+        }
     }
 }
