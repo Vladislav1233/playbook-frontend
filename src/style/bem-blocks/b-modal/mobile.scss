@@ -1,0 +1,41 @@
+// 320
+.b-modal {
+    
+    &__title {
+        margin-top: 0px;
+    }
+
+    &__title-group {
+        font-family: $bold;
+        font-size: 18px;
+        color: $temperate-slate-blue;
+    }
+}
+
+.ReactModal {
+    &__Content {
+        top: 0px !important;
+        left: 0px !important;
+        right: 0px !important;
+        bottom: 0px !important;
+        padding: 45px 15px !important;
+        max-width: 700px;
+        margin: 0px auto;
+        
+        &::before {
+            content: '';
+            background: #fff;
+            position: sticky;
+            margin-top: -45px;
+            top: -45px;
+            left: 0px;
+            display: block;
+            height: 45px;
+        }
+    }
+
+    &__Overlay {
+        z-index: 100;
+        background-color: rgba(0, 0, 0, 0.8) !important;
+    }
+}
