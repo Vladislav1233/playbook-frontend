@@ -58,15 +58,13 @@ function login(data) {
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
 }
 
-
-
-// Код ниже не закончен и он пока не работает
-
 function logout() {
     userService.logout();
+    history.push('/');
     return { type: userConstants.LOGOUT };
 }
 
+// Код ниже не закончен и он пока не работает
 function getAll() {
     return dispatch => {
         dispatch(request());

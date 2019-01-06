@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
+import { connect } from "react-redux";
+import { userActions } from '../../store/actions/userAction';
 
 // Note: style
 import '../../style/bem-blocks/b-head-menu/index.scss';
@@ -50,7 +52,7 @@ class HeadMenu extends Component {
 
                         <ul className="b-head-menu__content-list">
                             <li className="b-head-menu__content-item">
-                                <a href="" className="b-head-menu__content-text" title="Выйти">Выйти</a>
+                                <a href="" className="b-head-menu__content-text" title="Выйти" onClick={this.props.onLogout}>Выйти</a>
                             </li>
                         </ul>
 
@@ -63,4 +65,13 @@ class HeadMenu extends Component {
     }
 }
 
-export default HeadMenu;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLogout: e => {
+            e.preventDefault();
+            dispatch(userActions.logout());
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(HeadMenu);

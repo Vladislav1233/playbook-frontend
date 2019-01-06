@@ -34,19 +34,28 @@ function login(data) {
                 localStorage.setItem('userRole', user.data.data.roles);
                 // Note: храним id юзера
                 localStorage.setItem('userId', user.data.data.id);
+                // Note: храним информацию о юзере
+                const userInformation = {
+                    first_name: user.data.data.first_name,
+                    last_name: user.data.data.last_name
+                };
+                localStorage.setItem('userInformation', JSON.stringify(userInformation));
             }
             // Note: Возвращаем данные юзера в reducer.
             return user.data.data;
         });
 }
 
-
-// Код ниже не закончен
 function logout() {
-    // remove user from local storage to log user out
-    localStorage.removeItem('user');
+    //Note: remove user from local storage to log user out
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userInformation');
 }
 
+
+// Код ниже не закончен
 function getAll() {
     const requestOptions = {
         method: 'GET',

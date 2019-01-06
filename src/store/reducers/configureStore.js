@@ -8,6 +8,7 @@ import roleUser from './roleUser';
 import registration from './registration';
 import toggleCabinet from './toggleCabinet';
 import searchPlayground from './searchPlayground';
+import identificate from './identificate';
 
 
 export default function(initialState = {}) {
@@ -17,6 +18,7 @@ export default function(initialState = {}) {
         scheduleTrainer,
         roleUser,
         registration,
+        identificate,
         toggleCabinet,
         searchPlayground
     });
