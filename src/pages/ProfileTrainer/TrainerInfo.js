@@ -66,6 +66,7 @@ class TrainerInfo extends Component {
         const { trainerInfo } = this.state;
 
         this.setState({
+            ...this.state,
             trainerInfo: {
                 ...trainerInfo,
                 [name]: value

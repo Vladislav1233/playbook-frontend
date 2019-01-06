@@ -13,7 +13,7 @@
         overflow: hidden;
     }
 
-    &.no-scroll {
+    &.no-scroll, .ReactModal__Body--open & {
         position: fixed;
         top: 0;
         left: 0;

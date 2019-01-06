@@ -1,0 +1,20 @@
+// 768
+.b-booking-form {
+
+    &__button {
+        width: 50%;
+        display: inline-block;
+
+        &:first-child { 
+            padding-right: 10px;
+        }
+
+        &:last-child {
+            padding-left: 10px;
+        }
+
+        &:not(:last-child) {
+            margin-bottom: 0px;
+        }
+    }
+}

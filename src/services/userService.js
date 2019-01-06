@@ -27,8 +27,6 @@ function login(data) {
         url: `${API_URL}/api/login`,
         data: data
     }).then(user => {
-            // console.log(user.data.data.roles);
-            // console.log(user.data.data.access_token);
             if (user.data.data.access_token) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('userToken', user.data.data.access_token);

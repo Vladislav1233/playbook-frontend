@@ -20,6 +20,10 @@
         color: $white;
     }
 
+    &--full {
+        width: 100%;
+    }
+
     &--orange {
         background: $orange-diamond-yellow;
     }
