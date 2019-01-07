@@ -1,4 +1,9 @@
-import { GET_START_SEARCH_PLAYGROUND, GET_SUCCESS_SEARCH_PLAYGROUND, GET_FAILURE_SEARCH_PLAYGROUND } from '../constants/searchPlayground';
+import { 
+    GET_START_SEARCH_PLAYGROUND, 
+    GET_SUCCESS_SEARCH_PLAYGROUND, 
+    GET_FAILURE_SEARCH_PLAYGROUND, 
+    CLEAR_SEARCH_PLAYGROUND 
+} from '../constants/searchPlayground';
 
 import { playgroundService } from '../../services/playgroundService';
 
@@ -38,4 +43,10 @@ export function searchPlayground(data) {
         }
     }
 
+}
+
+export function clearSearchPlayground() {
+    return {
+        type: CLEAR_SEARCH_PLAYGROUND
+    } 
 }

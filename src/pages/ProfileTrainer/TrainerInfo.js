@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from "react-redux";
-import { searchPlayground } from '../../store/actions/searchPlayground';
+import { searchPlayground, clearSearchPlayground } from '../../store/actions/searchPlayground';
 import { trainerInfoService } from '../../services/trainerInfoService';
 
 // Note: components
@@ -38,7 +38,6 @@ class TrainerInfo extends Component {
             .then(
                 response => {
                     if(response.data.data.id) {
-                        console.log(response.data.data);
                         const { 
                             about,
                             min_price,
@@ -85,11 +84,18 @@ class TrainerInfo extends Component {
 
     onSearchCourt = (event) => {
         const { value } = event.target; 
+        const { searchPlayground, onClearSearchPlayground } = this.props;
+
         let data = {
             query: value
         };
+        
         // TODO: Сделать, что запрос будет отправляться после ввода трёх символов. + подсказку в поле, что нужно больше 3-х символов.
-        this.props.searchPlayground(data);
+        if(value.length > 0) {
+            searchPlayground(data);
+        } else {
+            onClearSearchPlayground();
+        }
     }
 
     // Note: По клику найденный корт добавлять его в массив с кортами на которых работаешь или удалять
@@ -152,6 +158,7 @@ class TrainerInfo extends Component {
         // const { labelText, typeInput, idInput, placeholder, value, nameInput, modif, theme } = this.props;
         const { trainerInfo } = this.state;
         const { foundPlagrounds } = this.props;
+        console.log(this.state);
 
         return(
             <div className="b-trainer-info">
@@ -304,7 +311,8 @@ const mapStateToProps = ({ searchPlayground }) => {
 
 const mapStateToDispatch = dispatch => {
     return {
-        searchPlayground: (data) => dispatch(searchPlayground(data))
+        searchPlayground: (data) => dispatch(searchPlayground(data)),
+        onClearSearchPlayground: () => dispatch(clearSearchPlayground()) 
     }
 }
 
