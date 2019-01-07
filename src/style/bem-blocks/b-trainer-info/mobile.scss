@@ -1,0 +1,17 @@
+// 320
+.b-trainer-info {
+
+    &__playground-list {
+        padding-left: 0px;
+    }
+
+    &__playground-item {
+        display: inline-block;
+        list-style-type: none;
+        width: 100%;
+
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+    }
+}

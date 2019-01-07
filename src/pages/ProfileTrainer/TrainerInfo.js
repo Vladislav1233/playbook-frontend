@@ -9,12 +9,16 @@ import Textarea from '../../components/ui-kit/Textarea';
 import SearchListPlayground from '../../components/SearchListPlayground';
 import Button from '../../components/ui-kit/Button/Button';
 
+// Note: styles
+import '../../style/bem-blocks/b-trainer-info/index.scss';
+
 class TrainerInfo extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
+            idInfo: null,
             trainerInfo: {
                 name: '',
                 patronymic: '',
@@ -33,27 +37,32 @@ class TrainerInfo extends Component {
         trainerInfoService.getTrainerInformation(userId)
             .then(
                 response => {
-                    const { 
-                        about,
-                        min_price,
-                        max_price,
-                        playgrounds,
-                        user
-                    } = response.data.data;
-
-                    this.setState({
-                        ...this.state,
-                        trainerInfo: {
-                            ...this.state.trainerInfo,
-                            name: user.first_name,
-                            patronymic: '', // TODO
-                            surname: user.last_name,
+                    if(response.data.data.id) {
+                        console.log(response.data.data);
+                        const { 
                             about,
-                            minPrice: min_price,
-                            maxPrice: max_price,
-                            playgrounds: playgrounds
-                        }
-                    })
+                            min_price,
+                            max_price,
+                            playgrounds,
+                            user,
+                            id
+                        } = response.data.data;
+
+                        this.setState({
+                            ...this.state,
+                            idInfo: id,
+                            trainerInfo: {
+                                ...this.state.trainerInfo,
+                                name: user ? user.first_name : '',
+                                patronymic: '', // TODO
+                                surname: user ? user.last_name : '',
+                                about: about ? about : '',
+                                minPrice: min_price ? min_price : '',
+                                maxPrice: max_price ? max_price : '',
+                                playgrounds: playgrounds ? playgrounds : ''
+                            }
+                        })
+                    }
                 },
                 error => {
                     alert(error);
@@ -193,8 +202,8 @@ class TrainerInfo extends Component {
 
                     <div className="b-trainer-info__cost-field">
                         <Input
-                            idInput="profile_min-price"
-                            nameInput="min-price"
+                            idInput="profile_minPrice"
+                            nameInput="minPrice"
                             placeholder="Минимальная"
                             value={trainerInfo.minPrice}
                             onChange={e => this.handleChangeInput(e)}
@@ -203,8 +212,8 @@ class TrainerInfo extends Component {
                     </div>
                     <div className="b-trainer-info__cost-field">
                         <Input
-                            idInput="profile_max-price"
-                            nameInput="max-price"
+                            idInput="profile_maxPrice"
+                            nameInput="maxPrice"
                             placeholder="Максимальная"
                             value={trainerInfo.maxPrice}
                             onChange={e => this.handleChangeInput(e)}
@@ -240,6 +249,7 @@ class TrainerInfo extends Component {
                                                 addressPlayground={item.address}
                                                 onChange={this.handlePlayground}
                                                 value={item.id}
+                                                hover
                                             />
                                         </li>
                                     );
@@ -262,6 +272,7 @@ class TrainerInfo extends Component {
                                                 namePlayground={item.name}
                                                 addressPlayground={item.address}
                                                 disabled
+                                                checked
                                                 value={item.id}
                                             />
                                         </li>
