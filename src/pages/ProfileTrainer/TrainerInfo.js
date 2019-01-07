@@ -155,52 +155,51 @@ class TrainerInfo extends Component {
 
         return(
             <div className="b-trainer-info">
-                
-                <Input 
-                    labelText="Имя"
-                    idInput="profile_name"
-                    nameInput="name"
-                    placeholder="Имя"
-                    value={trainerInfo.name}
-                    onChange={e => this.handleChangeInput(e)}
-                    theme={{blackColor: true}}
-                />
+                <div className="b-trainer-info__form">
+                    <Input 
+                        labelText="Имя"
+                        idInput="profile_name"
+                        nameInput="name"
+                        placeholder="Имя"
+                        value={trainerInfo.name}
+                        onChange={e => this.handleChangeInput(e)}
+                        theme={{blackColor: true}}
+                    />
 
-                <Input 
-                    labelText="Отчество"
-                    idInput="profile_patronymic"
-                    nameInput="patronymic"
-                    placeholder="Отчество"
-                    value={trainerInfo.patronymic}
-                    onChange={e => this.handleChangeInput(e)}
-                    theme={{blackColor: true}}
-                />
+                    {/* <Input 
+                        labelText="Отчество"
+                        idInput="profile_patronymic"
+                        nameInput="patronymic"
+                        placeholder="Отчество"
+                        value={trainerInfo.patronymic}
+                        onChange={e => this.handleChangeInput(e)}
+                        theme={{blackColor: true}}
+                    /> */}
 
-                <Input 
-                    labelText="Фамилия"
-                    idInput="profile_surname"
-                    nameInput="surname"
-                    placeholder="Фамилия"
-                    value={trainerInfo.surname}
-                    onChange={e => this.handleChangeInput(e)}
-                    theme={{blackColor: true}}
-                />
+                    <Input 
+                        labelText="Фамилия"
+                        idInput="profile_surname"
+                        nameInput="surname"
+                        placeholder="Фамилия"
+                        value={trainerInfo.surname}
+                        onChange={e => this.handleChangeInput(e)}
+                        theme={{blackColor: true}}
+                    />
 
-                <Textarea
-                    typeInput=""
-                    labelText="О себе"
-                    idInput="profile_about"
-                    nameInput="about"
-                    placeholder="О себе"
-                    value={trainerInfo.about}
-                    onChange={e => this.handleChangeInput(e)}
-                    theme={{blackColor: true}}
-                />
+                    <Textarea
+                        typeInput=""
+                        labelText="О себе"
+                        idInput="profile_about"
+                        nameInput="about"
+                        placeholder="О себе"
+                        value={trainerInfo.about}
+                        onChange={e => this.handleChangeInput(e)}
+                        theme={{blackColor: true}}
+                    />
 
-                <div className="b-trainer-info__cost">
-                    <div className="b-trainer-info__title-field">Стоимость часа</div>
+                    <div className="b-trainer-info__cost">
+                        <div className="b-trainer-info__title-field">Стоимость часа</div>
 
-                    <div className="b-trainer-info__cost-field">
                         <Input
                             idInput="profile_minPrice"
                             nameInput="minPrice"
@@ -208,9 +207,8 @@ class TrainerInfo extends Component {
                             value={trainerInfo.minPrice}
                             onChange={e => this.handleChangeInput(e)}
                             theme={{blackColor: true}}
+                            modif="b-input--time-booking"
                         />
-                    </div>
-                    <div className="b-trainer-info__cost-field">
                         <Input
                             idInput="profile_maxPrice"
                             nameInput="maxPrice"
@@ -218,77 +216,81 @@ class TrainerInfo extends Component {
                             value={trainerInfo.maxPrice}
                             onChange={e => this.handleChangeInput(e)}
                             theme={{blackColor: true}}
+                            modif="b-input--time-booking"
                         />
                     </div>
                 </div>
 
                 <div className="b-trainer-info__playground">
-                    <div className="b-trainer-info__title-field">Список кортов, на которых вы тренируете</div>
-                    <Input
-                        idInput="profile_search-court"
-                        nameInput="searchCourt"
-                        placeholder="Поиск корта"
-                        value={trainerInfo.searchCourt}
-                        onChange={e => {
-                            this.handleChangeInput(e);
-                            this.onSearchCourt(e);
-                        }}
-                        theme={{blackColor: true}}
-                    />
-                    
-                    {foundPlagrounds.length > 0 ?
-                        <Fragment>
-                            <div>Список найденных кортов</div>
-                            <ul className='b-trainer-info__playground-list'>
-                                {foundPlagrounds.map(item => {
-                                    return(
-                                        <li key={item.id} className="b-trainer-info__playground-item">
-                                            <SearchListPlayground 
-                                                id={`search_${item.id}`}
-                                                namePlayground={item.name}
-                                                addressPlayground={item.address}
-                                                onChange={this.handlePlayground}
-                                                value={item.id}
-                                                hover
-                                            />
-                                        </li>
-                                    );
-                                })}
-                            </ul>
-                        </Fragment>
-                        :
-                        null
-                    }
+                        <div className="b-trainer-info__title-field">Выбор площадок, на которых вы тренируете</div>
+                        <Input
+                            idInput="profile_search-court"
+                            nameInput="searchCourt"
+                            placeholder="Введите название или адрес"
+                            value={trainerInfo.searchCourt}
+                            onChange={e => {
+                                this.handleChangeInput(e);
+                                this.onSearchCourt(e);
+                            }}
+                            theme={{blackColor: true}}
+                        />
+                        
+                        {foundPlagrounds.length > 0 ?
+                            <Fragment>
+                                <div className="b-trainer-info__title-field b-trainer-info__title-field--light">Найденные площадки</div>
+                                <ul className='b-trainer-info__playground-list'>
+                                    {foundPlagrounds.map(item => {
+                                        return(
+                                            <li key={item.id} className="b-trainer-info__playground-item">
+                                                <SearchListPlayground 
+                                                    id={`search_${item.id}`}
+                                                    namePlayground={item.name}
+                                                    addressPlayground={item.address}
+                                                    onChange={this.handlePlayground}
+                                                    value={item.id}
+                                                    hover
+                                                />
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </Fragment>
+                            :
+                            null
+                        }
 
-                    {trainerInfo.playgrounds.length > 0 ?
-                        <Fragment>
-                            <div>Корты, на которых работаю</div>
-                            <ul className='b-trainer-info__playground-list'>
-                                {trainerInfo.playgrounds.map(item => {
-                                    return(
-                                        <li key={item.id} className="b-trainer-info__playground-item">
-                                            <SearchListPlayground
-                                                id={`work_${item.id}`}
-                                                namePlayground={item.name}
-                                                addressPlayground={item.address}
-                                                disabled
-                                                checked
-                                                value={item.id}
-                                            />
-                                        </li>
-                                    );
-                                })}
-                            </ul>
-                        </Fragment>
-                        :
-                        null
-                    }
+                        {trainerInfo.playgrounds.length > 0 ?
+                            <Fragment>
+                                <div className="b-trainer-info__title-field b-trainer-info__title-field--light">Добавленные площадки</div>
+                                <ul className='b-trainer-info__playground-list'>
+                                    {trainerInfo.playgrounds.map(item => {
+                                        return(
+                                            <li key={item.id} className="b-trainer-info__playground-item">
+                                                <SearchListPlayground
+                                                    id={`work_${item.id}`}
+                                                    namePlayground={item.name}
+                                                    addressPlayground={item.address}
+                                                    disabled
+                                                    checked
+                                                    value={item.id}
+                                                />
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </Fragment>
+                            :
+                            null
+                        }
 
-                </div>
-                <Button 
-                    name="Сохранить"
-                    onClick={this.onSaveInformation}
-                />
+                    </div>
+
+                    <div className="b-trainer-info__button">
+                        <Button 
+                            name="Сохранить"
+                            onClick={this.onSaveInformation}
+                        />
+                    </div>
             </div>
         )
     }
