@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TimePicker from 'react-timekeeper';
+import TimePicker from '../../helpers/timePicker/lib';
 import cn from 'classnames';
 
 // Note: style

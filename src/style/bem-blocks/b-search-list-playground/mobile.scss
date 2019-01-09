@@ -1,0 +1,67 @@
+// 320
+.b-search-list-playground {
+    display: block;
+    border: 1px solid $border-color;
+    padding: 10px;
+    border-radius: 5px;
+    transition: border-color $animation-time;
+
+    &--hover {
+        cursor: pointer;
+
+        .no-touchevents &:hover,
+        .touchevents &:active {
+            border-color: $orange-diamond-yellow;
+        }
+    }
+
+    &__input {
+        display: none;
+    }
+
+    &__label {
+        display: inline-block;
+        vertical-align: text-bottom;
+        width: 20px;
+        height: 20px;
+        padding: 3px;
+        border-radius: 50%;
+        border: 1px solid lightgray;
+        background-color: transparent;
+        transition-property: background-color;
+        transition-duration: $animation-time;
+    }
+
+    &__icon-check {
+        vertical-align: top;
+        opacity: 0;
+        transition: opacity $animation-time;
+    }
+
+    &__input:checked + &__label {
+        background-color: $mint;
+
+        .b-search-list-playground__icon-check {
+            opacity: 1;
+        }
+    }
+    
+
+    &__content {
+        display: inline-block;
+        vertical-align: text-top;
+        padding-left: 15px;
+    }
+
+    &__name {
+        font-size: 15px;
+        line-height: 18px;
+        color: $mint;
+    }
+
+    &__address {
+        font-size: 14px;
+        line-height: 17px;
+        color: $carmine-pink;
+    }
+}
