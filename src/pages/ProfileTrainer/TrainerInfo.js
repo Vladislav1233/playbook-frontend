@@ -159,9 +159,25 @@ class TrainerInfo extends Component {
         console.log(idInfo);
 
         if (idInfo) {
-            trainerInfoService.editTrainerInformation(idInfo, data);
+            trainerInfoService.editTrainerInformation(idInfo, data)
+                .then(
+                    res => {
+                        alert('Успешно сохранено');
+                    },
+                    error => {
+                        alert('Ошибка');
+                    }
+                );
         } else {
-            trainerInfoService.createTrainerInformation(data);
+            trainerInfoService.createTrainerInformation(data)
+                .then(
+                    res => {
+                        alert('Успешно сохранено');
+                    },
+                    error => {
+                        alert('Ошибка');
+                    }
+                );
         }
     }
 
@@ -291,6 +307,7 @@ class TrainerInfo extends Component {
                                                     disabled
                                                     checked
                                                     value={item.id}
+                                                    onChange={this.handlePlayground}
                                                 />
                                             </li>
                                         );
