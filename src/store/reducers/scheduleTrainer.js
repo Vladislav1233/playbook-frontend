@@ -14,6 +14,7 @@ import moment from 'moment';
 import 'moment/locale/ru';
 // eslint-disable-next-line
 import twix from 'twix';
+import uniquePlaygrounds from '../../helpers/uniquePlaygrounds';
 
 const initialState = {
     preloader: false,
@@ -131,20 +132,6 @@ export default function(state = initialState, action) {
             responseSchedule.forEach(item => {
                 arrayPlaygrounds.push(...item.playgrounds);
             });
-            const uniquePlaygrounds = (arr) => {
-                let result = [];
-
-                nextInput:
-                    for (let i = 0; i < arr.length; i++) {
-                        let str = arr[i].id; // для каждого элемента
-                        for (let j = 0; j < result.length; j++) { // ищем, был ли он уже?
-                            if (result[j].id === str) continue nextInput; // если да, то следующий
-                        }
-                        result.push(arr[i]);
-                    }
-
-                return result;
-            };
             const newPlaygroundsForTraining = uniquePlaygrounds(arrayPlaygrounds);
 
             return {

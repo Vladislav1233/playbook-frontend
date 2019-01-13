@@ -6,6 +6,7 @@ import 'moment/locale/ru';
 import getArrayDateRange from '../../helpers/getArrayDateRange';
 import { dataTime } from '../../helpers/dataTime';
 import { scheduleService } from '../../services/scheduleService';
+import { trainerInfoService } from '../../services/trainerInfoService';
 
 // Note: components
 import SettingChooseDay from '../../components/SettingChooseDay/SettingChooseDay';
@@ -29,11 +30,14 @@ class TrainerAddSchedule extends Component {
                 end_time: null,
                 price_per_hour: '',
                 currency: 'RUB',
-                schedule_id: -1
+                schedule_id: -1,
+                playgrounds: [],
+                playgroundsCheck: []
             }],
             selectChooseDay: 'one', // Note: это для настроек календаря: one - выбрать можно 1 день, period - выбрать можно период от / до
             dateCalendar: `${moment(new Date()).format('YYYY-MM-DD')}`,
-            successPostResponse: false
+            successPostResponse: false,
+            playgroundsForTraining: []
         }
     };
 
@@ -51,10 +55,10 @@ class TrainerAddSchedule extends Component {
         }
     }
 
-    componentDidMount() {
-        const data = dataTime();
-        this.getTrainerScheduleRequest(this.state.dateCalendar, data);
-    }
+    // componentDidMount() {
+    //     // const data = dataTime();
+    //     // this.getTrainerScheduleRequest(this.state.dateCalendar, data)
+    // }
 
     componentDidUpdate() {
         if(this.state.successPostResponse === true) {
@@ -72,7 +76,8 @@ class TrainerAddSchedule extends Component {
         // Note: собираем данные для get запроса расписания при инициализации страницы. Берём текущий день
         const userId = localStorage.getItem('userId');
 
-        scheduleService.getSchedule('trainer', userId, data)
+        const getScheduleRequest = () => { 
+            scheduleService.getSchedule('trainer', userId, data)
             .then(
                 response => {
                     this.props.dispatch(toggleResponse());
@@ -85,7 +90,9 @@ class TrainerAddSchedule extends Component {
                                 end_time: moment(item.end_time).format("HH:mm"),
                                 price_per_hour: item.price_per_hour,
                                 currency: 'RUB',
-                                schedule_id: item.id
+                                schedule_id: item.id,
+                                playgrounds: this.state.playgroundsForTraining,
+                                playgroundsCheck: item.playgrounds.map(item => item.id)
                             }
                         });
 
@@ -100,7 +107,9 @@ class TrainerAddSchedule extends Component {
                                 end_time: null, // Example 17:00:00
                                 price_per_hour: '', // Example 7000 (70rub)
                                 currency: 'RUB',
-                                schedule_id: -1
+                                schedule_id: -1,
+                                playgrounds: this.state.playgroundsForTraining,
+                                playgroundsCheck: []
                             }];
 
                         this.setState({
@@ -113,6 +122,25 @@ class TrainerAddSchedule extends Component {
                     console.log(error);
                 }
             )
+        }
+
+        if (this.state.playgroundsForTraining.length === 0) {
+
+            trainerInfoService.getTrainerInformation(userId)
+                .then(
+                    res => {
+                        this.setState({
+                            ...this.state,
+                            playgroundsForTraining: res.data.data.playgrounds
+                        }, getScheduleRequest())
+                    },
+                    error => {
+                        console.log(error);
+                    }
+                );
+        } else {
+            getScheduleRequest();
+        };
     }
 
     createDataCard = (idx, name, value) => {
@@ -145,6 +173,26 @@ class TrainerAddSchedule extends Component {
         });
     };
 
+    onChangeCheckbox = (idx) => (event) => {
+        const { name, checked } = event.target;
+        let newPlaygroundsCheck = this.state.cards[idx].playgroundsCheck;
+
+        if (checked) {
+            newPlaygroundsCheck = [...newPlaygroundsCheck, +name];
+        } else {
+            newPlaygroundsCheck = newPlaygroundsCheck.filter(item => {
+                return item != name;
+            })
+        };
+
+        const newCards = this.createDataCard(idx, 'playgroundsCheck', newPlaygroundsCheck);
+
+        this.setState({
+            ...this.state,
+            cards: newCards
+        });
+    };
+
     // Note: Добавляем ещё одну карточку для заполения расписания
     handleAddCard = () => {
         this.setState({
@@ -155,7 +203,9 @@ class TrainerAddSchedule extends Component {
                 end_time: null,
                 price_per_hour: '',
                 currency: 'RUB',
-                schedule_id: -1
+                schedule_id: -1,
+                playgrounds: this.state.playgroundsForTraining,
+                playgroundsCheck: []
             }])
         })
     };
@@ -178,7 +228,9 @@ class TrainerAddSchedule extends Component {
                     end_time: null,
                     price_per_hour: '',
                     currency: 'RUB',
-                    schedule_id: -1
+                    schedule_id: -1,
+                    playgrounds: this.state.playgroundsForTraining,
+                    playgroundsCheck: []
                 }]
             })
         } else if(cards.length === 1) {
@@ -250,7 +302,9 @@ class TrainerAddSchedule extends Component {
                     end_time: null,
                     price_per_hour: '',
                     currency: 'RUB',
-                    schedule_id: -1
+                    schedule_id: -1,
+                    playgrounds: this.state.playgroundsForTraining,
+                    playgroundsCheck: []
                 }],
                 selectChooseDay: value.value
             });
@@ -270,7 +324,7 @@ class TrainerAddSchedule extends Component {
                 end_time: `${card.end_time}:00`,
                 price_per_hour: formatPrice,
                 currency: card.currency,
-                playgrounds: ['1']
+                playgrounds: card.playgroundsCheck
             };
 
             const dataForEdit = {
@@ -279,7 +333,7 @@ class TrainerAddSchedule extends Component {
                 end_time: `${card.dates[0]} ${card.end_time}:00`,
                 price_per_hour: formatPrice,
                 currency: card.currency,
-                playgrounds: ['1']
+                playgrounds: card.playgroundsCheck
             };
 
             // Note: если у нас карточка с сервера, то у неё schedule_id 0 и больше, мы определяем какой запрос отправлять.
@@ -310,6 +364,7 @@ class TrainerAddSchedule extends Component {
             value: 'period',
             label: 'Период (от - до)'
         }]
+        console.log(this.state);
 
         return(
             <div className="b-trainer-add-schedule">
@@ -338,6 +393,8 @@ class TrainerAddSchedule extends Component {
                             onChangeInput={this.onChangeInput(idx)}
                             onChangeTime={this.onChangeTime(idx)}
                             onRemoveCard={this.handleRemoveCard(idx)}
+                            playgroundsForTraining={card.playgrounds}
+                            onChangeCheckbox={this.onChangeCheckbox(idx)}
                         />
                     ))}
 

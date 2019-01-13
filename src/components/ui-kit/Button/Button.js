@@ -15,9 +15,6 @@ class Button extends Component {
 
         const TagName = to ? Link : 'button';
 
-        console.log(to);
-
-
         return(
             <TagName 
                 className={classButton} 
