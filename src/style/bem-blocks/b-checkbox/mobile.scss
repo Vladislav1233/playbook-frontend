@@ -102,4 +102,20 @@
             }
         }
     }
+
+    &--add-schedule & {
+        &__check {
+            .no-touchevents &:hover + .b-checkbox__label,
+            .touchevents &:active + .b-checkbox__label {
+                color: $orange-diamond-yellow;
+            }
+        }
+
+        &__label {
+            .no-touchevents &:hover,
+            .touchevents &:active {
+                color: $orange-diamond-yellow;
+            }
+        }
+    }
 }

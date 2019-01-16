@@ -78,4 +78,11 @@
     &__playground-address {
         color: $carmine-pink;
     }
+
+    &__playground-item {
+
+        &:not(:last-child) {
+            margin-bottom: 24px;
+        }
+    }
 }
