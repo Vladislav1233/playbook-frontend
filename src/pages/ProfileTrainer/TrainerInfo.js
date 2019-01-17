@@ -33,6 +33,10 @@ class TrainerInfo extends Component {
     }
 
     componentDidMount() {
+        this.getTrainerInfo();
+    };
+
+    getTrainerInfo = () => {
         const userId = localStorage.getItem('userId');
         trainerInfoService.getTrainerInformation(userId)
             .then(
@@ -139,6 +143,8 @@ class TrainerInfo extends Component {
             maxPrice
         } = this.state.trainerInfo;
 
+        const { idInfo } = this.state;
+
         const playgroundsId = playgrounds.length > 0 ? playgrounds.map(item => {
             return item.id;
         }) : [];
@@ -150,8 +156,29 @@ class TrainerInfo extends Component {
             max_price: maxPrice,
             currency: "RUB"
         };
+        console.log(idInfo);
 
-        trainerInfoService.postTrainerInformation(data);
+        if (idInfo) {
+            trainerInfoService.editTrainerInformation(idInfo, data)
+                .then(
+                    res => {
+                        alert('Успешно сохранено');
+                    },
+                    error => {
+                        alert('Ошибка');
+                    }
+                );
+        } else {
+            trainerInfoService.createTrainerInformation(data)
+                .then(
+                    res => {
+                        alert('Успешно сохранено');
+                    },
+                    error => {
+                        alert('Ошибка');
+                    }
+                );
+        }
     }
 
     render() {
@@ -280,6 +307,7 @@ class TrainerInfo extends Component {
                                                     disabled
                                                     checked
                                                     value={item.id}
+                                                    onChange={this.handlePlayground}
                                                 />
                                             </li>
                                         );

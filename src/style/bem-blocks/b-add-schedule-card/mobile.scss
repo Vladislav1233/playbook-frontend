@@ -41,6 +41,10 @@
     &__check-item {
         list-style-type: none;
 
+        &:not(:last-child) {
+            margin-bottom: 24px;
+        }
+
         .b-checkbox {
             margin-bottom: 0;
         }

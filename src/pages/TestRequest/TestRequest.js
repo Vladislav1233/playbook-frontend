@@ -4,16 +4,6 @@ import axios from 'axios';
 class TestRequest extends Component {
     request = (event) => {
         event.preventDefault();
-
-        // {
-        //     "dates": "Array with dates of periods. Example: [2018-05-12, 2018-05-13]",
-        //     "start_time": "Period start time. Example: 09:00:00",
-        //     "end_time": "Period end time. Example: 17:00:00",
-        //     "price_per_hour": "Price per hour in cents. Example: 7000. (70RUB)",
-        //     "currency": "Currency: RUB, UAH, USD, etc. Default: RUB",
-        //     "playground_id": "Playground id. Required if type = playground"
-        //   }
-        // /api/schedule/trainer/create
         let valueToken = localStorage.getItem('userToken');
         let valueRole = localStorage.getItem('userRole');
         console.log(valueToken);
@@ -21,23 +11,52 @@ class TestRequest extends Component {
 
         axios({
             method: 'post',
-            url: 'http://playbook.ga/api/register',
+            url: 'http://playbook.ga/api/playground/create',
+            headers: {
+                'Authorization': `Bearer ${valueToken}`
+            },
             data: {
-                "first_name": "Владислав",
-                "last_name": "Довженко",
-                "phone": '79176297123',
-                "is_trainer": '0'
+                "name": "Ulgu",
+                "description": "Playground description Ulgu",
+                "address": "наб. Реки Свияги, 40",
+                "opening_time": "09:00:00",
+                "closing_time": "23:20:00",
+                "type_id": "2"
               }
         }).then(response => {
             console.log(response);
         });
     };
+
+    requestS = (event) => {
+        event.preventDefault();
+        let valueToken = localStorage.getItem('userToken');
+        let valueRole = localStorage.getItem('userRole');
+
+        axios({
+            method: 'post',
+            url: 'http://playbook.ga/api/organization/create',
+            headers: {
+                'Authorization': `Bearer ${valueToken}`
+            },
+            data: {
+                "name": "Lawn",
+                "city_id": "1"
+              }
+        }).then(response => {
+            console.log(response);
+        });
+    }
     
     render() {
         return(
             <div>
                 <form onSubmit={this.request}>
-                    <button>Register</button>
+                    <button>Create new playground</button>
+                </form>
+
+                <form onSubmit={this.requestS}>
+                    <button>Create new organization</button>
                 </form>
             </div>
         )

@@ -5,6 +5,7 @@
     padding: 10px;
     border-radius: 5px;
     transition: border-color $animation-time;
+    position: relative;
 
     &--hover {
         cursor: pointer;
@@ -63,5 +64,14 @@
         font-size: 14px;
         line-height: 17px;
         color: $carmine-pink;
+    }
+
+    &__delete {
+        cursor: pointer;
+        display: block;
+        position: absolute;
+        width: 20px;
+        right: 5px;
+        top: 5px;
     }
 }

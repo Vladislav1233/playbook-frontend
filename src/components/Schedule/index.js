@@ -97,7 +97,9 @@ class Schedule extends Component {
                             schedule.schedule.length > 0
                                 ? <ScheduleList 
                                     list={schedule.schedule}
-                                    template={template} />
+                                    template={template} 
+                                    playgroundsForTraining={playgroundsForTraining} 
+                                />
                                 : notScheduleTemplate()
                         : null}
                         

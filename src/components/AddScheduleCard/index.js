@@ -14,7 +14,8 @@ import deleteIcon from '../../style/images/icon/delete.svg';
 class AddScheduleCard extends Component {
 
     render() {
-        const { idRender, data, isCheck, onChangeTime, onRemoveCard } = this.props;
+        const { idRender, data, onChangeTime, onRemoveCard, playgroundsForTraining, onChangeInput, onChangeCheckbox } = this.props;
+        console.log(playgroundsForTraining);
 
         return(
             <div className="b-add-schedule-card">
@@ -45,7 +46,7 @@ class AddScheduleCard extends Component {
                         idInput={`price-${idRender}`}
                         placeholder='Цена за час'
                         value={data.price_per_hour}
-                        onChange={this.props.onChangeInput}
+                        onChange={onChangeInput}
                         nameInput={'price_per_hour'}
                         theme={{blackColor: true}}
                     />
@@ -55,16 +56,34 @@ class AddScheduleCard extends Component {
                     <div className="b-add-schedule-card__title-section">Корт</div>
 
                     <ul className="b-add-schedule-card__check-list">
-                        <li className="b-add-schedule-card__check-item">
-                            <Checkbox 
-                                name="court"
-                                id="court-0"
-                                text="Lawn tennis"
-                                value="court-0"
-                                checked={isCheck}
-                                onChange={() => {}}
-                            />
-                        </li>
+                        {playgroundsForTraining.length > 0 ? 
+                            playgroundsForTraining.map(item => {
+                                
+                                const isCheck = (num) => {
+                                    return num === item.id
+                                }
+                                let checkIs = false;
+
+                                if (data.playgroundsCheck.length > 0) {
+                                    checkIs = data.playgroundsCheck.some(isCheck);
+                                };
+
+                                return (
+                                    <li key={item.id} className="b-add-schedule-card__check-item">
+                                        <Checkbox 
+                                            name={`${item.id}`}
+                                            id={`court-${item.id}${idRender}`}
+                                            text={item.name}
+                                            value={item.id}
+                                            checked={checkIs}
+                                            onChange={onChangeCheckbox}
+                                            modif='b-checkbox--add-schedule'
+                                        />
+                                    </li>
+                                )
+                            })
+                            : null
+                        }
                     </ul>
                 </div>
             </div>
