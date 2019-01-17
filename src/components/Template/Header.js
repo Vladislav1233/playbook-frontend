@@ -8,6 +8,7 @@ import '../../style/bem-blocks/b-logotype/index.scss';
 
 // component
 import MenuHeader from './MenuHeader';
+import HeadMenu from '../HeadMenu';
 
 import tennisBallIcon from '../../style/images/icon/tennis-ball.svg';
 
@@ -36,10 +37,11 @@ class Header extends Component {
 
                         {/* TODO: для главной страницы не надо сслыку to выводить, чтобы не перерендеривало при клике */}
                         <Link className="b-logotype" to='/'>
-                            <img className="b-logotype__image" src={tennisBallIcon} alt="На главную"/>
+                            <img className="b-logotype__image" src={tennisBallIcon} alt="Логотип - теннисный мяч"/>
                             <span className="b-logotype__text">На главную</span>
                         </Link>
                         
+                        <HeadMenu />
                         {/*TODO: здесь меняем в зависимости от  того, чье расписание сейчас смотрим: переключаем расписание между кортом и тренером (наверное с помощью router) */}
                         {/*<a className="b-header__get-schedule" href="" title=''>Мне нужен корт</a>*/}
                     </div>

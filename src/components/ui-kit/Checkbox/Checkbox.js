@@ -36,13 +36,13 @@ class Checkbox extends Component {
     // }
 
     render() {
-        const { name, id, text, value, modif, checked } = this.props;
+        const { name, id, text, value, modif, checked, type } = this.props;
 
         return(
             <div className={`b-checkbox ${modif ? modif : ''}`}>
                 <input
                     className="b-checkbox__input"
-                    type='checkbox' 
+                    type={type ? type : 'checkbox'} 
                     name={name}
                     id={id}
                     value={value}
@@ -59,10 +59,7 @@ class Checkbox extends Component {
                 </label>
                 {text ? 
                     ( 
-                    <label 
-                        className="b-checkbox__label"
-                        htmlFor={id}
-                    >
+                    <label className="b-checkbox__label" htmlFor={id}>
                         <span>{text}</span>
                     </label>
                     ) : null}

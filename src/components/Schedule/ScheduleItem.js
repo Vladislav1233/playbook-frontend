@@ -32,7 +32,7 @@ class ScheduleItem extends Component {
             status // true - это время свободно, false - это время занято
         } = this.props.dataScheduleItem;
     
-        const { template } = this.props;
+        const { template, playgroundsForTraining } = this.props;
         const textBooking = 'Нажми, чтобы забронировать';
 
         const itemTrainer = () => (
@@ -88,6 +88,7 @@ class ScheduleItem extends Component {
                     closeModal={this.closeModal}
                     typeBooking='trainer'
                     dateBooking={moment(start_time).format('YYYY-MM-DD')}
+                    playgroundsForTraining={playgroundsForTraining}
                 />
             </Fragment>
         )
