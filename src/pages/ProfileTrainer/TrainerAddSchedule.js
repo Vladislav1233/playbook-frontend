@@ -181,7 +181,7 @@ class TrainerAddSchedule extends Component {
             newPlaygroundsCheck = [...newPlaygroundsCheck, +name];
         } else {
             newPlaygroundsCheck = newPlaygroundsCheck.filter(item => {
-                return item != name;
+                return item !== name;
             })
         };
 
