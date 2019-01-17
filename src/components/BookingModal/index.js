@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import Input from '../ui-kit/Input/Input';
 import InputMask from 'react-input-mask';
 import Button from '../ui-kit/Button/Button';
+import Checkbox from '../ui-kit/Checkbox/Checkbox';
 
 // Note: services
 import { bookingService } from '../../services/booking';
@@ -23,13 +24,19 @@ Modal.setAppElement('#root');
 
 class BookingModal extends Component {
 
-    state = {
-        start_time: '',
-        end_time: '',
-        first_name: '',
-        last_name: '',
-        phone: '',
-        password: ''
+    constructor(props) {
+        super(props);
+        console.log(props);
+
+        this.state = {
+            start_time: '',
+            end_time: '',
+            first_name: '',
+            last_name: '',
+            phone: '',
+            password: '',
+            playgroundId: null
+        }
     }
 
     onChangeInput = (e) => {
@@ -40,6 +47,15 @@ class BookingModal extends Component {
             [name]: value
         })
     };
+
+    onChangeRadio = e => {
+        const { value } = e.target;
+
+        this.setState({
+            ...this.state,
+            playgroundId: +value
+        })
+    }
 
     onGetNewPassword = (e) => {
         e.preventDefault();
@@ -72,7 +88,8 @@ class BookingModal extends Component {
             first_name: '',
             last_name: '',
             phone: '',
-            password: ''
+            password: '',
+            playgroundId: null
         });
     }
 
@@ -118,7 +135,7 @@ class BookingModal extends Component {
     };
 
     render() {
-        const { isOpenModal, closeModal } = this.props;
+        const { isOpenModal, closeModal, playgroundsForTraining } = this.props;
         const valueToken = localStorage.getItem('userToken');
 
         const templateCost = (title, cost) => {
@@ -171,9 +188,24 @@ class BookingModal extends Component {
                             </fieldset>
                             
                             {/* TODO: радиобаттоны для корта */}
-                            {/* <fieldset className="b-booking-form__fieldset">
-
-                            </fieldset> */}
+                            <fieldset className="b-booking-form__fieldset">
+                                <legend className="b-modal__title-group">Корт</legend>
+                                {playgroundsForTraining ? playgroundsForTraining.map( item => {
+                                    return (
+                                        <Checkbox 
+                                            key={`playground_${item.id}`}
+                                            type='radio'
+                                            name="playground"
+                                            id={`playground_${item.id}`}
+                                            text={item.name}
+                                            value={item.id}
+                                            checked={this.state.playgroundId === item.id}
+                                            onChange={this.onChangeRadio}
+                                            modif={'b-checkbox--add-schedule'}
+                                        />
+                                    )
+                                }): null}
+                            </fieldset>
 
                             <fieldset className="b-booking-form__fieldset">
                                 <legend className="b-modal__title-group">Стоимость</legend>
