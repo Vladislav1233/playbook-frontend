@@ -21,25 +21,23 @@ class ProfileTrainer extends Component {
         const { toggleCabinet, onToggleCabinet } = this.props;
 
         return (
-            <div className="container">
-                <ProfileTabs isOpen={toggleCabinet} onToggleCabinet={onToggleCabinet}>
-                    <div label="Добавить расписание" src={addScheduleIcon}>
-                        <TrainerAddSchedule />
-                    </div>
-                    
-                    <div label="Моё расписание" src={myScheduleIcon}>
-                        <TrainerScheduleProfile />
-                    </div>
+            <ProfileTabs isOpen={toggleCabinet} onToggleCabinet={onToggleCabinet}>
+                <div label="Добавить расписание" src={addScheduleIcon}>
+                    <TrainerAddSchedule />
+                </div>
+                
+                <div label="Моё расписание" src={myScheduleIcon}>
+                    <TrainerScheduleProfile />
+                </div>
 
-                    <div label="Заявки на бронь" src={invitationReserveIcon}>
-                        <TrainerBookingRequest />
-                    </div>
+                <div label="Заявки на бронь" src={invitationReserveIcon}>
+                    <TrainerBookingRequest />
+                </div>
 
-                    <div label="Информация о себе" src={addInfoIcon}>
-                        <TrainerInfo />
-                    </div>
-                </ProfileTabs>
-            </div>
+                <div label="Информация о себе" src={addInfoIcon}>
+                    <TrainerInfo />
+                </div>
+            </ProfileTabs>
         )
     }
 }

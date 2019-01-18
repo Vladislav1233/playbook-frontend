@@ -43,6 +43,7 @@ a {
     .container {
         &--schedule {
             width: calc(100% - 320px);
+            max-width: none;
         }
     }
 }
