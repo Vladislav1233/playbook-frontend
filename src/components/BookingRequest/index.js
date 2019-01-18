@@ -6,22 +6,10 @@ import Button from '../ui-kit/Button/Button';
 // Note: styles
 import '../../style/bem-blocks/b-booking-request/index.scss';
 
-const dataBookingRequest = [{
-    firtsName: 'Владислав',
-    lastName: 'Довженко',
-    tel: '+79176297124',
-    nameCourt: 'LawnTennis',
-    time: '12.01.2019 (воскресенье): 12:00 - 14:00'
-}, {
-    firtsName: 'Максим',
-    lastName: 'Гришин',
-    tel: '+79015467322',
-    nameCourt: 'LawnTennis',
-    time: '12.01.2019 (воскресенье): 18:00 - 19:00'
-}]
-
 class BookingRequest extends Component {
     render() {
+        const { dataBookingRequest } = this.props;
+
         return(
             <div className="b-booking-request">
                 {dataBookingRequest.map((item, index) => {
