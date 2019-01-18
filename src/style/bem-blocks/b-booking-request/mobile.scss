@@ -1,0 +1,47 @@
+// 320
+.b-booking-request {
+    margin-left: -15px;
+    margin-right: -15px;
+    font-size: 0;
+
+    &__item {
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid $temperate-slate-blue;
+        margin-bottom: 40px;
+    }
+
+    &__player-name {
+        font-size: 18px;
+        line-height: 26px;
+    }
+
+    &__player-tel {
+        font-size: 16px;
+        line-height: 1;
+    }
+
+    &__training {
+        margin-top: 15px;
+        margin-bottom: 20px;
+    }
+
+    &__training-playground {
+        font-size: 15px;
+        line-height: 21px;
+        color: $mint;
+    }
+
+    &__training-time {
+        font-size: 14px;
+        line-height: 21px;
+        color: $carmine-pink;
+    }
+
+    &__button-item {
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+    }
+}

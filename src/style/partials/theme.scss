@@ -46,3 +46,11 @@ a {
         }
     }
 }
+
+h1 {
+    @include h1();
+    margin-top: 0px;
+    margin-bottom: 50px;
+
+    
+}
