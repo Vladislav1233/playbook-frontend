@@ -7,6 +7,9 @@ import { userActions } from '../../store/actions/userAction';
 // Note: style
 import '../../style/bem-blocks/b-head-menu/index.scss';
 
+// Note: image
+import avaImg from '../../style/images/ava.jpg';
+
 class HeadMenu extends Component {
     state = {
         showContent: false
@@ -31,7 +34,7 @@ class HeadMenu extends Component {
             <div className={classNameBlock}>
                 <a onClick={this.toggleContent} className="b-head-menu__open-button" href="">
                     <div className="b-head-menu__image-wrapper">
-                        <img className="b-head-menu__image" src="https://i.pinimg.com/236x/9f/8f/cd/9f8fcdc389c0d84cc88e3f7ca81b7c4e--dont-judge-me-minions-love.jpg" alt=""/>
+                        <img className="b-head-menu__image" src={avaImg} alt=""/>
                     </div>
                 </a>
                 {showContent ?

@@ -10,7 +10,7 @@
     background-color: $mint;
     transform: translateX(-100%);
     transition-property: transform;
-    transition-duration: $animation-time;
+    transition-duration: $animation-time-double;
 
     &.open {
         transform: translateX(0%);
