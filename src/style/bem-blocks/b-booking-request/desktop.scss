@@ -1,0 +1,27 @@
+// 1280
+.b-booking-request {
+
+    &__item {
+        width: calc(100% / 3 - 30px);   
+    }
+
+    &__player-name{
+        font-size: 20px;
+        line-height: 32px;
+    }
+
+    &__player-tel {
+        font-size: 18px;
+        line-height: 30px;
+    }
+
+    &__training-playground {
+        font-size: 17px;
+        line-height: 25px;
+    }
+
+    &__training-time {
+        font-size: 16px;
+        line-height: 25px;
+    }
+}

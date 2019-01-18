@@ -18,6 +18,7 @@ export function getBookings(type, id) {
         bookingService.getBookings(type, id)
             .then(
                 res => {
+                    console.log(res);
                     dispatch(success(res));
                 },
                 error => {

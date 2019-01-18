@@ -1,0 +1,15 @@
+// 768
+.b-booking-request {
+
+    &__item {
+        display: inline-block;
+        vertical-align: top;
+        border: 1px solid $border-color;
+        border-radius: 6px;
+        padding: 20px;
+        background-color: $white;
+        width: calc(50% - 30px);
+        margin-left: 15px;
+        margin-right: 15px;        
+    }
+}

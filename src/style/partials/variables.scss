@@ -30,6 +30,18 @@ $border-color: #ebebeb;
 $background-schedule: #f4f8f9;
 
 // ----- typography -----
+@mixin  h1() {
+    font-family: $medium;
+    font-size: 25px;
+    line-height: 35px;
+    letter-spacing: 0.3px;
+
+    @media (min-width: $desktopMin) {
+        font-size: 30px;
+        line-height: 45px;
+    }
+}
+
 @mixin text() {
     font-size: 14px;
     line-height: 19px;
