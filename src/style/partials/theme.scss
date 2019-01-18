@@ -8,6 +8,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: $medium, Arial, Helvetica, sans-serif;
+    background-color: #f3f3f3;
 }
   
 *,
@@ -20,6 +21,7 @@ body {
 //   max-width: 1920px;
     padding: 0px 15px;
     margin: 0px auto;
+    max-width: 1310px;
 
     &--schedule {
         background-color: $temperate-slate-blue;

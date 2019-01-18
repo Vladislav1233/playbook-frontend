@@ -9,7 +9,7 @@
     position: relative;
     z-index: 50;
     overflow: hidden;
-    transition: border-color $animation-time, right $animation-time;
+    transition: border-color $animation-time, right $animation-time-double;
     right: 0;
 
     svg {
