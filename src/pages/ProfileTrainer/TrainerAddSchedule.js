@@ -363,8 +363,7 @@ class TrainerAddSchedule extends Component {
         }, {
             value: 'period',
             label: 'Период (от - до)'
-        }]
-        console.log(this.state);
+        }];
 
         return(
             <div className="b-trainer-add-schedule">

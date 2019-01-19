@@ -40,7 +40,6 @@ class Schedule extends Component {
 
     render() {
         const { schedule, template, bookedTime, cost, playgroundsForTraining } = this.props;
-        console.log(playgroundsForTraining);
 
         const notScheduleTemplate = () => (
             <div className="b-schedule__not">Нет свободного времени</div>

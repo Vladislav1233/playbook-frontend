@@ -156,7 +156,6 @@ class TrainerInfo extends Component {
             max_price: maxPrice,
             currency: "RUB"
         };
-        console.log(idInfo);
 
         if (idInfo) {
             trainerInfoService.editTrainerInformation(idInfo, data)
@@ -182,10 +181,8 @@ class TrainerInfo extends Component {
     }
 
     render() {
-        // const { labelText, typeInput, idInput, placeholder, value, nameInput, modif, theme } = this.props;
         const { trainerInfo } = this.state;
         const { foundPlagrounds } = this.props;
-        console.log(this.state);
 
         return(
             <div className="b-trainer-info">

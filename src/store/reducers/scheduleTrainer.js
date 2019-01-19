@@ -65,7 +65,6 @@ export default function(state = initialState, action) {
             }
 
         case GET_SUCCESS_SCHEDULE_TRAINER:
-            console.log(action.payload.data);
             const responseSchedule = action.payload.data;
             
             // Note: Инициализация первого диапазона времени

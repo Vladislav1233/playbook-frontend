@@ -26,7 +26,6 @@ class BookingModal extends Component {
 
     constructor(props) {
         super(props);
-        console.log(props);
 
         this.state = {
             start_time: '',
@@ -96,13 +95,18 @@ class BookingModal extends Component {
     onSubmitBooking = (e) => {
         e.preventDefault();
         const { typeBooking, dateBooking } = this.props;
-        const { start_time, end_time } = this.state;
+        const { start_time, end_time, playgroundId } = this.state;
         const valueToken = localStorage.getItem('userToken');
+        const userId = localStorage.getItem('userId');
 
         const data = {
             start_time: `${dateBooking} ${start_time}:00`,
             end_time: `${dateBooking} ${end_time}:00`,
-            bookable_id: 1
+            bookable_id: +userId,
+        };
+
+        if (playgroundId) {
+            data.playgroundId = playgroundId
         };
 
         const bookingStart = () => {
@@ -168,8 +172,6 @@ class BookingModal extends Component {
                                     nameInput='start_time'
                                     theme={{blackColor: true}}
                                     onChange={this.onChangeInput}
-                                    minValue='13:00'
-                                    maxValue='17:00'
                                     modif='b-input--time-booking'
                                 />
 
@@ -181,8 +183,6 @@ class BookingModal extends Component {
                                     nameInput='end_time'
                                     theme={{blackColor: true}}
                                     onChange={this.onChangeInput}
-                                    minValue='13:00'
-                                    maxValue='17:00'
                                     modif='b-input--time-booking'
                                 />
                             </fieldset>

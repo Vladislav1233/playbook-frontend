@@ -31,7 +31,7 @@ class TestRequest extends Component {
     requestS = (event) => {
         event.preventDefault();
         let valueToken = localStorage.getItem('userToken');
-        let valueRole = localStorage.getItem('userRole');
+        // let valueRole = localStorage.getItem('userRole');
 
         axios({
             method: 'post',
