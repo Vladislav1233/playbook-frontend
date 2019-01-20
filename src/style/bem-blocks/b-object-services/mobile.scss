@@ -1,8 +1,62 @@
 // 320
 .b-object-service {
     padding: 0px;
+    margin-bottom: 30px;
 
     &__item {
         list-style-type: none;
+        position: relative;
+        padding: 6px 0px;
+        border-bottom: 1px solid $border-color;
+        
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+    }
+
+    &__training-playground {
+        font-size: 15px;
+        line-height: 21px;
+        color: $mint;
+    }
+
+    &__playground-additional {
+        font-size: 14px;
+        line-height: 21px;
+        color: $carmine-pink;
+    }
+
+    &__info {
+        display: inline-block;
+        vertical-align: top;
+        width: calc(100% - 60px);
+        padding-left: 10px;
+
+        p {
+            font-size: 15px;
+            line-height: 21px;
+            color: $mint;
+        }
+    }
+
+    &__icon {
+        display: inline-block;
+        vertical-align: top;
+        width: 60px;
+        text-align: center;
+        padding-top: 3px;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            bottom: 6px;
+            left: 60px;
+            border-right: 1px solid $border-color;
+        }
+
+        svg {
+            fill: #F55F0C;
+        }
     }
 }

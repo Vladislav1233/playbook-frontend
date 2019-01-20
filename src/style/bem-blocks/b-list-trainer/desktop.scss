@@ -1,1 +1,7 @@
 // 1280
+.b-list-trainer {
+    
+    &__item {
+        width: calc(100% / 3);
+    }
+}

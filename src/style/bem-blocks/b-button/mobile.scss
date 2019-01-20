@@ -10,6 +10,7 @@
     transition: color $animation-time;
     font-size: 14px;
     display: inline-block;
+    text-align: center;
 
     &:focus {
         outline: none;

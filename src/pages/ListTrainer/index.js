@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
-import { configPathRouter } from '../../App/configPathRouter';
 
 // Note: components
 import ObjectCard from '../../components/ObjectCard';
@@ -11,7 +9,7 @@ import '../../style/bem-blocks/b-list-trainer/index.scss';
 class ListTrainer extends Component {
     render() {
         return (
-            <div className="container">
+            <div className="container container--white">
                 <div className="b-list-trainer">
                     <h1>Список тренеров</h1>
 
@@ -19,9 +17,15 @@ class ListTrainer extends Component {
                         <li className="b-list-trainer__item">
                             <ObjectCard />
                         </li>
-                    </ul>
 
-                    <Link to={configPathRouter.scheduleTrainer}>Елена Намунка</Link>                    
+                        <li className="b-list-trainer__item">
+                            <ObjectCard />
+                        </li>
+
+                        <li className="b-list-trainer__item">
+                            <ObjectCard />
+                        </li>
+                    </ul>                   
                 </div>
             </div>
         )
