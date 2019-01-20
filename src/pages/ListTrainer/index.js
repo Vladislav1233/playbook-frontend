@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
+import { getTrainerList } from '../../store/actions/trainerList';
 
 // Note: components
 import ObjectCard from '../../components/ObjectCard';
@@ -7,6 +9,16 @@ import ObjectCard from '../../components/ObjectCard';
 import '../../style/bem-blocks/b-list-trainer/index.scss';
 
 class ListTrainer extends Component {
+
+    componentDidMount() {
+        const data = {
+            limit: 4,
+            offset: 0
+        };
+
+        this.props.getTrainerList(data);
+    }
+
     render() {
         return (
             <div className="container container--white">
@@ -32,4 +44,17 @@ class ListTrainer extends Component {
     }
 }
 
-export default ListTrainer;
+
+const mapStateToProps = ({ toggleCabinet }) => {
+    return {
+        toggleCabinet: toggleCabinet.toggleCabinet
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getTrainerList: (data) => dispatch(getTrainerList(data))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(ListTrainer);
