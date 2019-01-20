@@ -45,11 +45,11 @@ class ListTrainer extends Component {
 }
 
 
-const mapStateToProps = ({ toggleCabinet }) => {
-    return {
-        toggleCabinet: toggleCabinet.toggleCabinet
-    }
-};
+// const mapStateToProps = ({ toggleCabinet }) => {
+//     return {
+//         toggleCabinet: toggleCabinet.toggleCabinet
+//     }
+// };
 
 const mapDispatchToProps = (dispatch) => {
     return {
