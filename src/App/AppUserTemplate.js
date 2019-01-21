@@ -20,7 +20,7 @@ export default () => (
         <Route exact component={HelloPage} path='/' />
         <Route component={ListCourt} path={configPathRouter.listCourt} />
         <Route component={ListTrainer} path={configPathRouter.listTrainer} />
-        <Route component={ScheduleTrainer} path={configPathRouter.scheduleTrainer} />
+        <Route component={ScheduleTrainer} path={`${configPathRouter.scheduleTrainer}/:slug`} />
         {/*<Route component={ScheduleCourt} path={configPathRouter.scheduleCourt} />*/}
         <Route component={Registration} path={configPathRouter.registration} />
         <Route component={Auth} path={configPathRouter.authorization} />

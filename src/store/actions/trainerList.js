@@ -12,6 +12,7 @@ export function getTrainerList(data) {
 
         trainerInfoService.getTrainerList(data).then(
             res => {
+                console.log(res);
                 dispatch(success(res));
             },
             error => {

@@ -2,6 +2,7 @@ import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 import { getTrainerSchedule } from '../../store/actions/schedule';
 import { dataTime } from '../../helpers/dataTime';
+import { withRouter } from 'react-router-dom';
 
 // component
 import Schedule from '../../components/Schedule';
@@ -68,4 +69,4 @@ const mapStateToDispatch = (dispatch) => {
     }
 };
   
-export default connect(mapStateToProps, mapStateToDispatch)(ScheduleTrainer)
+export default withRouter(connect(mapStateToProps, mapStateToDispatch)(ScheduleTrainer));
