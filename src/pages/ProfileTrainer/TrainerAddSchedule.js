@@ -129,10 +129,12 @@ class TrainerAddSchedule extends Component {
             trainerInfoService.getTrainerInformation(userId)
                 .then(
                     res => {
-                        this.setState({
-                            ...this.state,
-                            playgroundsForTraining: res.data.data.playgrounds
-                        }, getScheduleRequest())
+                        if (res.data.length >= 0) {
+                            this.setState({
+                                ...this.state,
+                                playgroundsForTraining: res.data.data.playgrounds
+                            }, getScheduleRequest())
+                        };
                     },
                     error => {
                         console.log(error);
@@ -420,6 +422,7 @@ class TrainerAddSchedule extends Component {
 }
 
 const mapStateToProps = ({ scheduleTrainer }) => {
+    console.log(scheduleTrainer);
     return {
         successPostResponse: scheduleTrainer.successPostResponse
     }
