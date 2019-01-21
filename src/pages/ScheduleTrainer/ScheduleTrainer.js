@@ -21,7 +21,6 @@ class ScheduleTrainer extends Component {
     }
 
     render() {
-        console.log(this.props);
         const { scheduleTrainer, getTrainerSchedule, bookedTime, playgroundsForTraining } = this.props;
 
         // Note: userId - это id пользователя (тренера) расписание которого надо получить, в нашем случае мы находимся в личном кабинете и запрашиваем свой id тренера

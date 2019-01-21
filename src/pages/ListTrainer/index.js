@@ -4,6 +4,7 @@ import { getTrainerList } from '../../store/actions/trainerList';
 
 // Note: components
 import ObjectCard from '../../components/ObjectCard';
+import Button from '../../components/ui-kit/Button/Button';
 
 // Note: styles
 import '../../style/bem-blocks/b-list-trainer/index.scss';
@@ -11,15 +12,23 @@ import '../../style/bem-blocks/b-list-trainer/index.scss';
 class ListTrainer extends Component {
 
     componentDidMount() {
+        this.moreTrainer();
+    }
+
+    moreTrainer = () => {
+        const { pagination } = this.props;
         const data = {
-            limit: 4,
-            offset: 0
+            limit: pagination.limit,
+            offset: pagination.offset
         };
 
         this.props.getTrainerList(data);
     }
 
     render() {
+        const { listTrainer, hideMoreButton } = this.props;
+        console.log(listTrainer);
+
         return (
             <div className="container container--white">
                 <div className="b-list-trainer">
@@ -37,7 +46,15 @@ class ListTrainer extends Component {
                         <li className="b-list-trainer__item">
                             <ObjectCard />
                         </li>
-                    </ul>                   
+                    </ul>  
+
+                    {!hideMoreButton 
+                        ? <Button 
+                            name="Показать ещё"
+                            onClick={this.moreTrainer}
+                        />
+                        : null
+                    }
                 </div>
             </div>
         )
@@ -45,11 +62,13 @@ class ListTrainer extends Component {
 }
 
 
-// const mapStateToProps = ({ toggleCabinet }) => {
-//     return {
-//         toggleCabinet: toggleCabinet.toggleCabinet
-//     }
-// };
+const mapStateToProps = ({ trainerList }) => {
+    return {
+        listTrainer: trainerList.listTrainer,
+        pagination: trainerList.pagination,
+        hideMoreButton: trainerList.hideMoreButton
+    }
+};
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -57,4 +76,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(ListTrainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ListTrainer);
