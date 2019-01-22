@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { configPathRouter } from '../../App/configPathRouter';
 
 // Note: components
@@ -10,30 +10,50 @@ import '../../style/bem-blocks/b-object-services/index.scss';
 
 
 class ObjectCard extends Component {
+
     render() {
+        const { trainerInfo } = this.props;
+        const cost = () => {
+            if (trainerInfo.trainer_info) {
+                if (trainerInfo.trainer_info.min_price === trainerInfo.trainer_info.max_price) {
+                    return trainerInfo.trainer_info.min_price
+                } else {
+                    return `${trainerInfo.trainer_info.min_price} - ${trainerInfo.trainer_info.max_price}`
+                }
+            }
+        };
+
         return(
             <div className="b-object-card">
                 <div className="b-object-card__header">
                     <div className="b-object-card__photo-wrapper">
-                        <img className="b-object-card__photo" src="https://dumskaya.net/pics/b6/picturepicture_150754124582004038201142_41715.jpg" alt="" />
+                        {/* TODO: сделать добавление фото в ЛК */}
+                        <img className="b-object-card__photo" src="https://dumskaya.net/pics/b6/picturepicture_150754124582004038201142_41715.jpg" alt="Фото тренера" />
                     </div>
                 </div>
 
                 <div className="b-object-card__info">
                     <div className="b-object-card__name-group">
-                        <span className="b-object-card__first-name">Елена </span>
-                        <span className="b-object-card__last-name">Намунка</span>
+                        <span className="b-object-card__first-name">{trainerInfo.first_name} </span>
+                        <span className="b-object-card__last-name">{trainerInfo.last_name}</span>
                     </div>
 
-                    <div className="b-object-card__about">
-                        <p>Привет, я лучший в городе тренер по теннису! Мой опыт больше 10 лет и я выиграла больше 30 турниров за свою карьеру.</p>
-                    </div>
+                    {trainerInfo.trainer_info 
+                        ? <Fragment>
+                            <div className="b-object-card__about">
+                                <p>{trainerInfo.trainer_info.about}</p>
+                            </div>
 
-                    <div className="b-cost-information">
-                        <div className="b-cost-information__cost">700 р./час</div>
-                    </div>
+                            <div className="b-cost-information">
+                                {/* TODO: интегрировать валюту (список валют иметь и передавать переменную) */}
+                                <div className="b-cost-information__cost">{cost()} р./час</div>
+                            </div> 
+                        </Fragment>
+                        : null
+                    }
                 </div>
-
+                    
+                {/* TODO: интегрировать */}
                 <ul className="b-object-service">
                     <li className="b-object-service__item">
                         <div className="b-object-service__icon">
@@ -45,8 +65,9 @@ class ObjectCard extends Component {
                             <div className="b-object-service__playground-additional">Октябрская, 22а и ещё 3 корт(а)</div>
                         </div>
                     </li>
-
-                    <li className="b-object-service__item">
+                    
+                    {/* TODO: добавить в ЛК поля для описания вида предоставляемых услуг по тренировкам */}
+                    {/* <li className="b-object-service__item">
                         <div className="b-object-service__icon">
                             <svg viewBox="64 64 896 896" data-icon="info-circle" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"></path><path d="M464 336a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm72 112h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V456c0-4.4-3.6-8-8-8z"></path></svg>
                         </div>
@@ -54,16 +75,17 @@ class ObjectCard extends Component {
                         <div className="b-object-service__info">
                             <p>Детские, групповые, взрослые</p>
                         </div>
-                    </li>
+                    </li> */}
                 </ul>
 
                 <div className="b-object-card__button">
                     <div className="b-object-card__button-item">
-                        <Button to={configPathRouter.scheduleTrainer} modif="b-button--orange b-button--full" name="Забронировать"/>
+                        <Button to={`${configPathRouter.scheduleTrainer}/${trainerInfo.id}`} modif="b-button--orange b-button--full" name="Забронировать"/>
                     </div>
-                    <div className="b-object-card__button-item">
+                    {/* TODO: Кнопку "подробнее выводить как будет раздел детальной о тренере" */}
+                    {/* <div className="b-object-card__button-item">
                         <Button modif="b-button--orange b-button--full" name="Подробнее"/>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         )

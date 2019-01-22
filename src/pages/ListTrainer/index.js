@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { getTrainerList } from '../../store/actions/trainerList';
+import { getTrainerList, clearTrainerListStore } from '../../store/actions/trainerList';
 
 // Note: components
 import ObjectCard from '../../components/ObjectCard';
@@ -15,6 +15,10 @@ class ListTrainer extends Component {
         this.moreTrainer();
     }
 
+    componentWillUnmount() {
+        this.props.clearTrainerListStore();
+    }
+
     moreTrainer = () => {
         const { pagination } = this.props;
         const data = {
@@ -26,33 +30,40 @@ class ListTrainer extends Component {
     }
 
     render() {
-        const { listTrainer, hideMoreButton } = this.props;
+        const { listTrainer, totalCount, pagination } = this.props;
         console.log(listTrainer);
 
         return (
             <div className="container container--white">
                 <div className="b-list-trainer">
-                    <h1>Список тренеров</h1>
+                    <h1>
+                        Список тренеров
+                        <span className="b-list-trainer__note">
+                            Всего тренеров: {totalCount}
+                        </span>
+                    </h1>
 
                     <ul className="b-list-trainer__list">
-                        <li className="b-list-trainer__item">
-                            <ObjectCard />
-                        </li>
 
-                        <li className="b-list-trainer__item">
-                            <ObjectCard />
-                        </li>
-
-                        <li className="b-list-trainer__item">
-                            <ObjectCard />
-                        </li>
+                        {listTrainer.length > 0
+                            ? listTrainer.map(item => {
+                                return (
+                                    <li key={item.id} className="b-list-trainer__item">
+                                        <ObjectCard trainerInfo={item} />
+                                    </li>
+                                )       
+                            })
+                            : <p>Тренеров нет</p>
+                        }
                     </ul>  
 
-                    {!hideMoreButton 
-                        ? <Button 
-                            name="Показать ещё"
-                            onClick={this.moreTrainer}
-                        />
+                    {totalCount > pagination.offset
+                        ? <div className="b-list-trainer__more">
+                            <Button 
+                                name="Показать ещё"
+                                onClick={this.moreTrainer}
+                            />
+                        </div> 
                         : null
                     }
                 </div>
@@ -63,16 +74,18 @@ class ListTrainer extends Component {
 
 
 const mapStateToProps = ({ trainerList }) => {
+    console.log(trainerList);
     return {
         listTrainer: trainerList.listTrainer,
         pagination: trainerList.pagination,
-        hideMoreButton: trainerList.hideMoreButton
+        totalCount: trainerList.total_count
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getTrainerList: (data) => dispatch(getTrainerList(data))
+        getTrainerList: (data) => dispatch(getTrainerList(data)),
+        clearTrainerListStore: () => dispatch(clearTrainerListStore())
     }
 }
 

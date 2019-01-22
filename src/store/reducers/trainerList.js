@@ -1,7 +1,9 @@
 import { 
     GET_TRAINER_LIST_START, 
     GET_TRAINER_LIST_SUCCESS, 
-    GET_TRAINER_LIST_FAILURE 
+    GET_TRAINER_LIST_FAILURE,
+
+    CLEAR_TRAINER_LIST_STORE
 } from '../constants/trainerList';
 
 const initialState = {
@@ -9,10 +11,10 @@ const initialState = {
     params: null,
     preloader: false,
     pagination: {
-        limit: 4,
+        limit: 3,
         offset: 0
     },
-    hideMoreButton: false
+    total_count: 0
 };
 
 export default function(state = initialState, action) {
@@ -24,9 +26,12 @@ export default function(state = initialState, action) {
             }
 
         case GET_TRAINER_LIST_SUCCESS:
-            if (action.payload.data.data.length > 0) {
-                const { config, data } = action.payload;
-                const newListTrainer = [...state.listTrainer, ...data.data];
+            const { list, total_count } = action.payload.data.data;
+            const { config } = action.payload;
+
+            if (list.length > 0) {
+                const newListTrainer = [...state.listTrainer, ...list];
+                console.log(total_count, state.pagination.limit);
 
                 return {
                     ...state,
@@ -35,20 +40,21 @@ export default function(state = initialState, action) {
                         ...state.pagination,
                         offset: config.params.offset + state.pagination.limit
                     },
-                    listTrainer: newListTrainer
+                    listTrainer: newListTrainer,
+                    total_count: total_count
                 }
-            } else {
-                return {
-                    ...state,
-                    hideMoreButton: true
-                }
-            }
+            };
 
         case GET_TRAINER_LIST_FAILURE:
             alert('ошибка'); // TODO
             return {
                 ...state,
                 preloader: false
+            }
+        
+        case CLEAR_TRAINER_LIST_STORE:
+            return {
+                ...initialState
             }
 
         default:
