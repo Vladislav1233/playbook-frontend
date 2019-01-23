@@ -4,7 +4,8 @@ import axios from 'axios';
 export const trainerInfoService = {
     createTrainerInformation,
     getTrainerInformation,
-    editTrainerInformation
+    editTrainerInformation,
+    getTrainerList
 }
 
 function createTrainerInformation(data) {
@@ -37,5 +38,13 @@ function editTrainerInformation(trainer_info_id, data) {
             'Authorization': `Bearer ${valueToken}`
         },
         data: data
+    })
+}
+
+function getTrainerList(data) {
+    return axios({
+        method: 'get',
+        url: `${API_URL}/api/trainer/list`,
+        params: data
     })
 }

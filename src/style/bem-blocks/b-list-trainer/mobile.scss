@@ -1,0 +1,28 @@
+// 320
+.b-list-trainer {
+    padding-top: 35px;
+
+    &__list {
+        padding-left: 0px;
+    }
+
+    &__item {
+        list-style-type: none;
+        border-bottom: 1px solid #7c4dff;
+        margin: 0px -15px 30px;
+        padding: 0px 15px 30px;
+    }
+
+    &__more {
+        padding-bottom: 50px;
+        text-align: center;
+    }
+
+    &__note {
+        display: block;
+        font-size: 12px;
+        line-height: 1;
+        letter-spacing: 0.02px;
+        color: $telegray;
+    }
+}

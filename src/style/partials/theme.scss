@@ -8,6 +8,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: $medium, Arial, Helvetica, sans-serif;
+    background-color: #f3f3f3;
 }
   
 *,
@@ -17,12 +18,29 @@ body {
 }
 
 .container {
-//   max-width: 1920px;
     padding: 0px 15px;
     margin: 0px auto;
+    max-width: 1440px;
+
+    @media (min-width: 768px) {
+        padding: 0px 30px;
+    }
 
     &--schedule {
         background-color: $temperate-slate-blue;
+        max-width: none;
+    }
+
+    &--white {
+        background: #fff;
+
+        @media (min-width: 768px) {
+            background-color: transparent;
+        }
+    }
+
+    &--cabinet {
+        padding: 0px 15px;
     }
 }
 
@@ -43,4 +61,15 @@ a {
             width: calc(100% - 320px);
         }
     }
+}
+
+h1 {
+    @include h1();
+    margin-top: 0px;
+    margin-bottom: 50px;   
+}
+
+p {
+    @include text();
+    margin: 0px;
 }

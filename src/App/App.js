@@ -35,15 +35,21 @@ class App extends Component {
     render() {
         const { location, toggleMenu } = this.props;
         const roleUser = localStorage.getItem('userRole');
+        
+        const howLocation = location.pathname.split('/');
+        const howRouterConfig = (value) => {
+            const newValue = value.split('/'); 
+            return newValue[1];
+        };
 
         const pageWrapperClass = cn('b-page-wrapper', {
             'no-scroll': toggleMenu,
-            'b-page-wrapper--overflow': location.pathname === '/authentication-trainer' || location.pathname ===  '/auth'
+            'b-page-wrapper--overflow': location.pathname === '/authentication-trainer' || location.pathname ===  configPathRouter.authorization
         })
 
         const mainClass = cn('b-main', {
             'b-main--schedule-court': location.pathname === configPathRouter.scheduleCourt,
-            'b-main--schedule': location.pathname === configPathRouter.scheduleCourt || location.pathname === configPathRouter.scheduleTrainer
+            'b-main--schedule': location.pathname === configPathRouter.scheduleCourt || howLocation[1] === howRouterConfig(configPathRouter.scheduleTrainer)
         });
 
         const renderRoutePage = () => {

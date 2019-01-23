@@ -1,0 +1,20 @@
+// 768
+.b-list-trainer {
+
+    &__list {
+        margin-left: -15px;
+        margin-right: -15px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &__item {
+        display: inline-block;
+        vertical-align: top;
+        width: 50%;
+        padding: 0px 15px;
+        margin-left: 0px;
+        margin-right: 0px;
+        border-bottom: none;
+    }
+}

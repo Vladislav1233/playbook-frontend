@@ -18,18 +18,36 @@ $animation-time-double: $animation-time * 2;
 
 // ----- colors -----
 $orange-diamond-yellow: #ffb72d; // - кнопки
-$mint: #55bc96;
+// $mint: #55bc96;
+$mint: #0d6041;
 $temperate-slate-blue: #7c4dff; //- шрифт указателей, информации (к примеру "цена" или "кликни")
 $telegray: #8c8c8c;
 $bright-telegray: #cccccc;
-$black: #000000; // - основной шрифт
+$black: #000000; // - основной шрифт // удали пока я не заметил!
 $carmine-pink: #e94d51;
 $white: #fff;
 
 $border-color: #ebebeb;
 $background-schedule: #f4f8f9;
 
+/** New 2019 colors */
+:root {
+    --accent: #F55F0C;
+}
+
 // ----- typography -----
+@mixin  h1() {
+    font-family: $medium;
+    font-size: 25px;
+    line-height: 35px;
+    letter-spacing: 0.3px;
+
+    @media (min-width: $desktopMin) {
+        font-size: 30px;
+        line-height: 45px;
+    }
+}
+
 @mixin text() {
     font-size: 14px;
     line-height: 19px;

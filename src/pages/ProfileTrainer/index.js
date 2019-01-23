@@ -7,6 +7,7 @@ import ProfileTabs from '../../components/ProfileTabs';
 import TrainerAddSchedule from './TrainerAddSchedule';
 import TrainerScheduleProfile from './TrainerScheduleProfile';
 import TrainerInfo from './TrainerInfo';
+import TrainerBookingRequest from './TrainerBookingRequest';
 
 // Note: images
 import addInfoIcon from '../../style/images/icon/add-info.svg';
@@ -20,7 +21,7 @@ class ProfileTrainer extends Component {
         const { toggleCabinet, onToggleCabinet } = this.props;
 
         return (
-            <div className="container">
+            <div className="container container--cabinet">
                 <ProfileTabs isOpen={toggleCabinet} onToggleCabinet={onToggleCabinet}>
                     <div label="Добавить расписание" src={addScheduleIcon}>
                         <TrainerAddSchedule />
@@ -31,7 +32,7 @@ class ProfileTrainer extends Component {
                     </div>
 
                     <div label="Заявки на бронь" src={invitationReserveIcon}>
-                        Заявки на бронь
+                        <TrainerBookingRequest />
                     </div>
 
                     <div label="Информация о себе" src={addInfoIcon}>
