@@ -21,7 +21,7 @@ class ProfileTrainer extends Component {
         const { toggleCabinet, onToggleCabinet } = this.props;
 
         return (
-            <div className="container">
+            <div className="container container--cabinet">
                 <ProfileTabs isOpen={toggleCabinet} onToggleCabinet={onToggleCabinet}>
                     <div label="Добавить расписание" src={addScheduleIcon}>
                         <TrainerAddSchedule />

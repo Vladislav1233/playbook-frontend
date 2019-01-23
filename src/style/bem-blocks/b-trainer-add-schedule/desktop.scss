@@ -23,6 +23,10 @@
 
     &__save {
         width: calc(100% - 405px);
-        right: 320px;
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-left: -117px;
+        max-width: 1035px;
     }
 }
