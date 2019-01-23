@@ -8,7 +8,6 @@ import {
 
 const initialState = {
     listTrainer: [],
-    params: null,
     preloader: false,
     pagination: {
         limit: 3,

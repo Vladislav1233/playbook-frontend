@@ -31,7 +31,6 @@ class ListTrainer extends Component {
 
     render() {
         const { listTrainer, totalCount, pagination } = this.props;
-        console.log(listTrainer);
 
         return (
             <div className="container container--white">
@@ -74,7 +73,6 @@ class ListTrainer extends Component {
 
 
 const mapStateToProps = ({ trainerList }) => {
-    console.log(trainerList);
     return {
         listTrainer: trainerList.listTrainer,
         pagination: trainerList.pagination,
