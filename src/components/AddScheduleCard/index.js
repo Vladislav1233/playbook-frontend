@@ -82,7 +82,7 @@ class AddScheduleCard extends Component {
                                     </li>
                                 )
                             })
-                            : null
+                            : <li className="b-add-schedule-card__check-item"><p>Добавьте информацию о кортах, на которых работаете.</p></li>
                         }
                     </ul>
                 </div>

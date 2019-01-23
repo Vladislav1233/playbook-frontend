@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { getTrainerList } from '../../store/actions/trainerList';
+import { getTrainerList, clearTrainerListStore } from '../../store/actions/trainerList';
 
 // Note: components
 import ObjectCard from '../../components/ObjectCard';
+import Button from '../../components/ui-kit/Button/Button';
 
 // Note: styles
 import '../../style/bem-blocks/b-list-trainer/index.scss';
@@ -11,33 +12,59 @@ import '../../style/bem-blocks/b-list-trainer/index.scss';
 class ListTrainer extends Component {
 
     componentDidMount() {
+        this.moreTrainer();
+    }
+
+    componentWillUnmount() {
+        this.props.clearTrainerListStore();
+    }
+
+    moreTrainer = () => {
+        const { pagination } = this.props;
         const data = {
-            limit: 4,
-            offset: 0
+            limit: pagination.limit,
+            offset: pagination.offset
         };
 
         this.props.getTrainerList(data);
     }
 
     render() {
+        const { listTrainer, totalCount, pagination } = this.props;
+
         return (
             <div className="container container--white">
                 <div className="b-list-trainer">
-                    <h1>Список тренеров</h1>
+                    <h1>
+                        Список тренеров
+                        <span className="b-list-trainer__note">
+                            Всего тренеров: {totalCount}
+                        </span>
+                    </h1>
 
                     <ul className="b-list-trainer__list">
-                        <li className="b-list-trainer__item">
-                            <ObjectCard />
-                        </li>
 
-                        <li className="b-list-trainer__item">
-                            <ObjectCard />
-                        </li>
+                        {listTrainer.length > 0
+                            ? listTrainer.map(item => {
+                                return (
+                                    <li key={item.id} className="b-list-trainer__item">
+                                        <ObjectCard trainerInfo={item} />
+                                    </li>
+                                )       
+                            })
+                            : <p>Тренеров нет</p>
+                        }
+                    </ul>  
 
-                        <li className="b-list-trainer__item">
-                            <ObjectCard />
-                        </li>
-                    </ul>                   
+                    {totalCount > pagination.offset
+                        ? <div className="b-list-trainer__more">
+                            <Button 
+                                name="Показать ещё"
+                                onClick={this.moreTrainer}
+                            />
+                        </div> 
+                        : null
+                    }
                 </div>
             </div>
         )
@@ -45,16 +72,19 @@ class ListTrainer extends Component {
 }
 
 
-// const mapStateToProps = ({ toggleCabinet }) => {
-//     return {
-//         toggleCabinet: toggleCabinet.toggleCabinet
-//     }
-// };
+const mapStateToProps = ({ trainerList }) => {
+    return {
+        listTrainer: trainerList.listTrainer,
+        pagination: trainerList.pagination,
+        totalCount: trainerList.total_count
+    }
+};
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getTrainerList: (data) => dispatch(getTrainerList(data))
+        getTrainerList: (data) => dispatch(getTrainerList(data)),
+        clearTrainerListStore: () => dispatch(clearTrainerListStore())
     }
 }
 
-export default connect(null, mapDispatchToProps)(ListTrainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ListTrainer);

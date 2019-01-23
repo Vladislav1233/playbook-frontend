@@ -1,7 +1,9 @@
 import { 
     GET_TRAINER_LIST_START, 
     GET_TRAINER_LIST_SUCCESS, 
-    GET_TRAINER_LIST_FAILURE 
+    GET_TRAINER_LIST_FAILURE, 
+
+    CLEAR_TRAINER_LIST_STORE    
 } from '../constants/trainerList';
 
 import { trainerInfoService } from '../../services/trainerInfoService';
@@ -41,3 +43,9 @@ export function getTrainerList(data) {
         }
     }
 }
+
+export function clearTrainerListStore() {
+    return {
+        type: CLEAR_TRAINER_LIST_STORE
+    }
+} 

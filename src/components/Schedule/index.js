@@ -29,7 +29,6 @@ class Schedule extends Component {
         }
     };
 
-    // TODO: Перенести в action
     onClickDay = (value) => {
         const data = dataTime({
             valueStart: value,
