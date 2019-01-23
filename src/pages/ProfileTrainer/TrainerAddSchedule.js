@@ -129,12 +129,10 @@ class TrainerAddSchedule extends Component {
             trainerInfoService.getTrainerInformation(userId)
                 .then(
                     res => {
-                        if (res.data.length >= 0) {
-                            this.setState({
-                                ...this.state,
-                                playgroundsForTraining: res.data.data.playgrounds
-                            }, getScheduleRequest())
-                        };
+                        this.setState({
+                            ...this.state,
+                            playgroundsForTraining: res.data.data.playgrounds
+                        }, getScheduleRequest())
                     },
                     error => {
                         console.log(error);

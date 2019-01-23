@@ -44,6 +44,7 @@ export default function(state = initialState, action) {
                     total_count: total_count
                 }
             };
+            break;
 
         case GET_TRAINER_LIST_FAILURE:
             alert('ошибка'); // TODO
