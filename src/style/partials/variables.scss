@@ -48,6 +48,18 @@ $background-schedule: #f4f8f9;
     }
 }
 
+@mixin h2 {
+    font-family: $medium;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: 0.3px;
+
+    @media (min-width: $desktopMin) {
+        font-size: 25px;
+        line-height: 40px;
+    }
+}
+
 @mixin text() {
     font-size: 14px;
     line-height: 19px;

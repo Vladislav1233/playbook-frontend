@@ -9,7 +9,7 @@ import '../../style/bem-blocks/b-schedule-list/index.scss';
 class ScheduleList extends Component {
 
   render() {
-    const { template, list, playgroundsForTraining } = this.props;
+    const { template, list, playgroundsForTraining, userId } = this.props;
 
     return (
         <ul className="b-schedule-list">
@@ -20,6 +20,7 @@ class ScheduleList extends Component {
                             dataScheduleItem={item}
                             template={template} 
                             playgroundsForTraining={playgroundsForTraining}
+                            userId={userId}
                         />
                     </li>
                 ))

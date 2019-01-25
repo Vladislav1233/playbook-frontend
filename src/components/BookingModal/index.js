@@ -97,7 +97,7 @@ class BookingModal extends Component {
         const { typeBooking, dateBooking } = this.props;
         const { start_time, end_time, playgroundId } = this.state;
         const valueToken = localStorage.getItem('userToken');
-        const userId = localStorage.getItem('userId');
+        const { userId } = this.props;
 
         const data = {
             start_time: `${dateBooking} ${start_time}:00`,

@@ -9,6 +9,7 @@ import '../../style/bem-blocks/b-booking-request/index.scss';
 class BookingRequest extends Component {
     render() {
         const { dataBookingRequest, onClickConfirm, onClickNotConfirm, dataPastBooking } = this.props;
+        console.log(this.props);
 
         const itemTemplate = (bookingId, firtsName, lastName, tel, nameCourt, time) => {
             return (

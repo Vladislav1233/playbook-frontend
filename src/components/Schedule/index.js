@@ -38,7 +38,7 @@ class Schedule extends Component {
     };
 
     render() {
-        const { schedule, template, bookedTime, cost, playgroundsForTraining } = this.props;
+        const { schedule, template, bookedTime, cost, playgroundsForTraining, userId } = this.props;
 
         const notScheduleTemplate = () => (
             <div className="b-schedule__not">Нет свободного времени</div>
@@ -97,6 +97,7 @@ class Schedule extends Component {
                                     list={schedule.schedule}
                                     template={template} 
                                     playgroundsForTraining={playgroundsForTraining} 
+                                    userId={userId}
                                 />
                                 : notScheduleTemplate()
                         : null}
