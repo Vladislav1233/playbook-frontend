@@ -1,5 +1,5 @@
 export const configPathRouter = {
-  scheduleTrainer: '/schedule-trainer/:slug', // страница расписания тренера
+  scheduleTrainer: '/schedule-trainer', // страница расписания тренера
   scheduleCourt: '/schedule-court', // страница расписания корта
   profileTrainer: '/profile-trainer', // личный кабинет тренера
   profileCourt: '/profile-court', // личный кабинет администратора корта

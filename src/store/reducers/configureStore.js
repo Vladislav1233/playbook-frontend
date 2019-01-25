@@ -10,6 +10,7 @@ import toggleCabinet from './toggleCabinet';
 import searchPlayground from './searchPlayground';
 import identificate from './identificate';
 import booking from './booking';
+import trainerList from './trainerList';
 
 
 export default function(initialState = {}) {
@@ -22,7 +23,8 @@ export default function(initialState = {}) {
         identificate,
         toggleCabinet,
         searchPlayground,
-        booking
+        booking,
+        trainerList
     });
 
     return createStore(rootReducer, initialState, applyMiddleware(thunkMiddleware));

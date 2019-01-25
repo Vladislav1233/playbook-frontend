@@ -419,6 +419,7 @@ class TrainerAddSchedule extends Component {
 }
 
 const mapStateToProps = ({ scheduleTrainer }) => {
+    console.log(scheduleTrainer);
     return {
         successPostResponse: scheduleTrainer.successPostResponse
     }

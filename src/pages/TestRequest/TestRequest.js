@@ -16,12 +16,12 @@ class TestRequest extends Component {
                 'Authorization': `Bearer ${valueToken}`
             },
             data: {
-                "name": "Ulgu",
-                "description": "Playground description Ulgu",
-                "address": "наб. Реки Свияги, 40",
+                "name": "Lawn",
+                "description": "Playground description Lawn",
+                "address": "Отрадная, 88",
                 "opening_time": "09:00:00",
                 "closing_time": "23:20:00",
-                "type_id": "2"
+                "type_id": "4"
               }
         }).then(response => {
             console.log(response);

@@ -36,19 +36,24 @@ class TrainerInfo extends Component {
         this.getTrainerInfo();
     };
 
+    componentWillUnmount() {
+        this.props.onClearSearchPlayground();
+    };
+
     getTrainerInfo = () => {
         const userId = localStorage.getItem('userId');
         trainerInfoService.getTrainerInformation(userId)
             .then(
                 response => {
+                    console.log(response.data.data);
                     if(response.data.data.id) {
+
                         const { 
-                            about,
-                            min_price,
-                            max_price,
+                            first_name,
+                            last_name,
+                            id,
                             playgrounds,
-                            user,
-                            id
+                            trainer_info
                         } = response.data.data;
 
                         this.setState({
@@ -56,12 +61,12 @@ class TrainerInfo extends Component {
                             idInfo: id,
                             trainerInfo: {
                                 ...this.state.trainerInfo,
-                                name: user ? user.first_name : '',
+                                name: first_name ? first_name : '',
                                 patronymic: '', // TODO
-                                surname: user ? user.last_name : '',
-                                about: about ? about : '',
-                                minPrice: min_price ? min_price : '',
-                                maxPrice: max_price ? max_price : '',
+                                surname: last_name ? last_name : '',
+                                about: trainer_info ? trainer_info.about : '',
+                                minPrice: trainer_info ? trainer_info.min_price : '',
+                                maxPrice: trainer_info ? trainer_info.max_price : '',
                                 playgrounds: playgrounds ? playgrounds : ''
                             }
                         })

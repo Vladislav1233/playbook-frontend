@@ -2,6 +2,7 @@ import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 import { getTrainerSchedule } from '../../store/actions/schedule';
 import { dataTime } from '../../helpers/dataTime';
+import { withRouter } from 'react-router-dom';
 
 // component
 import Schedule from '../../components/Schedule';
@@ -14,18 +15,16 @@ class ScheduleTrainer extends Component {
 
         // Note: собираем данные для get запроса расписания при инициализации страницы. Берём текущий день
         const data = dataTime();
-        // TODO: брать из link наверное, в общем это от бэка будет приходить
-        const userId = 1;
+        // Note: userId достаем из url'a с помощью withRouter
+        const userId = +this.props.match.params.slug;
         getTrainerSchedule(userId, data);
     }
 
     render() {
-        console.log(this.props);
-        const { scheduleTrainer, getTrainerSchedule, bookedTime, playgroundsForTraining } = this.props;
+        const { scheduleTrainer, getTrainerSchedule, bookedTime, playgroundsForTraining, match } = this.props;
 
-        // Note: userId - это id пользователя (тренера) расписание которого надо получить, в нашем случае мы находимся в личном кабинете и запрашиваем свой id тренера
-        // TODO: из бэка
-        const userId = 1;
+        // Note: userId достаем из url'a с помощью withRouter
+        const userId = +match.params.slug;
 
         return (
             <Fragment>
@@ -48,8 +47,6 @@ class ScheduleTrainer extends Component {
 
 const mapStateToProps = ({ scheduleTrainer }) => {
     return {
-        // ЭТО НЕ НАДО -УДАЛИТЬ ИЗ РЕДЬЮСЕРА
-        // scheduleTrainer: filterSchedule(store.scheduleTrainer.scheduleTrainer, store.getDayFilter),
         scheduleTrainer: scheduleTrainer.scheduleTrainer,
         bookedTime: scheduleTrainer.bookedTime,
         preloader: scheduleTrainer.preloader,
@@ -68,4 +65,4 @@ const mapStateToDispatch = (dispatch) => {
     }
 };
   
-export default connect(mapStateToProps, mapStateToDispatch)(ScheduleTrainer)
+export default withRouter(connect(mapStateToProps, mapStateToDispatch)(ScheduleTrainer));
