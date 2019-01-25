@@ -36,9 +36,9 @@ export default function(state = initialState, action) {
             action.payload.data.data.forEach(item => {
                 if (!moment().isAfter(item.start_time) && !item.status) { // Note: если заявка не истекла и не обработана
                     newDataBookingRequest.push({
-                        firtsName: 'Владислав', // TODO
-                        lastName: 'Довженко', // TODO
-                        tel: '+79176297124', // TODO
+                        firtsName: item.creator.first_name,
+                        lastName: item.creator.last_name,
+                        tel: `+${item.creator.phone}`,
                         nameCourt: 'LawnTennis', // TODO
                         time: `${moment(item.start_time).format('DD.MM.YYYY')} (${moment(item.start_time).format('dddd')}): ${moment(item.start_time).format('HH:mm')} - ${moment(item.end_time).format('HH:mm')}`,
                         bookingId: item.id,
@@ -46,9 +46,9 @@ export default function(state = initialState, action) {
                     })
                 } else if (moment().isAfter(item.start_time) && !item.status) { // Note: если заявка истекла и не обработана
                     newPastBooking.push({
-                        firtsName: 'Владислав', // TODO
-                        lastName: 'Довженко', // TODO
-                        tel: '+79176297124', // TODO
+                        firtsName: item.creator.first_name,
+                        lastName: item.creator.last_name,
+                        tel: `+${item.creator.phone}`,
                         nameCourt: 'LawnTennis', // TODO
                         time: `${moment(item.start_time).format('DD.MM.YYYY')} (${moment(item.start_time).format('dddd')}): ${moment(item.start_time).format('HH:mm')} - ${moment(item.end_time).format('HH:mm')}`,
                         bookingId: item.id,
@@ -56,9 +56,9 @@ export default function(state = initialState, action) {
                     })
                 } else if (!moment().isAfter(item.start_time) && item.status) { // Note: если завяка не истекла и обработана
                     newConfirmBooking.push({
-                        firtsName: 'Владислав', // TODO
-                        lastName: 'Довженко', // TODO
-                        tel: '+79176297124', // TODO
+                        firtsName: item.creator.first_name,
+                        lastName: item.creator.last_name,
+                        tel: `+${item.creator.phone}`,
                         nameCourt: 'LawnTennis', // TODO
                         time: `${moment(item.start_time).format('DD.MM.YYYY')} (${moment(item.start_time).format('dddd')}): ${moment(item.start_time).format('HH:mm')} - ${moment(item.end_time).format('HH:mm')}`,
                         bookingId: item.id,
@@ -66,9 +66,9 @@ export default function(state = initialState, action) {
                     })
                 } else { // Note: если заявка истекла и обработана
                     newConfirmPastBooking.push({
-                        firtsName: 'Владислав', // TODO
-                        lastName: 'Довженко', // TODO
-                        tel: '+79176297124', // TODO
+                        firtsName: item.creator.first_name,
+                        lastName: item.creator.last_name,
+                        tel: `+${item.creator.phone}`,
                         nameCourt: 'LawnTennis', // TODO
                         time: `${moment(item.start_time).format('DD.MM.YYYY')} (${moment(item.start_time).format('dddd')}): ${moment(item.start_time).format('HH:mm')} - ${moment(item.end_time).format('HH:mm')}`,
                         bookingId: item.id,
