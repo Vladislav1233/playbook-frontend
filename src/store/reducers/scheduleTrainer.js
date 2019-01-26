@@ -72,7 +72,7 @@ export default function(state = initialState, action) {
                 ? [{
                     start_time: responseSchedule[0].start_time,
                     end_time: responseSchedule[0].end_time,
-                    status: true
+                    isStatus: true
                 }] : [];
             
             // Note: массив, в который буду собирать всё занятое время
@@ -89,7 +89,7 @@ export default function(state = initialState, action) {
                         rangeSchedule.push({
                             start_time: arr[i + 1].start_time,
                             end_time: arr[i + 1].end_time,
-                            status: true
+                            isStatus: true
                         });
                     };
                 }
@@ -112,7 +112,7 @@ export default function(state = initialState, action) {
                                 return {
                                     start_time: getRangeWithoutBusyItem.start().format('YYYY-MM-DD HH:mm'),
                                     end_time: getRangeWithoutBusyItem.end().format('YYYY-MM-DD HH:mm'),
-                                    status: true
+                                    isStatus: true
                                 }
                             });
                             rangeSchedule.splice(iFree, 1, ...newRangeScheduleItem);
@@ -141,7 +141,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 preloader: false,
-                bookedTime: responseSchedule.confirmed_bookings ? responseSchedule.confirmed_bookings : [],
+                bookedTime: uniquePlaygrounds(reservedTime),
                 playgroundsForTraining: newPlaygroundsForTraining,
                 scheduleTrainer: {
                     ...state.scheduleTrainer,

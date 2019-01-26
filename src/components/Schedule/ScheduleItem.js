@@ -29,14 +29,14 @@ class ScheduleItem extends Component {
         const { 
             start_time, 
             end_time,
-            status // true - это время свободно, false - это время занято
+            isStatus // true - это время свободно, false - это время занято
         } = this.props.dataScheduleItem;
     
         const { template, playgroundsForTraining, userId } = this.props;
         const textBooking = 'Нажми, чтобы забронировать';
 
         const itemTrainer = () => (
-            status ? 
+            isStatus ? 
                 <Fragment>
                     {/* <div className='b-schedule-item__court-info'>
                         <p className='b-schedule-item__name-court'>{courts[0].name}</p>
@@ -54,7 +54,7 @@ class ScheduleItem extends Component {
         );
 
         const itemCourt = () => (
-            status ? 
+            isStatus ? 
                 <div className="b-schedule-item__click">{ textBooking }</div>
             : null
         );
@@ -68,8 +68,8 @@ class ScheduleItem extends Component {
                     </div>
 
                     <div className="b-schedule-item__info">
-                        <div className={`b-schedule-item__state ${status ? 'b-schedule-item__state--free' : 'b-schedule-item__state--busy'}`}>
-                            <span className={`b-schedule-item__state-name ${template === 'court' ? 'b-schedule-item__state-name--block' : ''}`}>{status ? 'Свободно ' : 'Занято '} </span>
+                        <div className={`b-schedule-item__state ${isStatus ? 'b-schedule-item__state--free' : 'b-schedule-item__state--busy'}`}>
+                            <span className={`b-schedule-item__state-name ${template === 'court' ? 'b-schedule-item__state-name--block' : ''}`}>{isStatus ? 'Свободно ' : 'Занято '} </span>
                         </div>
                         { 
                             template === 'trainer' ?

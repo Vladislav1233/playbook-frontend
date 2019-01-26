@@ -124,9 +124,12 @@ class Schedule extends Component {
                         
                         {/* Note: Расписание забронированного времени */}
                         {bookedTime.length > 0 
-                            ? <ScheduleList 
-                                list={bookedTime}
-                                template={template} />
+                            ? ( <Fragment>
+                                <div className="b-schedule__title">Забронированное время</div>
+                                <ScheduleList 
+                                    list={bookedTime}
+                                    template={template} /> 
+                            </Fragment>)
                             : null
                         }
 
