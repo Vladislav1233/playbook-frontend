@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import moment from 'moment';
+import cn from 'classnames';
 
 // Note: components
 import BookingModal from '../BookingModal';
@@ -29,14 +30,32 @@ class ScheduleItem extends Component {
         const { 
             start_time, 
             end_time,
-            status // true - это время свободно, false - это время занято
+            isStatus // true - это время свободно, false - это время занято
         } = this.props.dataScheduleItem;
     
-        const { template, playgroundsForTraining } = this.props;
+        const { template, playgroundsForTraining, userId, creator, isWhoBooked } = this.props;
         const textBooking = 'Нажми, чтобы забронировать';
 
+        const whoBookedTemplate = (whoName, whoTel) => {
+            return (
+                <div className="b-schedule-item__who-booked">
+                    <p className="b-schedule-item__who-name">{whoName}</p>
+                    <a href={`tel:+${whoTel}`} className="b-schedule-item__who-tel">{`+${whoTel}`}</a>
+                </div>
+            )
+        };
+
+        // Note: Классы css
+        const classNameState = cn('b-schedule-item__state', {
+            'b-schedule-item__state--free': isStatus,
+            'b-schedule-item__state--busy': !isStatus
+        });
+        const classNameStateName = cn('b-schedule-item__state-name', {
+            'b-schedule-item__state-name--block': template === 'court'
+        });
+
         const itemTrainer = () => (
-            status ? 
+            isStatus ? 
                 <Fragment>
                     {/* <div className='b-schedule-item__court-info'>
                         <p className='b-schedule-item__name-court'>{courts[0].name}</p>
@@ -54,23 +73,32 @@ class ScheduleItem extends Component {
         );
 
         const itemCourt = () => (
-            status ? 
+            isStatus ? 
                 <div className="b-schedule-item__click">{ textBooking }</div>
             : null
         );
 
         return (
             <Fragment>
-                <div className="b-schedule-item" onClick={this.openModal}>
+                <div className="b-schedule-item" onClick={() => {if(isStatus) { this.openModal(); } }}>
                     <div className="b-schedule-item__time-wrap">
                         <div className="b-schedule-item__time">{moment(start_time).format('HH:mm')}</div>
                         <div className="b-schedule-item__time b-schedule-item__time--finish">{moment(end_time).format('HH:mm')}</div>
                     </div>
 
                     <div className="b-schedule-item__info">
-                        <div className={`b-schedule-item__state ${status ? 'b-schedule-item__state--free' : 'b-schedule-item__state--busy'}`}>
-                            <span className={`b-schedule-item__state-name ${template === 'court' ? 'b-schedule-item__state-name--block' : ''}`}>{status ? 'Свободно ' : 'Занято '} </span>
+                        <div className={classNameState}>
+                            <span className={classNameStateName}>{isStatus ? 'Свободно ' : 'Занято '} </span>
                         </div>
+
+                        {creator && isWhoBooked 
+                            ? whoBookedTemplate(
+                                `${creator.first_name} ${creator.last_name}`,
+                                creator.phone
+                            ) 
+                            : null
+                        }
+
                         { 
                             template === 'trainer' ?
                                 itemTrainer()
@@ -89,6 +117,7 @@ class ScheduleItem extends Component {
                     typeBooking='trainer'
                     dateBooking={moment(start_time).format('YYYY-MM-DD')}
                     playgroundsForTraining={playgroundsForTraining}
+                    userId={userId}
                 />
             </Fragment>
         )

@@ -4,6 +4,17 @@
     margin-right: -15px;
     font-size: 0;
 
+    p {
+        padding: 0px 15px;
+        margin-bottom: 50px;
+        font-family: $bold;
+    }
+
+    h2 {
+        padding: 0px 15px;
+        margin-bottom: 30px;
+    }
+
     &__item {
         padding-left: 15px;
         padding-right: 15px;

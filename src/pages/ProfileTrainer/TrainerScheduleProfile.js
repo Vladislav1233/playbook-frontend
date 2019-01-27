@@ -37,6 +37,7 @@ class TrainerScheduleProfile extends Component {
                     bookedTime={bookedTime}
                     cost={scheduleTrainer.cost}
                     playgroundsForTraining={playgroundsForTraining}
+                    isWhoBooked={true}
                 />
 
                 { this.props.preloader ? <Preloader /> : null }
@@ -46,7 +47,6 @@ class TrainerScheduleProfile extends Component {
 }
 
 const mapStateToProps = ({ scheduleTrainer }) => {
-    console.log(scheduleTrainer);
     return {
         scheduleTrainer: scheduleTrainer.scheduleTrainer,
         bookedTime: scheduleTrainer.bookedTime,

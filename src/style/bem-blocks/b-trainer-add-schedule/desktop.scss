@@ -4,7 +4,7 @@
     min-height: 100%;
 
     &__calendar {
-        margin: 0px -15px 0px 0px;
+        margin: 0;
         order: 1;
         flex-shrink: 0;
         background-color: $temperate-slate-blue;
@@ -17,7 +17,6 @@
 
     &__schedule {
         width: 100%;
-        padding-right: 15px;
         padding-top: 20px;
     }
 

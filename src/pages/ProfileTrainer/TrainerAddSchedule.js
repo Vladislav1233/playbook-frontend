@@ -324,7 +324,7 @@ class TrainerAddSchedule extends Component {
                 end_time: `${card.end_time}:00`,
                 price_per_hour: formatPrice,
                 currency: card.currency,
-                playgrounds: card.playgroundsCheck
+                playgrounds: [1] // TODO: как бэк заработает поставить - card.playgroundsCheck
             };
 
             const dataForEdit = {
@@ -333,7 +333,7 @@ class TrainerAddSchedule extends Component {
                 end_time: `${card.dates[0]} ${card.end_time}:00`,
                 price_per_hour: formatPrice,
                 currency: card.currency,
-                playgrounds: card.playgroundsCheck
+                playgrounds: [1] // TODO: как бэк заработает поставить - card.playgroundsCheck
             };
 
             // Note: если у нас карточка с сервера, то у неё schedule_id 0 и больше, мы определяем какой запрос отправлять.
@@ -363,8 +363,7 @@ class TrainerAddSchedule extends Component {
         }, {
             value: 'period',
             label: 'Период (от - до)'
-        }]
-        console.log(this.state);
+        }];
 
         return(
             <div className="b-trainer-add-schedule">

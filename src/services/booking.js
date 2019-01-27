@@ -3,14 +3,15 @@ import axios from 'axios';
 
 export const bookingService = {
     createBooking,
-    getBookings
+    getBookings,
+    confirmBooking
 };
 
 /*
 * type - trainer or playground (required) 
 */
 function createBooking(type, data) {
-    let valueToken = localStorage.getItem('userToken');
+    const valueToken = localStorage.getItem('userToken');
 
     return axios ({
         method: 'post',
@@ -33,6 +34,22 @@ function getBookings(type, id) {
     return axios ({
         method: 'get',
         url: `${API_URL}/api/booking/${type}/${id}`,
+        headers: {
+            'Authorization': `Bearer ${valueToken}`
+        }
+    });
+}
+
+/*
+* Принять запрос на бронирование времени тренера или площадки
+* bookingId - id объекта бронирования
+*/
+function confirmBooking(bookingId) {
+    const valueToken = localStorage.getItem('userToken');
+
+    return axios ({
+        method: 'post',
+        url: `${API_URL}/api/booking/confirm/${bookingId}`,
         headers: {
             'Authorization': `Bearer ${valueToken}`
         }
