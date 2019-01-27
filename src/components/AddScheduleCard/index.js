@@ -15,7 +15,6 @@ class AddScheduleCard extends Component {
 
     render() {
         const { idRender, data, onChangeTime, onRemoveCard, playgroundsForTraining, onChangeInput, onChangeCheckbox } = this.props;
-        console.log(playgroundsForTraining);
 
         return(
             <div className="b-add-schedule-card">

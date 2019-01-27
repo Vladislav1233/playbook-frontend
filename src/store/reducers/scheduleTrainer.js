@@ -65,7 +65,6 @@ export default function(state = initialState, action) {
             }
 
         case GET_SUCCESS_SCHEDULE_TRAINER:
-            console.log(action.payload.data);
             const responseSchedule = action.payload.data;
             
             // Note: Инициализация первого диапазона времени
@@ -73,8 +72,11 @@ export default function(state = initialState, action) {
                 ? [{
                     start_time: responseSchedule[0].start_time,
                     end_time: responseSchedule[0].end_time,
-                    status: true
+                    isStatus: true
                 }] : [];
+            
+            // Note: массив, в который буду собирать всё занятое время
+            let reservedTime = [];
 
             // Note: получаем дипазоны всего расписания
             responseSchedule.forEach((item, i, arr) => {
@@ -87,15 +89,17 @@ export default function(state = initialState, action) {
                         rangeSchedule.push({
                             start_time: arr[i + 1].start_time,
                             end_time: arr[i + 1].end_time,
-                            status: true
+                            isStatus: true
                         });
                     };
                 }
+                // Note: собираю занятое время в массив со всех карточек
+                reservedTime.push(...item.confirmed_bookings);
             });
 
             // Note: Фильтруем диапазон, чтобы в нём не было свободного времени для "занято" (убираем занятые промежутки из свободного времени)
             const filterRange = () => {
-                responseSchedule.confirmed_bookings.forEach((itemBusy) => {
+                reservedTime.forEach((itemBusy) => {
 
                     rangeSchedule.forEach((itemFree, iFree) => {
                         let rangeBusy = moment(itemBusy.start_time).twix(itemBusy.end_time);
@@ -108,7 +112,7 @@ export default function(state = initialState, action) {
                                 return {
                                     start_time: getRangeWithoutBusyItem.start().format('YYYY-MM-DD HH:mm'),
                                     end_time: getRangeWithoutBusyItem.end().format('YYYY-MM-DD HH:mm'),
-                                    status: true
+                                    isStatus: true
                                 }
                             });
                             rangeSchedule.splice(iFree, 1, ...newRangeScheduleItem);
@@ -117,7 +121,7 @@ export default function(state = initialState, action) {
                 });
             };
             // eslint-disable-next-line
-            responseSchedule.confirmed_bookings ? filterRange() : false;
+            reservedTime.length > 0 ? filterRange() : false;
             
             // Получаем стоимость часа во всех промежутках времени
             const newCost = responseSchedule ? responseSchedule.map(item => {
@@ -137,7 +141,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 preloader: false,
-                bookedTime: responseSchedule.confirmed_bookings ? responseSchedule.confirmed_bookings : [],
+                bookedTime: uniquePlaygrounds(reservedTime),
                 playgroundsForTraining: newPlaygroundsForTraining,
                 scheduleTrainer: {
                     ...state.scheduleTrainer,

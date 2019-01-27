@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { getBookings } from '../../store/actions/booking';
+import { getBookings, confirmBooking } from '../../store/actions/booking';
 
 // Note: Components
 import BookingRequest from '../../components/BookingRequest';
@@ -16,15 +16,33 @@ class TrainerBookingRequest extends Component {
         this.props.getBookings('trainer', userId);
     }
 
+    onClickConfirm = (e, bookingId) => {
+        e.preventDefault();
+        this.props.confirmBooking(bookingId);
+    }
+
     render() {
+        const { dataBookingRequest, dataPastBooking } = this.props;
+
         return(
             <div className="b-trainer-booking-request">
                 <h1>Входящие запросы на бронирование времени тренера</h1>
-                <BookingRequest />
+                <BookingRequest 
+                    dataBookingRequest={dataBookingRequest}
+                    onClickConfirm={this.onClickConfirm}
+                    dataPastBooking={dataPastBooking}
+                />
             </div>
         )
     }
 }
+
+const mapStateToProps = ({ booking }) => {
+    return {
+        dataBookingRequest: booking.dataBookingRequest,
+        dataPastBooking: booking.dataPastBooking
+    }
+};
 
 const mapStateToDispatch = (dispatch) => {
     return {
@@ -33,8 +51,13 @@ const mapStateToDispatch = (dispatch) => {
         * type (required) - trainer or playground
         * id - trainer or playground id
         */
-       getBookings: (type, id) => dispatch(getBookings(type, id))
+        getBookings: (type, id) => dispatch(getBookings(type, id)),
+        /*
+        * Принять запрос на бронирование времени тренера или площадки
+        * bookingId - id объекта бронирования
+        */
+        confirmBooking: (bookingId) => dispatch(confirmBooking(bookingId))
     }
 }
 
-export default connect(null, mapStateToDispatch)(TrainerBookingRequest);
+export default connect(mapStateToProps, mapStateToDispatch)(TrainerBookingRequest);

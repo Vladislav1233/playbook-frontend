@@ -38,8 +38,7 @@ class Schedule extends Component {
     };
 
     render() {
-        const { schedule, template, bookedTime, cost, playgroundsForTraining } = this.props;
-        console.log(playgroundsForTraining);
+        const { schedule, template, bookedTime, cost, playgroundsForTraining, userId, isWhoBooked } = this.props;
 
         const notScheduleTemplate = () => (
             <div className="b-schedule__not">Нет свободного времени</div>
@@ -98,6 +97,7 @@ class Schedule extends Component {
                                     list={schedule.schedule}
                                     template={template} 
                                     playgroundsForTraining={playgroundsForTraining} 
+                                    userId={userId}
                                 />
                                 : notScheduleTemplate()
                         : null}
@@ -124,9 +124,14 @@ class Schedule extends Component {
                         
                         {/* Note: Расписание забронированного времени */}
                         {bookedTime.length > 0 
-                            ? <ScheduleList 
-                                list={bookedTime}
-                                template={template} />
+                            ? ( <Fragment>
+                                <div className="b-schedule__title">Забронированное время</div>
+                                <ScheduleList 
+                                    list={bookedTime}
+                                    template={template}
+                                    isWhoBooked={isWhoBooked} 
+                                /> 
+                            </Fragment>)
                             : null
                         }
 
