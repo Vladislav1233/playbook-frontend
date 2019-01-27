@@ -11,16 +11,16 @@ class ScheduleList extends Component {
 
   render() {
     const { template, list, playgroundsForTraining, userId, isWhoBooked } = this.props;
-    // Note: классы css
-    const classNameItem = cn('b-schedule-list__item', {
-        'b-schedule-list__item--hover': item.isStatus || item.freeCourt
-    });
 
     return (
         <ul className="b-schedule-list">
             {
                 list.map((item, index) => (
-                    <li className={classNameItem} key={index}>
+                    <li className={cn('b-schedule-list__item', {
+                            'b-schedule-list__item--hover': item.isStatus || item.freeCourt
+                        })} 
+                        key={index}
+                    >
                         <ScheduleItem 
                             dataScheduleItem={item}
                             template={template} 

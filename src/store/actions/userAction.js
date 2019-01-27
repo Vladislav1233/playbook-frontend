@@ -2,6 +2,7 @@ import { userConstants } from '../constants/userConstants';
 import { userService } from '../../services/userService';
 import { alertActions } from '../actions/alertAction';
 import { history } from '../../helpers/history';
+import { configPathRouter } from '../../App/configPathRouter';
 
 export const userActions = {
     login,
@@ -19,7 +20,7 @@ function register(user) {
             .then(
                 user => {
                     dispatch(success());
-                    history.push('/auth');
+                    history.push(configPathRouter.authorization);
                     // dispatch(alertActions.success('Registration successful'));
                 },
                 // TODO: Обрабатывать ошибки от сервера при регистрации

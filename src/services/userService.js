@@ -47,11 +47,24 @@ function login(data) {
 }
 
 function logout() {
-    //Note: remove user from local storage to log user out
-    localStorage.removeItem('userToken');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('userInformation');
+    const valueToken = localStorage.getItem('userToken');
+
+    return axios({
+        method: 'post',
+        url: `${API_URL}/api/logout`,
+        headers: {
+            'Authorization': `Bearer ${valueToken}`
+        }
+    }).then(res => {
+        if(res.data.success) {
+            //Note: remove user from local storage to log user out
+            localStorage.removeItem('userToken');
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('userId');
+            localStorage.removeItem('userInformation');
+        };
+        return res.data.data
+    });
 }
 
 
