@@ -9,7 +9,7 @@ import '../../style/bem-blocks/b-schedule-list/index.scss';
 class ScheduleList extends Component {
 
   render() {
-    const { template, list, playgroundsForTraining, userId } = this.props;
+    const { template, list, playgroundsForTraining, userId, isWhoBooked } = this.props;
 
     return (
         <ul className="b-schedule-list">
@@ -21,6 +21,8 @@ class ScheduleList extends Component {
                             template={template} 
                             playgroundsForTraining={playgroundsForTraining}
                             userId={userId}
+                            isWhoBooked={isWhoBooked}
+                            creator={item.creator}
                         />
                     </li>
                 ))

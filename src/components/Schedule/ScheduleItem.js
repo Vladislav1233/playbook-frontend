@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import moment from 'moment';
+import cn from 'classnames';
 
 // Note: components
 import BookingModal from '../BookingModal';
@@ -32,8 +33,27 @@ class ScheduleItem extends Component {
             isStatus // true - это время свободно, false - это время занято
         } = this.props.dataScheduleItem;
     
-        const { template, playgroundsForTraining, userId } = this.props;
+        const { template, playgroundsForTraining, userId, creator, isWhoBooked } = this.props;
+        console.log(creator, isWhoBooked);
         const textBooking = 'Нажми, чтобы забронировать';
+
+        const whoBookedTemplate = (whoName, whoTel) => {
+            return (
+                <div className="b-schedule-item__who-booked">
+                    <p className="b-schedule-item__who-name">{whoName}</p>
+                    <a href={`tel:+${whoTel}`} className="b-schedule-item__who-tel">{`+${whoTel}`}</a>
+                </div>
+            )
+        };
+
+        // Note: Классы css
+        const classNameState = cn('b-schedule-item__state', {
+            'b-schedule-item__state--free': isStatus,
+            'b-schedule-item__state--busy': !isStatus
+        });
+        const classNameStateName = cn('b-schedule-item__state-name', {
+            'b-schedule-item__state-name--block': template === 'court'
+        });
 
         const itemTrainer = () => (
             isStatus ? 
@@ -68,9 +88,18 @@ class ScheduleItem extends Component {
                     </div>
 
                     <div className="b-schedule-item__info">
-                        <div className={`b-schedule-item__state ${isStatus ? 'b-schedule-item__state--free' : 'b-schedule-item__state--busy'}`}>
-                            <span className={`b-schedule-item__state-name ${template === 'court' ? 'b-schedule-item__state-name--block' : ''}`}>{isStatus ? 'Свободно ' : 'Занято '} </span>
+                        <div className={classNameState}>
+                            <span className={classNameStateName}>{isStatus ? 'Свободно ' : 'Занято '} </span>
                         </div>
+
+                        {creator && isWhoBooked 
+                            ? whoBookedTemplate(
+                                `${creator.first_name} ${creator.last_name}`,
+                                creator.phone
+                            ) 
+                            : null
+                        }
+
                         { 
                             template === 'trainer' ?
                                 itemTrainer()
