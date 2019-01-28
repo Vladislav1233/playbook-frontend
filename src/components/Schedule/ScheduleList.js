@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import cn from 'classnames';
 
 // component
 import ScheduleItem from './ScheduleItem';
