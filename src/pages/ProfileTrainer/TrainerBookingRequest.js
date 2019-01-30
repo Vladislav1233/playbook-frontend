@@ -12,8 +12,8 @@ import '../../style/bem-blocks/b-trainer-booking-request/index.scss';
 
 class TrainerBookingRequest extends Component {
     componentDidMount() {
-        const userId = localStorage.getItem('userId');
-        this.props.getBookings('trainer', userId);
+        const { userId, getBookings } = this.props;
+        getBookings('trainer', userId);
     }
 
     onClickConfirm = (e, bookingId) => {
@@ -37,10 +37,11 @@ class TrainerBookingRequest extends Component {
     }
 }
 
-const mapStateToProps = ({ booking }) => {
+const mapStateToProps = ({ booking, identificate }) => {
     return {
         dataBookingRequest: booking.dataBookingRequest,
-        dataPastBooking: booking.dataPastBooking
+        dataPastBooking: booking.dataPastBooking,
+        userId: identificate.userId
     }
 };
 

@@ -1,25 +1,30 @@
 // 320
 .b-head-menu {
     height: 42px;
-    width: 42px;
     position: relative;
     z-index: 40;
 
     &__open-button {
-        display: inline-block;
+        display: inline-flex;
         height: 100%;
+        align-items: center;
+        color: #fff;
 
-        .no-touchevents &:hover {
-            .b-head-menu__image-wrapper {
-                border-color: $orange-diamond-yellow;
-            }   
+        // .no-touchevents &:hover {
+        //     .b-head-menu__image-wrapper {
+        //         border-color: $orange-diamond-yellow;
+        //     }   
+        // }
+
+        span {
+            font-size: 14px;
+            line-height: 21px;
         }
     }
 
     &__image-wrapper {
         height: 40px;
         width: 40px;
-        background-color: #0ba26a;
         overflow: hidden;
         border-radius: 100%;
         // border: 1px solid #fff;
@@ -37,6 +42,7 @@
     &__content {
         position: absolute;
         font-size: 14px;
+        text-align: left;
         top: calc(100% + 17px);
         right: 0px;
         background: white;

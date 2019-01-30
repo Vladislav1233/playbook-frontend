@@ -74,7 +74,7 @@ class TrainerAddSchedule extends Component {
 
     getTrainerScheduleRequest = (date, data) => {
         // Note: собираем данные для get запроса расписания при инициализации страницы. Берём текущий день
-        const userId = localStorage.getItem('userId');
+        const { userId } = this.props;
 
         const getScheduleRequest = () => { 
             scheduleService.getSchedule('trainer', userId, data)
@@ -418,10 +418,10 @@ class TrainerAddSchedule extends Component {
     }
 }
 
-const mapStateToProps = ({ scheduleTrainer }) => {
-    console.log(scheduleTrainer);
+const mapStateToProps = ({ scheduleTrainer, identificate }) => {
     return {
-        successPostResponse: scheduleTrainer.successPostResponse
+        successPostResponse: scheduleTrainer.successPostResponse,
+        userId: identificate.userId
     }
 };
 

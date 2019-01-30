@@ -10,7 +10,7 @@
     z-index: 50;
     overflow: hidden;
     transition: border-color $animation-time, right $animation-time-double;
-    right: 0;
+    left: 0;
 
     svg {
         width: 50px;
@@ -47,7 +47,7 @@
     }
 
     &.open {
-        right: calc(-100% + 35px);
+        left: calc(100vw - 64px);
     }
 
     &.open & {

@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import { connect } from 'react-redux';
+
+// Note: action
+import { createBooking } from '../../store/actions/booking';
 
 // Note: components
 import Input from '../ui-kit/Input/Input';
@@ -8,7 +12,6 @@ import Button from '../ui-kit/Button/Button';
 import Checkbox from '../ui-kit/Checkbox/Checkbox';
 
 // Note: services
-import { bookingService } from '../../services/booking';
 import { userService } from '../../services/userService';
 
 // Note: helpers
@@ -94,34 +97,22 @@ class BookingModal extends Component {
 
     onSubmitBooking = (e) => {
         e.preventDefault();
-        const { typeBooking, dateBooking } = this.props;
+        const { typeBooking, dateBooking, createBooking, isAuthorization } = this.props;
         const { start_time, end_time, playgroundId } = this.state;
-        const valueToken = localStorage.getItem('userToken');
         const { userId } = this.props;
 
         const data = {
             start_time: `${dateBooking} ${start_time}:00`,
             end_time: `${dateBooking} ${end_time}:00`,
-            bookable_id: +userId,
+            bookable_id: +userId
         };
 
         if (playgroundId) {
-            data.playgroundId = playgroundId
+            data.playground_id = playgroundId
         };
 
-        const bookingStart = () => {
-            bookingService.createBooking(typeBooking, data)
-                .then(
-                    res => {
-                        console.log(res);       
-                }, 
-                    err => {
-                        console.log(err);
-                });
-        };
-
-        if(valueToken) {
-            bookingStart();
+        if(isAuthorization) {
+            createBooking(typeBooking, data);
         } else {
             const dataLogin = {
                 phone: telWithoutPlus(this.state.phone),
@@ -130,7 +121,7 @@ class BookingModal extends Component {
     
             userService.login(dataLogin)
                 .then(() => {
-                    bookingStart();
+                    createBooking(typeBooking, data);
                 },
                 err => {
                     console.log(err);
@@ -139,8 +130,8 @@ class BookingModal extends Component {
     };
 
     render() {
-        const { isOpenModal, closeModal, playgroundsForTraining } = this.props;
-        const valueToken = localStorage.getItem('userToken');
+        const { isOpenModal, closeModal, playgroundsForTraining, isAuthorization } = this.props;
+        console.log(isAuthorization);
 
         const templateCost = (title, cost) => {
             return(
@@ -214,7 +205,7 @@ class BookingModal extends Component {
                                 {templateCost('Итого к оплате', '4500 р.')}
                             </fieldset>
 
-                            {!valueToken ?
+                            {!isAuthorization ?
                                 <fieldset className="b-booking-form__fieldset">
                                     <legend className="b-modal__title-group">Данные о вас</legend>
 
@@ -295,4 +286,16 @@ class BookingModal extends Component {
     }
 }
 
-export default BookingModal;
+const mapStateToProps = ({ identificate }) => {
+    return {
+        isAuthorization: identificate.authorization
+    }
+};
+
+const mapStateToDispatch = (dispatch) => {
+    return {
+        createBooking: (typeBooking, data) => dispatch(createBooking(typeBooking, data))
+    }
+}
+
+export default connect(mapStateToProps, mapStateToDispatch)(BookingModal);
