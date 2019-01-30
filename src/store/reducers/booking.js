@@ -5,7 +5,11 @@ import {
 
     CONFIRM_BOOKINGS_START,
     CONFIRM_BOOKINGS_SUCCESS,
-    CONFIRM_BOOKINGS_FAILURE
+    CONFIRM_BOOKINGS_FAILURE,
+
+    CREATE_BOOKING_START,
+    CREATE_BOOKING_SUCCESS,
+    CREATE_BOOKING_FAILURE
 } from '../constants/booking';
 
 import moment from 'moment';
@@ -127,6 +131,21 @@ export default function(state = initialState, action) {
         
         case CONFIRM_BOOKINGS_FAILURE:
             console.log(action.payload);
+            return {
+                ...state
+            }
+
+        case CREATE_BOOKING_START:
+            return {
+                ...state
+            }
+
+        case CREATE_BOOKING_SUCCESS:
+            return {
+                ...state
+            }
+        
+        case CREATE_BOOKING_FAILURE:
             return {
                 ...state
             }
