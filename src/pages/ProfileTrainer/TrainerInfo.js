@@ -41,7 +41,7 @@ class TrainerInfo extends Component {
     };
 
     getTrainerInfo = () => {
-        const userId = localStorage.getItem('userId');
+        const { userId } = this.props;
         trainerInfoService.getTrainerInformation(userId)
             .then(
                 response => {
@@ -333,9 +333,10 @@ class TrainerInfo extends Component {
     }
 }
 
-const mapStateToProps = ({ searchPlayground }) => {
+const mapStateToProps = ({ searchPlayground, identificate }) => {
     return {
-        foundPlagrounds: searchPlayground.playgrounds
+        foundPlagrounds: searchPlayground.playgrounds,
+        userId: identificate.userId
     }
 }
 

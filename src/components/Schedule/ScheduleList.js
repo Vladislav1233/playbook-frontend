@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import cn from 'classnames';
 
 // component
 import ScheduleItem from './ScheduleItem';
@@ -15,7 +16,11 @@ class ScheduleList extends Component {
         <ul className="b-schedule-list">
             {
                 list.map((item, index) => (
-                    <li className={`b-schedule-list__item ${item.isStatus || item.freeCourt ? 'b-schedule-list__item--hover' : ''}`} key={index}>
+                    <li className={cn('b-schedule-list__item', {
+                            'b-schedule-list__item--hover': item.isStatus || item.freeCourt
+                        })} 
+                        key={index}
+                    >
                         <ScheduleItem 
                             dataScheduleItem={item}
                             template={template} 

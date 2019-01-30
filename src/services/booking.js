@@ -8,6 +8,7 @@ export const bookingService = {
 };
 
 /*
+* Забронировать услугу
 * type - trainer or playground (required) 
 */
 function createBooking(type, data) {

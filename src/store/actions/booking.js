@@ -5,7 +5,11 @@ import {
 
     CONFIRM_BOOKINGS_START,
     CONFIRM_BOOKINGS_SUCCESS,
-    CONFIRM_BOOKINGS_FAILURE
+    CONFIRM_BOOKINGS_FAILURE,
+
+    CREATE_BOOKING_START,
+    CREATE_BOOKING_SUCCESS,
+    CREATE_BOOKING_FAILURE
 } from '../constants/booking';
 
 import { bookingService } from '../../services/booking';
@@ -83,6 +87,47 @@ export function confirmBooking(bookingId) {
     function failure(error) {
         return {
             type: CONFIRM_BOOKINGS_FAILURE,
+            payload: error
+        }
+    }
+}
+
+/*
+* Забронировать услугу
+* 
+* 
+*/
+export function createBooking(typeBooking, data) {
+    return dispatch => {
+        dispatch(start());
+
+        bookingService.createBooking(typeBooking, data)
+            .then(
+                res => {
+                    dispatch(success(res)); 
+            }, 
+                err => {
+                    dispatch(failure(err));
+                    console.log(err);
+            });
+    }
+
+    function start() {
+        return {
+            type: CREATE_BOOKING_START
+        }
+    }
+
+    function success(response) {
+        return {
+            type: CREATE_BOOKING_SUCCESS,
+            payload: response
+        }
+    }
+
+    function failure(error) {
+        return {
+            type: CREATE_BOOKING_FAILURE,
             payload: error
         }
     }

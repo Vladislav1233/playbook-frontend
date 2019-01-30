@@ -17,7 +17,7 @@ class MenuHeader extends Component {
     render() {
         console.log('render MenuHeader');
 
-        const { location } = this.props;
+        const { location, isAuthorization } = this.props;
         const profileClassName = cn({
             'b-menu__item--cabinet': location === configPathRouter.profileUser || location === configPathRouter.profileTrainer || location ===  configPathRouter.profileCourt
         });
@@ -25,13 +25,9 @@ class MenuHeader extends Component {
             'open': this.props.toggleMenu
         });
 
-        const isAuthorization = {
-            is: localStorage.getItem('userRole') ? true : false,
-            roleUser: localStorage.getItem('userRole')
-        }
-
         const profileLink = () => {
-            console.log(isAuthorization.roleUser);
+            const { userRole } = this.props;
+
             const nameLink = 'Личный кабинет >';
 
             const onToggle = () => {
@@ -52,7 +48,7 @@ class MenuHeader extends Component {
                 )
             }
 
-            if (isAuthorization.roleUser === 'user') {
+            if (userRole[0] === 'user') {
                 if (location === configPathRouter.profileUser) {
                     return onToggle();
                 } else {
@@ -60,7 +56,7 @@ class MenuHeader extends Component {
                 }
             }
 
-            if (isAuthorization.roleUser === 'trainer') {
+            if (userRole[0] === 'trainer') {
                 if (location === configPathRouter.profileTrainer) {
                     return onToggle();
                 } else {
@@ -68,7 +64,7 @@ class MenuHeader extends Component {
                 }
             }
 
-            if (isAuthorization.roleUser === 'organization-admin') {
+            if (userRole[0] === 'organization-admin') {
                 if (location === configPathRouter.profileCourt) {
                     return onToggle();
                 } else {
@@ -107,12 +103,14 @@ class MenuHeader extends Component {
                             <a className="b-menu__link" href="">Отменить бронь</a>
                         </li>
                         
-                        { !isAuthorization.is ? (
+                        {isAuthorization ? (
+                            profileLink()
+                        ) : (
                             <li className="b-menu__item">
                                 <Link className="b-menu__link" to={configPathRouter.authorization}>Авторизация</Link>
                                 <Link className="b-menu__link" to={configPathRouter.registration}>Регистрация</Link>
                             </li>
-                        ) : profileLink()}
+                        )}
 
                         <li className="b-menu__item">
                             {/* TODO: Сделать попап с выбором городов. По клику на ссылку менять город */}
@@ -129,9 +127,11 @@ class MenuHeader extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ toggleMenu, identificate }) => {
     return {
-       toggleMenu: state.toggleMenu.toggleMenu
+       toggleMenu: toggleMenu.toggleMenu,
+       isAuthorization: identificate.authorization,
+       userRole: identificate.userRole
     }
 }
 
