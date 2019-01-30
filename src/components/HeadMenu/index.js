@@ -35,12 +35,12 @@ class HeadMenu extends Component {
 
     render() {
         const { showContent } = this.state;
+        const { isAuthorization, userInformation, userRole } = this.props;
+        console.log(userInformation);
+
         const classNameBlock = cn('b-head-menu', {
             'b-head-menu--open': showContent
         });
-
-        const isAuthorization = localStorage.getItem('userRole');
-        let userInformation = JSON.parse(localStorage.getItem('userInformation'));
 
         const getDataAboutRole = (userRole) => {
             if (userRole === 'trainer') {
@@ -59,7 +59,10 @@ class HeadMenu extends Component {
                 return // TODO
             };
         };
-        const dataAboutRole = getDataAboutRole(isAuthorization); 
+        let dataAboutRole = {};
+        if (isAuthorization) {
+            dataAboutRole = getDataAboutRole(userRole[0]); 
+        };
 
         return(
             <div className={classNameBlock}>
@@ -74,7 +77,7 @@ class HeadMenu extends Component {
                             ? <Fragment>
                                 <ContentItem>
                                     <li className="b-head-menu__content-item">
-                                        <span className="b-head-menu__content-text b-head-menu__content-text--name">{`${userInformation.first_name} ${userInformation.last_name}`}</span>
+                                        <span className="b-head-menu__content-text b-head-menu__content-text--name">{`${userInformation.firstName} ${userInformation.lastName}`}</span>
                                         <div className="b-head-menu__content-additional">{dataAboutRole.roleName}</div>
                                     </li>
                                 </ContentItem>
@@ -111,6 +114,14 @@ class HeadMenu extends Component {
     }
 }
 
+const mapStateToProps = ({ identificate }) => {
+    return {
+        isAuthorization: identificate.authorization,
+        userInformation: identificate.userInformation,
+        userRole: identificate.userRole
+    }
+}
+
 const mapDispatchToProps = (dispatch) => {
     return {
         onLogout: e => {
@@ -120,4 +131,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(HeadMenu);
+export default connect(mapStateToProps, mapDispatchToProps)(HeadMenu);

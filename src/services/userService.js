@@ -27,11 +27,12 @@ function login(data) {
         url: `${API_URL}/api/login`,
         data: data
     }).then(user => {
+            console.log(user);
             if (user.data.data.access_token) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('userToken', user.data.data.access_token);
                 // Note: Храним роль юзера
-                localStorage.setItem('userRole', user.data.data.roles);
+                localStorage.setItem('userRole', JSON.stringify(user.data.data.roles));
                 // Note: храним id юзера
                 localStorage.setItem('userId', user.data.data.id);
                 // Note: храним информацию о юзере

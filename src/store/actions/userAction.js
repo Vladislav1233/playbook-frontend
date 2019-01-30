@@ -49,20 +49,67 @@ function login(data) {
                 },
                 error => {
                     dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
+                    // dispatch(alertActions.error(error.toString()));
                 }
             );
     };
 
-    function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
-    function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
-    function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
+    function request(user) { 
+        return { 
+            type: userConstants.LOGIN_REQUEST
+        } 
+    }
+
+    function success(user) { 
+        return { 
+            type: userConstants.LOGIN_SUCCESS, 
+            payload: user 
+        } 
+    }
+
+    function failure(error) { 
+        return { 
+            type: userConstants.LOGIN_FAILURE, 
+            payload: error 
+        } 
+    }
 }
 
 function logout() {
-    userService.logout();
-    history.push('/');
-    return { type: userConstants.LOGOUT };
+    return dispatch => {
+        dispatch(start());
+
+        userService.logout()
+            .then(
+                res => {
+                    dispatch(success(res));
+                    history.push('/');
+                }, 
+                err => {
+                    dispatch(failure(err));
+                }
+            );
+    };
+
+    function start() {
+        return { 
+            type: userConstants.LOGOUT_START
+        }
+    }
+
+    function success(res) {
+        return {
+            type: userConstants.LOGOUT_SUCCESS,
+            payload: res
+        }
+    }
+
+    function failure(err) {
+        return {
+            type: userConstants.LOGOUT_FAILURE,
+            payload: err
+        }
+    }
 }
 
 // Код ниже не закончен и он пока не работает
