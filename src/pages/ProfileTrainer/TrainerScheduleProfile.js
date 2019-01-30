@@ -17,7 +17,7 @@ class TrainerScheduleProfile extends Component {
 
         // Note: собираем данные для get запроса расписания при инициализации страницы. Берём текущий день
         const data = dataTime();
-        const userId = localStorage.getItem('userId');
+        const { userId } = this.props;
         getTrainerSchedule(userId, data);
     }
 
@@ -25,7 +25,7 @@ class TrainerScheduleProfile extends Component {
         const { scheduleTrainer, getTrainerSchedule, bookedTime, playgroundsForTraining } = this.props;
         
         // Note: userId - это id пользователя (тренера) расписание которого надо получить, в нашем случае мы находимся в личном кабинете и запрашиваем свой id тренера
-        const userId = localStorage.getItem('userId');
+        const { userId } = this.props;
 
         return(
             <div className="b-trainer-schedule-profile">
@@ -46,12 +46,13 @@ class TrainerScheduleProfile extends Component {
     }
 }
 
-const mapStateToProps = ({ scheduleTrainer }) => {
+const mapStateToProps = ({ scheduleTrainer, identificate }) => {
     return {
         scheduleTrainer: scheduleTrainer.scheduleTrainer,
         bookedTime: scheduleTrainer.bookedTime,
         preloader: scheduleTrainer.preloader,
-        playgroundsForTraining: scheduleTrainer.playgroundsForTraining
+        playgroundsForTraining: scheduleTrainer.playgroundsForTraining,
+        userId: identificate.userId
     }
 }
   

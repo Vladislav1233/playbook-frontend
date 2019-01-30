@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { configPathRouter } from '../../App/configPathRouter';
+import { connect } from "react-redux";
 
 // style
 import '../../style/bem-blocks/b-button/index.scss';
@@ -8,18 +9,18 @@ import '../../style/bem-blocks/b-hello-page/index.scss';
 
 class HelloPage extends Component {
 
-    render() {
-        const isAuthorization = localStorage.getItem('userRole') ? true : false;
-        console.log(isAuthorization); 
+    render() { 
+        const { isAuthorization, userRole } = this.props;
+        console.log(isAuthorization);
 
         const profileTo = () => {
-            const userRole = localStorage.getItem('userRole');
+            const whoUser = userRole[0];
 
-            if (userRole === 'trainer') {
+            if (whoUser === 'trainer') {
                 return configPathRouter.profileTrainer;
-            } else if (userRole === 'organization-admin') {
+            } else if (whoUser === 'organization-admin') {
                 return configPathRouter.profileCourt;
-            } else if (userRole === 'user') {
+            } else if (whoUser === 'user') {
                 return configPathRouter.profileUser;
             }
         };
@@ -56,4 +57,12 @@ class HelloPage extends Component {
     }
 }
 
-export default HelloPage;
+const mapStateToProps = ({ identificate }) => {
+    console.log(identificate);
+    return {
+        isAuthorization: identificate.authorization,
+        userRole: identificate.userRole
+    }
+};
+
+export default connect(mapStateToProps)(HelloPage);

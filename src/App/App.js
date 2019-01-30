@@ -33,8 +33,7 @@ class App extends Component {
     // }
 
     render() {
-        const { location, toggleMenu } = this.props;
-        const roleUser = localStorage.getItem('userRole');
+        const { location, toggleMenu, userRole } = this.props;
         
         const howLocation = location.pathname.split('/');
         const howRouterConfig = (value) => {
@@ -54,7 +53,7 @@ class App extends Component {
 
         const renderRoutePage = () => {
             // TODO: Ещё 404 страницу сделать
-            switch (roleUser) {
+            switch (userRole ? userRole[0] : '') {
                 case 'user':
                     return <AppUserTemplate />
 
@@ -88,9 +87,10 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ toggleMenu, identificate }) => {
     return {
-        toggleMenu: state.toggleMenu.toggleMenu
+        toggleMenu: toggleMenu.toggleMenu,
+        userRole: identificate.userRole
     }
 };
 

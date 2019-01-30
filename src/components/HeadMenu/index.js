@@ -1,14 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { connect } from "react-redux";
 import { userActions } from '../../store/actions/userAction';
+import { configPathRouter } from '../../App/configPathRouter';
 
 // Note: style
 import '../../style/bem-blocks/b-head-menu/index.scss';
 
 // Note: image
-import avaImg from '../../style/images/ava.jpg';
+import avaImg from '../../style/images/ava.png';
+
+const ContentItem = ({ children }) => {
+    return(
+        <ul className="b-head-menu__content-list">
+            {children}
+        </ul> 
+    )
+};
 
 class HeadMenu extends Component {
     state = {
@@ -26,45 +35,93 @@ class HeadMenu extends Component {
 
     render() {
         const { showContent } = this.state;
+        const { isAuthorization, userInformation, userRole } = this.props;
+        console.log(userInformation);
+
         const classNameBlock = cn('b-head-menu', {
             'b-head-menu--open': showContent
         });
 
+        const getDataAboutRole = (userRole) => {
+            if (userRole === 'trainer') {
+                return {
+                    pathProfile: configPathRouter.profileTrainer,
+                    roleName: 'Тренер'
+                }
+            } else if (userRole === 'user') {
+                return {
+                    pathProfile: configPathRouter.profileUser,
+                    roleName: 'Игрок'
+                } 
+            } else if (userRole === 'organization-admin') {
+                return // TODO
+            } else if (userRole === 'admin') {
+                return // TODO
+            };
+        };
+        let dataAboutRole = {};
+        if (isAuthorization) {
+            dataAboutRole = getDataAboutRole(userRole[0]); 
+        };
+
         return(
             <div className={classNameBlock}>
-                <a onClick={this.toggleContent} className="b-head-menu__open-button" href="">
-                    <div className="b-head-menu__image-wrapper">
-                        <img className="b-head-menu__image" src={avaImg} alt=""/>
-                    </div>
+                <a onClick={this.toggleContent} className="b-head-menu__open-button" href="/">
+                    {isAuthorization  
+                        ? <div className="b-head-menu__image-wrapper">
+                            <img className="b-head-menu__image" src={avaImg} alt=""/>
+                        </div>
+                        : <span>Профиль</span>
+                    }
                 </a>
-                {showContent ?
+                {showContent &&
                     <div className="b-head-menu__content">
+                        {isAuthorization 
+                            ? <Fragment>
+                                <ContentItem>
+                                    <li className="b-head-menu__content-item">
+                                        <span className="b-head-menu__content-text b-head-menu__content-text--name">{`${userInformation.firstName} ${userInformation.lastName}`}</span>
+                                        <div className="b-head-menu__content-additional">{dataAboutRole.roleName}</div>
+                                    </li>
+                                </ContentItem>
 
-                        <ul className="b-head-menu__content-list">
-                            <li className="b-head-menu__content-item">
-                                <span className="b-head-menu__content-text b-head-menu__content-text--name">Владислав Довженко</span>
-                                <div className="b-head-menu__content-additional">Тренер</div>
-                            </li>
-                        </ul>
+                                <ContentItem>
+                                    <li className="b-head-menu__content-item">
+                                        <Link className="b-head-menu__content-text" to={dataAboutRole.pathProfile}>Личный кабинет</Link>
+                                    </li>
+                                </ContentItem>
 
-                        <ul className="b-head-menu__content-list">
-                            <li className="b-head-menu__content-item">
-                                <Link className="b-head-menu__content-text" to="">Личный кабинет</Link>
-                            </li>
-                        </ul>
-
-                        <ul className="b-head-menu__content-list">
-                            <li className="b-head-menu__content-item">
-                                <a href="" className="b-head-menu__content-text" title="Выйти" onClick={this.props.onLogout}>Выйти</a>
-                            </li>
-                        </ul>
+                                <ContentItem>
+                                    <li className="b-head-menu__content-item">
+                                        <a href="" className="b-head-menu__content-text" title="Выйти" onClick={this.props.onLogout}>Выйти</a>
+                                    </li>
+                                </ContentItem>
+                            </Fragment>
+                            :
+                            <Fragment>
+                                <ContentItem>
+                                    <li className="b-head-menu__content-item">
+                                        <Link className="b-head-menu__content-text" to={configPathRouter.authorization}>Войти</Link>
+                                    </li>
+                                    <li className="b-head-menu__content-item">
+                                        <Link className="b-head-menu__content-text" to={configPathRouter.registration}>Зарегистрироваться</Link>
+                                    </li>
+                                </ContentItem>
+                            </Fragment>
+                        }
 
                     </div>
-                : 
-                    null
                 }
             </div>
         )
+    }
+}
+
+const mapStateToProps = ({ identificate }) => {
+    return {
+        isAuthorization: identificate.authorization,
+        userInformation: identificate.userInformation,
+        userRole: identificate.userRole
     }
 }
 
@@ -77,4 +134,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(HeadMenu);
+export default connect(mapStateToProps, mapDispatchToProps)(HeadMenu);
