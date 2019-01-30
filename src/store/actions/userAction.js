@@ -1,6 +1,5 @@
 import { userConstants } from '../constants/userConstants';
 import { userService } from '../../services/userService';
-import { alertActions } from '../actions/alertAction';
 import { history } from '../../helpers/history';
 import { configPathRouter } from '../../App/configPathRouter';
 

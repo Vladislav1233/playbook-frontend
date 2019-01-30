@@ -30,18 +30,25 @@ class Header extends Component {
             <header className="b-header">
                 <div className="container">
                     <div className="b-header__wrapper">
-                        <MenuHeader 
-                            isAuthorization={this.state.isAuthorization}
-                            location={this.props.location}
-                        />
+                        <div className="b-header__left">
+                            <MenuHeader 
+                                isAuthorization={this.state.isAuthorization}
+                                location={this.props.location}
+                            />
+                        </div>
 
-                        {/* TODO: для главной страницы не надо сслыку to выводить, чтобы не перерендеривало при клике */}
-                        <Link className="b-logotype" to='/'>
-                            <img className="b-logotype__image" src={tennisBallIcon} alt="Логотип - теннисный мяч"/>
-                            <span className="b-logotype__text">На главную</span>
-                        </Link>
+                        <div className="b-header__center">
+                            {/* TODO: для главной страницы не надо сслыку to выводить, чтобы не перерендеривало при клике */}
+                            <Link className="b-logotype" to='/'>
+                                <img className="b-logotype__image" src={tennisBallIcon} alt="Логотип - теннисный мяч"/>
+                                <span className="b-logotype__text">На главную</span>
+                            </Link>
+                        </div>
                         
-                        <HeadMenu />
+                        <div className="b-header__right">
+                            <HeadMenu />
+                        </div>
+
                         {/*TODO: здесь меняем в зависимости от  того, чье расписание сейчас смотрим: переключаем расписание между кортом и тренером (наверное с помощью router) */}
                         {/*<a className="b-header__get-schedule" href="" title=''>Мне нужен корт</a>*/}
                     </div>

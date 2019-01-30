@@ -9,7 +9,7 @@ import { configPathRouter } from '../../App/configPathRouter';
 import '../../style/bem-blocks/b-head-menu/index.scss';
 
 // Note: image
-import avaImg from '../../style/images/ava.jpg';
+import avaImg from '../../style/images/ava.png';
 
 const ContentItem = ({ children }) => {
     return(
@@ -66,10 +66,13 @@ class HeadMenu extends Component {
 
         return(
             <div className={classNameBlock}>
-                <a onClick={this.toggleContent} className="b-head-menu__open-button" href="">
-                    <div className="b-head-menu__image-wrapper">
-                        <img className="b-head-menu__image" src={avaImg} alt=""/>
-                    </div>
+                <a onClick={this.toggleContent} className="b-head-menu__open-button" href="/">
+                    {isAuthorization  
+                        ? <div className="b-head-menu__image-wrapper">
+                            <img className="b-head-menu__image" src={avaImg} alt=""/>
+                        </div>
+                        : <span>Профиль</span>
+                    }
                 </a>
                 {showContent &&
                     <div className="b-head-menu__content">
