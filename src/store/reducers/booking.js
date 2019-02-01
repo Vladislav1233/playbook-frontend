@@ -37,49 +37,38 @@ export default function(state = initialState, action) {
             let newConfirmBooking = [];
             let newConfirmPastBooking = [];
             
+            // Note: функция, которая возвращает объект c данными одного запроса на бронирование.
+            const createDataBookingRequest = function(item) {
+                return {
+                    firtsName: item.creator.first_name,
+                    lastName: item.creator.last_name,
+                    tel: `+${item.creator.phone}`,
+                    nameCourt: item.playground.name,
+                    time: `${moment(item.start_time).format('DD.MM.YYYY')} (${moment(item.start_time).format('dddd')}): ${moment(item.start_time).format('HH:mm')} - ${moment(item.end_time).format('HH:mm')}`,
+                    bookingId: item.id,
+                    status: item.status
+                }
+            };
+            
+            // Note: сортируем все запросы на бронирование по категориям относящимся к времени и статусу(обработано/не обработано).
             action.payload.data.data.forEach(item => {
                 if (!moment().isAfter(item.start_time) && !item.status) { // Note: если заявка не истекла и не обработана
-                    console.log(item);
-                    newDataBookingRequest.push({
-                        firtsName: item.creator.first_name,
-                        lastName: item.creator.last_name,
-                        tel: `+${item.creator.phone}`,
-                        nameCourt: 'LawnTennis', // TODO
-                        time: `${moment(item.start_time).format('DD.MM.YYYY')} (${moment(item.start_time).format('dddd')}): ${moment(item.start_time).format('HH:mm')} - ${moment(item.end_time).format('HH:mm')}`,
-                        bookingId: item.id,
-                        status: item.status
-                    })
+
+                    newDataBookingRequest.push(createDataBookingRequest(item));
+
                 } else if (moment().isAfter(item.start_time) && !item.status) { // Note: если заявка истекла и не обработана
-                    newPastBooking.push({
-                        firtsName: item.creator.first_name,
-                        lastName: item.creator.last_name,
-                        tel: `+${item.creator.phone}`,
-                        nameCourt: 'LawnTennis', // TODO
-                        time: `${moment(item.start_time).format('DD.MM.YYYY')} (${moment(item.start_time).format('dddd')}): ${moment(item.start_time).format('HH:mm')} - ${moment(item.end_time).format('HH:mm')}`,
-                        bookingId: item.id,
-                        status: item.status
-                    })
+                    
+                    newPastBooking.push(createDataBookingRequest(item));
+
                 } else if (!moment().isAfter(item.start_time) && item.status) { // Note: если завяка не истекла и обработана
-                    newConfirmBooking.push({
-                        firtsName: item.creator.first_name,
-                        lastName: item.creator.last_name,
-                        tel: `+${item.creator.phone}`,
-                        nameCourt: 'LawnTennis', // TODO
-                        time: `${moment(item.start_time).format('DD.MM.YYYY')} (${moment(item.start_time).format('dddd')}): ${moment(item.start_time).format('HH:mm')} - ${moment(item.end_time).format('HH:mm')}`,
-                        bookingId: item.id,
-                        status: item.status
-                    })
+                    
+                    newConfirmBooking.push(createDataBookingRequest(item));
+
                 } else { // Note: если заявка истекла и обработана
-                    newConfirmPastBooking.push({
-                        firtsName: item.creator.first_name,
-                        lastName: item.creator.last_name,
-                        tel: `+${item.creator.phone}`,
-                        nameCourt: 'LawnTennis', // TODO
-                        time: `${moment(item.start_time).format('DD.MM.YYYY')} (${moment(item.start_time).format('dddd')}): ${moment(item.start_time).format('HH:mm')} - ${moment(item.end_time).format('HH:mm')}`,
-                        bookingId: item.id,
-                        status: item.status
-                    })
-                }
+                    
+                    newConfirmPastBooking.push(createDataBookingRequest(item));
+
+                };
             });
 
             return {
@@ -105,13 +94,10 @@ export default function(state = initialState, action) {
             const confirmId = action.payload.data.data.id;
             const startTimeConfirm = action.payload.data.data.start_time;
 
-            console.log(action.payload, confirmId);
-
             if (!moment().isAfter(startTimeConfirm)) { // Note: если заявка не истекла, то удаляем элемент из текущих заявок
                 return {
                     ...state,
                     dataBookingRequest: state.dataBookingRequest.filter(itemState => {
-                        console.log(confirmId, itemState.bookingId);
                         return confirmId !== itemState.bookingId
                     })
                 }
@@ -119,7 +105,6 @@ export default function(state = initialState, action) {
                 return {
                     ...state,
                     dataPastBooking: state.dataPastBooking.filter(itemState => {
-                        console.log(confirmId, itemState.bookingId);
                         return confirmId !== itemState.bookingId
                     })
                 }
