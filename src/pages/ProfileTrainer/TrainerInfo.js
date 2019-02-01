@@ -51,7 +51,6 @@ class TrainerInfo extends Component {
                         const { 
                             first_name,
                             last_name,
-                            id,
                             playgrounds,
                             trainer_info
                         } = response.data.data;
