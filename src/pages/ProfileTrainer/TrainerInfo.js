@@ -58,7 +58,7 @@ class TrainerInfo extends Component {
 
                         this.setState({
                             ...this.state,
-                            idInfo: id,
+                            idInfo: trainer_info ? trainer_info.id : null,
                             trainerInfo: {
                                 ...this.state.trainerInfo,
                                 name: first_name ? first_name : '',

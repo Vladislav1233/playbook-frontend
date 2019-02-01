@@ -5,17 +5,18 @@ import App from './App/App';
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import configureStore from './store/reducers/configureStore';
-import { HashRouter, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
+import { history } from './helpers/history';
 
 const store = configureStore();
 
 ReactDOM.render(
     <Provider store={store}>
-        <HashRouter>
+        <Router history={history}>
             <Switch>
                 <Route path='/' component={App} />
             </Switch>
-        </HashRouter>
+        </Router>
     </Provider>,
     document.getElementById('root')
 );
