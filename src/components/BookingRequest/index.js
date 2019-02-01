@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 // Note: components
 import Button from '../ui-kit/Button/Button';
@@ -59,21 +59,20 @@ class BookingRequest extends Component {
                     }) : <p>Нет текущих заявок</p>
                 }
                 
-                {dataPastBooking.length > 0 
-                    ? <h2>Прошедшие заявки</h2>
-                    : null
-                }
                 {dataPastBooking.length > 0 ? 
-                    dataPastBooking.map(item => {
-                        return itemTemplate(
-                                item.bookingId,
-                                item.firtsName,
-                                item.lastName,
-                                item.tel,
-                                item.nameCourt,
-                                item.time,
-                                item.bookingId)
-                    }) : null}
+                    <Fragment>
+                        <h2>Прошедшие заявки</h2>
+                        {dataPastBooking.map(item => {
+                            return itemTemplate(
+                                    item.bookingId,
+                                    item.firtsName,
+                                    item.lastName,
+                                    item.tel,
+                                    item.nameCourt,
+                                    item.time,
+                                    item.bookingId)
+                        })}
+                    </Fragment> : null}
             </div>
         )
     }
