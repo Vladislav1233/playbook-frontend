@@ -15,6 +15,7 @@ import {
 } from '../constants/schedule';
 
 import { scheduleService } from '../../services/scheduleService';
+import { bookingService } from '../../services/booking';
 
 // Note: Отправляем запрос на создание расписания тренера
 export function createScheduleTrainer(data) {
@@ -100,7 +101,16 @@ export function getTrainerSchedule(userId, data) {
         scheduleService.getSchedule('trainer', userId, data)
             .then(
                 response => {
-                    dispatch(success(response));
+                    const params = { // TODO
+                        limit: 100,
+                        offset: 0,
+                        ...data
+                    }
+                    bookingService.getBookings('trainer', userId, params).then(
+                        responseReservedTime => {
+                            dispatch(success(response, responseReservedTime));
+                        }
+                    )
                 },
                 error => {
                     console.log(error);
@@ -115,11 +125,12 @@ export function getTrainerSchedule(userId, data) {
         }
     }
 
-    function success(response) {
+    function success(response, booked) {
         return {
             type: GET_SUCCESS_SCHEDULE_TRAINER,
             payload: response.data,
-            date: data.start_time
+            date: data.start_time,
+            reservedResponse: booked
         }
     }
 
