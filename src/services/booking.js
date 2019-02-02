@@ -1,5 +1,6 @@
 import { API_URL } from '../store/constants/restAPI';
 import axios from 'axios';
+import Moment from 'moment';
 
 export const bookingService = {
     createBooking,
@@ -29,7 +30,12 @@ function createBooking(type, data) {
 * type (required) - trainer or playground
 * id - trainer or playground id
 */
-function getBookings(type, id) {
+function getBookings(type, id, data = { // TODO
+    limit: 100,
+    offset: 0,
+    start_time: Moment(new Date(2018, 0, 1)).format('YYYY-MM-DD HH:mm:ss'),
+    end_time: Moment(new Date(2050, 0, 1)).format('YYYY-MM-DD HH:mm:ss')
+}) {
     const valueToken = localStorage.getItem('userToken');
 
     return axios ({
@@ -37,7 +43,8 @@ function getBookings(type, id) {
         url: `${API_URL}/api/booking/${type}/${id}`,
         headers: {
             'Authorization': `Bearer ${valueToken}`
-        }
+        },
+        params: data
     });
 }
 

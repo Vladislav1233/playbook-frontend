@@ -10,11 +10,12 @@ import {
     TOGGLE_RESPONSE
 } from '../constants/schedule';
 
-import moment from 'moment';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
 import 'moment/locale/ru';
-// eslint-disable-next-line
-import twix from 'twix';
 import uniquePlaygrounds from '../../helpers/uniquePlaygrounds';
+
+const moment = extendMoment(Moment);
 
 const initialState = {
     preloader: false,
@@ -66,8 +67,12 @@ export default function(state = initialState, action) {
 
         case GET_SUCCESS_SCHEDULE_TRAINER:
             const responseSchedule = action.payload.data;
-            
-            // Note: Инициализация первого диапазона времени
+            // Note: Забронированное подтвержденное время
+            const reservedTime = action.reservedResponse.data.data.filter(reservedResponseItem => {
+                return reservedResponseItem.status === 1;
+            });
+
+            // Note: Инициализация первого диапазона свободного времени
             let rangeSchedule = responseSchedule.length > 0  
                 ? [{
                     start_time: responseSchedule[0].start_time,
@@ -75,8 +80,6 @@ export default function(state = initialState, action) {
                     isStatus: true
                 }] : [];
             
-            // Note: массив, в который буду собирать всё занятое время
-            let reservedTime = [];
 
             // Note: получаем дипазоны всего расписания
             responseSchedule.forEach((item, i, arr) => {
@@ -93,8 +96,6 @@ export default function(state = initialState, action) {
                         });
                     };
                 }
-                // Note: собираю занятое время в массив со всех карточек
-                reservedTime.push(...item.confirmed_bookings);
             });
 
             // Note: Фильтруем диапазон, чтобы в нём не было свободного времени для "занято" (убираем занятые промежутки из свободного времени)
@@ -102,16 +103,16 @@ export default function(state = initialState, action) {
                 reservedTime.forEach((itemBusy) => {
 
                     rangeSchedule.forEach((itemFree, iFree) => {
-                        let rangeBusy = moment(itemBusy.start_time).twix(itemBusy.end_time);
-                        let rangeFree = moment(itemFree.start_time).twix(itemFree.end_time);
-                        
-                        // Note: если занятое время входит в диапазон
-                        if( rangeFree.engulfs(rangeBusy) ) {
-                            let getRangeWithoutBusy = rangeFree.xor(rangeBusy);
+                        let rangeBusy = moment.range(itemBusy.start_time, itemBusy.end_time);
+                        let rangeFree = moment.range(itemFree.start_time, itemFree.end_time);
+
+                        if(rangeBusy.overlaps(rangeFree)) { // Note: если занятое время перекрывает свободное
+                            // Note: удаляем занятый диапазон из всего расписания
+                            let getRangeWithoutBusy = rangeFree.subtract(rangeBusy);
                             const newRangeScheduleItem = getRangeWithoutBusy.map(getRangeWithoutBusyItem => {
                                 return {
-                                    start_time: getRangeWithoutBusyItem.start().format('YYYY-MM-DD HH:mm'),
-                                    end_time: getRangeWithoutBusyItem.end().format('YYYY-MM-DD HH:mm'),
+                                    start_time: getRangeWithoutBusyItem.start.format('YYYY-MM-DD HH:mm'),
+                                    end_time: getRangeWithoutBusyItem.end.format('YYYY-MM-DD HH:mm'),
                                     isStatus: true
                                 }
                             });
@@ -125,8 +126,12 @@ export default function(state = initialState, action) {
             
             // Получаем стоимость часа во всех промежутках времени
             const newCost = responseSchedule ? responseSchedule.map(item => {
+
+                const timeRangeCost = moment.range(item.start_time, item.end_time);
+                const getTimeOutRange = (indexPostition) => moment(timeRangeCost.toDate()[indexPostition]).format('HH:mm');
+ 
                 return {
-                    time: moment(item.start_time).twix(item.end_time).format({hideDate: true}),
+                    time: `${getTimeOutRange(0)} - ${getTimeOutRange(1)}`,
                     cost: item.price_per_hour
                 }
             }) : [];
