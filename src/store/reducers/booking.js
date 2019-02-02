@@ -14,8 +14,6 @@ import {
 
 import moment from 'moment';
 import 'moment/locale/ru';
-// eslint-disable-next-line
-import twix from 'twix';
 
 const initialState = {
     dataBookingRequest: [], // Note: текущие не подтвержденные заявки

@@ -47,6 +47,10 @@ function deleteSchedule (schedule_id) {
 }
 
 function getSchedule (type, userId, data) {
+    // TODO
+    data.limit = 100
+    data.offset = 0
+
     return axios({
         method: 'get',
         url: `${API_URL}/api/schedule/${type}/${userId}`,
