@@ -110,15 +110,17 @@ class ScheduleItem extends Component {
                         
                     </div>
                 </div>
- 
-                <BookingModal 
-                    isOpenModal={this.state.showModal}
-                    closeModal={this.closeModal}
-                    typeBooking='trainer'
-                    dateBooking={moment(start_time).format('YYYY-MM-DD')}
-                    playgroundsForTraining={playgroundsForTraining}
-                    userId={userId}
-                />
+                        
+                {isStatus  && 
+                    <BookingModal 
+                        isOpenModal={this.state.showModal}
+                        closeModal={this.closeModal}
+                        typeBooking='trainer'
+                        dateBooking={moment(start_time).format('YYYY-MM-DD')}
+                        playgroundsForTraining={playgroundsForTraining}
+                        userId={userId}
+                    />
+                }
             </Fragment>
         )
   }

@@ -9,6 +9,14 @@
         display: none;
     }
 
+    &--add-schedule {
+        margin-bottom: 30px;
+
+        &:not(:last-child) {
+            margin-bottom: 50px;
+        }
+    }
+
     &__input {
         display: none;
     }
