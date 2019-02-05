@@ -3,7 +3,7 @@ import moment from 'moment';
 import cn from 'classnames';
 
 // Note: components
-import BookingModal from '../BookingModal';
+import BookingModal from '../Modal/BookingModal';
 
 // style
 import '../../style/bem-blocks/b-schedule-item/index.scss';

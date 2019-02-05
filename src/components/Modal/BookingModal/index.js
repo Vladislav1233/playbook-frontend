@@ -2,26 +2,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // Note: action
-import { createBooking } from '../../store/actions/booking';
+import { createBooking } from '../../../store/actions/booking';
 
 // Note: components
-import Input from '../ui-kit/Input/Input';
+import Input from '../../ui-kit/Input/Input';
 import InputMask from 'react-input-mask';
-import Button from '../ui-kit/Button/Button';
-import Checkbox from '../ui-kit/Checkbox/Checkbox';
-import ModalComponent from '../Modal';
+import Button from '../../ui-kit/Button/Button';
+import Checkbox from '../../ui-kit/Checkbox/Checkbox';
+import ModalComponent from '../index';
 
 // Note: services
-import { userService } from '../../services/userService';
+import { userService } from '../../../services/userService';
 
 // Note: helpers
-import telWithoutPlus from '../../helpers/telWithoutPlus';
+import telWithoutPlus from '../../../helpers/telWithoutPlus';
 
 // Note: styles
-import '../../style/bem-blocks/b-close/index.scss';
-import '../../style/bem-blocks/b-modal/index.scss';
-import '../../style/bem-blocks/b-booking-form/index.scss';
-import '../../style/bem-blocks/b-cost-information/index.scss';
+import '../../../style/bem-blocks/b-close/index.scss';
+import '../../../style/bem-blocks/b-modal/index.scss';
+import '../../../style/bem-blocks/b-booking-form/index.scss';
+import '../../../style/bem-blocks/b-cost-information/index.scss';
 
 class BookingModal extends Component {
 
