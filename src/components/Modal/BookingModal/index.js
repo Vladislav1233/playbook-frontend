@@ -18,8 +18,6 @@ import { userService } from '../../../services/userService';
 import telWithoutPlus from '../../../helpers/telWithoutPlus';
 
 // Note: styles
-import '../../../style/bem-blocks/b-close/index.scss';
-import '../../../style/bem-blocks/b-modal/index.scss';
 import '../../../style/bem-blocks/b-booking-form/index.scss';
 import '../../../style/bem-blocks/b-cost-information/index.scss';
 
