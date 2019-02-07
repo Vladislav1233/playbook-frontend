@@ -10,7 +10,7 @@ import '../../style/bem-blocks/b-logotype/index.scss';
 import MenuHeader from './MenuHeader';
 import HeadMenu from '../HeadMenu';
 
-import tennisBallIcon from '../../style/images/icon/tennis-ball.svg';
+import tennisBallIcon from '../../style/images/icon/logo.svg';
 
 class Header extends Component {
     constructor(props) {
