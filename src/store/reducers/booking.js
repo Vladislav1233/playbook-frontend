@@ -9,13 +9,18 @@ import {
 
     CREATE_BOOKING_START,
     CREATE_BOOKING_SUCCESS,
-    CREATE_BOOKING_FAILURE
+    CREATE_BOOKING_FAILURE,
+
+    DECLINE_BOOKING_START,
+    DECLINE_BOOKING_SUCCESS,
+    DECLINE_BOOKING_FAILURE
 } from '../constants/booking';
 
 import moment from 'moment';
 import 'moment/locale/ru';
 
 const initialState = {
+    preloader: false,
     dataBookingRequest: [], // Note: текущие не подтвержденные заявки
     dataPastBooking: [], // Note: прошедшие не подтвержденные заявки
     confirmBooking: [], // Note: текущие подтвержденные заявки
@@ -23,6 +28,29 @@ const initialState = {
 }
 
 export default function(state = initialState, action) {
+
+    const filterBooking = (confirmId, startTimeConfirm) => {
+        if (!moment().isAfter(startTimeConfirm)) { // Note: если заявка не истекла, то удаляем элемент из текущих заявок
+            return {
+                ...state,
+                dataBookingRequest: state.dataBookingRequest.filter(itemState => {
+                    return confirmId !== itemState.bookingId
+                })
+            }
+        } else if (moment().isAfter(startTimeConfirm)) { // Если заявка истекла, то удаляем её из прошедших заявок
+            return {
+                ...state,
+                dataPastBooking: state.dataPastBooking.filter(itemState => {
+                    return confirmId !== itemState.bookingId
+                })
+            }
+        } else {
+            return {
+                ...state
+            }
+        }
+    }
+
     switch (action.type) {
         case GET_BOOKINGS_START:
             return {
@@ -85,37 +113,26 @@ export default function(state = initialState, action) {
 
         case CONFIRM_BOOKINGS_START:
             return {
-                ...state
+                ...state,
+                preloader: true
             }
         
         case CONFIRM_BOOKINGS_SUCCESS:
             const confirmId = action.payload.data.data.id;
             const startTimeConfirm = action.payload.data.data.start_time;
 
-            if (!moment().isAfter(startTimeConfirm)) { // Note: если заявка не истекла, то удаляем элемент из текущих заявок
-                return {
-                    ...state,
-                    dataBookingRequest: state.dataBookingRequest.filter(itemState => {
-                        return confirmId !== itemState.bookingId
-                    })
-                }
-            } else if (moment().isAfter(startTimeConfirm)) { // Если заявка истекла, то удаляем её из прошедших заявок
-                return {
-                    ...state,
-                    dataPastBooking: state.dataPastBooking.filter(itemState => {
-                        return confirmId !== itemState.bookingId
-                    })
-                }
-            } else {
-                return {
-                    ...state
-                }
+            const newStateConfirm = filterBooking(confirmId, startTimeConfirm);
+            
+            return {
+                ...newStateConfirm,
+                preloader: false
             }
         
         case CONFIRM_BOOKINGS_FAILURE:
             console.log(action.payload);
             return {
-                ...state
+                ...state,
+                preloader: false
             }
 
         case CREATE_BOOKING_START:
@@ -131,6 +148,30 @@ export default function(state = initialState, action) {
         case CREATE_BOOKING_FAILURE:
             return {
                 ...state
+            }
+
+        case DECLINE_BOOKING_START: 
+            return {
+                ...state,
+                preloader: true
+            }
+
+        case DECLINE_BOOKING_SUCCESS:
+            const confirmIdDecline = action.payload.data.data.id;
+            const startTimeConfirmDecline = action.payload.data.data.start_time;
+            
+            const newStateDecline = filterBooking(confirmIdDecline, startTimeConfirmDecline);
+
+            return {
+                ...newStateDecline,
+                preloader: false
+            }
+
+        case DECLINE_BOOKING_FAILURE:
+            console.log(action.payload);
+            return {
+                ...state,
+                preloader: false
             }
 
         default:

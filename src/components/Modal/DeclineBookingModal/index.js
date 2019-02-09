@@ -21,7 +21,7 @@ class DeclineBookingModal extends Component {
     };
 
   	render() {
-		const { isOpenModal, closeModal } = this.props;
+		const { isOpenModal, closeModal, onClickDecline } = this.props;
 		const { notePlayer } = this.state;
 
     	return(
@@ -43,6 +43,10 @@ class DeclineBookingModal extends Component {
 				<div className="b-modal__button-wrapper">
 					<Button 
 						name="Отказать в бронировании"
+						onClick={() => {
+							onClickDecline(notePlayer);
+							closeModal();
+						}}
 					/>
 				</div>
       		</ModalComponent>

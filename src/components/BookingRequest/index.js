@@ -9,8 +9,7 @@ import '../../style/bem-blocks/b-booking-request/index.scss';
 class BookingRequest extends Component {
 
     render() {
-        const { dataBookingRequest, onClickConfirm, dataPastBooking } = this.props;
-        console.log(this.props);
+        const { dataBookingRequest, onClickConfirm, dataPastBooking, onClickDecline } = this.props;
 
         return(
             <div className="b-booking-request">
@@ -26,6 +25,7 @@ class BookingRequest extends Component {
                             time={item.time}
                             bookingId={item.bookingId} 
                             onClickConfirm={onClickConfirm}
+                            onClickDecline={onClickDecline}
                         />
                     }) : <p>Нет текущих заявок</p>
                 }
@@ -43,6 +43,7 @@ class BookingRequest extends Component {
                                 time={item.time}
                                 bookingId={item.bookingId} 
                                 onClickConfirm={onClickConfirm}
+                                onClickDecline={onClickDecline}
                             />
                         })}
                     </Fragment> : null}

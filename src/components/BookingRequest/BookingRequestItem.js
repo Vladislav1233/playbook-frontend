@@ -19,7 +19,7 @@ class BookingRequestItem extends Component {
     }
 
     render() {
-        const { bookingId, firtsName, lastName, tel, nameCourt, time, onClickConfirm } = this.props;
+        const { bookingId, firtsName, lastName, tel, nameCourt, time, onClickConfirm, onClickDecline } = this.props;
 
         return(
             <Fragment>
@@ -53,6 +53,7 @@ class BookingRequestItem extends Component {
                 <DeclineBookingModal 
                     isOpenModal={this.state.showModal}
                     closeModal={this.closeModal}
+                    onClickDecline={(note) => onClickDecline(bookingId, note)}
                 />
             </Fragment>
         )

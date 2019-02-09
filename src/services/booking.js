@@ -5,7 +5,8 @@ import Moment from 'moment';
 export const bookingService = {
     createBooking,
     getBookings,
-    confirmBooking
+    confirmBooking,
+    declineBooking
 };
 
 /*
@@ -61,5 +62,25 @@ function confirmBooking(bookingId) {
         headers: {
             'Authorization': `Bearer ${valueToken}`
         }
+    });
+}
+
+/*
+* Отменить бронирование
+* bookingId - id объекта бронирования
+* data: {
+*   note: 'Сообщение пользователю'
+*}
+*/
+function declineBooking(bookingId, data) {
+    const valueToken = localStorage.getItem('userToken');
+
+    return axios ({
+        method: 'post',
+        url: `${API_URL}/api/booking/decline/${bookingId}`,
+        headers: {
+            'Authorization': `Bearer ${valueToken}`
+        },
+        data: data
     });
 }
