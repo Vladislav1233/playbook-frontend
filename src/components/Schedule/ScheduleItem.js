@@ -107,11 +107,16 @@ class ScheduleItem extends Component {
                                 itemCourt()
                             : null
                         }
-                        
                     </div>
+                    
+                    {/* TODO: Добавить тултип */}
+                    {!isStatus && isWhoBooked 
+                        ? <button className="b-close b-close--schedule-item"></button> 
+                        : null
+                    }
                 </div>
                         
-                {isStatus  && 
+                {isStatus && 
                     <BookingModal 
                         isOpenModal={this.state.showModal}
                         closeModal={this.closeModal}

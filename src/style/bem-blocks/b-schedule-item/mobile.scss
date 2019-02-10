@@ -4,6 +4,7 @@
     flex-direction: row;
     align-items: flex-start;
     cursor: pointer;
+    position: relative;
 
     &__time-wrap {
         line-height: 32px;
