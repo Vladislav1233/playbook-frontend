@@ -10,17 +10,21 @@
     background: none;
     border-radius: 50%;
     background-color: $orange-diamond-yellow;
-    border: 2px solid transparent;
-    transition: border-color $animation-time;
+    transition: box-shadow $animation-time;
 
     .no-touchevents &:hover {
-        border-color: $white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    &:focus,
+    &:active {
+        outline: none;
     }
 
     &:before, &:after {
         position: absolute;
-        top: 5px;
-        left: 13px;
+        top: 7px;
+        left: 15px;
         content: ' ';
         height: 18px;
         width: 2px;
@@ -36,8 +40,14 @@
     }
 
     &--modal {
-        position: fixed;
+        position: absolute;
         top: 10px;
-        right: 20px;
+        right: 15px;
+    }
+
+    &--schedule-item {
+        position: absolute;
+        right: 0px;
+        top: 2px;
     }
 }
