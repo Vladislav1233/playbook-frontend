@@ -54,6 +54,7 @@ class BookingRequestItem extends Component {
                     isOpenModal={this.state.showModal}
                     closeModal={this.closeModal}
                     onClickDecline={(note) => onClickDecline(bookingId, note)}
+                    nameButton="Отказать в бронировании"
                 />
             </Fragment>
         )

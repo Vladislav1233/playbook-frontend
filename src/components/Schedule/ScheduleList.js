@@ -10,12 +10,14 @@ import '../../style/bem-blocks/b-schedule-list/index.scss';
 class ScheduleList extends Component {
 
   render() {
-    const { template, list, playgroundsForTraining, userId, isWhoBooked } = this.props;
+    const { template, list, playgroundsForTraining, userId, isWhoBooked, onClickDecline } = this.props;
 
     return (
         <ul className="b-schedule-list">
             {
-                list.map((item, index) => (
+                list.map((item, index) => {
+                    console.log(item);
+                    return(
                     <li className={cn('b-schedule-list__item', {
                             'b-schedule-list__item--hover': item.isStatus || item.freeCourt
                         })} 
@@ -28,9 +30,10 @@ class ScheduleList extends Component {
                             userId={userId}
                             isWhoBooked={isWhoBooked}
                             creator={item.creator}
+                            onClickDecline={onClickDecline}
                         />
-                    </li>
-                ))
+                    </li>)
+                })
             }
         </ul>
     )

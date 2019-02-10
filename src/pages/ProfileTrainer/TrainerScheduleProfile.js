@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { getTrainerSchedule } from '../../store/actions/schedule';
 import { dataTime } from '../../helpers/dataTime';
+import { declineBooking } from '../../store/actions/booking';
 
 // Note: component
 import Schedule from '../../components/Schedule';
@@ -21,6 +22,13 @@ class TrainerScheduleProfile extends Component {
         getTrainerSchedule(userId, data);
     }
 
+    onClickDecline = (bookingId, note) => {
+        const data = {
+            note
+        };
+        this.props.declineBooking(bookingId, data);
+    }
+
     render() {
         const { scheduleTrainer, getTrainerSchedule, bookedTime, playgroundsForTraining } = this.props;
         
@@ -38,6 +46,7 @@ class TrainerScheduleProfile extends Component {
                     cost={scheduleTrainer.cost}
                     playgroundsForTraining={playgroundsForTraining}
                     isWhoBooked={true}
+                    onClickDecline={this.onClickDecline}
                 />
 
                 { this.props.preloader ? <Preloader /> : null }
@@ -63,7 +72,15 @@ const mapStateToDispatch = (dispatch) => {
         * userId - id пользователя (тренера) расписание которого запрашиваем
         * data - принимает объект с ключами start_time и end_time - период на который прийдет расписание.
         */
-        getTrainerSchedule: (userId, data) => dispatch(getTrainerSchedule(userId, data))
+        getTrainerSchedule: (userId, data) => dispatch(getTrainerSchedule(userId, data)),
+        /*
+        * Отменить бронирование
+        * bookingId - id объекта бронирования
+        * data: {
+        *   note: 'Сообщение пользователю'
+        *}
+        */
+       declineBooking: (bookingId, data) => dispatch(declineBooking(bookingId, data))
     }
 }
 
