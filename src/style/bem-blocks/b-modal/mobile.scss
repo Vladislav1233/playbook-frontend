@@ -10,32 +10,28 @@
         font-size: 18px;
         color: $temperate-slate-blue;
     }
+    
+    &__button-wrapper {
+        text-align: center;
+    }
 }
 
 .ReactModal {
+
     &__Content {
-        top: 0px !important;
+        top: auto !important;
         left: 0px !important;
         right: 0px !important;
-        bottom: 0px !important;
+        bottom: auto !important;
         padding: 45px 15px !important;
         max-width: 700px;
-        margin: 0px auto;
-        
-        &::before {
-            content: '';
-            background: #fff;
-            position: sticky;
-            margin-top: -45px;
-            top: -45px;
-            left: 0px;
-            display: block;
-            height: 45px;
-        }
+        box-shadow: 0 2px 6px rgba(40, 36, 35, .1);
+        min-height: 100%;
     }
 
     &__Overlay {
-        z-index: 100;
-        background-color: rgba(0, 0, 0, 0.8) !important;
+        z-index: 98;
+        background-color: rgba(0, 0, 0, 0.2) !important;
+        overflow: auto;
     }
 }

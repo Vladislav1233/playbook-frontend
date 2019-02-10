@@ -11,7 +11,11 @@ import {
     GET_SUCCESS_SCHEDULE_TRAINER,
     GET_FAILURE_SCHEDULE_TRAINER,
 
-    TOGGLE_RESPONSE
+    TOGGLE_RESPONSE,
+
+    DECLINE_CONFIRM_BOOKING_START,
+    DECLINE_CONFIRM_BOOKING_SUCCESS,
+    DECLINE_CONFIRM_BOOKING_FAILURE
 } from '../constants/schedule';
 
 import { scheduleService } from '../../services/scheduleService';
@@ -145,5 +149,48 @@ export function getTrainerSchedule(userId, data) {
 export function toggleResponse() {
     return {
         type: TOGGLE_RESPONSE
+    }
+}
+
+/*
+* Отменить подтвержденное бронирование
+* bookingId - id объекта бронирования
+* data: {
+*   note: 'Сообщение пользователю'
+*}
+*/
+export function declineConfirmBooking(bookingId, data, userId, dataForGetSchedule) {
+    return dispatch => {
+        dispatch(start());
+
+        bookingService.declineBooking(bookingId, data)
+            .then(
+                () => {
+                    dispatch(success());
+                    dispatch(getTrainerSchedule(userId, dataForGetSchedule));
+                },
+                err => {
+                    dispatch(failure(err));
+                }
+            )
+    };
+
+    function start() {
+        return {
+            type: DECLINE_CONFIRM_BOOKING_START
+        }
+    }
+
+    function success() {
+        return {
+            type: DECLINE_CONFIRM_BOOKING_SUCCESS
+        }
+    }
+
+    function failure(error) {
+        return {
+            type: DECLINE_CONFIRM_BOOKING_FAILURE,
+            payload: error
+        }
     }
 }

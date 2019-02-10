@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { getTrainerSchedule } from '../../store/actions/schedule';
 import { dataTime } from '../../helpers/dataTime';
+import { declineConfirmBooking } from '../../store/actions/schedule';
 
 // Note: component
 import Schedule from '../../components/Schedule';
@@ -21,6 +22,17 @@ class TrainerScheduleProfile extends Component {
         getTrainerSchedule(userId, data);
     }
 
+    onClickDecline = (bookingId, note) => {
+        const data = { note };
+        const { userId, scheduleTrainer } = this.props;
+        const dataForGetSchedule = dataTime({
+            valueStart: scheduleTrainer.date,
+            valueEnd: scheduleTrainer.date
+        });
+
+        this.props.declineBooking(bookingId, data, userId, dataForGetSchedule);
+    }
+
     render() {
         const { scheduleTrainer, getTrainerSchedule, bookedTime, playgroundsForTraining } = this.props;
         
@@ -38,6 +50,7 @@ class TrainerScheduleProfile extends Component {
                     cost={scheduleTrainer.cost}
                     playgroundsForTraining={playgroundsForTraining}
                     isWhoBooked={true}
+                    onClickDecline={this.onClickDecline}
                 />
 
                 { this.props.preloader ? <Preloader /> : null }
@@ -63,7 +76,16 @@ const mapStateToDispatch = (dispatch) => {
         * userId - id пользователя (тренера) расписание которого запрашиваем
         * data - принимает объект с ключами start_time и end_time - период на который прийдет расписание.
         */
-        getTrainerSchedule: (userId, data) => dispatch(getTrainerSchedule(userId, data))
+        getTrainerSchedule: (userId, data) => dispatch(getTrainerSchedule(userId, data)),
+        /*
+        * Отменить бронирование
+        * bookingId - id объекта бронирования
+        * data: {
+        *   note: 'Сообщение пользователю'
+        *}
+        * userId, dataForGetSchedule - для запроса получения расписания, который отправляется после отмены букинга
+        */
+       declineBooking: (bookingId, data, userId, dataForGetSchedule) => dispatch(declineConfirmBooking(bookingId, data, userId, dataForGetSchedule))
     }
 }
 

@@ -3,7 +3,8 @@ import moment from 'moment';
 import cn from 'classnames';
 
 // Note: components
-import BookingModal from '../BookingModal';
+import BookingModal from '../Modal/BookingModal';
+import DeclineBookingModal from '../Modal/DeclineBookingModal';
 
 // style
 import '../../style/bem-blocks/b-schedule-item/index.scss';
@@ -14,16 +15,37 @@ class ScheduleItem extends Component {
         super(props);
 
         this.state = {
-            showModal: false
+            showModal: false,
+            declineModal: false
         }
     }
 
     openModal = () => {
-        this.setState({ showModal: true });
+        this.setState({
+            ...this.state, 
+            showModal: true 
+        });
     }
 
     closeModal = () => {
-        this.setState({ showModal: false });
+        this.setState({ 
+            ...this.state,
+            showModal: false 
+        });
+    }
+
+    openDeclineModal = () => {
+        this.setState({
+            ...this.state,
+            declineModal: true
+        })
+    }
+
+    closeDeclineModal = () => {
+        this.setState({
+            ...this.state,
+            declineModal: false
+        })
     }
   
     render() {
@@ -32,8 +54,9 @@ class ScheduleItem extends Component {
             end_time,
             isStatus // true - это время свободно, false - это время занято
         } = this.props.dataScheduleItem;
+        const bookingId = this.props.dataScheduleItem.id;
     
-        const { template, playgroundsForTraining, userId, creator, isWhoBooked } = this.props;
+        const { template, playgroundsForTraining, userId, creator, isWhoBooked, onClickDecline } = this.props;
         const textBooking = 'Нажми, чтобы забронировать';
 
         const whoBookedTemplate = (whoName, whoTel) => {
@@ -107,18 +130,34 @@ class ScheduleItem extends Component {
                                 itemCourt()
                             : null
                         }
-                        
                     </div>
+                    
+                    {/* TODO: Добавить тултип */}
+                    {!isStatus && isWhoBooked 
+                        ? ( <Fragment>
+                                <button onClick={this.openDeclineModal} className="b-close b-close--schedule-item"></button>   
+                                <DeclineBookingModal 
+                                    isOpenModal={this.state.declineModal}
+                                    closeModal={this.closeDeclineModal}
+                                    onClickDecline={(note) => onClickDecline(bookingId, note)}
+                                    nameButton="Отменить бронь"
+                                />     
+                            </Fragment>
+                        )
+                        : null
+                    }
                 </div>
- 
-                <BookingModal 
-                    isOpenModal={this.state.showModal}
-                    closeModal={this.closeModal}
-                    typeBooking='trainer'
-                    dateBooking={moment(start_time).format('YYYY-MM-DD')}
-                    playgroundsForTraining={playgroundsForTraining}
-                    userId={userId}
-                />
+                        
+                {isStatus && 
+                    <BookingModal 
+                        isOpenModal={this.state.showModal}
+                        closeModal={this.closeModal}
+                        typeBooking='trainer'
+                        dateBooking={moment(start_time).format('YYYY-MM-DD')}
+                        playgroundsForTraining={playgroundsForTraining}
+                        userId={userId}
+                    />
+                }
             </Fragment>
         )
   }

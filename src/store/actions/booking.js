@@ -9,7 +9,11 @@ import {
 
     CREATE_BOOKING_START,
     CREATE_BOOKING_SUCCESS,
-    CREATE_BOOKING_FAILURE
+    CREATE_BOOKING_FAILURE,
+
+    DECLINE_BOOKING_START,
+    DECLINE_BOOKING_SUCCESS,
+    DECLINE_BOOKING_FAILURE
 } from '../constants/booking';
 
 import { bookingService } from '../../services/booking';
@@ -128,6 +132,49 @@ export function createBooking(typeBooking, data) {
     function failure(error) {
         return {
             type: CREATE_BOOKING_FAILURE,
+            payload: error
+        }
+    }
+}
+
+/*
+* Отменить бронирование
+* bookingId - id объекта бронирования
+* data: {
+*   note: 'Сообщение пользователю'
+*}
+*/
+export function declineBooking(bookingId, data) {
+    return dispatch => {
+        dispatch(start());
+
+        bookingService.declineBooking(bookingId, data)
+            .then(
+                res => {
+                    dispatch(success(res));
+                },
+                err => {
+                    dispatch(failure(err));
+                }
+            )
+    };
+
+    function start() {
+        return {
+            type: DECLINE_BOOKING_START
+        }
+    }
+
+    function success(response) {
+        return {
+            type: DECLINE_BOOKING_SUCCESS,
+            payload: response
+        }
+    }
+
+    function failure(error) {
+        return {
+            type: DECLINE_BOOKING_FAILURE,
             payload: error
         }
     }
