@@ -7,7 +7,11 @@ import {
     GET_SUCCESS_SCHEDULE_TRAINER,
     GET_FAILURE_SCHEDULE_TRAINER,
 
-    TOGGLE_RESPONSE
+    TOGGLE_RESPONSE,
+
+    DECLINE_CONFIRM_BOOKING_START,
+    DECLINE_CONFIRM_BOOKING_SUCCESS,
+    DECLINE_CONFIRM_BOOKING_FAILURE
 } from '../constants/schedule';
 
 import Moment from 'moment';
@@ -22,7 +26,7 @@ const initialState = {
     bookedTime: [],
     playgroundsForTraining: [],
     scheduleTrainer: {
-        date: moment().format('DD.MM.YYYY'),
+        date: moment(),
         nameDay: moment().format('dddd'), 
         schedule: [],
         cost: [],
@@ -150,7 +154,7 @@ export default function(state = initialState, action) {
                 playgroundsForTraining: newPlaygroundsForTraining,
                 scheduleTrainer: {
                     ...state.scheduleTrainer,
-                    date: moment(action.date).format('DD.MM.YYYY'),
+                    date: moment(action.date),
                     nameDay: moment(action.date).format('dddd'),
                     schedule: rangeSchedule,
                     cost: newCost
@@ -158,6 +162,23 @@ export default function(state = initialState, action) {
             }
 
         case GET_FAILURE_SCHEDULE_TRAINER:
+            return {
+                ...state,
+                preloader: false
+            }
+
+        case DECLINE_CONFIRM_BOOKING_START:
+            return {
+                ...state,
+                preloader: true
+            }
+
+        case DECLINE_CONFIRM_BOOKING_SUCCESS:
+            return {
+                ...state
+            }
+
+        case DECLINE_CONFIRM_BOOKING_FAILURE:
             return {
                 ...state,
                 preloader: false

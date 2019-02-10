@@ -52,12 +52,11 @@ class ScheduleItem extends Component {
         const { 
             start_time, 
             end_time,
-            isStatus, // true - это время свободно, false - это время занято
-            bookingId
+            isStatus // true - это время свободно, false - это время занято
         } = this.props.dataScheduleItem;
+        const bookingId = this.props.dataScheduleItem.id;
     
         const { template, playgroundsForTraining, userId, creator, isWhoBooked, onClickDecline } = this.props;
-        console.log(this.props);
         const textBooking = 'Нажми, чтобы забронировать';
 
         const whoBookedTemplate = (whoName, whoTel) => {

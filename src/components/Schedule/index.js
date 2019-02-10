@@ -1,6 +1,7 @@
 // Note: Компонент вывод расписания пользователю, который используется для вывода расписания и корта и тренера.
 import React, { Component, Fragment } from 'react';
 import { dataTime } from '../../helpers/dataTime';
+import Moment from 'moment';
 
 // component
 import DateCalendar from '../../components/Calendar';
@@ -49,7 +50,7 @@ class Schedule extends Component {
                 <DateCalendar onClickDay={this.onClickDay}/>
                 <div className="container container--schedule">
                     <div className="b-schedule">
-                        <div className="b-schedule__date">{schedule.nameDay}, {schedule.date}.
+                        <div className="b-schedule__date">{schedule.nameDay}, {Moment(schedule.date).format('DD.MM.YYYY')}.
                             {schedule.timeWork ? <div className="b-schedule__timetable">Время работы: {schedule.timeWork}</div> : null}
                         </div>
                         

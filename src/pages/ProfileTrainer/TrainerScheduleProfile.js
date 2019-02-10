@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { getTrainerSchedule } from '../../store/actions/schedule';
 import { dataTime } from '../../helpers/dataTime';
-import { declineBooking } from '../../store/actions/booking';
+import { declineConfirmBooking } from '../../store/actions/schedule';
 
 // Note: component
 import Schedule from '../../components/Schedule';
@@ -23,10 +23,14 @@ class TrainerScheduleProfile extends Component {
     }
 
     onClickDecline = (bookingId, note) => {
-        const data = {
-            note
-        };
-        this.props.declineBooking(bookingId, data);
+        const data = { note };
+        const { userId, scheduleTrainer } = this.props;
+        const dataForGetSchedule = dataTime({
+            valueStart: scheduleTrainer.date,
+            valueEnd: scheduleTrainer.date
+        });
+
+        this.props.declineBooking(bookingId, data, userId, dataForGetSchedule);
     }
 
     render() {
@@ -79,8 +83,9 @@ const mapStateToDispatch = (dispatch) => {
         * data: {
         *   note: 'Сообщение пользователю'
         *}
+        * userId, dataForGetSchedule - для запроса получения расписания, который отправляется после отмены букинга
         */
-       declineBooking: (bookingId, data) => dispatch(declineBooking(bookingId, data))
+       declineBooking: (bookingId, data, userId, dataForGetSchedule) => dispatch(declineConfirmBooking(bookingId, data, userId, dataForGetSchedule))
     }
 }
 

@@ -16,23 +16,23 @@ class ScheduleList extends Component {
         <ul className="b-schedule-list">
             {
                 list.map((item, index) => {
-                    console.log(item);
                     return(
-                    <li className={cn('b-schedule-list__item', {
-                            'b-schedule-list__item--hover': item.isStatus || item.freeCourt
-                        })} 
-                        key={index}
-                    >
-                        <ScheduleItem 
-                            dataScheduleItem={item}
-                            template={template} 
-                            playgroundsForTraining={playgroundsForTraining}
-                            userId={userId}
-                            isWhoBooked={isWhoBooked}
-                            creator={item.creator}
-                            onClickDecline={onClickDecline}
-                        />
-                    </li>)
+                        <li className={cn('b-schedule-list__item', {
+                                'b-schedule-list__item--hover': item.isStatus || item.freeCourt
+                            })} 
+                            key={index}
+                        >
+                            <ScheduleItem 
+                                dataScheduleItem={item}
+                                template={template} 
+                                playgroundsForTraining={playgroundsForTraining}
+                                userId={userId}
+                                isWhoBooked={isWhoBooked}
+                                creator={item.creator}
+                                onClickDecline={onClickDecline}
+                            />
+                        </li>
+                    )
                 })
             }
         </ul>
