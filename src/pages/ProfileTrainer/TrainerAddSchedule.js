@@ -7,6 +7,7 @@ import getArrayDateRange from '../../helpers/getArrayDateRange';
 import { dataTime } from '../../helpers/dataTime';
 import { scheduleService } from '../../services/scheduleService';
 import { trainerInfoService } from '../../services/trainerInfoService';
+import { convertTypeMoney } from '../../helpers/convertTypeMoney';
 
 // Note: components
 import SettingChooseDay from '../../components/SettingChooseDay/SettingChooseDay';
@@ -88,7 +89,7 @@ class TrainerAddSchedule extends Component {
                                 dates: [date],
                                 start_time: moment(item.start_time).format("HH:mm"),
                                 end_time: moment(item.end_time).format("HH:mm"),
-                                price_per_hour: item.price_per_hour,
+                                price_per_hour: convertTypeMoney(item.price_per_hour, 'RUB', 'banknote'),
                                 currency: 'RUB',
                                 schedule_id: item.id,
                                 playgrounds: this.state.playgroundsForTraining,
@@ -315,8 +316,7 @@ class TrainerAddSchedule extends Component {
         const { dispatch } = this.props;
         // NOTE: Создается один запрос на одну карточку. Добавление расписания
         this.state.cards.forEach(function(card) {
-            // TODO: преобразовать из копеек в рубли;
-            let formatPrice = card.price_per_hour;
+            let formatPrice = convertTypeMoney(card.price_per_hour, 'RUB', 'coin');
             // TODO: добавить чек-бокс playgrounds
             const dataForCreate = {
                 dates: card.dates,
@@ -364,6 +364,7 @@ class TrainerAddSchedule extends Component {
             value: 'period',
             label: 'Период (от - до)'
         }];
+        console.log(convertTypeMoney('1000', 'RUB', 'coin'));
 
         return(
             <div className="b-trainer-add-schedule">
