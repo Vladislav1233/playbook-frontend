@@ -8,6 +8,9 @@ import DateCalendar from '../../components/Calendar';
 import ScheduleList from './ScheduleList';
 import TinySlider from "tiny-slider-react";
 
+// Note: helpers
+import { convertTypeMoney } from '../../helpers/convertTypeMoney';
+
 // style
 import '../../style/bem-blocks/b-schedule/index.scss';
 import '../../style/bem-blocks/b-slider-schedule/index.scss';
@@ -65,7 +68,7 @@ class Schedule extends Component {
                                             {`${item.time} будет `}
 
                                             <span className="b-schedule__price-value">
-                                                {`${item.cost} р/час`}
+                                                {`${convertTypeMoney(item.cost, 'RUB', 'banknote')} р/час`}
                                             </span>
                                         </span>
                                     );
