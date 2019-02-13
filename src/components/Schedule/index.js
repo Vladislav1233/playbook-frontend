@@ -102,6 +102,7 @@ class Schedule extends Component {
                                     template={template} 
                                     playgroundsForTraining={playgroundsForTraining} 
                                     userId={userId}
+                                    cost={cost}
                                 />
                                 : notScheduleTemplate()
                         : null}

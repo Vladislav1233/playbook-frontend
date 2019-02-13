@@ -6,7 +6,6 @@
 */
 
 export function convertTypeMoney(number, codeCurrency, convertTo) {
-    console.log(+number);
 
     const operation = (convertOperation, divider) => {
         if (convertOperation === 'coin') {

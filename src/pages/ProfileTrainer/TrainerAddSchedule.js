@@ -364,7 +364,6 @@ class TrainerAddSchedule extends Component {
             value: 'period',
             label: 'Период (от - до)'
         }];
-        console.log(convertTypeMoney('1000', 'RUB', 'coin'));
 
         return(
             <div className="b-trainer-add-schedule">

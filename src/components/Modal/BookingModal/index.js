@@ -127,6 +127,7 @@ class BookingModal extends Component {
 
     render() {
         const { isOpenModal, closeModal, playgroundsForTraining, isAuthorization } = this.props;
+        console.log(this.state.start_time, this.state.end_time);
 
         const templateCost = (title, cost) => {
             return(

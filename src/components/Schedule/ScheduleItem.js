@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import moment from 'moment';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
 import cn from 'classnames';
 
 // Note: components
@@ -8,6 +9,8 @@ import DeclineBookingModal from '../Modal/DeclineBookingModal';
 
 // style
 import '../../style/bem-blocks/b-schedule-item/index.scss';
+
+const moment = extendMoment(Moment);
 
 class ScheduleItem extends Component {
 
@@ -56,8 +59,27 @@ class ScheduleItem extends Component {
         } = this.props.dataScheduleItem;
         const bookingId = this.props.dataScheduleItem.id;
     
-        const { template, playgroundsForTraining, userId, creator, isWhoBooked, onClickDecline } = this.props;
+        const { template, playgroundsForTraining, userId, creator, isWhoBooked, onClickDecline, cost } = this.props;
         const textBooking = 'Нажми, чтобы забронировать';
+
+        console.log(cost);
+        const calcCost = () => {
+            const st = moment('28-12-2012');
+            const en = moment('28-12-2012');
+
+            const a = moment('28-12-2012');
+            const b = moment('28-12-2012');
+
+            const c = moment('18:00');
+            const d = moment('20:00');
+
+            const range = moment.range(st, en);
+            const range2 = moment.range(a, b);
+            console.log(range, range2);
+
+            console.log(range2.overlaps(range));
+        };
+        calcCost();
 
         const whoBookedTemplate = (whoName, whoTel) => {
             return (
