@@ -19,14 +19,19 @@ const calcCostService = (startTimeBooking, endTimeBooking, rangeCostArray) => {
     const timeToBooking = moment(endTimeBooking, formatForTime);
     const rangeBooking = moment.range(timeFromBooking, timeToBooking);
 
-    rangeCostArray.forEach(itemRangeCostArray => {
-        // Note: Получаем пересекающийся диапазон времени которое букаем с временем которое указано в стоимости. 
-        const intersectRange = rangeBooking.intersect(itemRangeCostArray.time);
-        
-        if (intersectRange) {
-            resultCost = resultCost + convertTypeMoney( intersectRange.diff('seconds') / dividerForCostTime * itemRangeCostArray.cost, 'RUB', 'banknote' );
-        };
-    });
+    if (rangeCostArray.length > 0) {
+        rangeCostArray.forEach(itemRangeCostArray => {
+            // Note: Получаем пересекающийся диапазон времени которое букаем с временем которое указано в стоимости. 
+            const intersectRange = rangeBooking.intersect(itemRangeCostArray.time);
+            
+            if (intersectRange) {
+                resultCost = resultCost + convertTypeMoney( intersectRange.diff('seconds') / dividerForCostTime * itemRangeCostArray.cost, 'RUB', 'banknote' );
+            };
+        });
+
+    } else {
+        return null
+    };
 
     // TODO: Эту стоимость нужно хранить на бэке так как мы же можем удалить расписание и получается это больше не посчитается у нас.
     return resultCost;

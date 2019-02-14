@@ -105,7 +105,7 @@ export default function(state = initialState, action) {
                     };
                 }
 
-                // Note: Получаем стоимость часа во всех промежутках времени
+                // Note: Получаем стоимость часа во всех промежутках времени для тренера
                 const timeRangeCost = moment.range(item.start_time, item.end_time);
                 newCost.push({
                     time: timeRangeCost,
@@ -143,7 +143,6 @@ export default function(state = initialState, action) {
             reservedTime.length > 0 ? filterRange() : false;
 
             const newPlaygroundsForTraining = uniquePlaygrounds(arrayPlaygrounds);
-            console.log(newPlaygroundsForTraining);
 
             return {
                 ...state,

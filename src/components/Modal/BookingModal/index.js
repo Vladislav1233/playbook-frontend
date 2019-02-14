@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 // Note: action
 import { createBooking } from '../../../store/actions/booking';
@@ -126,17 +127,59 @@ class BookingModal extends Component {
         };
     };
 
+    getCostPlaygroundForPayBooking = () => {
+        const { playgroundsForTraining } = this.props;
+        const { playgroundId } = this.state;
+        let schedulePlayground = [];
+        let costPlaygroundInRange = [];
+
+        playgroundsForTraining.forEach(playgroundForTraining => {
+            if (playgroundForTraining.pivot.playground_id = playgroundId) {
+                schedulePlayground = [ ...playgroundForTraining.schedules ]
+            };
+        });
+        
+        if (schedulePlayground.length > 0) {
+            schedulePlayground.forEach(schedulePlaygroundItem => {
+                const timeRangeCost = moment.range(schedulePlaygroundItem.start_time, schedulePlaygroundItem.end_time);
+                costPlaygroundInRange.push({
+                    time: timeRangeCost,
+                    cost: schedulePlaygroundItem.price_per_hour
+                });
+            })
+        }
+
+        return costPlaygroundInRange;
+    };
+
     render() {
         const { isOpenModal, closeModal, playgroundsForTraining, isAuthorization } = this.props;
         const { start_time, end_time, playgroundId } = this.state;
+
+        let costPlaygroundForPayBooking = [];
+        if (playgroundId) {
+            costPlaygroundForPayBooking =  [ ...this.getCostPlaygroundForPayBooking() ];
+        };
         
 
         const templateCost = (title, cost) => {
-            console.log(cost);
+            
+            const textCost = function() {
+                if (cost > 0) {
+                    return `${cost} р.`;
+
+                } else if (cost === null) {
+                    return 'Стоимость не указана администраторм, уточняйте лично.';
+
+                } else {
+                    return 'Укажите верные временные рамки бронирования услуги.';
+                };
+            };
+
             return(
                 <div className="b-cost-information">
                     <div className="b-cost-information__title">{title}</div>
-                    <div className="b-cost-information__cost">{`${cost} р.`}</div>
+                    <div className="b-cost-information__cost">{textCost()}</div>
                 </div>
             )
         };
@@ -176,16 +219,16 @@ class BookingModal extends Component {
                     {/* TODO: радиобаттоны для корта */}
                     <fieldset className="b-booking-form__fieldset">
                         <legend className="b-modal__title-group">Корт</legend>
-                        {playgroundsForTraining ? playgroundsForTraining.map( item => {
+                        {playgroundsForTraining ? playgroundsForTraining.map(item => {
                             return (
                                 <Checkbox 
-                                    key={`playground_${item.id}`}
+                                    key={`playground_${item.pivot.playground_id}`}
                                     type='radio'
                                     name="playground"
-                                    id={`playground_${item.id}`}
+                                    id={`playground_${item.pivot.playground_id}`}
                                     text={item.name}
-                                    value={item.id}
-                                    checked={this.state.playgroundId === item.id}
+                                    value={item.pivot.playground_id}
+                                    checked={this.state.playgroundId === item.pivot.playground_id}
                                     onChange={this.onChangeRadio}
                                     modif={'b-checkbox--add-schedule'}
                                 />
@@ -199,15 +242,21 @@ class BookingModal extends Component {
 
                         {start_time && end_time 
                             ? <Fragment>
-                                {templateCost('Оплата услуг тренера', calcCostService(start_time, end_time, this.props.cost))}
+                                {templateCost(
+                                    'Оплата услуг тренера', 
+                                    calcCostService(start_time, end_time, this.props.cost))}
 
                                 {playgroundId 
-                                    ? templateCost('Оплата услуг площадки', '3000')
+                                    ? templateCost( 
+                                        'Оплата услуг площадки', 
+                                        calcCostService(start_time, end_time, costPlaygroundForPayBooking) )
                                     : null
                                 }
 
-                                {playgroundId 
-                                    ? templateCost('Итого к оплате', +calcCostService(start_time, end_time, this.props.cost) + 3000)
+                                {playgroundId && costPlaygroundForPayBooking.length > 0
+                                    ? templateCost(
+                                        'Итого к оплате', 
+                                        +calcCostService(start_time, end_time, this.props.cost) + +calcCostService(start_time, end_time, costPlaygroundForPayBooking))
                                     : null
                                 }
                             </Fragment>
