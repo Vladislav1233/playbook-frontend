@@ -134,6 +134,7 @@ class BookingModal extends Component {
         let costPlaygroundInRange = [];
 
         playgroundsForTraining.forEach(playgroundForTraining => {
+            // eslint-disable-next-line
             if (playgroundForTraining.pivot.playground_id = playgroundId) {
                 schedulePlayground = [ ...playgroundForTraining.schedules ]
             };
@@ -171,7 +172,7 @@ class BookingModal extends Component {
                 } else if (cost === null) {
                     return 'Стоимость не указана администраторм, уточняйте лично.';
 
-                } else {
+                } else if (cost <= 0) {
                     return 'Укажите верные временные рамки бронирования услуги.';
                 };
             };
