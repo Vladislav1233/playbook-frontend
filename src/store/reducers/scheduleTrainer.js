@@ -75,6 +75,10 @@ export default function(state = initialState, action) {
             const reservedTime = action.reservedResponse.data.data.filter(reservedResponseItem => {
                 return reservedResponseItem.status === 1;
             });
+            // Note: Cтоимость часа во всех промежутках времени
+            let newCost = [];
+            // Note: Площадки на которых в этот день тренирует тренер
+            let arrayPlaygrounds = [];
 
             // Note: Инициализация первого диапазона свободного времени
             let rangeSchedule = responseSchedule.length > 0  
@@ -83,11 +87,11 @@ export default function(state = initialState, action) {
                     end_time: responseSchedule[0].end_time,
                     isStatus: true
                 }] : [];
-            
 
-            // Note: получаем дипазоны всего расписания
+            // Note: Обходим массив ответа с расписанием тренера, чтобы собрать все данные
             responseSchedule.forEach((item, i, arr) => {
 
+                // Note: Получаем дипазоны всего расписания
                 if(arr.length - 1 !== i) {
                     // Note: если следующий объект времени идет следом за предыдущим, то объеденяем диапазоны в один
                     if (rangeSchedule[rangeSchedule.length - 1].end_time === arr[i + 1].start_time) {
@@ -100,6 +104,16 @@ export default function(state = initialState, action) {
                         });
                     };
                 }
+
+                // Note: Получаем стоимость часа во всех промежутках времени
+                const timeRangeCost = moment.range(item.start_time, item.end_time);
+                newCost.push({
+                    time: timeRangeCost,
+                    cost: item.price_per_hour
+                });
+                
+                // Note: получаем площадки на которых в этот день тренирует тренер
+                arrayPlaygrounds.push(...item.playgrounds);
             });
 
             // Note: Фильтруем диапазон, чтобы в нём не было свободного времени для "занято" (убираем занятые промежутки из свободного времени)
@@ -127,24 +141,9 @@ export default function(state = initialState, action) {
             };
             // eslint-disable-next-line
             reservedTime.length > 0 ? filterRange() : false;
-            
-            // Получаем стоимость часа во всех промежутках времени
-            const newCost = responseSchedule ? responseSchedule.map(item => {
 
-                const timeRangeCost = moment.range(item.start_time, item.end_time);
- 
-                return {
-                    time: timeRangeCost,
-                    cost: item.price_per_hour
-                }
-            }) : [];
-
-            // Note: получаем площадки на которых в этот день тренирует тренер
-            let arrayPlaygrounds = [];
-            responseSchedule.forEach(item => {
-                arrayPlaygrounds.push(...item.playgrounds);
-            });
             const newPlaygroundsForTraining = uniquePlaygrounds(arrayPlaygrounds);
+            console.log(newPlaygroundsForTraining);
 
             return {
                 ...state,
