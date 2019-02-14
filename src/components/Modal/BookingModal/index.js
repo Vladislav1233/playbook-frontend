@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 // Note: action
@@ -194,20 +194,25 @@ class BookingModal extends Component {
                     </fieldset>
                     
                     <fieldset className="b-booking-form__fieldset">
-                        <legend className="b-modal__title-group">Стоимость</legend>
                         {/* TODO: валидировать поле времени и если не проходит валидацию то и не выводим стоимость. */}
-                        {start_time && end_time
-                            ? templateCost('Оплата услуг тренера', calcCostService(start_time, end_time, this.props.cost))
-                            : null
-                            
-                        }
-                        {start_time && end_time && playgroundId
-                            ? templateCost('Оплата услуг площадки', '3000')
-                            : null
-                        }
-                        { start_time && end_time && playgroundId
-                            ? templateCost('Итого к оплате', +calcCostService(start_time, end_time, this.props.cost) + 3000)
-                            : null
+                        <legend className="b-modal__title-group">Стоимость</legend>
+
+                        {start_time && end_time 
+                            ? <Fragment>
+                                {templateCost('Оплата услуг тренера', calcCostService(start_time, end_time, this.props.cost))}
+
+                                {playgroundId 
+                                    ? templateCost('Оплата услуг площадки', '3000')
+                                    : null
+                                }
+
+                                {playgroundId 
+                                    ? templateCost('Итого к оплате', +calcCostService(start_time, end_time, this.props.cost) + 3000)
+                                    : null
+                                }
+                            </Fragment>
+
+                            : <p style={{marginBottom: '30px'}}>Укажите параметры бронирования</p>
                         }
                     </fieldset>
 
