@@ -132,10 +132,9 @@ export default function(state = initialState, action) {
             const newCost = responseSchedule ? responseSchedule.map(item => {
 
                 const timeRangeCost = moment.range(item.start_time, item.end_time);
-                const getTimeOutRange = (indexPostition) => moment(timeRangeCost.toDate()[indexPostition]).format('HH:mm');
  
                 return {
-                    time: `${getTimeOutRange(0)} - ${getTimeOutRange(1)}`,
+                    time: timeRangeCost,
                     cost: item.price_per_hour
                 }
             }) : [];

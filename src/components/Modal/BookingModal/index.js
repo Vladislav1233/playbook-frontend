@@ -16,6 +16,7 @@ import { userService } from '../../../services/userService';
 
 // Note: helpers
 import telWithoutPlus from '../../../helpers/telWithoutPlus';
+import calcCostService from '../../../helpers/calcCostService';
 
 // Note: styles
 import '../../../style/bem-blocks/b-booking-form/index.scss';
@@ -127,13 +128,15 @@ class BookingModal extends Component {
 
     render() {
         const { isOpenModal, closeModal, playgroundsForTraining, isAuthorization } = this.props;
-        console.log(this.state.start_time, this.state.end_time);
+        const { start_time, end_time, playgroundId } = this.state;
+        
 
         const templateCost = (title, cost) => {
+            console.log(cost);
             return(
                 <div className="b-cost-information">
                     <div className="b-cost-information__title">{title}</div>
-                    <div className="b-cost-information__cost">{cost}</div>
+                    <div className="b-cost-information__cost">{`${cost} р.`}</div>
                 </div>
             )
         };
@@ -151,7 +154,7 @@ class BookingModal extends Component {
                             labelText='С'
                             typeInput='time'
                             idInput='startBooking'
-                            value={this.state.start_time}
+                            value={start_time}
                             nameInput='start_time'
                             theme={{blackColor: true}}
                             onChange={this.onChangeInput}
@@ -162,7 +165,7 @@ class BookingModal extends Component {
                             labelText='По'
                             typeInput='time'
                             idInput='endBooking'
-                            value={this.state.end_time}
+                            value={end_time}
                             nameInput='end_time'
                             theme={{blackColor: true}}
                             onChange={this.onChangeInput}
@@ -189,12 +192,23 @@ class BookingModal extends Component {
                             )
                         }): null}
                     </fieldset>
-
+                    
                     <fieldset className="b-booking-form__fieldset">
                         <legend className="b-modal__title-group">Стоимость</legend>
-                        {templateCost('Оплата услуг тренера', '1500 р.')}
-                        {templateCost('Оплата услуг корта', '3000 р.')}
-                        {templateCost('Итого к оплате', '4500 р.')}
+                        {/* TODO: валидировать поле времени и если не проходит валидацию то и не выводим стоимость. */}
+                        {start_time && end_time
+                            ? templateCost('Оплата услуг тренера', calcCostService(start_time, end_time, this.props.cost))
+                            : null
+                            
+                        }
+                        {start_time && end_time && playgroundId
+                            ? templateCost('Оплата услуг площадки', '3000')
+                            : null
+                        }
+                        { start_time && end_time && playgroundId
+                            ? templateCost('Итого к оплате', +calcCostService(start_time, end_time, this.props.cost) + 3000)
+                            : null
+                        }
                     </fieldset>
 
                     {!isAuthorization ?

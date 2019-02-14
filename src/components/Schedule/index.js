@@ -1,7 +1,8 @@
 // Note: Компонент вывод расписания пользователю, который используется для вывода расписания и корта и тренера.
 import React, { Component, Fragment } from 'react';
 import { dataTime } from '../../helpers/dataTime';
-import Moment from 'moment';
+import moment from 'moment';
+import { extendMoment } from 'moment-range';
 
 // component
 import DateCalendar from '../../components/Calendar';
@@ -14,6 +15,8 @@ import { convertTypeMoney } from '../../helpers/convertTypeMoney';
 // style
 import '../../style/bem-blocks/b-schedule/index.scss';
 import '../../style/bem-blocks/b-slider-schedule/index.scss';
+
+const Moment = extendMoment(moment);
 
 class Schedule extends Component {
 
@@ -63,9 +66,10 @@ class Schedule extends Component {
                             <div className="b-schedule__price">
                                 <div className="b-schedule__title">Стоимость</div>
                                 {cost.map((item, index) => {
+                                    const getTimeOutRange = (indexPostition) => Moment(item.time.toDate()[indexPostition]).format('HH:mm');
                                     return (
                                         <span className="b-schedule__cost" key={index}> 
-                                            {`${item.time} будет `}
+                                            {`${getTimeOutRange(0)} - ${getTimeOutRange(1)} будет `}
 
                                             <span className="b-schedule__price-value">
                                                 {`${convertTypeMoney(item.cost, 'RUB', 'banknote')} р/час`}
