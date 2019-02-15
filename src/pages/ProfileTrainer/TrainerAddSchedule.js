@@ -156,7 +156,8 @@ class TrainerAddSchedule extends Component {
     };
 
     onChangeTime = (idx) => (value, name) => {
-        const newCards = this.createDataCard(idx, name, value.formatted24);
+        console.log(value, name);
+        const newCards = this.createDataCard(idx, name, value);
 
         this.setState({
             ...this.state,
@@ -317,6 +318,7 @@ class TrainerAddSchedule extends Component {
         // NOTE: Создается один запрос на одну карточку. Добавление расписания
         this.state.cards.forEach(function(card) {
             let formatPrice = convertTypeMoney(card.price_per_hour, 'RUB', 'coin');
+            console.log(card.start_time);
             // TODO: добавить чек-бокс playgrounds
             const dataForCreate = {
                 dates: card.dates,

@@ -33,7 +33,7 @@ class App extends Component {
     // }
 
     render() {
-        const { location, toggleMenu, userRole } = this.props;
+        const { location, toggleMenu, userRole, scrollPage } = this.props;
         
         const howLocation = location.pathname.split('/');
         const howRouterConfig = (value) => {
@@ -42,8 +42,8 @@ class App extends Component {
         };
 
         const pageWrapperClass = cn('b-page-wrapper', {
-            'no-scroll': toggleMenu,
-            'b-page-wrapper--overflow': location.pathname === '/authentication-trainer' || location.pathname ===  configPathRouter.authorization
+            'no-scroll': toggleMenu || scrollPage, // TODO: через screen snap сделать позицию страницы не дерганной.
+            'b-page-wrapper--overflow': location.pathname === '/authentication-trainer' || location.pathname === configPathRouter.authorization
         })
 
         const mainClass = cn('b-main', {
@@ -81,16 +81,18 @@ class App extends Component {
                 <main className={mainClass}>
                     {renderRoutePage()}
                 </main>
+                {/* TODO: сделать анимацию через react transition */}
                 <CoverPage />
             </div>
         );
     }
 }
 
-const mapStateToProps = ({ toggleMenu, identificate }) => {
+const mapStateToProps = ({ toggleMenu, identificate, scrollPage }) => {
     return {
         toggleMenu: toggleMenu.toggleMenu,
-        userRole: identificate.userRole
+        userRole: identificate.userRole,
+        scrollPage: scrollPage.isNotScrollPage
     }
 };
 

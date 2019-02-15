@@ -19,26 +19,38 @@
     }
 
     &__keeper-wrapper {
-        position: fixed;
-        top: 0px;
-        left: 0px;
-        height: 100%;
-        width: 100%;
-        z-index: 100;
-        // display: flex;
-        padding: 15px;
-        align-items: flex-start;
-        justify-content: flex-start;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.8);
-        display: none;
-
-        .react-timekeeper {
-            margin: auto;
-        }
-
-        &.show {
-            display: flex;
-        }
+        display: block;
     }
+}
+
+.outside_container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+    pointer-events: none;
+    z-index: 1000;
+    display: flex;
+}
+
+.modal_container {
+    top: 0 !important;
+    width: 300px !important;
+    margin: auto !important;
+    position: static !important;
+    touch-action: auto;
+    pointer-events: all;
+}
+
+.preview_container {
+    padding-left: 0px !important;
+    left: 0px !important;
+    transform: translateX(0) !important;
+}
+
+.time_picker_preview {
+    box-shadow: none !important;
+    border-bottom: 2px solid #0b4e35;
 }

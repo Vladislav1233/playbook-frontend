@@ -2,10 +2,8 @@
 
 .b-add-schedule-card {
     border-bottom: 1px solid $temperate-slate-blue;
-    padding-bottom: 40px;
     margin-bottom: 30px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 20px 15px 40px;
     position: relative;
 
     &__field {

@@ -11,6 +11,7 @@ import searchPlayground from './searchPlayground';
 import identificate from './identificate';
 import booking from './booking';
 import trainerList from './trainerList';
+import scrollPage from './scrollPage';
 
 
 export default function(initialState = {}) {
@@ -24,7 +25,8 @@ export default function(initialState = {}) {
         toggleCabinet,
         searchPlayground,
         booking,
-        trainerList
+        trainerList,
+        scrollPage
     });
 
     return createStore(rootReducer, initialState, applyMiddleware(thunkMiddleware));
