@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import NumberFormat from 'react-number-format';
 
 // Note: action
 import { createBooking } from '../../../store/actions/booking';
@@ -167,7 +168,13 @@ class BookingModal extends Component {
             
             const textCost = function() {
                 if (cost > 0) {
-                    return `${cost} р.`;
+                    return <NumberFormat 
+                                value={cost} 
+                                suffix=' ₽'
+                                thousandSeparator={' '}
+                                displayType='text'
+                                decimalScale={0}
+                            />
 
                 } else if (cost === null) {
                     return 'Стоимость не указана администраторм, уточняйте лично.';

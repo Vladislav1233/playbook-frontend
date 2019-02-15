@@ -3,6 +3,7 @@ import React, { Component, Fragment } from 'react';
 import { dataTime } from '../../helpers/dataTime';
 import moment from 'moment';
 import { extendMoment } from 'moment-range';
+import NumberFormat from 'react-number-format';
 
 // component
 import DateCalendar from '../../components/Calendar';
@@ -72,7 +73,13 @@ class Schedule extends Component {
                                             {`${getTimeOutRange(0)} - ${getTimeOutRange(1)} будет `}
 
                                             <span className="b-schedule__price-value">
-                                                {`${convertTypeMoney(item.cost, 'RUB', 'banknote')} р/час`}
+                                                <NumberFormat 
+                                                    value={convertTypeMoney(item.cost, 'RUB', 'banknote')} 
+                                                    suffix=' ₽/час'
+                                                    thousandSeparator={' '}
+                                                    displayType='text'
+                                                    decimalScale={2}
+                                                />
                                             </span>
                                         </span>
                                     );

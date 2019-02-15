@@ -69,7 +69,7 @@ export default function(state = initialState, action) {
                     firtsName: item.creator.first_name,
                     lastName: item.creator.last_name,
                     tel: `+${item.creator.phone}`,
-                    nameCourt: item.playground.name,
+                    nameCourt: item.playground ? item.playground.name : '',
                     time: `${moment(item.start_time).format('DD.MM.YYYY')} (${moment(item.start_time).format('dddd')}): ${moment(item.start_time).format('HH:mm')} - ${moment(item.end_time).format('HH:mm')}`,
                     bookingId: item.id,
                     status: item.status
