@@ -155,7 +155,7 @@ class BookingModal extends Component {
     };
 
     render() {
-        const { isOpenModal, closeModal, playgroundsForTraining, isAuthorization } = this.props;
+        const { isOpenModal, closeModal, playgroundsForTraining, isAuthorization, dateBooking } = this.props;
         const { start_time, end_time, playgroundId } = this.state;
 
         let costPlaygroundForPayBooking = [];
@@ -252,19 +252,19 @@ class BookingModal extends Component {
                             ? <Fragment>
                                 {templateCost(
                                     'Оплата услуг тренера', 
-                                    calcCostService(start_time, end_time, this.props.cost))}
+                                    calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, this.props.cost))}
 
                                 {playgroundId 
                                     ? templateCost( 
                                         'Оплата услуг площадки', 
-                                        calcCostService(start_time, end_time, costPlaygroundForPayBooking) )
+                                        calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, costPlaygroundForPayBooking) )
                                     : null
                                 }
 
                                 {playgroundId && costPlaygroundForPayBooking.length > 0
                                     ? templateCost(
                                         'Итого к оплате', 
-                                        +calcCostService(start_time, end_time, this.props.cost) + +calcCostService(start_time, end_time, costPlaygroundForPayBooking))
+                                        +calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, this.props.cost) + +calcCostService(`${dateBooking} ${start_time}:00`, `${dateBooking} ${end_time}`, costPlaygroundForPayBooking))
                                     : null
                                 }
                             </Fragment>

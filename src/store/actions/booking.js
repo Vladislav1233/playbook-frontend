@@ -13,7 +13,11 @@ import {
 
     DECLINE_BOOKING_START,
     DECLINE_BOOKING_SUCCESS,
-    DECLINE_BOOKING_FAILURE
+    DECLINE_BOOKING_FAILURE,
+
+    GET_ALL_BOOKINGS_FOR_USER_START,
+    GET_ALL_BOOKINGS_FOR_USER_SUCCESS,
+    GET_ALL_BOOKINGS_FOR_USER_FAILURE
 } from '../constants/booking';
 
 import { bookingService } from '../../services/booking';
@@ -179,3 +183,40 @@ export function declineBooking(bookingId, data) {
         }
     }
 }
+
+export function getAllBookingsForUser() {
+    return dispatch => {
+        dispatch(start());
+
+        bookingService.getAllBookingsForUser()
+            .then(
+                res => {
+                    console.log(res);
+                    dispatch(success(res));
+                },
+                error => {
+                    dispatch(failure(error));
+                }
+            );
+    }
+
+    function start() {
+        return {
+            type: GET_ALL_BOOKINGS_FOR_USER_START
+        }
+    }
+
+    function success(response) {
+        return {
+            type: GET_ALL_BOOKINGS_FOR_USER_SUCCESS,
+            payload: response
+        }
+    }
+
+    function failure(error) {
+        return {
+            type: GET_ALL_BOOKINGS_FOR_USER_FAILURE,
+            payload: error
+        }
+    }
+};

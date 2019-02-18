@@ -6,7 +6,8 @@ export const bookingService = {
     createBooking,
     getBookings,
     confirmBooking,
-    declineBooking
+    declineBooking,
+    getAllBookingsForUser
 };
 
 /*
@@ -84,3 +85,21 @@ function declineBooking(bookingId, data) {
         data: data
     });
 }
+
+function getAllBookingsForUser(data = {
+    limit: 100,
+    offset: 0,
+    start_time: Moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
+    end_time: Moment(new Date(2050, 0, 1)).format('YYYY-MM-DD HH:mm:ss') 
+}) {// TODO
+    const valueToken = localStorage.getItem('userToken');
+
+    return axios({
+        method: 'get',
+        url: `${API_URL}/api/booking/all`,
+        headers: {
+            'Authorization': `Bearer ${valueToken}`
+        },
+        params: data
+    });
+};
