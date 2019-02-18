@@ -16,6 +16,7 @@ class BookingRequest extends Component {
                 
                 {dataBookingRequest.length > 0 ? 
                     dataBookingRequest.map(item => {
+                        console.log(item);
                         return <BookingRequestItem 
                             key={item.bookingId}
                             booking={item.bookingId}
@@ -26,6 +27,7 @@ class BookingRequest extends Component {
                             bookingId={item.bookingId} 
                             onClickConfirm={onClickConfirm}
                             onClickDecline={onClickDecline}
+                            tel={item.tel}
                         />
                     }) : <p>Нет текущих заявок</p>
                 }
@@ -44,6 +46,7 @@ class BookingRequest extends Component {
                                 bookingId={item.bookingId} 
                                 onClickConfirm={onClickConfirm}
                                 onClickDecline={onClickDecline}
+                                tel={item.tel}
                             />
                         })}
                     </Fragment> : null}

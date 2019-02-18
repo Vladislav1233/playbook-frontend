@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import { searchPlayground, clearSearchPlayground } from '../../store/actions/searchPlayground';
 import { trainerInfoService } from '../../services/trainerInfoService';
 
+// Note: helpers
+import { convertTypeMoney } from '../../helpers/convertTypeMoney';
+
 // Note: components
 import Input from '../../components/ui-kit/Input/Input';
 import Textarea from '../../components/ui-kit/Textarea';
@@ -64,8 +67,8 @@ class TrainerInfo extends Component {
                                 patronymic: '', // TODO
                                 surname: last_name ? last_name : '',
                                 about: trainer_info ? trainer_info.about : '',
-                                minPrice: trainer_info ? trainer_info.min_price : '',
-                                maxPrice: trainer_info ? trainer_info.max_price : '',
+                                minPrice: trainer_info ? convertTypeMoney(trainer_info.min_price, 'RUB', 'banknote') : '',
+                                maxPrice: trainer_info ? convertTypeMoney(trainer_info.max_price, 'RUB', 'banknote') : '',
                                 playgrounds: playgrounds ? playgrounds : ''
                             }
                         })
@@ -156,8 +159,8 @@ class TrainerInfo extends Component {
         const data = {
             playgrounds: playgroundsId,
             about,
-            min_price: minPrice,
-            max_price: maxPrice,
+            min_price: convertTypeMoney(minPrice, 'RUB', 'coin'),
+            max_price: convertTypeMoney(maxPrice, 'RUB', 'coin'),
             currency: "RUB"
         };
 
@@ -233,7 +236,7 @@ class TrainerInfo extends Component {
                     />
 
                     <div className="b-trainer-info__cost">
-                        <div className="b-trainer-info__title-field">Стоимость часа</div>
+                        <div className="b-trainer-info__title-field">Стоимость часа (рубли)</div>
 
                         <Input
                             idInput="profile_minPrice"

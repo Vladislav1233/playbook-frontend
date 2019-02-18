@@ -4,6 +4,9 @@ import { configPathRouter } from '../../App/configPathRouter';
 // Note: components
 import Button from '../ui-kit/Button/Button';
 
+// Note: helpers
+import { convertTypeMoney } from '../../helpers/convertTypeMoney';
+
 // Note: styles
 import '../../style/bem-blocks/b-object-card/index.scss';
 import '../../style/bem-blocks/b-object-services/index.scss';
@@ -16,9 +19,9 @@ class ObjectCard extends Component {
         const cost = () => {
             if (trainerInfo.trainer_info) {
                 if (trainerInfo.trainer_info.min_price === trainerInfo.trainer_info.max_price) {
-                    return trainerInfo.trainer_info.min_price
+                    return convertTypeMoney(trainerInfo.trainer_info.min_price, 'RUB', 'banknote');
                 } else {
-                    return `${trainerInfo.trainer_info.min_price} - ${trainerInfo.trainer_info.max_price}`
+                    return `${convertTypeMoney(trainerInfo.trainer_info.min_price, 'RUB', 'banknote')} - ${convertTypeMoney(trainerInfo.trainer_info.max_price, 'RUB', 'banknote')}`
                 }
             }
         };

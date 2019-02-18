@@ -35,7 +35,7 @@ class AddScheduleCard extends Component {
                         time={data.end_time}
                         name={'end_time'}
                         onChangeTime={onChangeTime}
-                        label={"По"}
+                        label={"До"}
                     />
                 </div>
 

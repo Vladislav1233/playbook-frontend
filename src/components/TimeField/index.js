@@ -1,64 +1,74 @@
 import React, { Component } from 'react';
-import TimePicker from '../../helpers/timePicker/lib';
+// import TimePicker from '../../helpers/timePicker/lib';
+import TimePicker from 'react-times';
 import cn from 'classnames';
+import { connect } from "react-redux";
+import { toggleScrollPage } from '../../store/actions/toggleScrollPage';
 
 // Note: style
 import '../../style/bem-blocks/b-time-field/index.scss';
+// use material theme for TimePicker
+import 'react-times/css/material/default.css';
 
 class TimeField extends Component {
     state = {
-        displayTimepicker: false
+        focused: false
     };
 
-    /**
-     * Toggle time keeper
-     * @return void
-     */
-    toggleTimekeeper = (val) => {
-        this.setState({displayTimepicker: val})
+    onTimeChange = (options, name) => {
+
+        const {
+            hour,
+            minute
+          } = options;
+
+        this.props.onChangeTime(`${hour}:${minute}`, name);
     };
 
-    /**
-     * Handle time picker change event
-     * @return void
-     */
-    onChange(value, name) {
-        if (value.hour24 < 10) {
-            value.formatted24 = '0' + value.formatted24;
-        }
+    onFocusChange = (focused) => {
+        this.setState({
+            focused
+        });
 
-        this.props.onChangeTime(value, name);
-    }
+        this.props.toggleScrollPage(focused);
+    };
 
     render() {
         const { time, name, label } = this.props;
-        const keeperWrapperClass = cn('b-time-field__keeper-wrapper', {
-            'show': this.state.displayTimepicker
+        const { focused } = this.state;
+
+        const keeperWrapperClass = cn('b-time-field__keeper-wrapper');
+        const styleCover = cn('b-cover-page', {
+            'active': focused
         });
 
         return (
             <div className="b-time-field">
-                    <div className={keeperWrapperClass}>
-                        <TimePicker 
-                            time={time}
-                            onChange={(value) => this.onChange(value, name)}
-                            switchToMinuteOnHourSelect={true}
-                            onDoneClick={() => this.toggleTimekeeper(false)}
-                        />
-                    </div>
+                <div className={keeperWrapperClass}>
+                    { label ? <div className="b-time-field__label">{label}</div> : null }
 
-                <div className="b-time-field__field">
-                    {label 
-                        ? <div className="b-time-field__label">{label}</div>
-                        : null
-                    }
-                    <div onClick={() => this.toggleTimekeeper(true)} className="b-time-field__input">
-                        {time ? time : '__ : __'}
-                    </div>
+                    <TimePicker 
+                        withoutIcon
+                        theme="material"
+                        colorPalette="dark"
+
+                        onTimeChange={(options) => this.onTimeChange(options, name)}
+                        time={time ? time : '00:00'}
+                        focused={focused}
+                        onFocusChange={this.onFocusChange}
+                    />
                 </div>
+
+                <div className={styleCover}></div>
             </div>
         )
     }
 }
 
-export default TimeField;
+const mapStateToDispatch = (dispatch) => {
+    return {
+        toggleScrollPage: (isNoScroll) => dispatch(toggleScrollPage(isNoScroll))
+    }
+}
+
+export default connect(null, mapStateToDispatch)(TimeField);

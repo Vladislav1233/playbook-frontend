@@ -1,16 +1,23 @@
 // Note: Компонент вывод расписания пользователю, который используется для вывода расписания и корта и тренера.
 import React, { Component, Fragment } from 'react';
 import { dataTime } from '../../helpers/dataTime';
-import Moment from 'moment';
+import moment from 'moment';
+import { extendMoment } from 'moment-range';
+import NumberFormat from 'react-number-format';
 
 // component
 import DateCalendar from '../../components/Calendar';
 import ScheduleList from './ScheduleList';
 import TinySlider from "tiny-slider-react";
 
+// Note: helpers
+import { convertTypeMoney } from '../../helpers/convertTypeMoney';
+
 // style
 import '../../style/bem-blocks/b-schedule/index.scss';
 import '../../style/bem-blocks/b-slider-schedule/index.scss';
+
+const Moment = extendMoment(moment);
 
 class Schedule extends Component {
 
@@ -60,12 +67,19 @@ class Schedule extends Component {
                             <div className="b-schedule__price">
                                 <div className="b-schedule__title">Стоимость</div>
                                 {cost.map((item, index) => {
+                                    const getTimeOutRange = (indexPostition) => Moment(item.time.toDate()[indexPostition]).format('HH:mm');
                                     return (
                                         <span className="b-schedule__cost" key={index}> 
-                                            {`${item.time} будет `}
+                                            {`${getTimeOutRange(0)} - ${getTimeOutRange(1)} будет `}
 
                                             <span className="b-schedule__price-value">
-                                                {`${item.cost} р/час`}
+                                                <NumberFormat 
+                                                    value={convertTypeMoney(item.cost, 'RUB', 'banknote')} 
+                                                    suffix=' ₽/час'
+                                                    thousandSeparator={' '}
+                                                    displayType='text'
+                                                    decimalScale={2}
+                                                />
                                             </span>
                                         </span>
                                     );
@@ -99,6 +113,7 @@ class Schedule extends Component {
                                     template={template} 
                                     playgroundsForTraining={playgroundsForTraining} 
                                     userId={userId}
+                                    cost={cost}
                                 />
                                 : notScheduleTemplate()
                         : null}

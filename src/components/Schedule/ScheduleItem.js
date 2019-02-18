@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import moment from 'moment';
 import cn from 'classnames';
 
+
+
 // Note: components
 import BookingModal from '../Modal/BookingModal';
 import DeclineBookingModal from '../Modal/DeclineBookingModal';
@@ -56,7 +58,7 @@ class ScheduleItem extends Component {
         } = this.props.dataScheduleItem;
         const bookingId = this.props.dataScheduleItem.id;
     
-        const { template, playgroundsForTraining, userId, creator, isWhoBooked, onClickDecline } = this.props;
+        const { template, playgroundsForTraining, userId, creator, isWhoBooked, onClickDecline, cost } = this.props;
         const textBooking = 'Нажми, чтобы забронировать';
 
         const whoBookedTemplate = (whoName, whoTel) => {
@@ -156,6 +158,7 @@ class ScheduleItem extends Component {
                         dateBooking={moment(start_time).format('YYYY-MM-DD')}
                         playgroundsForTraining={playgroundsForTraining}
                         userId={userId}
+                        cost={cost}
                     />
                 }
             </Fragment>
