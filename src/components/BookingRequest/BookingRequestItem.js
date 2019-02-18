@@ -20,6 +20,7 @@ class BookingRequestItem extends Component {
 
     render() {
         const { bookingId, firtsName, lastName, tel, nameCourt, time, onClickConfirm, onClickDecline } = this.props;
+        console.log(this.props);
 
         return(
             <Fragment>
