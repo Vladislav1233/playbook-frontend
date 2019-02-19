@@ -72,9 +72,13 @@ export default function(state = initialState, action) {
         case GET_SUCCESS_SCHEDULE_TRAINER:
             const responseSchedule = action.payload.data;
             // Note: Забронированное подтвержденное время
-            const reservedTime = action.reservedResponse.data.data.filter(reservedResponseItem => {
-                return reservedResponseItem.status === 1;
-            });
+            let reservedTime = [];
+
+            if (action.isCabinet) {
+                reservedTime = action.reservedResponse.data.data.filter(reservedResponseItem => {
+                    return reservedResponseItem.status === 1;
+                });
+            };
             // Note: Cтоимость часа во всех промежутках времени
             let newCost = [];
             // Note: Площадки на которых в этот день тренирует тренер
@@ -90,6 +94,7 @@ export default function(state = initialState, action) {
 
             // Note: Обходим массив ответа с расписанием тренера, чтобы собрать все данные
             responseSchedule.forEach((item, i, arr) => {
+                console.log(item);
 
                 // Note: Получаем дипазоны всего расписания
                 if(arr.length - 1 !== i) {
@@ -114,7 +119,15 @@ export default function(state = initialState, action) {
                 
                 // Note: получаем площадки на которых в этот день тренирует тренер
                 arrayPlaygrounds.push(...item.playgrounds);
+
+                // Note: получаем занятое время из расписания тренера
+                if(!action.isCabinet) {
+                    reservedTime = reservedTime.concat(item.confirmed_bookings);
+                };
             });
+
+            console.log(reservedTime);
+
 
             // Note: Фильтруем диапазон, чтобы в нём не было свободного времени для "занято" (убираем занятые промежутки из свободного времени)
             const filterRange = () => {
