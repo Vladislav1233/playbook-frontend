@@ -41,7 +41,7 @@ class Header extends Component {
                             {/* TODO: для главной страницы не надо сслыку to выводить, чтобы не перерендеривало при клике */}
                             <Link className="b-logotype" to='/'>
                                 <img className="b-logotype__image" src={tennisBallIcon} alt="Логотип - теннисный мяч"/>
-                                <span className="b-logotype__text">На главную</span>
+                                <span className="b-logotype__text">PlayBook</span>
                             </Link>
                         </div>
                         

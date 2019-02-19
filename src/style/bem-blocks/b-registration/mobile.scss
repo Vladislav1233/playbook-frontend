@@ -1,7 +1,8 @@
 // 320++
 .b-registration {
     // background: linear-gradient(to bottom right, #68a2b8, #55bc96);
-    background: $mint;
+    // background: $mint;
+    // background-color: #fcfbc5;
     overflow: auto;
     position: absolute;
     top: 0px;
@@ -10,7 +11,7 @@
     height: 100%;
 
     // Временно
-    background: url(https://www.clubvillamar.ru/blog/wp-content/uploads/2018/02/Playing-tennis-in-Tossa-de-Mar.jpg);
+    background-image: url(../../../style/images/back.jpg);
     background-size: cover;
 
     .container {
