@@ -19,7 +19,7 @@ class TrainerScheduleProfile extends Component {
         // Note: собираем данные для get запроса расписания при инициализации страницы. Берём текущий день
         const data = dataTime();
         const { userId } = this.props;
-        getTrainerSchedule(userId, data);
+        getTrainerSchedule(userId, data, true);
     }
 
     onClickDecline = (bookingId, note) => {
@@ -75,8 +75,9 @@ const mapStateToDispatch = (dispatch) => {
         * getTrainerSchedule - Запрос на получение расписания тренера
         * userId - id пользователя (тренера) расписание которого запрашиваем
         * data - принимает объект с ключами start_time и end_time - период на который прийдет расписание.
+        * isCabinet - если true, то присылаем данные забронированного времени тренера со всей конфиденциальной информацией, которую модет знать и читать только тренер.
         */
-        getTrainerSchedule: (userId, data) => dispatch(getTrainerSchedule(userId, data)),
+        getTrainerSchedule: (userId, data, isCabinet) => dispatch(getTrainerSchedule(userId, data, isCabinet)),
         /*
         * Отменить бронирование
         * bookingId - id объекта бронирования
