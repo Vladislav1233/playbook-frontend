@@ -17,7 +17,7 @@ class MenuHeader extends Component {
     render() {
         console.log('render MenuHeader');
 
-        const { location, isAuthorization } = this.props;
+        const { location } = this.props;
         const profileClassName = cn({
             'b-menu__item--cabinet': location === configPathRouter.profileUser || location === configPathRouter.profileTrainer || location ===  configPathRouter.profileCourt
         });
@@ -90,6 +90,7 @@ class MenuHeader extends Component {
                 </a>
 
                 <div className={`b-menu ${this.props.toggleMenu ? 'open' : ''}`}>
+                    <div className="b-menu__header"></div>
                     <ul className="b-menu__list">
 
                         <li className="b-menu__item">
@@ -103,14 +104,14 @@ class MenuHeader extends Component {
                             <a className="b-menu__link" href="">Отменить бронь</a>
                         </li>
                         
-                        {isAuthorization ? (
+                        {/* {isAuthorization ? (
                             profileLink()
                         ) : (
                             <li className="b-menu__item">
                                 <Link className="b-menu__link" to={configPathRouter.authorization}>Авторизация</Link>
                                 <Link className="b-menu__link" to={configPathRouter.registration}>Регистрация</Link>
                             </li>
-                        )}
+                        )} */}
 
                         <li className="b-menu__item">
                             {/* TODO: Сделать попап с выбором городов. По клику на ссылку менять город */}

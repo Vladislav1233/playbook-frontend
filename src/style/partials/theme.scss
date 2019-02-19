@@ -27,7 +27,7 @@ body {
     }
 
     &--schedule {
-        background-color: $temperate-slate-blue;
+        background-color: $mint;
         max-width: none;
     }
 
@@ -40,18 +40,19 @@ body {
     }
 
     &--cabinet {
-        padding: 0px 0px;
+        padding: 0px;
+        height: 100%;
     }
 }
 
 a {
     text-decoration: none;
     color: $orange-diamond-yellow;
-    transition: color $animation-time;
+    transition: color .15;
 
     .no-touchevents &:hover,
     .touchevents &:active {
-        color: lighten($orange-diamond-yellow, 10%);
+        color: $hover-link-on-dark;
     }
 }
 

@@ -3,14 +3,16 @@
     flex-shrink: 0;
     background-color: $mint;
     font-size: 0;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    // padding-top: 8px;
+    // padding-bottom: 8px;
+    // height: 64px;
 
     &__wrapper {
         display: flex;
         align-items: center;
         justify-content: space-between;
         position: relative;
+        height: 64px;
     }
 
     &__get-schedule {

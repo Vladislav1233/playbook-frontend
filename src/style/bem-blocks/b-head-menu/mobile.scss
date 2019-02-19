@@ -1,14 +1,18 @@
 // 320
 .b-head-menu {
-    height: 42px;
     position: relative;
     z-index: 40;
 
     &__open-button {
-        display: inline-flex;
-        height: 100%;
-        align-items: center;
         color: #fff;
+        display: inline-block;
+        padding: 17px 16px;
+        margin: 0 -16px 0 0;
+
+        .b-head-menu--open &,
+        .no-touchevents &:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
 
         // .no-touchevents &:hover {
         //     .b-head-menu__image-wrapper {
@@ -22,9 +26,20 @@
         }
     }
 
+    &__account-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    &__account-name {
+        margin-right: 8px;
+        color: #e8e8e8;
+        margin-top: 6px;
+    }
+
     &__image-wrapper {
-        height: 40px;
-        width: 40px;
+        height: 30px;
+        width: 30px;
         overflow: hidden;
         border-radius: 100%;
         // border: 1px solid #fff;
@@ -43,8 +58,8 @@
         position: absolute;
         font-size: 14px;
         text-align: left;
-        top: calc(100% + 17px);
-        right: 0px;
+        top: calc(100% + 2px);
+        right: -17px;
         background: white;
         width: calc(100vw - 30px);
         max-width: 480px;

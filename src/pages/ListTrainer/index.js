@@ -59,6 +59,7 @@ class ListTrainer extends Component {
                     {totalCount > pagination.offset
                         ? <div className="b-list-trainer__more">
                             <Button 
+                                theme={{orange:true}}
                                 name="Показать ещё"
                                 onClick={this.moreTrainer}
                             />
