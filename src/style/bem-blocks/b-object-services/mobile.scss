@@ -4,6 +4,8 @@
     margin-bottom: 30px;
 
     &__item {
+        display: flex;
+        align-items: center;
         list-style-type: none;
         position: relative;
         padding: 6px 0px;

@@ -199,7 +199,8 @@ class Registration extends Component {
                         
                         <div className="b-registration__button-wrapper">
                             {/* { name } */}
-                            <Button 
+                            <Button
+                                modif="b-button--login"
                                 name={'Зарегистрироваться'}
                             />
 

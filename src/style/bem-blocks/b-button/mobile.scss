@@ -2,8 +2,9 @@
 .b-button {
     background-color: $orange-diamond-yellow;
     border: none;
-    background: linear-gradient(to right, #68a2b8, #55bc96);
-    border-radius: 8px;
+    // background: linear-gradient(to right, #68a2b8, #55bc96);
+    background: #0b4e35;
+    border-radius: 4px;
     font-family: $bold;
     color: #000;
     padding: 15px 30px;
@@ -41,5 +42,18 @@
 
     &--hello-page {
         width: 260px;
+    }
+
+    &--login {
+        width: 100%;
+        background: none;
+        color: #fff;
+        border: 1px solid $mint;
+
+        .no-touchevents &:hover,
+        .touchevents &:active {
+            color: #fff;
+            background-color: #0d60412c;
+        }
     }
 }

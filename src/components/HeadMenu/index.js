@@ -70,8 +70,8 @@ class HeadMenu extends Component {
                     {isAuthorization  
                         ? <div className="b-head-menu__image-wrapper">
                             <img className="b-head-menu__image" src={avaImg} alt=""/>
-                        </div>
-                        : <span>Профиль</span>
+                          </div>
+                        : <span>Войти</span>
                     }
                 </a>
                 {showContent &&

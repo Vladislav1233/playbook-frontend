@@ -16,8 +16,13 @@
         transform: translateX(0%);
     }
 
+    &__header {
+        height: 64px;
+        border-bottom: 1px solid #02100b;
+    }
+
     &__list {
-        padding: 60px 15px 0px;
+        padding: 30px 15px 0px;
     }
 
     &__item {
