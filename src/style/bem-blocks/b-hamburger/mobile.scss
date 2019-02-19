@@ -2,10 +2,6 @@
 
 .b-hamburger {
     display: inline-block;
-    // width: 60px;
-    // height: 40px;
-    // border: 2px solid $white;
-    // border-radius: 50%;
     position: relative;
     z-index: 250;
     overflow: hidden;
@@ -14,10 +10,10 @@
 
     .no-touchevents &:hover,
     .touchevents &:active {
-        border-color: lighten($orange-diamond-yellow, 10%);
+        border-color: $hover-link-on-dark;
 
         path {
-            stroke: lighten($orange-diamond-yellow, 10%);
+            stroke: $hover-link-on-dark;
         }
     }
 
@@ -38,12 +34,8 @@
     }
 
     svg {
-        height: 45px;
+        height: 50px;
         transition: none;
-        // position: absolute;
-        // top: -2px;
-        // left: -8px;
-        // z-index: 1;
     }
 
     path {

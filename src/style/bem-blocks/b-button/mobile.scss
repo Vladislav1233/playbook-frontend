@@ -6,7 +6,7 @@
     background: #0b4e35;
     border-radius: 4px;
     font-family: $bold;
-    color: #000;
+    color: #fff;
     padding: 15px 30px;
     transition: color $animation-time;
     font-size: 14px;
@@ -14,14 +14,14 @@
     text-align: center;
 
     &:focus {
-        outline: none;
+        // outline: none;
     }
 
     .no-touchevents &:hover,
     .touchevents &:active {
         // color: $white;
-        color: #000;
-        background-color: #0d60412c;
+        // color: #000;
+        background-color: #0d6041;
     }
 
     &--full {
@@ -29,15 +29,23 @@
     }
 
     &--orange {
+        color: #121212;
         // background: $orange-diamond-yellow;
         background: none;
         border: 1px solid $mint;
+
+        .no-touchevents &:hover,
+        .touchevents &:active {
+            // color: $white;
+            // color: #000;
+            background-color: #0d60412c;
+        }
     }
 
     &--save {
         width: 100%;
         border-radius: 0;
-        padding: 12px 30px;
+        // padding: 12px 30px;
     }
 
     &--hello-page {
