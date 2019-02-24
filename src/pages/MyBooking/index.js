@@ -15,19 +15,33 @@ class MyBooking extends Component {
     }
 
     render() {
+        const { dataMyBooking } = this.props;
+        console.log(dataMyBooking);
         return(
             <div className="b-my-booking">
                 <div className="container">
                     <h1>Мои бронирования</h1>
 
                     <div className="b-booking-request">
-                        <div className="b-booking-request__item">
-                            <MyBookingCard />
-                        </div>
+                        {dataMyBooking
+                            ? dataMyBooking.map(item => {
+                                return (
+                                    <div key={item.id} className="b-booking-request__item">
+                                        <MyBookingCard 
+                                            bookableFirstName={item.bookable.first_name}
+                                            bookableLastName={item.bookable.last_name}
+                                            playgroundName={item.playground.name}
+                                            playgroundAddress={item.playground.address}
+                                            startTime={item.start_time}
+                                            endTime={item.end_time}
+                                            price={item.price}
+                                        />
+                                    </div>
+                               )
+                            })
 
-                        <div className="b-booking-request__item">
-                            <MyBookingCard s/>
-                        </div>
+                            : <p>У вас нет текущих броней</p>
+                        }
                     </div>
                 </div>
             </div>
@@ -35,10 +49,16 @@ class MyBooking extends Component {
     }
 }
 
+const mapStateToProps = ({ booking }) => {
+    return {
+        dataMyBooking: booking.dataMyBooking
+    }
+};
+
 const mapDispatchToProps = dispatch => {
     return {
         getAllBookingsForUser: () => dispatch(getAllBookingsForUser())
     }
 }
 
-export default connect(null, mapDispatchToProps)(MyBooking);
+export default connect(mapStateToProps, mapDispatchToProps)(MyBooking);

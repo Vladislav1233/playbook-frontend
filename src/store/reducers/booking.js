@@ -13,7 +13,11 @@ import {
 
     DECLINE_BOOKING_START,
     DECLINE_BOOKING_SUCCESS,
-    DECLINE_BOOKING_FAILURE
+    DECLINE_BOOKING_FAILURE,
+
+    GET_ALL_BOOKINGS_FOR_USER_START,
+    GET_ALL_BOOKINGS_FOR_USER_SUCCESS,
+    GET_ALL_BOOKINGS_FOR_USER_FAILURE
 } from '../constants/booking';
 
 import moment from 'moment';
@@ -24,7 +28,8 @@ const initialState = {
     dataBookingRequest: [], // Note: текущие не подтвержденные заявки
     dataPastBooking: [], // Note: прошедшие не подтвержденные заявки
     confirmBooking: [], // Note: текущие подтвержденные заявки
-    confirmPastBooking: [] // Note: прошедшие подтвержденные заявки
+    confirmPastBooking: [], // Note: прошедшие подтвержденные заявки
+    dataMyBooking: [] // Note: Текущие бронирования пользователя
 }
 
 export default function(state = initialState, action) {
@@ -168,6 +173,26 @@ export default function(state = initialState, action) {
             }
 
         case DECLINE_BOOKING_FAILURE:
+            console.log(action.payload);
+            return {
+                ...state,
+                preloader: false
+            }
+
+        case GET_ALL_BOOKINGS_FOR_USER_START:
+            return {
+                ...state,
+                preloader: true
+            }
+        
+        case GET_ALL_BOOKINGS_FOR_USER_SUCCESS:
+            return {
+                ...state,
+                preloader: false,
+                dataMyBooking: action.payload.data.data
+            }
+
+        case GET_ALL_BOOKINGS_FOR_USER_FAILURE:
             console.log(action.payload);
             return {
                 ...state,
