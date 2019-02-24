@@ -13,11 +13,11 @@
 
     .no-touchevents &:hover,
     .touchevents &:active {
-        border-color: $hover-link-on-dark;
         background: $header-hover;
+        color: #fff;
 
         path {
-            stroke: $hover-link-on-dark;
+            stroke: #fff;
         }
     }
 
