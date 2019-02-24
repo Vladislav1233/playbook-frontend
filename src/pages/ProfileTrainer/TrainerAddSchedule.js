@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { createScheduleTrainer, editTrainerSchedule, toggleResponse } from '../../store/actions/schedule';
 import moment from 'moment';
+import { extendMoment } from 'moment-range';
 import 'moment/locale/ru';
 import getArrayDateRange from '../../helpers/getArrayDateRange';
 import { dataTime } from '../../helpers/dataTime';
@@ -18,6 +19,8 @@ import Button from '../../components/ui-kit/Button/Button';
 // Note: style
 // import '../../style/bem-blocks/b-hint-profile/index.scss';
 import '../../style/bem-blocks/b-trainer-add-schedule/index.scss';
+
+const Moment = extendMoment(moment);
 
 class TrainerAddSchedule extends Component {
 
@@ -318,21 +321,32 @@ class TrainerAddSchedule extends Component {
         // NOTE: Создается один запрос на одну карточку. Добавление расписания
         this.state.cards.forEach(function(card) {
             let formatPrice = convertTypeMoney(card.price_per_hour, 'RUB', 'coin');
-            console.log(card.start_time);
+
+            // Note: Получаем UTC формат начала расписания карточки
+            const startTimeWithDateUTC = moment.utc(moment(`${card.dates[0]} ${card.start_time}:00`));
+            console.log(startTimeWithDateUTC.format('HH:mm:ss'));
+            // Note: Получаем UTC формат конца расписания карточки
+            const endTimeWithDateUTC = moment.utc(moment(`${card.dates[card.dates.length - 1]} ${card.end_time}:00`));
+            console.log(endTimeWithDateUTC.format('HH:mm:ss'));
+
+            // Note: Получаем даты относительно UTC
+            const rangeDates = Moment.range(startTimeWithDateUTC, endTimeWithDateUTC).snapTo('day');
+            const dates = Array.from(rangeDates.by('days', { excludeEnd: false })).map(m => m.format('YYYY-MM-DD'));
+            console.log(dates);
+
             // TODO: добавить чек-бокс playgrounds
             const dataForCreate = {
-                dates: card.dates,
-                start_time: `${card.start_time}:00`,
-                end_time: `${card.end_time}:00`,
+                dates: dates,
+                start_time: startTimeWithDateUTC.format('HH:mm:ss'),
+                end_time: endTimeWithDateUTC.format('HH:mm:ss'),
                 price_per_hour: formatPrice,
                 currency: card.currency,
                 playgrounds: [1] // TODO: как бэк заработает поставить - card.playgroundsCheck
             };
 
             const dataForEdit = {
-                dates: card.dates,
-                start_time: `${card.dates[0]} ${card.start_time}:00`,
-                end_time: `${card.dates[0]} ${card.end_time}:00`,
+                start_time: startTimeWithDateUTC.format('YYYY-MM-DD HH:mm:ss'),
+                end_time: endTimeWithDateUTC.format('YYYY-MM-DD HH:mm:ss'),
                 price_per_hour: formatPrice,
                 currency: card.currency,
                 playgrounds: [1] // TODO: как бэк заработает поставить - card.playgroundsCheck
