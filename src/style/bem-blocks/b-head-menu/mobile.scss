@@ -11,14 +11,8 @@
 
         .b-head-menu--open &,
         .no-touchevents &:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: $header-hover;
         }
-
-        // .no-touchevents &:hover {
-        //     .b-head-menu__image-wrapper {
-        //         border-color: $orange-diamond-yellow;
-        //     }   
-        // }
 
         span {
             font-size: 14px;
@@ -42,7 +36,6 @@
         width: 30px;
         overflow: hidden;
         border-radius: 100%;
-        // border: 1px solid #fff;
         text-align: center;
         transition-property: border-color;
         transition-duration: $animation-time;
@@ -90,7 +83,7 @@
     }
 
     &__content-text {
-        color: $black;
+        color: #000;
         display: block;
         padding: 5px 0px;
 

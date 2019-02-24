@@ -48,7 +48,7 @@ body {
 a {
     text-decoration: none;
     color: $orange-diamond-yellow;
-    transition: color .15;
+    transition: .15s;
 
     .no-touchevents &:hover,
     .touchevents &:active {

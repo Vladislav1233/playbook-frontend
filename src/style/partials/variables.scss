@@ -17,21 +17,20 @@ $animation-time-half: $animation-time / 2;
 $animation-time-double: $animation-time * 2;
 
 // ----- colors -----
-$orange-diamond-yellow: #f56a0c; // - кнопки
-// $mint: #55bc96;
+// $orange-diamond-yellow: #f56a0c; // - кнопки
+$orange-diamond-yellow: #ef396f; // - кнопки
 $mint: #0b4e35;
-// $mint: $mint; //- шрифт указателей, информации (к примеру "цена" или "кликни")
 $telegray: #8c8c8c;
 $bright-telegray: #cccccc;
-$black: #000000; // - основной шрифт // удали пока я не заметил!
 $carmine-pink: #e94d51;
-$white: #fff;
 
 $border-color: #ebebeb;
 $background-schedule: #f4f8f9;
 
 // ссылки
-$hover-link-on-dark: #f56a0c;
+$hover-link-on-dark: #ef396f;
+
+$header-hover: rgba(255, 255, 255, 0.1);
 
 // ----- typography -----
 @mixin  h1() {

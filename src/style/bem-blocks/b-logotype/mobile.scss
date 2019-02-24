@@ -5,6 +5,14 @@
     width: auto;
     text-align: center;
     color: #fff;
+    padding: 12px;
+    height: 64px;
+
+    .no-touchevents &:hover,
+    .touchevents &:active {
+        background: $header-hover;
+        color: #fff;
+    }
 
     &__image {
         display: inline-block;
