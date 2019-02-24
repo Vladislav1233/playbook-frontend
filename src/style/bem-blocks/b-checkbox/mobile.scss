@@ -31,7 +31,7 @@
 
         .no-touchevents &:hover,
         .touchevents &:active {
-            color: $white;
+            color: #fff;
         }
     }
 
@@ -48,7 +48,7 @@
 
         .no-touchevents &:hover + .b-checkbox__label,
         .touchevents &:active + .b-checkbox__label {
-            color: $white;
+            color: #fff;
         }
 
         &:before {

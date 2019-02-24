@@ -53,13 +53,13 @@
 
         &--active {
             // box-shadow: 0 16px 16px rgba(0, 0, 0, 0.08), 0 8px 8px rgba(0, 0, 0, 0.08);
-            background: $white;
+            background: #fff;
             // border-radius: 50%;
             color: #121212;
 
             .no-touchevents &:enabled:hover,
             .touchevents &:enabled:active {
-                background: $white;
+                background: #fff;
             }
         }
 
@@ -89,12 +89,12 @@
 
         .no-touchevents &:enabled:hover,
         .touchevents &:enabled:active {
-            background-color: $white;
+            background-color: #fff;
             color: $mint;
         }
 
         &:enabled:focus {
-            color: $white;
+            color: #fff;
             background-color: transparent;
         }
 

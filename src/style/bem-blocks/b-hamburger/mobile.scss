@@ -4,13 +4,17 @@
     display: inline-block;
     position: relative;
     z-index: 250;
-    overflow: hidden;
-    transition: left $animation-time;
     left: 0;
+    height: 64px;
+    padding: 4px 5px 4px 3px;
+    margin-left: -25px;
+    overflow: hidden;
+    
 
     .no-touchevents &:hover,
     .touchevents &:active {
         border-color: $hover-link-on-dark;
+        background: $header-hover;
 
         path {
             stroke: $hover-link-on-dark;
@@ -41,7 +45,7 @@
     path {
         stroke-width: 40;
         stroke-linecap: round;
-        stroke: $white;
+        stroke: #fff;
         fill: none;
         transition: all $animation-time-double ease-in-out, stroke $animation-time;
     }
