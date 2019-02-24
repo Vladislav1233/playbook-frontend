@@ -1,6 +1,6 @@
 // 320++
 .b-date-calendar {
-    background-color: $temperate-slate-blue;
+    background-color: $mint;
     padding-left: 8px;
     padding-right: 8px;
     padding-top: 10px;
@@ -37,7 +37,7 @@
     .react-calendar__tile {
         font-family: $medium;
         font-size: 14px;
-        border-radius: 50%;
+        // border-radius: 50%;
         transition-property: box-shadow;
         transition-duration: $animation-time;
 
@@ -52,14 +52,14 @@
         }
 
         &--active {
-            box-shadow: 0 16px 16px rgba(0, 0, 0, 0.08), 0 8px 8px rgba(0, 0, 0, 0.08);
-            background: $white;
-            border-radius: 50%;
-            color: #7c4dff;
+            // box-shadow: 0 16px 16px rgba(0, 0, 0, 0.08), 0 8px 8px rgba(0, 0, 0, 0.08);
+            background: #fff;
+            border-radius: 2px;
+            color: #121212;
 
             .no-touchevents &:enabled:hover,
             .touchevents &:enabled:active {
-                background: $white;
+                background: #fff;
             }
         }
 
@@ -89,12 +89,12 @@
 
         .no-touchevents &:enabled:hover,
         .touchevents &:enabled:active {
-            background-color: $white;
-            color: #7c4dff;
+            background-color: #fff;
+            color: $mint;
         }
 
         &:enabled:focus {
-            color: $white;
+            color: #fff;
             background-color: transparent;
         }
 
@@ -116,6 +116,7 @@
 
     .react-calendar__tile--now {
         font-family: $bold;
+        // color: $orange-diamond-yellow;
         color: $orange-diamond-yellow;
     }
 }

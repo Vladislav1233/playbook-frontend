@@ -97,8 +97,12 @@ export function editTrainerSchedule(schedule_id, data) {
     }
 }
 
-// Note: отправляем запрос на получение расписания тренера
-export function getTrainerSchedule(userId, data) {
+/* Note: отправляем запрос на получение расписания тренера
+* userId - id пользователя расписание которого хотим получить.
+* data - данные API для отправки запроса
+* isCabinet - если true, то присылаем данные забронированного времени тренера со всей конфиденциальной информацией, которую модет знать и читать только тренер.
+*/
+export function getTrainerSchedule(userId, data, isCabinet = false) {
     return dispatch => {
         dispatch(start());
 
@@ -110,11 +114,16 @@ export function getTrainerSchedule(userId, data) {
                         offset: 0,
                         ...data
                     }
-                    bookingService.getBookings('trainer', userId, params).then(
-                        responseReservedTime => {
-                            dispatch(success(response, responseReservedTime));
-                        }
-                    )
+                    
+                    if (isCabinet) {
+                        bookingService.getBookings('trainer', userId, params).then(
+                            responseReservedTime => {
+                                dispatch(success(response, responseReservedTime));
+                            }
+                        )
+                    } else {
+                        dispatch(success(response));
+                    }
                 },
                 error => {
                     console.log(error);
@@ -134,7 +143,8 @@ export function getTrainerSchedule(userId, data) {
             type: GET_SUCCESS_SCHEDULE_TRAINER,
             payload: response.data,
             date: data.start_time,
-            reservedResponse: booked
+            reservedResponse: booked,
+            isCabinet: isCabinet
         }
     }
 

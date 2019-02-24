@@ -17,61 +17,61 @@ class MenuHeader extends Component {
     render() {
         console.log('render MenuHeader');
 
-        const { location, isAuthorization } = this.props;
-        const profileClassName = cn({
-            'b-menu__item--cabinet': location === configPathRouter.profileUser || location === configPathRouter.profileTrainer || location ===  configPathRouter.profileCourt
-        });
+        // const { location, isAuthorization } = this.props;
+        // const profileClassName = cn({
+        //     'b-menu__item--cabinet': location === configPathRouter.profileUser || location === configPathRouter.profileTrainer || location ===  configPathRouter.profileCourt
+        // });
         const hamburgerStyle = cn('b-hamburger', {
             'open': this.props.toggleMenu
         });
 
-        const profileLink = () => {
-            const { userRole } = this.props;
+        // const profileLink = () => {
+        //     const { userRole } = this.props;
 
-            const nameLink = 'Личный кабинет >';
+        //     const nameLink = 'Личный кабинет >';
 
-            const onToggle = () => {
-                return (
-                    <li className={`b-menu__item ${profileClassName}`}>
-                        <a className="b-menu__link" href="" title="Личный кабинет" onClick={e => this.props.onToggleCabinet(e)}>{nameLink}</a>
-                    </li>
-                )
-            }
+        //     const onToggle = () => {
+        //         return (
+        //             <li className={`b-menu__item ${profileClassName}`}>
+        //                 <a className="b-menu__link" href="" title="Личный кабинет" onClick={e => this.props.onToggleCabinet(e)}>{nameLink}</a>
+        //             </li>
+        //         )
+        //     }
 
-            const onLink = (to) => {
-                return (
-                    <li className={`b-menu__item ${profileClassName}`}>
-                        <Link className="b-menu__link" to={to} title="Личный кабинет">
-                            {nameLink}
-                        </Link>
-                    </li>
-                )
-            }
+        //     const onLink = (to) => {
+        //         return (
+        //             <li className={`b-menu__item ${profileClassName}`}>
+        //                 <Link className="b-menu__link" to={to} title="Личный кабинет">
+        //                     {nameLink}
+        //                 </Link>
+        //             </li>
+        //         )
+        //     }
 
-            if (userRole[0] === 'user') {
-                if (location === configPathRouter.profileUser) {
-                    return onToggle();
-                } else {
-                    return onLink(configPathRouter.profileUser);
-                }
-            }
+        //     if (userRole[0] === 'user') {
+        //         if (location === configPathRouter.profileUser) {
+        //             return onToggle();
+        //         } else {
+        //             return onLink(configPathRouter.profileUser);
+        //         }
+        //     }
 
-            if (userRole[0] === 'trainer') {
-                if (location === configPathRouter.profileTrainer) {
-                    return onToggle();
-                } else {
-                    return onLink(configPathRouter.profileTrainer);
-                }
-            }
+        //     if (userRole[0] === 'trainer') {
+        //         if (location === configPathRouter.profileTrainer) {
+        //             return onToggle();
+        //         } else {
+        //             return onLink(configPathRouter.profileTrainer);
+        //         }
+        //     }
 
-            if (userRole[0] === 'organization-admin') {
-                if (location === configPathRouter.profileCourt) {
-                    return onToggle();
-                } else {
-                    return onLink(configPathRouter.profileCourt);
-                }
-            }
-        };
+        //     if (userRole[0] === 'organization-admin') {
+        //         if (location === configPathRouter.profileCourt) {
+        //             return onToggle();
+        //         } else {
+        //             return onLink(configPathRouter.profileCourt);
+        //         }
+        //     }
+        // };
 
         return (
             <Fragment>
@@ -90,6 +90,7 @@ class MenuHeader extends Component {
                 </a>
 
                 <div className={`b-menu ${this.props.toggleMenu ? 'open' : ''}`}>
+                    <div className="b-menu__header"></div>
                     <ul className="b-menu__list">
 
                         <li className="b-menu__item">
@@ -103,14 +104,14 @@ class MenuHeader extends Component {
                             <a className="b-menu__link" href="">Отменить бронь</a>
                         </li>
                         
-                        {isAuthorization ? (
+                        {/* {isAuthorization ? (
                             profileLink()
                         ) : (
                             <li className="b-menu__item">
                                 <Link className="b-menu__link" to={configPathRouter.authorization}>Авторизация</Link>
                                 <Link className="b-menu__link" to={configPathRouter.registration}>Регистрация</Link>
                             </li>
-                        )}
+                        )} */}
 
                         <li className="b-menu__item">
                             {/* TODO: Сделать попап с выбором городов. По клику на ссылку менять город */}
