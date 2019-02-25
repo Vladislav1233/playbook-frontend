@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import TimePicker from '../../helpers/timePicker/lib';
 import TimePicker from 'react-times';
 import cn from 'classnames';
 import { connect } from "react-redux";

@@ -3,10 +3,14 @@ import { connect } from "react-redux";
 import { createScheduleTrainer, editTrainerSchedule, toggleResponse } from '../../store/actions/schedule';
 import moment from 'moment';
 import 'moment/locale/ru';
-import getArrayDateRange from '../../helpers/getArrayDateRange';
-import { dataTime } from '../../helpers/dataTime';
+
+// Note: services
 import { scheduleService } from '../../services/scheduleService';
 import { trainerInfoService } from '../../services/trainerInfoService';
+
+// Note: helpers
+import { dataTime } from '../../helpers/dataTime';
+import getArrayDateRange from '../../helpers/getArrayDateRange';
 import { convertTypeMoney } from '../../helpers/convertTypeMoney';
 
 // Note: components
@@ -57,8 +61,8 @@ class TrainerAddSchedule extends Component {
     }
 
     // componentDidMount() {
-    //     // const data = dataTime();
-    //     // this.getTrainerScheduleRequest(this.state.dateCalendar, data)
+    //     const data = dataTime();
+    //     this.getTrainerScheduleRequest(this.state.dateCalendar, data);
     // }
 
     componentDidUpdate() {
@@ -87,8 +91,8 @@ class TrainerAddSchedule extends Component {
                         const newCards = answerData.map(item => {
                             return {
                                 dates: [date],
-                                start_time: moment(item.start_time).format("HH:mm"),
-                                end_time: moment(item.end_time).format("HH:mm"),
+                                start_time: moment(`${item.start_time} +00:00`).format("HH:mm"),
+                                end_time: moment(`${item.end_time} +00:00`).format("HH:mm"),
                                 price_per_hour: convertTypeMoney(item.price_per_hour, 'RUB', 'banknote'),
                                 currency: 'RUB',
                                 schedule_id: item.id,
@@ -104,9 +108,9 @@ class TrainerAddSchedule extends Component {
                     } else {
                         const newCards = [{
                                 dates: [date],
-                                start_time: null, // Example 09:00:00
-                                end_time: null, // Example 17:00:00
-                                price_per_hour: '', // Example 7000 (70rub)
+                                start_time: null,
+                                end_time: null,
+                                price_per_hour: '',
                                 currency: 'RUB',
                                 schedule_id: -1,
                                 playgrounds: this.state.playgroundsForTraining,
