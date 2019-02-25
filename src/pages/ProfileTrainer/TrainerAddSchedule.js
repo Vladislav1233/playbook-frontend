@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { createScheduleTrainer, editTrainerSchedule, toggleResponse } from '../../store/actions/schedule';
 import moment from 'moment';
-import { extendMoment } from 'moment-range';
 import 'moment/locale/ru';
 import getArrayDateRange from '../../helpers/getArrayDateRange';
 import { dataTime } from '../../helpers/dataTime';
@@ -19,8 +18,6 @@ import Button from '../../components/ui-kit/Button/Button';
 // Note: style
 // import '../../style/bem-blocks/b-hint-profile/index.scss';
 import '../../style/bem-blocks/b-trainer-add-schedule/index.scss';
-
-const Moment = extendMoment(moment);
 
 class TrainerAddSchedule extends Component {
 
@@ -322,47 +319,52 @@ class TrainerAddSchedule extends Component {
         this.state.cards.forEach(function(card) {
             let formatPrice = convertTypeMoney(card.price_per_hour, 'RUB', 'coin');
 
-            // Note: Получаем UTC формат начала расписания карточки
-            const startTimeWithDateUTC = moment.utc(moment(`${card.dates[0]} ${card.start_time}:00`));
-            console.log(startTimeWithDateUTC.format('HH:mm:ss'));
-            // Note: Получаем UTC формат конца расписания карточки
-            const endTimeWithDateUTC = moment.utc(moment(`${card.dates[card.dates.length - 1]} ${card.end_time}:00`));
-            console.log(endTimeWithDateUTC.format('HH:mm:ss'));
-
-            // Note: Получаем даты относительно UTC
-            const rangeDates = Moment.range(startTimeWithDateUTC, endTimeWithDateUTC).snapTo('day');
-            const dates = Array.from(rangeDates.by('days', { excludeEnd: false })).map(m => m.format('YYYY-MM-DD'));
-            console.log(dates);
-
             // TODO: добавить чек-бокс playgrounds
-            const dataForCreate = {
-                dates: dates,
-                start_time: startTimeWithDateUTC.format('HH:mm:ss'),
-                end_time: endTimeWithDateUTC.format('HH:mm:ss'),
-                price_per_hour: formatPrice,
-                currency: card.currency,
-                playgrounds: [1] // TODO: как бэк заработает поставить - card.playgroundsCheck
+            // Note: Функция, которая генерирует данные по расписанию как для create так и для edit для отправки на сервер.
+            const createDataForRequest = (datesRequest, startTimeRequest, endTimeRequest) => {
+                let result = {
+                    price_per_hour: formatPrice,
+                    currency: card.currency,
+                    playgrounds: [1] // TODO: как бэк заработает поставить - card.playgroundsCheck  
+                };
+
+                if (datesRequest) {
+                    result.dates = datesRequest;
+                };
+
+                if (startTimeRequest) {
+                    result.start_time = startTimeRequest
+                };
+
+                if (endTimeRequest) {
+                    result.end_time = endTimeRequest
+                };
+
+                return result;
             };
 
-            const dataForEdit = {
-                start_time: startTimeWithDateUTC.format('YYYY-MM-DD HH:mm:ss'),
-                end_time: endTimeWithDateUTC.format('YYYY-MM-DD HH:mm:ss'),
-                price_per_hour: formatPrice,
-                currency: card.currency,
-                playgrounds: [1] // TODO: как бэк заработает поставить - card.playgroundsCheck
-            };
+            // Note: Получаем даты начала расписания и окончания расписания относительно UTC
+            const dates = card.dates.map(date => {
+                return {
+                    start_time: moment.utc(moment(`${date} ${card.start_time}:00`)).format('YYYY-MM-DD HH:mm:ss'),
+                    end_time: moment.utc(moment(`${date} ${card.end_time}:00`)).format('YYYY-MM-DD HH:mm:ss')
+                }
+            });
 
             // Note: если у нас карточка с сервера, то у неё schedule_id 0 и больше, мы определяем какой запрос отправлять.
             const edit = async () => {
                 if (card.schedule_id >= 0) {
-                    dispatch(editTrainerSchedule(card.schedule_id, dataForEdit));
+                    dispatch(editTrainerSchedule(
+                        card.schedule_id,  
+                        createDataForRequest(null, dates[0].start_time, dates[0].end_time)
+                    ));
                 }
                 await create();
             }
 
             const create = () => {
                 if (card.schedule_id < 0) {
-                    dispatch(createScheduleTrainer(dataForCreate));
+                    dispatch(createScheduleTrainer(createDataForRequest(dates, null, null)));
                 };
             };
 
