@@ -26,8 +26,8 @@ class AddScheduleCard extends Component {
 
         return(
             <div className="b-add-schedule-card">
-                <div onClick={onRemoveCard} className="b-add-schedule-card__delete">
-                    <img className="b-add-schedule-card__delete-icon" src={deleteIcon} alt="Удалить" />
+                <div onClick={onRemoveCard} className="b-add-schedule-card__delete" title="Удалить">
+                    <img className="b-add-schedule-card__delete-icon" src={deleteIcon} alt="Корзина" />
                 </div>
                 <div className="b-add-schedule-card__field b-add-schedule-card__field--left">
                     <TimeField
