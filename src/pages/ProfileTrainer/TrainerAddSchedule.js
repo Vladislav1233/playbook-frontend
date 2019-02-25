@@ -318,37 +318,53 @@ class TrainerAddSchedule extends Component {
         // NOTE: Создается один запрос на одну карточку. Добавление расписания
         this.state.cards.forEach(function(card) {
             let formatPrice = convertTypeMoney(card.price_per_hour, 'RUB', 'coin');
-            console.log(card.start_time);
+
             // TODO: добавить чек-бокс playgrounds
-            const dataForCreate = {
-                dates: card.dates,
-                start_time: `${card.start_time}:00`,
-                end_time: `${card.end_time}:00`,
-                price_per_hour: formatPrice,
-                currency: card.currency,
-                playgrounds: [1] // TODO: как бэк заработает поставить - card.playgroundsCheck
+            // Note: Функция, которая генерирует данные по расписанию как для create так и для edit для отправки на сервер.
+            const createDataForRequest = (datesRequest, startTimeRequest, endTimeRequest) => {
+                let result = {
+                    price_per_hour: formatPrice,
+                    currency: card.currency,
+                    playgrounds: [1] // TODO: как бэк заработает поставить - card.playgroundsCheck  
+                };
+
+                if (datesRequest) {
+                    result.dates = datesRequest;
+                };
+
+                if (startTimeRequest) {
+                    result.start_time = startTimeRequest
+                };
+
+                if (endTimeRequest) {
+                    result.end_time = endTimeRequest
+                };
+
+                return result;
             };
 
-            const dataForEdit = {
-                dates: card.dates,
-                start_time: `${card.dates[0]} ${card.start_time}:00`,
-                end_time: `${card.dates[0]} ${card.end_time}:00`,
-                price_per_hour: formatPrice,
-                currency: card.currency,
-                playgrounds: [1] // TODO: как бэк заработает поставить - card.playgroundsCheck
-            };
+            // Note: Получаем даты начала расписания и окончания расписания относительно UTC
+            const dates = card.dates.map(date => {
+                return {
+                    start_time: moment.utc(moment(`${date} ${card.start_time}:00`)).format('YYYY-MM-DD HH:mm:ss'),
+                    end_time: moment.utc(moment(`${date} ${card.end_time}:00`)).format('YYYY-MM-DD HH:mm:ss')
+                }
+            });
 
             // Note: если у нас карточка с сервера, то у неё schedule_id 0 и больше, мы определяем какой запрос отправлять.
             const edit = async () => {
                 if (card.schedule_id >= 0) {
-                    dispatch(editTrainerSchedule(card.schedule_id, dataForEdit));
+                    dispatch(editTrainerSchedule(
+                        card.schedule_id,  
+                        createDataForRequest(null, dates[0].start_time, dates[0].end_time)
+                    ));
                 }
                 await create();
             }
 
             const create = () => {
                 if (card.schedule_id < 0) {
-                    dispatch(createScheduleTrainer(dataForCreate));
+                    dispatch(createScheduleTrainer(createDataForRequest(dates, null, null)));
                 };
             };
 

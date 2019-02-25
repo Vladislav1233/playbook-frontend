@@ -43,9 +43,9 @@ class SettingChooseDay extends Component {
                             ...theme,
                             colors: {
                                 ...theme.colors,
-                                primary25: '#55bc96',
-                                primary: '#ffb72d',
-                                neutral20: '#ccc'
+                                primary25: 'rgba(0, 0, 0, 0.1)',
+                                primary: '#0b4e35',
+                                neutral20: '#0b4e35'
                             }
                         })}
                         {...this.props}

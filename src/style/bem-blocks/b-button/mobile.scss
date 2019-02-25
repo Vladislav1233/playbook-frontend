@@ -18,7 +18,7 @@
     .no-touchevents &:hover,
     .touchevents &:active {
         background-color: #0d6041;
-        color: $mint;
+        // color: $mint;
     }
 
     &--full {
@@ -34,7 +34,7 @@
         .no-touchevents &:hover,
         .touchevents &:active {
             // color: #fff;
-            // color: #000;
+            color: $mint;
             background-color: #0d60412c;
         }
     }
