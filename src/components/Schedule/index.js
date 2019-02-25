@@ -65,7 +65,7 @@ class Schedule extends Component {
                         {cost.length > 0 
                             ? 
                             <div className="b-schedule__price">
-                                <div className="b-schedule__title">Стоимость</div>
+                                <div className="b-schedule__title">Стоимость:</div>
                                 {cost.map((item, index) => {
                                     const getTimeOutRange = (indexPostition) => Moment(item.time.toDate()[indexPostition]).format('HH:mm');
                                     return (
@@ -91,20 +91,20 @@ class Schedule extends Component {
 
                         {playgroundsForTraining.length > 0 ? 
                             <div className='b-schedule__playground'>
-                                <div className="b-schedule__title">Тренирую на</div>
+                                <div className="b-schedule__title">Тренирую на:</div>
                                 
                                 {playgroundsForTraining.map(item => {
                                     return (
                                         <div className="b-schedule__playground-item" key={item.id}>
                                             <div className="b-schedule__playground-name">{item.name}</div>
-                                            <div className="b-schedule__playground-address">{item.address}</div>
+                                            <div className="b-schedule__playground-address">({item.address})</div>
                                         </div>
                                     )
                                 })}
                             </div>
                         : null}
                         
-                        <div className="b-schedule__title">Расписание</div>
+                        <div className="b-schedule__title">Расписание:</div>
                         {/* Note: расписание свободного времени тренера */}
                         {template === 'trainer' ?
                             schedule.schedule.length > 0

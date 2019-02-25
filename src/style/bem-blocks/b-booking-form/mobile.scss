@@ -1,11 +1,12 @@
 // 320
 .b-booking-form {
-    max-width: 480px;
+    max-width: 600px;
+    width: 100%;
     margin: 0px auto;
 
     &__fieldset {
-        padding: 30px 15px 0px;
-        margin-bottom: 50px;
+        padding: 15px 15px 0px;
+        margin-bottom: 40px;
     }
 
     &__note {
