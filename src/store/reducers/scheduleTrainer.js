@@ -71,6 +71,7 @@ export default function(state = initialState, action) {
 
         case GET_SUCCESS_SCHEDULE_TRAINER:
             const responseSchedule = action.payload.data;
+            console.log(responseSchedule);
             // Note: Забронированное подтвержденное время
             let reservedTime = [];
 
@@ -111,7 +112,7 @@ export default function(state = initialState, action) {
                 }
 
                 // Note: Получаем стоимость часа во всех промежутках времени для тренера. Время переводим в локальный часовой пояс (с сервера нам приходит +00:00).
-                const timeRangeCost = moment.range(moment(`${item.start_time} +00:00`), moment(`${item.end_time} +00:00`));
+                const timeRangeCost = moment.range(moment(item.start_time), moment(item.end_time));
                 newCost.push({
                     time: timeRangeCost,
                     cost: item.price_per_hour
@@ -164,8 +165,8 @@ export default function(state = initialState, action) {
                 playgroundsForTraining: newPlaygroundsForTraining,
                 scheduleTrainer: {
                     ...state.scheduleTrainer,
-                    date: moment(action.date),
-                    nameDay: moment(action.date).format('dddd'),
+                    date: moment(`${action.date} +00:00`),
+                    nameDay: moment(`${action.date} +00:00`).format('dddd'),
                     schedule: rangeSchedule,
                     cost: newCost
                 }

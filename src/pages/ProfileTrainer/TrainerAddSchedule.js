@@ -91,8 +91,8 @@ class TrainerAddSchedule extends Component {
                         const newCards = answerData.map(item => {
                             return {
                                 dates: [date],
-                                start_time: moment(`${item.start_time} +00:00`).format("HH:mm"),
-                                end_time: moment(`${item.end_time} +00:00`).format("HH:mm"),
+                                start_time: moment(item.start_time).format("HH:mm"),
+                                end_time: moment(item.end_time).format("HH:mm"),
                                 price_per_hour: convertTypeMoney(item.price_per_hour, 'RUB', 'banknote'),
                                 currency: 'RUB',
                                 schedule_id: item.id,
