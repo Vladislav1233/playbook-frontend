@@ -5,12 +5,13 @@
 
     &__title {
         font-size: 18px;
-        margin-bottom: 30px; 
+        margin-bottom: 15px; 
     }
 
     &__cost,
     &__playground {
         font-size: 16px;
+        // margin-bottom: 30px;
     }
 
     &__playground-name {
@@ -18,12 +19,12 @@
     }
 
     &__price {
-        margin-bottom: 50px;
+        margin-bottom: 30px;
     }
 
     &__playground {
-        &:not(:last-child) {
-            margin-bottom: 50px;
-        }
+        // &:not(:last-child) {
+        //     margin-bottom: 50px;
+        // }
     }
 }

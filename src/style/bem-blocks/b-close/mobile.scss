@@ -8,8 +8,8 @@
     padding: 0px;
     border: 0px;
     background: none;
-    border-radius: 50%;
-    background-color: $orange-diamond-yellow;
+    border-radius: 4px;
+    background-color: $mint;
     transition: box-shadow $animation-time;
 
     .no-touchevents &:hover {
@@ -42,7 +42,7 @@
     &--modal {
         position: absolute;
         top: 10px;
-        right: 15px;
+        right: 10px;
     }
 
     &--schedule-item {

@@ -107,10 +107,10 @@ class HeadMenu extends Component {
                             <Fragment>
                                 <ContentItem>
                                     <li className="b-head-menu__content-item">
-                                        <Link className="b-head-menu__content-text" to={configPathRouter.authorization}>Войти</Link>
+                                        <Link className="b-head-menu__content-text" to={configPathRouter.authorization}>Авторизация</Link>
                                     </li>
                                     <li className="b-head-menu__content-item">
-                                        <Link className="b-head-menu__content-text" to={configPathRouter.registration}>Зарегистрироваться</Link>
+                                        <Link className="b-head-menu__content-text" to={configPathRouter.registration}>Регистрация</Link>
                                     </li>
                                 </ContentItem>
                             </Fragment>
