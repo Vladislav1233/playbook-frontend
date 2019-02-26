@@ -21,10 +21,25 @@ class MyBookingCard extends Component {
             playgroundAddress,
             startTime,
             endTime,
-            price
+            price,
+            status, // Note: 0 - не подтверждено (не обработана заявка), 1 - подтверждено, 2 - отменено/отклонено.
+            note // Note: заметка с причиной отмены бронирования
         } = this.props;
 
         const typeBookable = bookableFirstName ? 'Тренер' : 'Площадка';
+
+        const howStatus = (_status) => {
+            switch(_status) {
+                case 0:
+                    return 'Ваша заявка ещё не обработана тренером или администратором';
+                
+                case 1:
+                    return 'Бронирование подтверждено';
+                
+                case 2:
+                    return 'Бронирование отменено'
+            }
+        };
 
         return(
             <div className="b-my-booking-card">
@@ -33,6 +48,11 @@ class MyBookingCard extends Component {
                     {moment(startTime).format('DD.MM.YYYY')} ({moment(startTime).format('dddd')})
                     <br/>
                     {moment(startTime).format('HH:mm')} - {moment(endTime).format("HH:mm")}
+                </div>
+
+                <div>
+                    <div>Статус: {howStatus(status)}</div>
+                    {status === 2 && <div>Причина: {note}</div>}
                 </div>
 
                 {bookableFirstName &&

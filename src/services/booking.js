@@ -1,6 +1,7 @@
 import { API_URL } from '../store/constants/restAPI';
 import axios from 'axios';
 import Moment from 'moment';
+import { dataTime } from '../helpers/dataTime';
 
 export const bookingService = {
     createBooking,
@@ -86,13 +87,18 @@ function declineBooking(bookingId, data) {
     });
 }
 
+/*
+* getAllBookingsForUser - Получить все бронирования пользователем.
+* По дефолту получаем бронирования от текущего начала дня и до 2050 года.
+*/
 function getAllBookingsForUser(data = {
     limit: 100,
     offset: 0,
-    start_time: Moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
-    end_time: Moment(new Date(2050, 0, 1)).format('YYYY-MM-DD HH:mm:ss') 
+    start_time: Moment(new Date()).utc().format('YYYY-MM-DD HH:mm:ss'), // Note: дату и время преобразовываем в UTC формат
+    end_time: Moment(new Date(2050, 0, 1)).utc().format('YYYY-MM-DD HH:mm:ss') // Note: дату и время преобразовываем в UTC формат
 }) {// TODO
     const valueToken = localStorage.getItem('userToken');
+    console.log(Moment(new Date()).utc().format('YYYY-MM-DD HH:mm:ss'));
 
     return axios({
         method: 'get',

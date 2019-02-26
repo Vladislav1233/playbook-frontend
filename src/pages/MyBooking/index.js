@@ -23,7 +23,7 @@ class MyBooking extends Component {
                     <h1>Мои бронирования</h1>
 
                     <div className="b-booking-request">
-                        {dataMyBooking
+                        {dataMyBooking.length > 0
                             ? dataMyBooking.map(item => {
                                 return (
                                     <div key={item.id} className="b-booking-request__item">
@@ -35,6 +35,8 @@ class MyBooking extends Component {
                                             startTime={item.start_time}
                                             endTime={item.end_time}
                                             price={item.price}
+                                            status={item.status}
+                                            note={item.note}
                                         />
                                     </div>
                                )
