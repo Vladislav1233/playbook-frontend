@@ -33,21 +33,17 @@ class BookingRequestItem extends Component {
                         <div className="b-booking-request__training-time">{time}</div>
                     </div>
 
-                    <div className="b-booking-request__button">
-                        <div className="b-booking-request__button-item">
-                            <Button 
-                                name="Принять"
-                                modif="b-button--full"
-                                onClick={(e) => {onClickConfirm(e, bookingId)}}
-                            />
-                        </div>
-                        <div className="b-booking-request__button-item">
-                            <Button 
-                                name="Отказать"
-                                modif="b-button--full"
-                                onClick={this.openModal}
-                            />
-                        </div>
+                    <div className="b-booking-request__buttons">
+                        <Button 
+                            name="Принять"
+                            modif="b-button--full"
+                            onClick={(e) => {onClickConfirm(e, bookingId)}}
+                        />
+                        <Button 
+                            name="Отказать"
+                            modif="b-button--full b-button--orange"
+                            onClick={this.openModal}
+                        />
                     </div>
                 </div>
 

@@ -107,7 +107,7 @@ class Schedule extends Component {
                             </div>
                         : null}
                         
-                        <div className="b-schedule__title">Расписание:</div>
+                        <div className="b-schedule__title">Свободное время:</div>
                         {/* Note: расписание свободного времени тренера */}
                         {template === 'trainer' ?
                             schedule.schedule.length > 0
@@ -144,7 +144,7 @@ class Schedule extends Component {
                         {/* Note: Расписание забронированного времени */}
                         {bookedTime.length > 0 
                             ? ( <Fragment>
-                                <div className="b-schedule__title">Забронированное время</div>
+                                <div className="b-schedule__title">Забронированное время:</div>
                                 <ScheduleList 
                                     list={bookedTime}
                                     template={template}

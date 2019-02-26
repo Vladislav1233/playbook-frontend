@@ -5,7 +5,7 @@
         display: inline-block;
         vertical-align: top;
         border: 1px solid $border-color;
-        border-radius: 6px;
+        border-radius: $border-radius;
         padding: 20px;
         background-color: #fff;
         width: calc(50% - 30px);

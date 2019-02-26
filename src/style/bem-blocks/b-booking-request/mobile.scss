@@ -50,9 +50,12 @@
         color: $carmine-pink;
     }
 
-    &__button-item {
-        &:not(:last-child) {
-            margin-bottom: 20px;
+    &__buttons {
+        display: flex;
+        flex-flow: row nowrap;
+
+        & > * + * {
+            margin-left: 15px;
         }
     }
 }

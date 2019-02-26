@@ -401,6 +401,8 @@ class TrainerAddSchedule extends Component {
                 </div>
                 
                 <div className="b-trainer-add-schedule__schedule">
+                    <h1>TODO_AMED: Название</h1>
+
                     <SettingChooseDay 
                         optionsSelect={optionsSelect}
                         getValueSelect={this.onSelectChooseDay}
