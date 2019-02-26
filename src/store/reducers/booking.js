@@ -168,9 +168,19 @@ export default function(state = initialState, action) {
             const startTimeConfirmDecline = action.payload.data.data.start_time;
             
             const newStateDecline = filterBooking(confirmIdDecline, startTimeConfirmDecline);
+            const newDataMyBooking = state.dataMyBooking.map(item => {
+                if(item.id === confirmIdDecline) {
+                    item.status = action.payload.data.data.status;
+                    item.note = action.payload.data.data.note;
+                    return item;
+                } else {
+                    return item;
+                };
+            });
 
             return {
                 ...newStateDecline,
+                dataMyBooking: newDataMyBooking,
                 preloader: false
             }
 

@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import moment from 'moment';
 
 // Note: components
-// import DeclineBookingModal from '../Modal/DeclineBookingModal'; 
+import DeclineBookingModal from '../Modal/DeclineBookingModal';
 
 // Note: helpers
 import { convertTypeMoney } from '../../helpers/convertTypeMoney';
@@ -10,8 +10,34 @@ import { convertTypeMoney } from '../../helpers/convertTypeMoney';
 // Note: styles
 import '../../style/bem-blocks/b-my-booking-card/index.scss';
 import '../../style/bem-blocks/b-cost-information/index.scss';
+import '../../style/bem-blocks/b-close/index.scss';
 
 class MyBookingCard extends Component {
+
+    state = {
+        showDeclineBookingModal: false
+    };
+
+    openDeclineModal = () => {
+        this.setState({
+            ...this.state,
+            declineModal: true
+        })
+    };
+
+    closeDeclineModal = () => {
+        this.setState({
+            ...this.state,
+            declineModal: false
+        })
+    };
+
+    onClickDecline = (bookingId, note) => {
+        const data = {
+            note
+        };
+        this.props.declineBooking(bookingId, data);
+    };
 
     render() {
         const { 
@@ -23,7 +49,8 @@ class MyBookingCard extends Component {
             endTime,
             price,
             status, // Note: 0 - не подтверждено (не обработана заявка), 1 - подтверждено, 2 - отменено/отклонено.
-            note // Note: заметка с причиной отмены бронирования
+            note, // Note: заметка с причиной отмены бронирования
+            bookingId
         } = this.props;
 
         const typeBookable = bookableFirstName ? 'Тренер' : 'Площадка';
@@ -43,6 +70,18 @@ class MyBookingCard extends Component {
 
         return(
             <div className="b-my-booking-card">
+                {status !== 2 &&
+                    <Fragment>
+                        <button onClick={this.openDeclineModal} className="b-close b-close--schedule-item"></button>
+                        <DeclineBookingModal 
+                            isOpenModal={this.state.declineModal}
+                            closeModal={this.closeDeclineModal}
+                            onClickDecline={(note) => { this.onClickDecline(bookingId, note) }}
+                            nameButton="Отменить бронь"
+                        />
+                    </Fragment>
+                }
+
                 <div className="b-my-booking-card__type">Забронировано: {typeBookable}</div>
                 <div className="b-my-booking-card__time">
                     {moment(startTime).format('DD.MM.YYYY')} ({moment(startTime).format('dddd')})

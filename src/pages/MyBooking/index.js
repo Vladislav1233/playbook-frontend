@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 
-import { getAllBookingsForUser } from '../../store/actions/booking';
+// Note: actions
+import { getAllBookingsForUser, declineBooking } from '../../store/actions/booking';
 
 // Note: components
 import MyBookingCard from '../../components/MyBookingCard';
@@ -15,7 +16,7 @@ class MyBooking extends Component {
     }
 
     render() {
-        const { dataMyBooking } = this.props;
+        const { dataMyBooking, declineBooking } = this.props;
         console.log(dataMyBooking);
         return(
             <div className="b-my-booking">
@@ -25,6 +26,7 @@ class MyBooking extends Component {
                     <div className="b-booking-request">
                         {dataMyBooking.length > 0
                             ? dataMyBooking.map(item => {
+                                console.log(item);
                                 return (
                                     <div key={item.id} className="b-booking-request__item">
                                         <MyBookingCard 
@@ -37,6 +39,8 @@ class MyBooking extends Component {
                                             price={item.price}
                                             status={item.status}
                                             note={item.note}
+                                            declineBooking={declineBooking}
+                                            bookingId={item.id}
                                         />
                                     </div>
                                )
@@ -59,7 +63,15 @@ const mapStateToProps = ({ booking }) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getAllBookingsForUser: () => dispatch(getAllBookingsForUser())
+        getAllBookingsForUser: () => dispatch(getAllBookingsForUser()),
+        /*
+        * declineBooking - Отменить бронирование
+        * bookingId - id объекта бронирования
+        * data: {
+        *   note: 'Сообщение пользователю'
+        *}
+        */
+        declineBooking: (bookingId, data) => dispatch(declineBooking(bookingId, data))
     }
 }
 
