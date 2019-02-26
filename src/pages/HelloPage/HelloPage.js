@@ -37,26 +37,51 @@ class HelloPage extends Component {
                                 <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.listCourt}>Мне нужен корт</Link>
                             </li> */}
                             <li className="b-hello-page__item">
-                                <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.listTrainer}>Мне нужен тренер</Link>
+                                <Link 
+                                    className="b-button b-button--orange b-button--hello-page" 
+                                    to={configPathRouter.listTrainer}
+                                >
+                                    Мне нужен тренер
+                                </Link>
                             </li>
                         </ul>
 
                         {!isAuthorization ? 
                             <ul className="b-hello-page__list">
                                 <li className="b-hello-page__item">
-                                    <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.authorization}>Авторизация</Link>
+                                    <Link 
+                                        className="b-button b-button--orange b-button--hello-page" 
+                                        to={configPathRouter.authorization}
+                                    >
+                                        Авторизация
+                                    </Link>
                                 </li>
                                 <li className="b-hello-page__item">
-                                    <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.registration}>Регистрация</Link>
+                                    <Link 
+                                        className="b-button b-button--orange b-button--hello-page" 
+                                        to={configPathRouter.registration}
+                                    >
+                                        Регистрация
+                                    </Link>
                                 </li>
                             </ul>
                             :
                             <ul className="b-hello-page__list">
                                 <li className="b-hello-page__item">
-                                    <Link className="b-button b-button--orange b-button--hello-page" to={profileTo()}>TODO: Отменить бронь</Link>
+                                    <Link 
+                                        className="b-button b-button--orange b-button--hello-page" 
+                                        to={configPathRouter.myBooking}
+                                    > 
+                                        Мои бронирования
+                                    </Link>
                                 </li>
                                 <li className="b-hello-page__item">
-                                    <Link className="b-button b-button--orange b-button--hello-page" to={profileTo()}>Личный кабинет</Link>
+                                    <Link 
+                                        className="b-button b-button--orange b-button--hello-page" 
+                                        to={profileTo()}
+                                    >
+                                        Личный кабинет
+                                    </Link>
                                 </li>
                             </ul> 
                         }
