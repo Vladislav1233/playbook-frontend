@@ -4,7 +4,7 @@
     margin-right: -15px;
     font-size: 0;
 
-    p {
+    > p {
         padding: 0px 15px;
         margin-bottom: 50px;
         font-family: $bold;
@@ -16,11 +16,8 @@
     }
 
     &__item {
-        padding-left: 15px;
-        padding-right: 15px;
-        padding-bottom: 30px;
+        padding: 20px 15px;
         border-bottom: 1px solid $mint;
-        margin-bottom: 40px;
     }
 
     &__player-name {
