@@ -196,7 +196,7 @@ class BookingModal extends Component {
             <ModalComponent
                 isOpenModal={isOpenModal}
                 closeModal={closeModal}
-                title='Букинг'
+                title='Бронирование'
             >
                 <form className="b-booking-form">
                     <fieldset className="b-booking-form__fieldset">
