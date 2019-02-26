@@ -105,8 +105,7 @@ class MenuHeader extends Component {
                         </li>
                         
                         <li className="b-menu__item">
-                            {/* TODO: Эта ссылка должна открывать попап, далее в попап вводим номер телефона, получаем свои брони и отменяем нужную, вобщем на клик по ссылке нужен обработчик дальнейшего шага (видимо попап уже) */}
-                            <a className="b-menu__link" href="">Отменить бронь</a>
+                            <Link className="b-menu__link" to={configPathRouter.myBooking}>Мои бронирования</Link>
                         </li>
                         
                         {/* {isAuthorization ? (

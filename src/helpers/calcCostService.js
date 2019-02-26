@@ -11,7 +11,7 @@ const calcCostService = (startTimeBooking, endTimeBooking, rangeCostArray) => {
     * rangeCostArray (array. example: [{time: object moment range, cost: 10000 (cent)}]) - массив со стоимостью часа в диапазоне времени.
     */
 
-    const formatForTime = 'HH:mm';
+    const formatForTime = 'YYYY-MM-DD HH:mm:ss';
     const dividerForCostTime = 3600;
     let resultCost = 0;
 

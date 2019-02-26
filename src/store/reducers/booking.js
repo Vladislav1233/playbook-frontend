@@ -13,7 +13,11 @@ import {
 
     DECLINE_BOOKING_START,
     DECLINE_BOOKING_SUCCESS,
-    DECLINE_BOOKING_FAILURE
+    DECLINE_BOOKING_FAILURE,
+
+    GET_ALL_BOOKINGS_FOR_USER_START,
+    GET_ALL_BOOKINGS_FOR_USER_SUCCESS,
+    GET_ALL_BOOKINGS_FOR_USER_FAILURE
 } from '../constants/booking';
 
 import moment from 'moment';
@@ -24,20 +28,22 @@ const initialState = {
     dataBookingRequest: [], // Note: текущие не подтвержденные заявки
     dataPastBooking: [], // Note: прошедшие не подтвержденные заявки
     confirmBooking: [], // Note: текущие подтвержденные заявки
-    confirmPastBooking: [] // Note: прошедшие подтвержденные заявки
+    confirmPastBooking: [], // Note: прошедшие подтвержденные заявки
+    dataMyBooking: [] // Note: Текущие бронирования пользователя
 }
 
 export default function(state = initialState, action) {
 
     const filterBooking = (confirmId, startTimeConfirm) => {
-        if (!moment().isAfter(`${startTimeConfirm} +00:00`)) { // Note: если заявка не истекла, то удаляем элемент из текущих заявок
+        console.log(startTimeConfirm);
+        if (!moment().isAfter(startTimeConfirm)) { // Note: если заявка не истекла, то удаляем элемент из текущих заявок
             return {
                 ...state,
                 dataBookingRequest: state.dataBookingRequest.filter(itemState => {
                     return confirmId !== itemState.bookingId
                 })
             }
-        } else if (moment().isAfter(`${startTimeConfirm} +00:00`)) { // Если заявка истекла, то удаляем её из прошедших заявок
+        } else if (moment().isAfter(startTimeConfirm)) { // Если заявка истекла, то удаляем её из прошедших заявок
             return {
                 ...state,
                 dataPastBooking: state.dataPastBooking.filter(itemState => {
@@ -71,7 +77,7 @@ export default function(state = initialState, action) {
                     tel: `+${item.creator.phone}`,
                     nameCourt: item.playground ? item.playground.name : '',
                     // Note: Преобразовываем UTC время в местное (с сервера приходит UTC).
-                    time: `${moment(`${item.start_time} +00:00`).format('DD.MM.YYYY')} (${moment(`${item.start_time} +00:00`).format('dddd')}): ${moment(`${item.start_time} +00:00`).format('HH:mm')} - ${moment(`${item.end_time} +00:00`).format('HH:mm')}`,
+                    time: `${moment(item.start_time).format('DD.MM.YYYY')} (${moment(item.start_time).format('dddd')}): ${moment(item.start_time).format('HH:mm')} - ${moment(item.end_time).format('HH:mm')}`,
                     bookingId: item.id,
                     status: item.status
                 }
@@ -79,15 +85,15 @@ export default function(state = initialState, action) {
             
             // Note: сортируем все запросы на бронирование по категориям относящимся к времени и статусу(обработано/не обработано).
             action.payload.data.data.forEach(item => {
-                if (!moment().isAfter(`${item.start_time} +00:00`) && !item.status) { // Note: если заявка не истекла и не обработана
+                if (!moment().isAfter(item.start_time) && !item.status) { // Note: если заявка не истекла и не обработана
 
                     newDataBookingRequest.push(createDataBookingRequest(item));
 
-                } else if (moment().isAfter(`${item.start_time} +00:00`) && !item.status) { // Note: если заявка истекла и не обработана
+                } else if (moment().isAfter(item.start_time) && !item.status) { // Note: если заявка истекла и не обработана
                     
                     newPastBooking.push(createDataBookingRequest(item));
 
-                } else if (!moment().isAfter(`${item.start_time} +00:00`) && item.status) { // Note: если завяка не истекла и обработана
+                } else if (!moment().isAfter(item.start_time) && item.status) { // Note: если завяка не истекла и обработана
                     
                     newConfirmBooking.push(createDataBookingRequest(item));
 
@@ -162,13 +168,43 @@ export default function(state = initialState, action) {
             const startTimeConfirmDecline = action.payload.data.data.start_time;
             
             const newStateDecline = filterBooking(confirmIdDecline, startTimeConfirmDecline);
+            const newDataMyBooking = state.dataMyBooking.map(item => {
+                if(item.id === confirmIdDecline) {
+                    item.status = action.payload.data.data.status;
+                    item.note = action.payload.data.data.note;
+                    return item;
+                } else {
+                    return item;
+                };
+            });
 
             return {
                 ...newStateDecline,
+                dataMyBooking: newDataMyBooking,
                 preloader: false
             }
 
         case DECLINE_BOOKING_FAILURE:
+            console.log(action.payload);
+            return {
+                ...state,
+                preloader: false
+            }
+
+        case GET_ALL_BOOKINGS_FOR_USER_START:
+            return {
+                ...state,
+                preloader: true
+            }
+        
+        case GET_ALL_BOOKINGS_FOR_USER_SUCCESS:
+            return {
+                ...state,
+                preloader: false,
+                dataMyBooking: action.payload.data.data
+            }
+
+        case GET_ALL_BOOKINGS_FOR_USER_FAILURE:
             console.log(action.payload);
             return {
                 ...state,

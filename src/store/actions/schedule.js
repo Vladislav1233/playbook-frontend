@@ -176,7 +176,7 @@ export function declineConfirmBooking(bookingId, data, userId, dataForGetSchedul
         bookingService.declineBooking(bookingId, data)
             .then(
                 () => {
-                    dispatch(success());
+                    // dispatch(success());
                     dispatch(getTrainerSchedule(userId, dataForGetSchedule));
                 },
                 err => {

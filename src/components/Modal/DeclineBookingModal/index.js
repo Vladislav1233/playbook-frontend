@@ -28,10 +28,10 @@ class DeclineBookingModal extends Component {
 			<ModalComponent
 				isOpenModal={isOpenModal}
 				closeModal={closeModal}
-				title='Отменить запрос на бронирование'
+				title='Отменить бронирование'
 			>
 				<Textarea
-					labelText="Сообщение игроку"
+					labelText="Сообщение о причине отмены"
 					idInput="notePlayer"
 					nameInput="notePlayer"
 					placeholder="Напишите причину отмены"

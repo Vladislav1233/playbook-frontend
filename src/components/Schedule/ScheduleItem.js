@@ -108,10 +108,10 @@ class ScheduleItem extends Component {
                 <div className="b-schedule-item" onClick={() => {if(isStatus) { this.openModal(); } }}>
                     <div className="b-schedule-item__time-wrap">
                         <div className="b-schedule-item__time">
-                            {moment(`${start_time} +00:00`).format('HH:mm')}
+                            {moment(start_time).format('HH:mm')}
                         </div>
                         <div className="b-schedule-item__time b-schedule-item__time--finish">
-                            {moment(`${end_time} +00:00`).format('HH:mm')}
+                            {moment(end_time).format('HH:mm')}
                         </div>
                     </div>
 
