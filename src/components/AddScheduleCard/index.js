@@ -14,7 +14,15 @@ import deleteIcon from '../../style/images/icon/delete.svg';
 class AddScheduleCard extends Component {
 
     render() {
-        const { idRender, data, onChangeTime, onRemoveCard, playgroundsForTraining, onChangeInput, onChangeCheckbox } = this.props;
+        const { 
+            idRender, 
+            data, 
+            onChangeTime, 
+            onRemoveCard, 
+            playgroundsForTraining, 
+            onChangeInput, 
+            onChangeCheckbox 
+        } = this.props;
 
         return(
             <div className="b-add-schedule-card">

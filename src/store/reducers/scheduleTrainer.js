@@ -110,8 +110,8 @@ export default function(state = initialState, action) {
                     };
                 }
 
-                // Note: Получаем стоимость часа во всех промежутках времени для тренера
-                const timeRangeCost = moment.range(item.start_time, item.end_time);
+                // Note: Получаем стоимость часа во всех промежутках времени для тренера. Время переводим в локальный часовой пояс (с сервера нам приходит +00:00).
+                const timeRangeCost = moment.range(moment(`${item.start_time} +00:00`), moment(`${item.end_time} +00:00`));
                 newCost.push({
                     time: timeRangeCost,
                     cost: item.price_per_hour
