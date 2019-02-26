@@ -11,7 +11,7 @@ class TestRequest extends Component {
 
         axios({
             method: 'post',
-            url: 'http://playbook.ga/api/playground/create',
+            url: 'http://207.154.236.8/api/playground/create',
             headers: {
                 'Authorization': `Bearer ${valueToken}`
             },
@@ -21,7 +21,7 @@ class TestRequest extends Component {
                 "address": "Отрадная, 12",
                 "opening_time": "09:00:00",
                 "closing_time": "23:20:00",
-                "type_id": "6"
+                "type_id": "1"
               }
         }).then(response => {
             console.log(response);

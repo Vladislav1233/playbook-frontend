@@ -26,33 +26,43 @@ class HelloPage extends Component {
         };
 
         return(
-            <nav className="b-hello-page">
-                <ul className="b-hello-page__list">
-                    <li className="b-hello-page__item">
-                        <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.listCourt}>Мне нужен корт</Link>
-                    </li>
-                    <li className="b-hello-page__item">
-                        <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.listTrainer}>Мне нужен тренер</Link>
-                    </li>
-                </ul>
+            <div className="container">
+                <div className="b-hello-page">
+                    <h1 className="b-hello-page__heading">
+                        Забронируй корт для  тенниса и играй в удобное для тебя время
+                    </h1>
+                    <nav className="b-hello-page">
+                        <ul className="b-hello-page__list">
+                            {/* <li className="b-hello-page__item">
+                                <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.listCourt}>Мне нужен корт</Link>
+                            </li> */}
+                            <li className="b-hello-page__item">
+                                <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.listTrainer}>Мне нужен тренер</Link>
+                            </li>
+                        </ul>
 
-                {!isAuthorization ? 
-                    <ul className="b-hello-page__list">
-                        <li className="b-hello-page__item">
-                            <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.authorization}>Авторизация</Link>
-                        </li>
-                        <li className="b-hello-page__item">
-                            <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.registration}>Регистрация</Link>
-                        </li>
-                    </ul>
-                    :
-                    <ul className="b-hello-page__list">
-                        <li className="b-hello-page__item">
-                            <Link className="b-button b-button--orange b-button--hello-page" to={profileTo()}>Личный кабинет</Link>
-                        </li>
-                    </ul> 
-                }
-            </nav>
+                        {!isAuthorization ? 
+                            <ul className="b-hello-page__list">
+                                <li className="b-hello-page__item">
+                                    <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.authorization}>Авторизация</Link>
+                                </li>
+                                <li className="b-hello-page__item">
+                                    <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.registration}>Регистрация</Link>
+                                </li>
+                            </ul>
+                            :
+                            <ul className="b-hello-page__list">
+                                <li className="b-hello-page__item">
+                                    <Link className="b-button b-button--orange b-button--hello-page" to={profileTo()}>TODO: Отменить бронь</Link>
+                                </li>
+                                <li className="b-hello-page__item">
+                                    <Link className="b-button b-button--orange b-button--hello-page" to={profileTo()}>Личный кабинет</Link>
+                                </li>
+                            </ul> 
+                        }
+                    </nav>
+                </div>
+            </div>
         )
     }
 }

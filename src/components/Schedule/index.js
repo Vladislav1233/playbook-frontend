@@ -47,6 +47,7 @@ class Schedule extends Component {
 
     render() {
         const { schedule, template, bookedTime, cost, playgroundsForTraining, userId, isWhoBooked, onClickDecline } = this.props;
+        console.log(cost);
 
         const notScheduleTemplate = () => (
             <div className="b-schedule__not">Нет свободного времени</div>
@@ -65,9 +66,11 @@ class Schedule extends Component {
                         {cost.length > 0 
                             ? 
                             <div className="b-schedule__price">
-                                <div className="b-schedule__title">Стоимость</div>
+                                <div className="b-schedule__title">Стоимость:</div>
                                 {cost.map((item, index) => {
+                                    console.log(item);
                                     const getTimeOutRange = (indexPostition) => Moment(item.time.toDate()[indexPostition]).format('HH:mm');
+                                    console.log(getTimeOutRange(0))
                                     return (
                                         <span className="b-schedule__cost" key={index}> 
                                             {`${getTimeOutRange(0)} - ${getTimeOutRange(1)} будет `}
@@ -91,20 +94,20 @@ class Schedule extends Component {
 
                         {playgroundsForTraining.length > 0 ? 
                             <div className='b-schedule__playground'>
-                                <div className="b-schedule__title">Тренирую на</div>
+                                <div className="b-schedule__title">Тренирую на:</div>
                                 
                                 {playgroundsForTraining.map(item => {
                                     return (
                                         <div className="b-schedule__playground-item" key={item.id}>
                                             <div className="b-schedule__playground-name">{item.name}</div>
-                                            <div className="b-schedule__playground-address">{item.address}</div>
+                                            <div className="b-schedule__playground-address">({item.address})</div>
                                         </div>
                                     )
                                 })}
                             </div>
                         : null}
                         
-                        <div className="b-schedule__title">Расписание</div>
+                        <div className="b-schedule__title">Расписание:</div>
                         {/* Note: расписание свободного времени тренера */}
                         {template === 'trainer' ?
                             schedule.schedule.length > 0

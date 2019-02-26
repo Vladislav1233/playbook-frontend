@@ -35,14 +35,14 @@ const initialState = {
 export default function(state = initialState, action) {
 
     const filterBooking = (confirmId, startTimeConfirm) => {
-        if (!moment().isAfter(startTimeConfirm)) { // Note: если заявка не истекла, то удаляем элемент из текущих заявок
+        if (!moment().isAfter(`${startTimeConfirm} +00:00`)) { // Note: если заявка не истекла, то удаляем элемент из текущих заявок
             return {
                 ...state,
                 dataBookingRequest: state.dataBookingRequest.filter(itemState => {
                     return confirmId !== itemState.bookingId
                 })
             }
-        } else if (moment().isAfter(startTimeConfirm)) { // Если заявка истекла, то удаляем её из прошедших заявок
+        } else if (moment().isAfter(`${startTimeConfirm} +00:00`)) { // Если заявка истекла, то удаляем её из прошедших заявок
             return {
                 ...state,
                 dataPastBooking: state.dataPastBooking.filter(itemState => {
@@ -75,7 +75,8 @@ export default function(state = initialState, action) {
                     lastName: item.creator.last_name,
                     tel: `+${item.creator.phone}`,
                     nameCourt: item.playground ? item.playground.name : '',
-                    time: `${moment(item.start_time).format('DD.MM.YYYY')} (${moment(item.start_time).format('dddd')}): ${moment(item.start_time).format('HH:mm')} - ${moment(item.end_time).format('HH:mm')}`,
+                    // Note: Преобразовываем UTC время в местное (с сервера приходит UTC).
+                    time: `${moment(`${item.start_time} +00:00`).format('DD.MM.YYYY')} (${moment(`${item.start_time} +00:00`).format('dddd')}): ${moment(`${item.start_time} +00:00`).format('HH:mm')} - ${moment(`${item.end_time} +00:00`).format('HH:mm')}`,
                     bookingId: item.id,
                     status: item.status
                 }
@@ -83,15 +84,15 @@ export default function(state = initialState, action) {
             
             // Note: сортируем все запросы на бронирование по категориям относящимся к времени и статусу(обработано/не обработано).
             action.payload.data.data.forEach(item => {
-                if (!moment().isAfter(item.start_time) && !item.status) { // Note: если заявка не истекла и не обработана
+                if (!moment().isAfter(`${item.start_time} +00:00`) && !item.status) { // Note: если заявка не истекла и не обработана
 
                     newDataBookingRequest.push(createDataBookingRequest(item));
 
-                } else if (moment().isAfter(item.start_time) && !item.status) { // Note: если заявка истекла и не обработана
+                } else if (moment().isAfter(`${item.start_time} +00:00`) && !item.status) { // Note: если заявка истекла и не обработана
                     
                     newPastBooking.push(createDataBookingRequest(item));
 
-                } else if (!moment().isAfter(item.start_time) && item.status) { // Note: если завяка не истекла и обработана
+                } else if (!moment().isAfter(`${item.start_time} +00:00`) && item.status) { // Note: если завяка не истекла и обработана
                     
                     newConfirmBooking.push(createDataBookingRequest(item));
 

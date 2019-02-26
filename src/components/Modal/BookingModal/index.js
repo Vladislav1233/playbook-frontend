@@ -99,10 +99,14 @@ class BookingModal extends Component {
         const { typeBooking, dateBooking, createBooking, isAuthorization } = this.props;
         const { start_time, end_time, playgroundId } = this.state;
         const { userId } = this.props;
+        const formatDate = 'YYYY-MM-DD HH:mm:ss';
 
+        /* Note: data - Формируем данные для запроса бронирования 
+        * В запросе данные даты и времени переводим в UTC формат.
+        */
         const data = {
-            start_time: `${dateBooking} ${start_time}:00`,
-            end_time: `${dateBooking} ${end_time}:00`,
+            start_time: moment(`${dateBooking} ${start_time}:00`).utc().format(formatDate),
+            end_time: moment(`${dateBooking} ${end_time}:00`).utc().format(formatDate),
             bookable_id: +userId
         };
 
@@ -196,7 +200,7 @@ class BookingModal extends Component {
             <ModalComponent
                 isOpenModal={isOpenModal}
                 closeModal={closeModal}
-                title='Букинг'
+                title='Бронирование'
             >
                 <form className="b-booking-form">
                     <fieldset className="b-booking-form__fieldset">
