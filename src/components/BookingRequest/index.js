@@ -16,7 +16,6 @@ class BookingRequest extends Component {
                 
                 {dataBookingRequest.length > 0 ? 
                     dataBookingRequest.map(item => {
-                        console.log(item);
                         return <BookingRequestItem 
                             key={item.bookingId}
                             booking={item.bookingId}
@@ -36,7 +35,6 @@ class BookingRequest extends Component {
                     <Fragment>
                         <h2>Прошедшие заявки</h2>
                         {dataPastBooking.map(item => {
-                            console.log(item);
                             return <BookingRequestItem 
                                 key={item.bookingId}
                                 booking={item.bookingId}
