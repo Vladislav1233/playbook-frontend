@@ -44,6 +44,12 @@
         text-align: center;
         transition-property: border-color;
         transition-duration: $animation-time;
+
+        &--blank {
+            border-radius: 0;
+            width: 40px;
+            height: 40px;
+        }
     }
 
     &__image {
