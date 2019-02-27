@@ -36,7 +36,7 @@ function register(user) {
     function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
 }
 
-function login(data) {
+function login(data, toMain = true) {
     return dispatch => {
         dispatch(request(data));
 
@@ -44,7 +44,10 @@ function login(data) {
             .then(
                 user => {
                     dispatch(success(user));
-                    history.push('/');
+
+                    if(toMain) {
+                        history.push('/');
+                    }
                 },
                 error => {
                     dispatch(failure(error.toString()));
