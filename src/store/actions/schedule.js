@@ -14,7 +14,7 @@ import {
     TOGGLE_RESPONSE,
 
     DECLINE_CONFIRM_BOOKING_START,
-    DECLINE_CONFIRM_BOOKING_SUCCESS,
+    // DECLINE_CONFIRM_BOOKING_SUCCESS,
     DECLINE_CONFIRM_BOOKING_FAILURE
 } from '../constants/schedule';
 
@@ -191,11 +191,11 @@ export function declineConfirmBooking(bookingId, data, userId, dataForGetSchedul
         }
     }
 
-    function success() {
-        return {
-            type: DECLINE_CONFIRM_BOOKING_SUCCESS
-        }
-    }
+    // function success() {
+    //     return {
+    //         type: DECLINE_CONFIRM_BOOKING_SUCCESS
+    //     }
+    // }
 
     function failure(error) {
         return {

@@ -175,6 +175,7 @@ export default function(state = initialState, action) {
                     return item;
                 } else {
                     return item;
+                // eslint-disable-next-line
                 };
             });
 

@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import moment from 'moment';
+import cn from 'classnames';
 
 // Note: components
 import DeclineBookingModal from '../Modal/DeclineBookingModal';
@@ -64,25 +65,22 @@ class MyBookingCard extends Component {
                     return 'Бронирование подтверждено';
                 
                 case 2:
-                    return 'Бронирование отменено'
+                    return 'Бронирование отменено';
+                
+                default:
+                    return 'Ошибка статуса заявки, позвоните тренеру или администратору лично';
             }
         };
 
-        const howStatusClass = (_status) => {
-            switch (_status) {
-                case 0:
-                    return 'wait';
-
-                case 1:
-                    return 'accept';
-
-                case 2:
-                    return 'cancel'
-            }
-        };
+        const styleBookingCard = cn('b-my-booking-card', {
+            'wait': status === 0,
+            'accept': status === 1,
+            'cancel': status === 2,
+            'error': status === undefined || status < 0 || status > 2
+        });
 
         return(
-            <div className={`b-my-booking-card ${howStatusClass(status)}`}>
+            <div className={styleBookingCard}>
                 {status !== 2 &&
                     <Fragment>
                         <button onClick={this.openDeclineModal} className="b-close b-close--schedule-item"></button>

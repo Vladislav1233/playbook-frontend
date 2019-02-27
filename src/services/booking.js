@@ -1,7 +1,6 @@
 import { API_URL } from '../store/constants/restAPI';
 import axios from 'axios';
 import Moment from 'moment';
-import { dataTime } from '../helpers/dataTime';
 
 export const bookingService = {
     createBooking,
