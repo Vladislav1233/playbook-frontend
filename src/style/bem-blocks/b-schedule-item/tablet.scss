@@ -1,8 +1,14 @@
 // 768++
 .b-schedule-item {
-    padding: 10px;
+    // padding: 10px;
+    border: none;
+    margin: 0;
     background-color: #fff;
     cursor: default;
+
+    &__time {
+        font-size: 22px;
+    }
 
     &__info {
         border-bottom: none;

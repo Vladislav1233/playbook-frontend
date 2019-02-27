@@ -25,6 +25,7 @@ class ProfileTabs extends Component {
         const { children, isOpen, onToggleCabinet } = this.props;
         const { activeTab } =this.state;
 
+        // TODO_AMED: не понял как работает это скрытие на мобилке, там и названия есть и стили но чёт хуй) сделай статику мб?
         const classNameList = cn('b-profile-tabs__list-wrapper', {
             open: isOpen
         });

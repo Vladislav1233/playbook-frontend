@@ -8,7 +8,7 @@
     padding: 0px;
     border: 0px;
     background: none;
-    border-radius: 4px;
+    border-radius: $border-radius;
     background-color: $mint;
     transition: box-shadow $animation-time;
 

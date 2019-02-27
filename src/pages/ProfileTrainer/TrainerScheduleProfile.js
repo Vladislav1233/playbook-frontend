@@ -40,6 +40,7 @@ class TrainerScheduleProfile extends Component {
         const { userId } = this.props;
 
         return(
+            // TODO_AMED: тут вёрстку приведи к одному виду во всех табах. чё там прыгает всё туда обратно + h1 тут добавь как в табе выше
             <div className="b-trainer-schedule-profile">
                 <Schedule 
                     schedule={scheduleTrainer}

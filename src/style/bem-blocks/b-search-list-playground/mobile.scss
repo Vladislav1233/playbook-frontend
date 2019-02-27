@@ -3,7 +3,7 @@
     display: block;
     border: 1px solid $border-color;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: $border-radius;
     transition: border-color $animation-time;
     position: relative;
 

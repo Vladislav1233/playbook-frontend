@@ -19,7 +19,7 @@ class ProfileTab extends Component {
         })
 
         return(
-            <li className={className} onClick={this.onClick}>
+            <li className={className} onClick={this.onClick} title="TODO_AMED: title">
                 {src ? <img className="b-profile-tab__icon" src={src} alt={label} /> : null}
                 {label ? <p className="b-profile-tab__text">{label}</p> : null}
             </li>
