@@ -127,7 +127,7 @@ class BookingModal extends Component {
         if (playgroundId) {
             data.playground_id = playgroundId
         };
-        console.log(isAuthorization);
+
         if(isAuthorization) {
             createBooking(typeBooking, data);
         } else {
