@@ -11,12 +11,13 @@
     }
 
     &__cost {
-        padding: 8px 6px;
+        padding: 10px 7px 7px 10px;
         border: 1px solid #eee;
-        background-color: #f2f4f5;
+        background-color: hsla(200, 13%, 98%, .8);
         color: $carmine-pink;
         border-radius: 3px;
         line-height: 22px;
+        font-size: 18px;
         vertical-align: baseline;
     }
 }

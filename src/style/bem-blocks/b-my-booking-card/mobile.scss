@@ -8,13 +8,13 @@
     min-height: 320px;
 
     &.accept {
-        border-color: green;
+        border-color: $mint;
     }
     &.wait {
         border-color: orange;
     }
     &.cancel {
-        border-color: red;
+        border-color: #e92617;
     }
     
     &__title {
@@ -24,16 +24,16 @@
     }
 
     &__status {
-        margin-left: -10px;
+        padding-right: 40px;
 
         .accept & {
-            color: green;
+            color: $mint;
         }
         .wait & {
             color: orange;
         }
         .cancel & {
-            color: red;
+            color: #e92617;
         }
     }
 

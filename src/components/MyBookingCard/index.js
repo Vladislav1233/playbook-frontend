@@ -83,7 +83,7 @@ class MyBookingCard extends Component {
             <div className={styleBookingCard}>
                 {status !== 2 &&
                     <Fragment>
-                        <button onClick={this.openDeclineModal} className="b-close b-close--schedule-item"></button>
+                        <button onClick={this.openDeclineModal} className="b-close b-close--my-book-card"></button>
                         <DeclineBookingModal 
                             isOpenModal={this.state.declineModal}
                             closeModal={this.closeDeclineModal}
