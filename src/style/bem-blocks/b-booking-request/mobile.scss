@@ -17,7 +17,10 @@
 
     &__item {
         padding: 20px 15px;
-        border-bottom: 1px solid $mint;
+
+        & + & {
+            border-top: 1px solid $mint;
+        }
     }
 
     &__player-name {

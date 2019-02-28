@@ -1,16 +1,20 @@
 // 320
 .b-list-trainer {
-    padding-top: 35px;
+    padding-top: 30px;
 
     &__list {
-        padding-left: 0px;
+        padding: 0;
+        margin: 0 -15px;
     }
 
     &__item {
         list-style-type: none;
-        border-bottom: 1px solid $mint;
-        margin: 0px -15px 30px;
-        padding: 0px 15px 30px;
+        padding-bottom: 30px; 
+
+        & + & {
+            padding-top: 30px;
+            border-top: 1px solid $mint;
+        }
     }
 
     &__more {

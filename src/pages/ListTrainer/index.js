@@ -33,8 +33,8 @@ class ListTrainer extends Component {
         const { listTrainer, totalCount, pagination } = this.props;
 
         return (
-            <div className="container container--white">
-                <div className="b-list-trainer">
+            <div className="b-list-trainer">
+                <div className="container container--white">
                     <h1>
                         Список тренеров
                         <span className="b-list-trainer__note">
