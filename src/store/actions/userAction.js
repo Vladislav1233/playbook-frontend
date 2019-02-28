@@ -7,6 +7,7 @@ export const userActions = {
     login,
     logout,
     register,
+    resendVerificationCode,
     getAll,
     delete: _delete
 };
@@ -36,7 +37,7 @@ function register(user) {
     function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
 }
 
-function login(data) {
+function login(data, toMain = true, callback) {
     return dispatch => {
         dispatch(request(data));
 
@@ -44,7 +45,14 @@ function login(data) {
             .then(
                 user => {
                     dispatch(success(user));
-                    history.push('/');
+
+                    if (callback) {
+                        callback();
+                    };
+
+                    if(toMain) {
+                        history.push('/');
+                    }
                 },
                 error => {
                     dispatch(failure(error.toString()));
@@ -62,7 +70,7 @@ function login(data) {
     function success(user) { 
         return { 
             type: userConstants.LOGIN_SUCCESS, 
-            payload: user 
+            payload: user
         } 
     }
 
@@ -106,6 +114,49 @@ function logout() {
     function failure(err) {
         return {
             type: userConstants.LOGOUT_FAILURE,
+            payload: err
+        }
+    }
+};
+
+/*
+* resendVerificationCode - функция получения кода для регистрации в системе (сброс своего пароля)
+* data = {
+*   phone: номер телефона, на который отправится код    
+*}
+*/
+function resendVerificationCode(data) {
+    return dispatch => {
+        dispatch(start());
+
+        userService.resendVerificationCode(data).then(
+            res => {
+                dispatch(success(res));
+            }, 
+
+            err => {
+                dispatch(failure(err));
+                alert('Ошибка. Смотри network.');
+            }
+        )
+    }
+
+    function start() {
+        return { 
+            type: userConstants.RESEND_VERIFICATION_CODE_START
+        }
+    }
+
+    function success(res) {
+        return {
+            type: userConstants.RESEND_VERIFICATION_CODE_SUCCESS,
+            payload: res
+        }
+    }
+
+    function failure(err) {
+        return {
+            type: userConstants.RESEND_VERIFICATION_CODE_FAILURE,
             payload: err
         }
     }

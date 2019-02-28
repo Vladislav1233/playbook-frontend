@@ -5,6 +5,7 @@ import NumberFormat from 'react-number-format';
 
 // Note: action
 import { createBooking } from '../../../store/actions/booking';
+import { userActions } from '../../../store/actions/userAction';
 
 // Note: components
 import Input from '../../ui-kit/Input/Input';
@@ -36,8 +37,12 @@ class BookingModal extends Component {
             last_name: '',
             phone: '',
             password: '',
-            playgroundId: null
-        }
+            playgroundId: null,
+            registeredNewUser: false,
+            showFileldPassword: false
+        };
+
+        this.initialState = this.state;
     }
 
     onChangeInput = (e) => {
@@ -58,7 +63,7 @@ class BookingModal extends Component {
         })
     }
 
-    onGetNewPassword = (e) => {
+    onRegisterUser = (e) => {
         e.preventDefault();
 
         const dataRegister = {
@@ -70,33 +75,42 @@ class BookingModal extends Component {
         userService.register(dataRegister)
             .then(
                 res => {
+                    this.setState({
+                        registeredNewUser: true,
+                        showFileldPassword: true
+                    });
                     console.log(res);
+                    localStorage.setItem('userToken', res.data.data.access_token);
                 },
                 err => {
-                    console.log(err);
+                    if(err.response.data.phone && err.response.data.phone[0] === "Такое значение поля phone уже существует.") {
+                        this.setState({
+                            registeredNewUser: false,
+                            showFileldPassword: true
+                        });
+                    };
+                    console.log(err.response.data);
                 }
             ); 
     };
 
     onCancel = (e) => {
-        e.preventDefault();
+        if(e) {
+            e.preventDefault();
+        }
 
         this.props.closeModal();
 
-        this.setState({
-            start_time: '',
-            end_time: '',
-            first_name: '',
-            last_name: '',
-            phone: '',
-            password: '',
-            playgroundId: null
-        });
+        this.setState(this.initialState);
+
+        if (!localStorage.getItem('userRole') && localStorage.getItem('userToken')) {
+            localStorage.removeItem('userToken');
+        };
     }
 
     onSubmitBooking = (e) => {
         e.preventDefault();
-        const { typeBooking, dateBooking, createBooking, isAuthorization } = this.props;
+        const { typeBooking, dateBooking, createBooking, isAuthorization, loginAction } = this.props;
         const { start_time, end_time, playgroundId } = this.state;
         const { userId } = this.props;
         const formatDate = 'YYYY-MM-DD HH:mm:ss';
@@ -121,14 +135,7 @@ class BookingModal extends Component {
                 phone: telWithoutPlus(this.state.phone),
                 password: this.state.password
             };
-    
-            userService.login(dataLogin)
-                .then(() => {
-                    createBooking(typeBooking, data);
-                },
-                err => {
-                    console.log(err);
-                });
+            loginAction(dataLogin, false, () => createBooking(typeBooking, data));
         };
     };
 
@@ -159,14 +166,25 @@ class BookingModal extends Component {
     };
 
     render() {
-        const { isOpenModal, closeModal, playgroundsForTraining, isAuthorization, dateBooking } = this.props;
-        const { start_time, end_time, playgroundId } = this.state;
+        const { 
+            isOpenModal, 
+            closeModal, 
+            playgroundsForTraining, 
+            isAuthorization, 
+            dateBooking,
+            resendVerificationCode } = this.props;
+
+        const { 
+            start_time, 
+            end_time, 
+            playgroundId, 
+            showFileldPassword, 
+            registeredNewUser } = this.state;
 
         let costPlaygroundForPayBooking = [];
         if (playgroundId) {
             costPlaygroundForPayBooking =  [ ...this.getCostPlaygroundForPayBooking() ];
         };
-        
 
         const templateCost = (title, cost) => {
             
@@ -199,7 +217,10 @@ class BookingModal extends Component {
         return(
             <ModalComponent
                 isOpenModal={isOpenModal}
-                closeModal={closeModal}
+                closeModal={() => {
+                    closeModal()
+                    this.onCancel()
+                }}
                 title='Бронирование'
             >
                 <form className="b-booking-form">
@@ -281,51 +302,75 @@ class BookingModal extends Component {
                         <fieldset className="b-booking-form__fieldset">
                             <legend className="b-modal__title-group">Данные о вас</legend>
 
-                            <Input 
-                                labelText='Имя'
-                                typeInput='text'
-                                idInput='first_name'
-                                value={this.state.first_name}
-                                nameInput='first_name'
-                                theme={{blackColor: true}}
-                                onChange={this.onChangeInput}
-                            />
+                            {showFileldPassword ?
+                                <Fragment>
+                                    {registeredNewUser 
+                                        ? <div className="b-booking-form__note">
+                                            Привет! На указанный тобой номер телефона выслан пароль. Введи его в поле ниже, затем нажми кнопку <b>"Подтвердить"</b>.
+                                            <br/>
+                                            Пароль можно использовать повторно для авторизации в системе для твоего номера телефона.
+                                        </div>
 
-                            <Input 
-                                labelText='Фамилия'
-                                typeInput='text'
-                                idInput='last_name'
-                                value={this.state.last_name}
-                                nameInput='last_name'
-                                theme={{blackColor: true}}
-                                onChange={this.onChangeInput}
-                            />
+                                        : <div className="b-booking-form__note">
+                                            Ты уже зарегистрированный пользователь.
+                                            <br/>
+                                            Введи свой пароль авторизации если он у тебя есть или 
+                                            <a href="" title="получи новый пароль" 
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    resendVerificationCode({
+                                                        phone: telWithoutPlus(this.state.phone)
+                                                    })
+                                                }
+                                            }> получи новый пароль</a>.
+                                        </div> 
+                                    }
+                                    <Input
+                                        labelText="Пароль"
+                                        typeInput="password"
+                                        idInput="password"
+                                        nameInput="password"
+                                        value={this.state.password}
+                                        theme={{blackColor: true}}
+                                        onChange={this.onChangeInput}
+                                    />
+                                </Fragment>
+                            : 
+                                <Fragment>
+                                    <Input 
+                                        labelText='Имя'
+                                        typeInput='text'
+                                        idInput='first_name'
+                                        value={this.state.first_name}
+                                        nameInput='first_name'
+                                        theme={{blackColor: true}}
+                                        onChange={this.onChangeInput}
+                                    />
 
-                            <div className="b-input b-input--black-color">
-                                <label className="b-input__label" htmlFor="phone">Телефон</label>
-                                <InputMask 
-                                    className="b-input__input" 
-                                    id="phone" 
-                                    name="phone" 
-                                    mask="+7 (999) 999-99-99" 
-                                    maskChar={null} 
-                                    value={this.state.phone} 
-                                    onChange={this.onChangeInput} 
-                                />
-                            </div>
+                                    <Input 
+                                        labelText='Фамилия'
+                                        typeInput='text'
+                                        idInput='last_name'
+                                        value={this.state.last_name}
+                                        nameInput='last_name'
+                                        theme={{blackColor: true}}
+                                        onChange={this.onChangeInput}
+                                    />
 
-                            <div className="b-booking-form__note">
-                                Введите свой пароль авторизации если он у вас есть или <a href="" title="получите новый пароль" onClick={this.onGetNewPassword}>получите новый пароль</a>.
-                            </div>
-                            <Input
-                                labelText="Пароль"
-                                typeInput="password"
-                                idInput="password"
-                                nameInput="password"
-                                value={this.state.password}
-                                theme={{blackColor: true}}
-                                onChange={this.onChangeInput}
-                            />
+                                    <div className="b-input b-input--black-color">
+                                        <label className="b-input__label" htmlFor="phone">Телефон</label>
+                                        <InputMask 
+                                            className="b-input__input" 
+                                            id="phone" 
+                                            name="phone" 
+                                            mask="+7 (999) 999-99-99" 
+                                            maskChar={null} 
+                                            value={this.state.phone} 
+                                            onChange={this.onChangeInput} 
+                                        />
+                                    </div>
+                                </Fragment>
+                            }
                         </fieldset>
                     : 
                         null
@@ -334,9 +379,15 @@ class BookingModal extends Component {
                     <div className="b-booking-form__button-wrapper">
                         <div className="b-booking-form__button">
                             <Button
-                                name="Забронировать"
+                                name={!showFileldPassword ? "Забронировать" : "Подтвердить"}
                                 theme={{orange: true}}
-                                onClick={e => this.onSubmitBooking(e)}
+                                onClick={e => {
+                                    if (!showFileldPassword && !isAuthorization) {
+                                        this.onRegisterUser(e);
+                                    } else {
+                                        this.onSubmitBooking(e);
+                                    }
+                                }}
                                 modif="b-button--full"
                             />
                         </div>
@@ -364,7 +415,9 @@ const mapStateToProps = ({ identificate }) => {
 
 const mapStateToDispatch = (dispatch) => {
     return {
-        createBooking: (typeBooking, data) => dispatch(createBooking(typeBooking, data))
+        createBooking: (typeBooking, data) => dispatch(createBooking(typeBooking, data)),
+        loginAction: (data, toMain, callback) => dispatch(userActions.login(data, toMain, callback)),
+        resendVerificationCode: (data) => dispatch(userActions.resendVerificationCode(data))
     }
 }
 
