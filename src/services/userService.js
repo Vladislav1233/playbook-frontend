@@ -6,6 +6,7 @@ export const userService = {
     login,
     logout,
     register,
+    resendVerificationCode,
     getAll,
     getById,
     // update,
@@ -65,6 +66,21 @@ function logout() {
             localStorage.removeItem('userInformation');
         };
         return res.data.data
+    });
+};
+
+/*
+* resendVerificationCode - функция получения кода для регистрации в системе (сброс своего пароля)
+* data = {
+*   phone: номер телефона, на который отправится код    
+*}
+*/
+function resendVerificationCode(data) {
+
+    return axios({
+        method: 'post',
+        url: `${API_URL}/api/resend_verification_code`,
+        data: data
     });
 }
 

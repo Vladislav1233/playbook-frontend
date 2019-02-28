@@ -171,7 +171,8 @@ class BookingModal extends Component {
             closeModal, 
             playgroundsForTraining, 
             isAuthorization, 
-            dateBooking } = this.props;
+            dateBooking,
+            resendVerificationCode } = this.props;
 
         const { 
             start_time, 
@@ -184,7 +185,6 @@ class BookingModal extends Component {
         if (playgroundId) {
             costPlaygroundForPayBooking =  [ ...this.getCostPlaygroundForPayBooking() ];
         };
-        
 
         const templateCost = (title, cost) => {
             
@@ -311,7 +311,15 @@ class BookingModal extends Component {
                                         : <div className="b-booking-form__note">
                                             Ты уже зарегистрированный пользователь.
                                             <br/>
-                                            Введи свой пароль авторизации если он у тебя есть или <a href="" title="получи новый пароль" onClick={() => {}}>получи новый пароль</a>.
+                                            Введи свой пароль авторизации если он у тебя есть или 
+                                            <a href="" title="получи новый пароль" 
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    resendVerificationCode({
+                                                        phone: telWithoutPlus(this.state.phone)
+                                                    })
+                                                }
+                                            }> получи новый пароль</a>.
                                         </div> 
                                     }
                                     <Input
@@ -405,7 +413,8 @@ const mapStateToProps = ({ identificate }) => {
 const mapStateToDispatch = (dispatch) => {
     return {
         createBooking: (typeBooking, data) => dispatch(createBooking(typeBooking, data)),
-        loginAction: (data, toMain, callback) => dispatch(userActions.login(data, toMain, callback))
+        loginAction: (data, toMain, callback) => dispatch(userActions.login(data, toMain, callback)),
+        resendVerificationCode: (data) => dispatch(userActions.resendVerificationCode(data))
     }
 }
 
