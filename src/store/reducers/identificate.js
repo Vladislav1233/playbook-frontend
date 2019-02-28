@@ -72,6 +72,11 @@ export default function identificate(state = initialState, action) {
 
         case userConstants.RESEND_VERIFICATION_CODE_SUCCESS:
             console.log(action.payload);
+            console.log(action.payload.data.success);
+            if (action.payload.data.success) {
+                alert('На ваш номер отправлен код. Введите его в поле "Пароль" и нажмите "Подтвердить"');
+            };
+
             return {
                 ...state,
                 preloader: false

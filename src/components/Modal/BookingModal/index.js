@@ -83,7 +83,7 @@ class BookingModal extends Component {
                     localStorage.setItem('userToken', res.data.data.access_token);
                 },
                 err => {
-                    if(err.response.data.phone[0] === "Такое значение поля phone уже существует.") {
+                    if(err.response.data.phone && err.response.data.phone[0] === "Такое значение поля phone уже существует.") {
                         this.setState({
                             registeredNewUser: false,
                             showFileldPassword: true
