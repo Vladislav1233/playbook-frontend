@@ -9,7 +9,7 @@ import { configPathRouter } from '../../App/configPathRouter';
 import '../../style/bem-blocks/b-head-menu/index.scss';
 
 // Note: image
-import avaImg from '../../style/images/ava_2.svg';
+import avaImg from '../../style/images/ava-blank-1.png';
 
 const ContentItem = ({ children }) => {
     return(
@@ -71,7 +71,7 @@ class HeadMenu extends Component {
                         ? (
                             <div className="b-head-menu__account-wrapper">
                                 <span className="b-head-menu__account-name">{ userInformation.firstName }</span>
-                                <div className="b-head-menu__image-wrapper">
+                                <div className="b-head-menu__image-wrapper b-head-menu__image-wrapper--blank">
                                     <img className="b-head-menu__image" src={avaImg} alt=""/>
                                 </div>
                             </div>
@@ -94,6 +94,10 @@ class HeadMenu extends Component {
                                 <ContentItem>
                                     <li className="b-head-menu__content-item">
                                         <Link className="b-head-menu__content-text" to={dataAboutRole.pathProfile}>Личный кабинет</Link>
+                                    </li>
+                                    <li className="b-head-menu__content-item">
+                                        {/*TODO_AMED: вся что связано с аккаутом и моим в попАп аккаунта над кинуть  */}
+                                        <Link className="b-head-menu__content-text" to={dataAboutRole.pathProfile}>Мои бронирования</Link>
                                     </li>
                                 </ContentItem>
 

@@ -7,6 +7,8 @@ import { connect } from "react-redux";
 import '../../style/bem-blocks/b-button/index.scss';
 import '../../style/bem-blocks/b-hello-page/index.scss';
 
+import tennisBallIcon from '../../style/images/icon/logo.svg';
+
 class HelloPage extends Component {
 
     render() { 
@@ -24,14 +26,18 @@ class HelloPage extends Component {
                 return configPathRouter.profileUser;
             }
         };
-
+        
         return(
             <div className="container">
                 <div className="b-hello-page">
-                    <h1 className="b-hello-page__heading">
-                        Забронируй корт для  тенниса и играй в удобное для тебя время
+                    <h1 className="b-hello-page__head">
+                        <img className="b-hello-page__logo" src={tennisBallIcon} alt="Логотип - теннисный мяч" />
+                        PlayBook
                     </h1>
-                    <nav className="b-hello-page">
+                    <h2 className="b-hello-page__heading">
+                        Забронируй корт для  тенниса и играй в удобное для тебя время
+                    </h2>
+                    <nav className="b-hello-page__nav">
                         <ul className="b-hello-page__list">
                             {/* <li className="b-hello-page__item">
                                 <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.listCourt}>Мне нужен корт</Link>

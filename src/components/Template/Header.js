@@ -1,6 +1,7 @@
 // react, redux
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from "react-router";
 
 // style
 import '../../style/bem-blocks/b-header/index.scss';
@@ -26,6 +27,9 @@ class Header extends Component {
 
     render() {
         console.log('render Header');
+
+        const { location } = this.props;
+
         return (
             <header className="b-header">
                 <div className="container">
@@ -38,19 +42,18 @@ class Header extends Component {
                         </div>
 
                         <div className="b-header__center">
-                            {/* TODO: для главной страницы не надо сслыку to выводить, чтобы не перерендеривало при клике */}
-                            <Link className="b-logotype" to='/'>
-                                <img className="b-logotype__image" src={tennisBallIcon} alt="Логотип - теннисный мяч"/>
-                                <span className="b-logotype__text">PlayBook</span>
-                            </Link>
+                            {location.pathname !== '/' 
+                                ? <Link className="b-logotype" to='/'>
+                                    <img className="b-logotype__image" src={tennisBallIcon} alt="Логотип - теннисный мяч"/>
+                                    <span className="b-logotype__text">PlayBook</span>
+                                </Link>
+                                : null
+                            }
                         </div>
                         
                         <div className="b-header__right">
                             <HeadMenu />
                         </div>
-
-                        {/*TODO: здесь меняем в зависимости от  того, чье расписание сейчас смотрим: переключаем расписание между кортом и тренером (наверное с помощью router) */}
-                        {/*<a className="b-header__get-schedule" href="" title=''>Мне нужен корт</a>*/}
                     </div>
                 </div>
             </header>
@@ -58,4 +61,4 @@ class Header extends Component {
     }
 }
 
-export default Header;
+export default withRouter(Header);

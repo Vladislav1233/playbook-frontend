@@ -28,6 +28,7 @@ class MenuHeader extends Component {
         const profileLink = () => {
             const { userRole } = this.props;
 
+            // TODO_AMED: из гамбургера над выпилить всё "моё"
             const nameLink = 'Личный кабинет >';
 
             const onToggle = () => {
@@ -104,9 +105,9 @@ class MenuHeader extends Component {
                             <Link className="b-menu__link" to={configPathRouter.listTrainer}>Мне нужен тренер</Link>
                         </li>
                         
-                        <li className="b-menu__item">
+                        {/* <li className="b-menu__item">
                             <Link className="b-menu__link" to={configPathRouter.myBooking}>Мои бронирования</Link>
-                        </li>
+                        </li> */}
 
                         {isAuthorization ? profileLink() : null}
                         
