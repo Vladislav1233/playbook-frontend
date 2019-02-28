@@ -40,7 +40,9 @@ class BookingModal extends Component {
             playgroundId: null,
             registeredNewUser: false,
             showFileldPassword: false
-        }
+        };
+
+        this.initialState = this.state;
     }
 
     onChangeInput = (e) => {
@@ -93,19 +95,17 @@ class BookingModal extends Component {
     };
 
     onCancel = (e) => {
-        e.preventDefault();
+        if(e) {
+            e.preventDefault();
+        }
 
         this.props.closeModal();
 
-        this.setState({
-            start_time: '',
-            end_time: '',
-            first_name: '',
-            last_name: '',
-            phone: '',
-            password: '',
-            playgroundId: null
-        });
+        this.setState(this.initialState);
+
+        if (!localStorage.getItem('userRole') && localStorage.getItem('userToken')) {
+            localStorage.removeItem('userToken');
+        };
     }
 
     onSubmitBooking = (e) => {
@@ -217,7 +217,10 @@ class BookingModal extends Component {
         return(
             <ModalComponent
                 isOpenModal={isOpenModal}
-                closeModal={closeModal}
+                closeModal={() => {
+                    closeModal()
+                    this.onCancel()
+                }}
                 title='Бронирование'
             >
                 <form className="b-booking-form">
