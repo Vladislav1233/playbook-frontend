@@ -42,7 +42,7 @@ class Header extends Component {
                         </div>
 
                         <div className="b-header__center">
-                            {!location.pathname === '/' 
+                            {location.pathname !== '/' 
                                 ? <Link className="b-logotype" to='/'>
                                     <img className="b-logotype__image" src={tennisBallIcon} alt="Логотип - теннисный мяч"/>
                                     <span className="b-logotype__text">PlayBook</span>
