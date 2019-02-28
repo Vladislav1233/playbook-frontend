@@ -135,8 +135,7 @@ class BookingModal extends Component {
                 phone: telWithoutPlus(this.state.phone),
                 password: this.state.password
             };
-            loginAction(dataLogin, false);
-            createBooking(typeBooking, data);
+            loginAction(dataLogin, false, () => createBooking(typeBooking, data));
         };
     };
 
@@ -300,53 +299,11 @@ class BookingModal extends Component {
                         <fieldset className="b-booking-form__fieldset">
                             <legend className="b-modal__title-group">Данные о вас</legend>
 
-                            <Input 
-                                labelText='Имя'
-                                typeInput='text'
-                                idInput='first_name'
-                                value={this.state.first_name}
-                                nameInput='first_name'
-                                theme={{blackColor: true}}
-                                onChange={this.onChangeInput}
-                            />
-
-                            <Input 
-                                labelText='Фамилия'
-                                typeInput='text'
-                                idInput='last_name'
-                                value={this.state.last_name}
-                                nameInput='last_name'
-                                theme={{blackColor: true}}
-                                onChange={this.onChangeInput}
-                            />
-
-                            <div className="b-input b-input--black-color">
-                                <label className="b-input__label" htmlFor="phone">Телефон</label>
-                                <InputMask 
-                                    className="b-input__input" 
-                                    id="phone" 
-                                    name="phone" 
-                                    mask="+7 (999) 999-99-99" 
-                                    maskChar={null} 
-                                    value={this.state.phone} 
-                                    onChange={this.onChangeInput} 
-                                />
-                            </div>
-
-                            {!showFileldPassword &&
-                                <a 
-                                    href="" 
-                                    onClick={this.onRegisterUser}
-                                >
-                                    Отправить
-                                </a>
-                            }
-
-                            {showFileldPassword &&
+                            {showFileldPassword ?
                                 <Fragment>
                                     {registeredNewUser 
-                                        ? <div>
-                                            Привет! На указанный тобой номер телефона выслан пароль. Введи его в поле ниже, затем нажми кнопку <b>"Забронировать"</b>.
+                                        ? <div className="b-booking-form__note">
+                                            Привет! На указанный тобой номер телефона выслан пароль. Введи его в поле ниже, затем нажми кнопку <b>"Подтвердить"</b>.
                                             <br/>
                                             Пароль можно использовать повторно для авторизации в системе для твоего номера телефона.
                                         </div>
@@ -367,6 +324,41 @@ class BookingModal extends Component {
                                         onChange={this.onChangeInput}
                                     />
                                 </Fragment>
+                            : 
+                                <Fragment>
+                                    <Input 
+                                        labelText='Имя'
+                                        typeInput='text'
+                                        idInput='first_name'
+                                        value={this.state.first_name}
+                                        nameInput='first_name'
+                                        theme={{blackColor: true}}
+                                        onChange={this.onChangeInput}
+                                    />
+
+                                    <Input 
+                                        labelText='Фамилия'
+                                        typeInput='text'
+                                        idInput='last_name'
+                                        value={this.state.last_name}
+                                        nameInput='last_name'
+                                        theme={{blackColor: true}}
+                                        onChange={this.onChangeInput}
+                                    />
+
+                                    <div className="b-input b-input--black-color">
+                                        <label className="b-input__label" htmlFor="phone">Телефон</label>
+                                        <InputMask 
+                                            className="b-input__input" 
+                                            id="phone" 
+                                            name="phone" 
+                                            mask="+7 (999) 999-99-99" 
+                                            maskChar={null} 
+                                            value={this.state.phone} 
+                                            onChange={this.onChangeInput} 
+                                        />
+                                    </div>
+                                </Fragment>
                             }
                         </fieldset>
                     : 
@@ -376,9 +368,15 @@ class BookingModal extends Component {
                     <div className="b-booking-form__button-wrapper">
                         <div className="b-booking-form__button">
                             <Button
-                                name="Забронировать"
+                                name={!showFileldPassword ? "Забронировать" : "Подтвердить"}
                                 theme={{orange: true}}
-                                onClick={e => this.onSubmitBooking(e)}
+                                onClick={e => {
+                                    if (!showFileldPassword && !isAuthorization) {
+                                        this.onRegisterUser(e);
+                                    } else {
+                                        this.onSubmitBooking(e);
+                                    }
+                                }}
                                 modif="b-button--full"
                             />
                         </div>
@@ -407,7 +405,7 @@ const mapStateToProps = ({ identificate }) => {
 const mapStateToDispatch = (dispatch) => {
     return {
         createBooking: (typeBooking, data) => dispatch(createBooking(typeBooking, data)),
-        loginAction: (data, toMain) => dispatch(userActions.login(data, toMain))
+        loginAction: (data, toMain, callback) => dispatch(userActions.login(data, toMain, callback))
     }
 }
 

@@ -36,7 +36,7 @@ function register(user) {
     function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
 }
 
-function login(data, toMain = true) {
+function login(data, toMain = true, callback) {
     return dispatch => {
         dispatch(request(data));
 
@@ -44,6 +44,10 @@ function login(data, toMain = true) {
             .then(
                 user => {
                     dispatch(success(user));
+
+                    if (callback) {
+                        callback();
+                    };
 
                     if(toMain) {
                         history.push('/');
@@ -65,7 +69,7 @@ function login(data, toMain = true) {
     function success(user) { 
         return { 
             type: userConstants.LOGIN_SUCCESS, 
-            payload: user 
+            payload: user
         } 
     }
 

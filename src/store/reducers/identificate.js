@@ -24,11 +24,10 @@ export default function identificate(state = initialState, action) {
             }
 
         case userConstants.LOGIN_SUCCESS:
-            console.log(action.payload);
             const newUserInformation = {
                 firstName: action.payload.first_name,
                 lastName: action.payload.last_name
-            }
+            };
             return {
                 ...state,
                 authorization: true,
