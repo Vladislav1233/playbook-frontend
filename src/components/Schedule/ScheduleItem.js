@@ -56,7 +56,7 @@ class ScheduleItem extends Component {
             end_time,
             isStatus // true - это время свободно, false - это время занято
         } = this.props.dataScheduleItem;
-        const bookingId = this.props.dataScheduleItem.id;
+        const bookingId = this.props.dataScheduleItem.uuid;
     
         const { template, playgroundsForTraining, userId, creator, isWhoBooked, onClickDecline, cost } = this.props;
         const textBooking = 'Нажми, чтобы забронировать';

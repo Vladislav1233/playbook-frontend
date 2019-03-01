@@ -49,7 +49,7 @@ class TrainerInfo extends Component {
             .then(
                 response => {
                     console.log(response.data.data);
-                    if(response.data.data.id) {
+                    if(response.data.data.uuid) {
 
                         const { 
                             first_name,
@@ -60,7 +60,7 @@ class TrainerInfo extends Component {
 
                         this.setState({
                             ...this.state,
-                            idInfo: trainer_info ? trainer_info.id : null,
+                            idInfo: trainer_info ? trainer_info.uuid : null,
                             trainerInfo: {
                                 ...this.state.trainerInfo,
                                 name: first_name ? first_name : '',
@@ -116,7 +116,7 @@ class TrainerInfo extends Component {
 
         if (event.target.checked) {
             const getCheckPlayground = this.props.foundPlagrounds.filter(item => {
-                return item.id === +event.target.value && playgrounds.every(itemSome =>  item.id !== itemSome.id);
+                return item.uuid === event.target.value && playgrounds.every(itemSome =>  item.uuid !== itemSome.uuid);
             });
 
             this.setState({
@@ -128,7 +128,7 @@ class TrainerInfo extends Component {
             })
         } else {
             const getUnCheckPlayground = playgrounds.filter(item => {
-                return item.id !== +event.target.value;
+                return item.uuid !== event.target.value;
             });
 
             this.setState({
@@ -281,13 +281,13 @@ class TrainerInfo extends Component {
                                 <ul className='b-trainer-info__playground-list'>
                                     {foundPlagrounds.map(item => {
                                         return(
-                                            <li key={item.id} className="b-trainer-info__playground-item">
+                                            <li key={item.uuid} className="b-trainer-info__playground-item">
                                                 <SearchListPlayground 
-                                                    id={`search_${item.id}`}
+                                                    id={`search_${item.uuid}`}
                                                     namePlayground={item.name}
                                                     addressPlayground={item.address}
                                                     onChange={this.handlePlayground}
-                                                    value={item.id}
+                                                    value={item.uuid}
                                                     hover
                                                 />
                                             </li>
@@ -305,14 +305,14 @@ class TrainerInfo extends Component {
                                 <ul className='b-trainer-info__playground-list'>
                                     {trainerInfo.playgrounds.map(item => {
                                         return(
-                                            <li key={item.id} className="b-trainer-info__playground-item">
+                                            <li key={item.uuid} className="b-trainer-info__playground-item">
                                                 <SearchListPlayground
-                                                    id={`work_${item.id}`}
+                                                    id={`work_${item.uuid}`}
                                                     namePlayground={item.name}
                                                     addressPlayground={item.address}
                                                     disabled
                                                     checked
-                                                    value={item.id}
+                                                    value={item.uuid}
                                                     onChange={this.handlePlayground}
                                                 />
                                             </li>

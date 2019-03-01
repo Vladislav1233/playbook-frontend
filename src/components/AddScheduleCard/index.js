@@ -67,7 +67,7 @@ class AddScheduleCard extends Component {
                             playgroundsForTraining.map(item => {
                                 
                                 const isCheck = (num) => {
-                                    return num === item.id
+                                    return num === item.uuid
                                 }
                                 let checkIs = false;
 
@@ -76,12 +76,12 @@ class AddScheduleCard extends Component {
                                 };
 
                                 return (
-                                    <li key={item.id} className="b-add-schedule-card__check-item">
+                                    <li key={item.uuid} className="b-add-schedule-card__check-item">
                                         <Checkbox 
-                                            name={`${item.id}`}
+                                            name={`${item.uuid}`}
                                             id={`court-${item.id}${idRender}`}
                                             text={item.name}
-                                            value={item.id}
+                                            value={item.uuid}
                                             checked={checkIs}
                                             onChange={onChangeCheckbox}
                                             modif='b-checkbox--add-schedule'

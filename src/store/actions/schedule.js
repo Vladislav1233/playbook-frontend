@@ -59,11 +59,11 @@ export function createScheduleTrainer(data) {
     }
 }
 
-export function editTrainerSchedule(schedule_id, data) {
+export function editTrainerSchedule(schedule_uuid, data) {
     return dispatch => {
         dispatch(start());
 
-        scheduleService.editSchedule(schedule_id, data)
+        scheduleService.editSchedule(schedule_uuid, data)
             .then(
                 response => {
                     dispatch(success(response));
@@ -98,7 +98,7 @@ export function editTrainerSchedule(schedule_id, data) {
 }
 
 /* Note: отправляем запрос на получение расписания тренера
-* userId - id пользователя расписание которого хотим получить.
+* userId - uuid пользователя расписание которого хотим получить.
 * data - данные API для отправки запроса
 * isCabinet - если true, то присылаем данные забронированного времени тренера со всей конфиденциальной информацией, которую модет знать и читать только тренер.
 */
@@ -164,7 +164,7 @@ export function toggleResponse() {
 
 /*
 * Отменить подтвержденное бронирование
-* bookingId - id объекта бронирования
+* bookingId - uuid объекта бронирования
 * data: {
 *   note: 'Сообщение пользователю'
 *}

@@ -13,7 +13,7 @@ const initialState = {
 
     userRole: localStorage.getItem('userRole') ? JSON.parse(localStorage.getItem('userRole')) : null,
 
-    userId:  localStorage.getItem('userId') ? JSON.parse(localStorage.getItem('userId')) : null,
+    userId:  localStorage.getItem('userId') ? localStorage.getItem('userId') : null,
 
     userInformation: localStorage.getItem('userInformation') ? initUserInformation : null,
 
@@ -36,7 +36,7 @@ export default function identificate(state = initialState, action) {
                 ...state,
                 authorization: true,
                 userRole: action.payload.roles,
-                userId: action.payload.id,
+                userId: action.payload.uuid,
                 userInformation: newUserInformation
             }
 
