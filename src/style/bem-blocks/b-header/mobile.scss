@@ -3,9 +3,11 @@
     flex-shrink: 0;
     background-color: $mint;
     font-size: 0;
-    // padding-top: 8px;
-    // padding-bottom: 8px;
-    // height: 64px;
+    z-index: 1;
+
+    &--light {
+        background: #00000095;
+    }
 
     &__wrapper {
         display: flex;

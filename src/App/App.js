@@ -73,11 +73,7 @@ class App extends Component {
 
         return (
             <div className={pageWrapperClass}>
-                {location.pathname !== configPathRouter.authorization
-                    ? <Header location={location.pathname} />
-                    : null
-                }
-
+                <Header location={location.pathname} />
                 <main className={mainClass}>
                     {renderRoutePage()}
                 </main>

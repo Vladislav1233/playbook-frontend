@@ -14,7 +14,10 @@
     }
 
     &__info {
+        word-break: break-word;
         padding: 0 15px;
+        font-size: 15px;
+        line-height: 1.4;
     }
 
     &__name-group {

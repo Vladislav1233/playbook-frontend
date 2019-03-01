@@ -40,7 +40,8 @@
     }
 
     &__input:checked + &__label {
-        background-color: $mint;
+        background-color: #fff;
+        border-color: $hover-link-on-dark;
 
         .b-search-list-playground__icon-check {
             opacity: 1;

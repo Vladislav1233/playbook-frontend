@@ -277,7 +277,7 @@ class TrainerInfo extends Component {
                         
                         {foundPlagrounds.length > 0 ?
                             <Fragment>
-                                <div className="b-trainer-info__title-field b-trainer-info__title-field--light">Найденные площадки</div>
+                                <div className="b-trainer-info__title-field b-trainer-info__title-field--light">Найденные площадки:</div>
                                 <ul className='b-trainer-info__playground-list'>
                                     {foundPlagrounds.map(item => {
                                         return(
@@ -301,7 +301,7 @@ class TrainerInfo extends Component {
 
                         {trainerInfo.playgrounds.length > 0 ?
                             <Fragment>
-                                <div className="b-trainer-info__title-field b-trainer-info__title-field--light">Добавленные площадки</div>
+                                <div className="b-trainer-info__title-field b-trainer-info__title-field--light">Добавленные площадки:</div>
                                 <ul className='b-trainer-info__playground-list'>
                                     {trainerInfo.playgrounds.map(item => {
                                         return(
