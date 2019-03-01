@@ -12,7 +12,6 @@ import tennisBallIcon from '../../style/images/icon/logo.svg';
 class HelloPage extends Component {
 
     render() { 
-        console.log(process.env.NODE_ENV);
         const { isAuthorization, userRole } = this.props;
         console.log(isAuthorization);
 
