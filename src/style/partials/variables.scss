@@ -12,9 +12,10 @@ $desktopBig: 1440px;
 $desktopFullHd: 1680px;
 
 // ----- animation time -----
-$animation-time: 0.35s;
+$animation-time: 0.30s; // full screean animation
 $animation-time-half: $animation-time / 2;
 $animation-time-double: $animation-time * 2;
+$materialFunction: cubic-bezier(0.4, 0.0, 0.2, 1);
 
 // ----- colors -----
 // $orange-diamond-yellow: #f56a0c; // - кнопки
