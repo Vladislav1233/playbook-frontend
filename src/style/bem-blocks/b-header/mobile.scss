@@ -3,9 +3,9 @@
     flex-shrink: 0;
     background-color: $mint;
     font-size: 0;
-    z-index: 1;
-
+    
     &--light {
+        z-index: 1;
         background: #00000095;
     }
 
