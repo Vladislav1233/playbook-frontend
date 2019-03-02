@@ -41,7 +41,7 @@ class BookingRequestItem extends Component {
                         />
                         <Button 
                             name="Отказать"
-                            modif="b-button--full b-button--orange"
+                            modif="b-button--full b-button--hollow"
                             onClick={this.openModal}
                         />
                     </div>

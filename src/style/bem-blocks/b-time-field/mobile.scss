@@ -11,7 +11,7 @@
     &__input {
         @include input();
         border-bottom: 2px solid $mint;
-        color: #000;
+        color: $mainFontColor;
         height: 40px;
         display: flex;
         align-items: center;

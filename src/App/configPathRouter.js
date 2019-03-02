@@ -8,5 +8,6 @@ export const configPathRouter = {
   registration: '/registration', // регистрация
   listTrainer: '/list-trainer', // список тренеров
   listCourt: '/list-court', // список кортов (организаций)
-  myBooking: '/my-booking' // страница бронирований пользователя
+  styleGuide: '/style-guide', // страница гайда
+  myBooking: '/my-booking', // страница бронирований пользователя
 }

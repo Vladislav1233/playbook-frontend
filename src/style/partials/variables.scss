@@ -15,10 +15,12 @@ $desktopFullHd: 1680px;
 $animation-time: 0.30s; // full screean animation
 $animation-time-half: $animation-time / 2;
 $animation-time-double: $animation-time * 2;
+
 $materialFunction: cubic-bezier(0.4, 0.0, 0.2, 1);
 
 // ----- colors -----
-// $orange-diamond-yellow: #f56a0c; // - кнопки
+$mainFontColor: #2c2c2c;
+
 $orange-diamond-yellow: #ef396f; // - кнопки
 $mint: #0b4e35;
 $telegray: #8c8c8c;
@@ -35,6 +37,7 @@ $hover-link-on-dark: #ef396f;
 $header-hover: rgba(255, 255, 255, 0.1);
 $body-hover: rgba(0, 0, 0, 0.1);
 
+// Border
 $border-radius: 5px;
 
 // ----- typography -----

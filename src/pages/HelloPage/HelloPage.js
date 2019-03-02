@@ -40,11 +40,11 @@ class HelloPage extends Component {
                     <nav className="b-hello-page__nav">
                         <ul className="b-hello-page__list">
                             {/* <li className="b-hello-page__item">
-                                <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.listCourt}>Мне нужен корт</Link>
+                                <Link className="b-button b-button--hollow b-button--hello-page" to={configPathRouter.listCourt}>Мне нужен корт</Link>
                             </li> */}
                             <li className="b-hello-page__item">
                                 <Link 
-                                    className="b-button b-button--orange b-button--hello-page" 
+                                    className="b-button b-button--hollow b-button--hello-page" 
                                     to={configPathRouter.listTrainer}
                                 >
                                     Мне нужен тренер
@@ -56,7 +56,7 @@ class HelloPage extends Component {
                             <ul className="b-hello-page__list">
                                 <li className="b-hello-page__item">
                                     <Link 
-                                        className="b-button b-button--orange b-button--hello-page" 
+                                        className="b-button b-button--hollow b-button--hello-page" 
                                         to={configPathRouter.authorization}
                                     >
                                         Авторизация
@@ -64,7 +64,7 @@ class HelloPage extends Component {
                                 </li>
                                 <li className="b-hello-page__item">
                                     <Link 
-                                        className="b-button b-button--orange b-button--hello-page" 
+                                        className="b-button b-button--hollow b-button--hello-page" 
                                         to={configPathRouter.registration}
                                     >
                                         Регистрация
@@ -75,7 +75,7 @@ class HelloPage extends Component {
                             <ul className="b-hello-page__list">
                                 <li className="b-hello-page__item">
                                     <Link 
-                                        className="b-button b-button--orange b-button--hello-page" 
+                                        className="b-button b-button--hollow b-button--hello-page" 
                                         to={configPathRouter.myBooking}
                                     > 
                                         Мои бронирования
@@ -83,7 +83,7 @@ class HelloPage extends Component {
                                 </li>
                                 <li className="b-hello-page__item">
                                     <Link 
-                                        className="b-button b-button--orange b-button--hello-page" 
+                                        className="b-button b-button--hollow b-button--hello-page" 
                                         to={profileTo()}
                                     >
                                         Личный кабинет
