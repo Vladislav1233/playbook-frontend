@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { userActions } from '../../store/actions/userAction';
+import { Link } from 'react-router-dom';
+import { configPathRouter } from '../../App/configPathRouter';
 import telWithoutPlus from '../../helpers/telWithoutPlus';
 
 // components
@@ -71,35 +73,45 @@ class Auth extends Component {
         return (
             <div className="b-registration">
                 <div className="container">
-                    <form className="b-registration__form" name="authorization" onSubmit={this.handleSubmit}>
-                        <div className="b-input">
-                            <InputMask className="b-input__input" id="phone" name="phone" mask="+7 (999) 999-99-99" maskChar={null} value={user.phone} onChange={this.handleChange} placeholder="Ваш номер телефона" />
-                        </div>
+                    <div className="b-registration__form-wrapper">
+                        <form className="b-registration__form" name="authorization" onSubmit={this.handleSubmit}>
 
-                        <Input
-                            placeholder="Пароль"
-                            typeInput="password"
-                            idInput="password"
-                            value={user.password}
-                            onChange={this.handleChange}
-                        />
+                            <h1 className="b-registration__heading">Авторизация</h1>
 
-                        <div className="b-registration__button-wrapper">
-                            {/* { name } */}
-                            <Button
-                                modif="b-button--login"
-                                name={'Войти'}
+                            <div className="b-input">
+                                <InputMask className="b-input__input" id="phone" name="phone" mask="+7 (999) 999-99-99" maskChar={null} value={user.phone} onChange={this.handleChange} placeholder="Ваш номер телефона" />
+                            </div>
+
+                            <Input
+                                placeholder="Пароль"
+                                typeInput="password"
+                                idInput="password"
+                                value={user.password}
+                                onChange={this.handleChange}
                             />
 
-                            {validation.fieldEmpty || validation.confirmPassword ?
-                                <div className="b-registration__error">{validation.text}</div>
-                                :
-                                null
-                            }
+                            <div className="b-registration__button-wrapper">
+                                {/* { name } */}
+                                <Button
+                                    modif="b-button--login"
+                                    name={'Войти'}
+                                />
+
+                                {validation.fieldEmpty || validation.confirmPassword ?
+                                    <div className="b-registration__error">{validation.text}</div>
+                                    :
+                                    null
+                                }
+                            </div>
+                        </form>
+
+                        <div className="b-registration__sub-navigation">
+                            <span className="b-registration__sub-question">У вас ещё нет профиля? </span>
+                            <Link to={configPathRouter.registration}>Зарегистрироваться</Link>
                         </div>
-                    </form>
+                    </div>
                 </div>
-                {preloader 
+                { preloader 
                     ? <Preloader />
                     : null
                 }

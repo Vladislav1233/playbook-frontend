@@ -23,6 +23,7 @@ body {
     padding: 0px 15px;
     margin: 0px auto;
     max-width: 1440px;
+    min-width: 320px;
 
     @media (min-width: 768px) {
         padding: 0px 30px;

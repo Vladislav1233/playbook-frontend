@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 // Note: components
 import Button from '../../components/ui-kit/Button/Button';
+import Input from '../../components/ui-kit/Input/Input';
 
 // Note: styles
 import '../../style/bem-blocks/b-guide/index.scss';
@@ -34,6 +35,15 @@ class StyleGuide extends Component {
           <section className="b-guide__section">
             <h2 className="b-guide__heading"> Buttons: </h2>
             <Button name="Кнопка" modif="b-button--hollow"/>
+          </section>
+
+          <section className="b-guide__section">
+            <h2 className="b-guide__heading"> Inputs: </h2>
+            <Input
+              placeholder="Ваше имя"
+              typeInput="text"
+              idInput="first_n123edqame"
+            />
           </section>
         </div>
       </div>

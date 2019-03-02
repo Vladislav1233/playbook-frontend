@@ -17,7 +17,7 @@ class MenuHeader extends Component {
     render() {
         console.log('render MenuHeader');
 
-        const { location, isAuthorization } = this.props;
+        const { location } = this.props;
         const profileClassName = cn({
             'b-menu__item--cabinet': location === configPathRouter.profileUser || location === configPathRouter.profileTrainer || location ===  configPathRouter.profileCourt
         });
@@ -25,54 +25,54 @@ class MenuHeader extends Component {
             'open': this.props.toggleMenu
         });
 
-        const profileLink = () => {
-            const { userRole } = this.props;
+        // const profileLink = () => {
+        //     const { userRole } = this.props;
 
-            // TODO_AMED: из гамбургера над выпилить всё "моё"
-            const nameLink = 'Личный кабинет >';
+        //     // TODO_AMED: из гамбургера над выпилить всё "моё"
+        //     const nameLink = 'Личный кабинет >';
 
-            const onToggle = () => {
-                return (
-                    <li className={`b-menu__item ${profileClassName}`}>
-                        <a className="b-menu__link" href="" title="Личный кабинет" onClick={e => this.props.onToggleCabinet(e)}>{nameLink}</a>
-                    </li>
-                )
-            }
+        //     const onToggle = () => {
+        //         return (
+        //             <li className={`b-menu__item ${profileClassName}`}>
+        //                 <a className="b-menu__link" href="" title="Личный кабинет" onClick={e => this.props.onToggleCabinet(e)}>{nameLink}</a>
+        //             </li>
+        //         )
+        //     }
 
-            const onLink = (to) => {
-                return (
-                    <li className={`b-menu__item ${profileClassName}`}>
-                        <Link className="b-menu__link" to={to} title="Личный кабинет">
-                            {nameLink}
-                        </Link>
-                    </li>
-                )
-            }
+        //     const onLink = (to) => {
+        //         return (
+        //             <li className={`b-menu__item ${profileClassName}`}>
+        //                 <Link className="b-menu__link" to={to} title="Личный кабинет">
+        //                     {nameLink}
+        //                 </Link>
+        //             </li>
+        //         )
+        //     }
 
-            if (userRole[0] === 'user') {
-                if (location === configPathRouter.profileUser) {
-                    return onToggle();
-                } else {
-                    return onLink(configPathRouter.profileUser);
-                }
-            }
+        //     if (userRole[0] === 'user') {
+        //         if (location === configPathRouter.profileUser) {
+        //             return onToggle();
+        //         } else {
+        //             return onLink(configPathRouter.profileUser);
+        //         }
+        //     }
 
-            if (userRole[0] === 'trainer') {
-                if (location === configPathRouter.profileTrainer) {
-                    return onToggle();
-                } else {
-                    return onLink(configPathRouter.profileTrainer);
-                }
-            }
+        //     if (userRole[0] === 'trainer') {
+        //         if (location === configPathRouter.profileTrainer) {
+        //             return onToggle();
+        //         } else {
+        //             return onLink(configPathRouter.profileTrainer);
+        //         }
+        //     }
 
-            if (userRole[0] === 'organization-admin') {
-                if (location === configPathRouter.profileCourt) {
-                    return onToggle();
-                } else {
-                    return onLink(configPathRouter.profileCourt);
-                }
-            }
-        };
+        //     if (userRole[0] === 'organization-admin') {
+        //         if (location === configPathRouter.profileCourt) {
+        //             return onToggle();
+        //         } else {
+        //             return onLink(configPathRouter.profileCourt);
+        //         }
+        //     }
+        // };
 
         return (
             <Fragment>

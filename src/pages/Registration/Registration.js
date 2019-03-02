@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import telWithoutPlus from '../../helpers/telWithoutPlus';
+import { configPathRouter } from '../../App/configPathRouter';
+import { Link } from 'react-router-dom';
 
 // components
 import Input from '../../components/ui-kit/Input/Input';
@@ -143,74 +145,82 @@ class Registration extends Component {
         return(
             <div className="b-registration">
                 <div className="container">
-                    <form name='register-user' onSubmit={this.handleSubmit} className="b-registration__form">
+                    <div className="b-registration__form-wrapper">
+                        <form name='register-user' onSubmit={this.handleSubmit} className="b-registration__form">
 
-                        {/*props { labelText?, typeInput, idInput, placeholder, value } */}
-                        <Input
-                            placeholder="Ваше имя"
-                            typeInput="text"
-                            idInput="first_name"
-                            value={user.first_name}
-                            onChange={this.handleChange}
-                        />
+                            <h1 className="b-registration__heading">Регистрация</h1>
 
-                        <Input
-                            placeholder="Ваша фамилия"
-                            typeInput="text"
-                            idInput="last_name"
-                            value={user.last_name}
-                            onChange={this.handleChange}
-                        />
-
-                        {/*TODO: Сделать маску для номера телефона (для разных стран) */}
-                        {/* <InputMask mask="+7 (999) 999-99-99" value={user.numberTelephone} onChange={this.handleChange}>
-                            {(inputProps) => <Input {...inputProps} type="tel"/>}
-                        </InputMask> */}
-
-                        <div className="b-input">
-                            <InputMask className="b-input__input" id="phone" name="phone" mask="+7 (999) 999-99-99" maskChar={null} value={user.phone} onChange={this.handleChange} placeholder="Ваш номер телефона" />
-                        </div>
-
-                        <Input
-                            placeholder="Пароль"
-                            typeInput="password"
-                            idInput="password"
-                            value={user.password}
-                            onChange={this.handleChange}
-                        />
-
-                        <Input
-                            placeholder="Повторите пароль"
-                            typeInput="password"
-                            idInput="c_password"
-                            value={user.c_password}
-                            onChange={this.handleChange}
-                        />
-                        
-                        {/* { name, id, text, value, checked, modif } */}
-                        <Checkbox 
-                            name="is_trainer"
-                            id="is_trainer"
-                            text="Я тренер"
-                            value="1"
-                            checked={isCheck}
-                            onChange={this.handleCheck}
-                        />
-                        
-                        <div className="b-registration__button-wrapper">
-                            {/* { name } */}
-                            <Button
-                                modif="b-button--login"
-                                name={'Зарегистрироваться'}
+                            {/*props { labelText?, typeInput, idInput, placeholder, value } */}
+                            <Input
+                                placeholder="Ваше имя"
+                                typeInput="text"
+                                idInput="first_name"
+                                value={user.first_name}
+                                onChange={this.handleChange}
                             />
 
-                            {validation.fieldEmpty || validation.confirmPassword ?
-                                <div className="b-registration__error">{validation.text}</div>
-                                :
-                                null
-                            }
+                            <Input
+                                placeholder="Ваша фамилия"
+                                typeInput="text"
+                                idInput="last_name"
+                                value={user.last_name}
+                                onChange={this.handleChange}
+                            />
+
+                            {/*TODO: Сделать маску для номера телефона (для разных стран) */}
+                            {/* <InputMask mask="+7 (999) 999-99-99" value={user.numberTelephone} onChange={this.handleChange}>
+                                {(inputProps) => <Input {...inputProps} type="tel"/>}
+                            </InputMask> */}
+
+                            <div className="b-input">
+                                <InputMask className="b-input__input" id="phone" name="phone" mask="+7 (999) 999-99-99" maskChar={null} value={user.phone} onChange={this.handleChange} placeholder="Ваш номер телефона" />
+                            </div>
+
+                            <Input
+                                placeholder="Пароль"
+                                typeInput="password"
+                                idInput="password"
+                                value={user.password}
+                                onChange={this.handleChange}
+                            />  
+
+                            <Input
+                                placeholder="Повторите пароль"
+                                typeInput="password"
+                                idInput="c_password"
+                                value={user.c_password}
+                                onChange={this.handleChange}
+                            />
+                            
+                            {/* { name, id, text, value, checked, modif } */}
+                            <Checkbox 
+                                name="is_trainer"
+                                id="is_trainer"
+                                text="Я тренер"
+                                value="1"
+                                checked={isCheck}
+                                onChange={this.handleCheck}
+                            />
+                            
+                            <div className="b-registration__button-wrapper">
+                                {/* { name } */}
+                                <Button
+                                    modif="b-button--login"
+                                    name={'Зарегистрироваться'}
+                                />
+
+                                {validation.fieldEmpty || validation.confirmPassword ?
+                                    <div className="b-registration__error">{validation.text}</div>
+                                    :
+                                    null
+                                }
+                            </div>
+                        </form>
+                        <div className="b-registration__sub-navigation">
+                            <span className="b-registration__sub-question"> У вас уже есть профиль? </span>
+                            <Link to={configPathRouter.authorization}>Войти</Link>
                         </div>
-                    </form>
+                    </div>
                 </div>
                 {preloader 
                     ? <Preloader />

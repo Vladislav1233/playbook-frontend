@@ -16,13 +16,22 @@
         padding-bottom: 64px;
     }
 
-    &__form {
-        background: rgba(18, 18, 18, 0.95);
+    &__form-wrapper {
         margin: auto;
-        padding: 15px;
+        max-width: 420px;
         width: 100%;
-        max-width: 370px;
-        border-radius: 8px;
+    }
+
+    &__form {
+        padding: 15px;
+        background: rgba(18, 18, 18, 0.95);
+        border-radius: $border-radius;
+        width: 100%;
+    }
+
+    &__heading {
+        text-align: center;
+        color: #fff;
     }
 
     &__button-wrapper {
@@ -40,5 +49,24 @@
         top: 100%;
         left: 0px;
         width: 100%;
+    }
+
+    &__sub-navigation {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 15px;
+        padding: 10px 15px;
+        line-height: 2;
+        color: $bright-telegray;
+        background: rgba(18, 18, 18, 0.8);
+        border-radius: $border-radius;
+        width: 100%;
+        font-size: 0.88em;
+    }
+
+    &__sub-question {
+        margin-right: 10px;
     }
 }
