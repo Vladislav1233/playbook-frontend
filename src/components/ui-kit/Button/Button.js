@@ -10,7 +10,7 @@ class Button extends Component {
     render() {
         const { name, theme, onClick, modif, to } = this.props;
         const classButton = cn('b-button', modif, {
-            'b-button--orange': theme ? theme.orange : false
+            'b-button--hollow': theme ? theme.orange : false
         });
 
         const TagName = to ? Link : 'button';

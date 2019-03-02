@@ -30,7 +30,7 @@
         font-family: $bold;
         font-size: 16px;
         line-height: 16px;
-        color: #000;
+        color: $mainFontColor;
         margin-bottom: 10px;
     }
 
@@ -39,11 +39,6 @@
         padding: 0 0 0 4px;
         color: $carmine-pink;
         font-weight: 700;
-        // border: 1px solid #eee;
-        // background-color: #f2f4f5;
-        // border-radius: 3px;
-        // line-height: 22px;
-        // vertical-align: baseline;
     }
 
     &__cost,
@@ -69,8 +64,7 @@
     }
 
     &__playground-name {
-        // margin-bottom: 5px;
-        font-size: 15px;
+        font-size: 16px;
         display: inline-block;
     }
 

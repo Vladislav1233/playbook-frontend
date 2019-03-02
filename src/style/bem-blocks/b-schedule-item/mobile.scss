@@ -15,7 +15,6 @@
     &__time {
         color: #222222;
         font-family: $medium;
-        // font-size: 24px;
         font-size: 18px;
         line-height: 1.4;
 
@@ -80,20 +79,9 @@
         text-align: right;
     }
 
-    // &__price {
-    //     display: inline-block;
-    //     padding: 4px 4px 2px;
-    //     border: 1px solid #eee;
-    //     background-color: #f2f4f5;
-    //     color: $mint;
-    //     border-radius: 3px;
-    //     line-height: 22px;
-    //     vertical-align: middle;
-    // }
-
     &__name-court {
         font-family: $bold;
-        font-size: 15px;
+        font-size: 16px;
         margin: 0;
         margin-bottom: 1px;
         color: $mint;
