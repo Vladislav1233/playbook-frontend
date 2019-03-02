@@ -90,7 +90,7 @@ class MenuHeader extends Component {
                     </svg>
                 </a>
 
-                <aside className={`b-menu ${this.props.toggleMenu ? 'open' : ''}`}>
+                <nav className={`b-menu ${this.props.toggleMenu ? 'open' : ''}`}>
                     <header className="b-menu__header"></header>
                     <section className="b-menu__body">
                         <ul className="b-menu__list">
@@ -137,7 +137,7 @@ class MenuHeader extends Component {
                             <small className="b-menu__copyright">© playbook 2018-2019 • все права защищены</small>
                         </footer>
                     </section>
-                </aside>
+                </nav>
             </Fragment>
         );
     }
