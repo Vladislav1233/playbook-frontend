@@ -13,7 +13,7 @@ import MenuHeader from './MenuHeader';
 import HeadMenu from '../HeadMenu';
 
 import tennisBallIcon from '../../style/images/icon/logo.svg';
-import Registration from '../../pages/Registration/Registration';
+// import Registration from '../../pages/Registration/Registration';
 
 class Header extends Component {
     constructor(props) {

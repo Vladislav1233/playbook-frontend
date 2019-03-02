@@ -16,7 +16,7 @@ class ScheduleTrainer extends Component {
         // Note: собираем данные для get запроса расписания при инициализации страницы. Берём текущий день
         const data = dataTime();
         // Note: userId достаем из url'a с помощью withRouter
-        const userId = +this.props.match.params.slug;
+        const userId = this.props.match.params.slug;
         getTrainerSchedule(userId, data);
     }
 
@@ -24,7 +24,7 @@ class ScheduleTrainer extends Component {
         const { scheduleTrainer, getTrainerSchedule, bookedTime, playgroundsForTraining, match } = this.props;
 
         // Note: userId достаем из url'a с помощью withRouter
-        const userId = +match.params.slug;
+        const userId = match.params.slug;
 
         return (
             <Fragment>
@@ -58,7 +58,7 @@ const mapStateToDispatch = (dispatch) => {
     return {
         /*
         * getTrainerSchedule - Запрос на получение расписания тренера
-        * userId - id пользователя (тренера) расписание которого запрашиваем
+        * userId - uuid пользователя (тренера) расписание которого запрашиваем
         * data - принимает объект с ключами start_time и end_time - период на который прийдет расписание.
         */
         getTrainerSchedule: (userId, data) => dispatch(getTrainerSchedule(userId, data))

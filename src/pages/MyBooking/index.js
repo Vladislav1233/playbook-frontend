@@ -28,7 +28,7 @@ class MyBooking extends Component {
                             ? dataMyBooking.map(item => {
                                 console.log(item);
                                 return (
-                                    <div key={item.id} className="b-booking-request__item">
+                                    <div key={item.uuid} className="b-booking-request__item">
                                         <MyBookingCard 
                                             bookableFirstName={item.bookable.first_name}
                                             bookableLastName={item.bookable.last_name}
@@ -40,7 +40,7 @@ class MyBooking extends Component {
                                             status={item.status}
                                             note={item.note}
                                             declineBooking={declineBooking}
-                                            bookingId={item.id}
+                                            bookingId={item.uuid}
                                         />
                                     </div>
                                )

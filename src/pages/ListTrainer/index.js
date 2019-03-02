@@ -47,7 +47,7 @@ class ListTrainer extends Component {
                         {listTrainer.length > 0
                             ? listTrainer.map(item => {
                                 return (
-                                    <li key={item.id} className="b-list-trainer__item">
+                                    <li key={item.uuid} className="b-list-trainer__item">
                                         <ObjectCard trainerInfo={item} />
                                     </li>
                                 )       

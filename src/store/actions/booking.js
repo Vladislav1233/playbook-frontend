@@ -25,13 +25,13 @@ import { bookingService } from '../../services/booking';
 /*
 * Получить входящие запросы на бронирование времени тренера или площадки
 * type (required) - trainer or playground
-* id - trainer or playground id
+* uuid - trainer or playground uuid
 */
-export function getBookings(type, id) {
+export function getBookings(type, uuid) {
     return dispatch => {
         dispatch(start());
 
-        bookingService.getBookings(type, id)
+        bookingService.getBookings(type, uuid)
             .then(
                 res => {
                     dispatch(success(res));
@@ -143,7 +143,7 @@ export function createBooking(typeBooking, data) {
 
 /*
 * Отменить бронирование
-* bookingId - id объекта бронирования
+* bookingId - uuid объекта бронирования
 * data: {
 *   note: 'Сообщение пользователю'
 *}

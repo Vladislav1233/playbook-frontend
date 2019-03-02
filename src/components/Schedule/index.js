@@ -98,7 +98,7 @@ class Schedule extends Component {
                                 
                                 {playgroundsForTraining.map(item => {
                                     return (
-                                        <div className="b-schedule__playground-item" key={item.id}>
+                                        <div className="b-schedule__playground-item" key={item.uuid}>
                                             <div className="b-schedule__playground-name">{item.name}</div>
                                             <div className="b-schedule__playground-address">({item.address})</div>
                                         </div>
@@ -126,7 +126,7 @@ class Schedule extends Component {
                             schedule.court
                                 ? <TinySlider className="b-slider-schedule" settings={this.props.settingSlider} ref={ts => this.ts = ts}>
                                     {schedule.court.map((schedule) => (
-                                        <div className="b-slider-schedule__slide" key={schedule.id}>
+                                        <div className="b-slider-schedule__slide" key={schedule.uuid}>
                                             <div className="b-slider-schedule__header">
                                                 <div className="b-slider-schedule__title">{schedule.name}: {schedule.type}</div>
                                             </div>
@@ -134,7 +134,7 @@ class Schedule extends Component {
                                             <ScheduleList 
                                                 list={schedule.list} 
                                                 template={template} 
-                                                key={schedule.id} />
+                                                key={schedule.uuid} />
                                         </div>
                                     ))}
                                 </TinySlider>

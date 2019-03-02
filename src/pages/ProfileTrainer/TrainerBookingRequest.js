@@ -62,17 +62,17 @@ const mapStateToDispatch = (dispatch) => {
         /*
         * Получить входящие запросы на бронирование времени тренера или площадки
         * type (required) - trainer or playground
-        * id - trainer or playground id
+        * uuid - trainer or playground uuid
         */
-        getBookings: (type, id) => dispatch(getBookings(type, id)),
+        getBookings: (type, uuid) => dispatch(getBookings(type, uuid)),
         /*
         * Принять запрос на бронирование времени тренера или площадки
-        * bookingId - id объекта бронирования
+        * bookingId - uuid объекта бронирования
         */
         confirmBooking: (bookingId) => dispatch(confirmBooking(bookingId)),
         /*
         * Отменить бронирование
-        * bookingId - id объекта бронирования
+        * bookingId - uuid объекта бронирования
         * data: {
         *   note: 'Сообщение пользователю'
         *}

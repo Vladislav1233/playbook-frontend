@@ -21,7 +21,7 @@ class TestRequest extends Component {
                 "address": "Отрадная, 12",
                 "opening_time": "09:00:00",
                 "closing_time": "23:20:00",
-                "type_id": "1"
+                "type_uuid": "1"
               }
         }).then(response => {
             console.log(response);
@@ -41,7 +41,7 @@ class TestRequest extends Component {
             },
             data: {
                 "name": "Lawn",
-                "city_id": "1"
+                "city_uuid": "1"
               }
         }).then(response => {
             console.log(response);

@@ -59,7 +59,7 @@ class BookingModal extends Component {
 
         this.setState({
             ...this.state,
-            playgroundId: +value
+            playgroundId: value
         })
     }
 
@@ -121,11 +121,11 @@ class BookingModal extends Component {
         const data = {
             start_time: moment(`${dateBooking} ${start_time}:00`).utc().format(formatDate),
             end_time: moment(`${dateBooking} ${end_time}:00`).utc().format(formatDate),
-            bookable_id: +userId
+            bookable_uuid: userId
         };
 
         if (playgroundId) {
-            data.playground_id = playgroundId
+            data.playground_uuid = playgroundId
         };
 
         if(isAuthorization) {
@@ -147,7 +147,7 @@ class BookingModal extends Component {
 
         playgroundsForTraining.forEach(playgroundForTraining => {
             // eslint-disable-next-line
-            if (playgroundForTraining.pivot.playground_id = playgroundId) {
+            if (playgroundForTraining.pivot.playground_uuid = playgroundId) {
                 schedulePlayground = [ ...playgroundForTraining.schedules ]
             };
         });
@@ -255,13 +255,13 @@ class BookingModal extends Component {
                         {playgroundsForTraining ? playgroundsForTraining.map(item => {
                             return (
                                 <Checkbox 
-                                    key={`playground_${item.pivot.playground_id}`}
+                                    key={`playground_${item.pivot.playground_uuid}`}
                                     type='radio'
                                     name="playground"
-                                    id={`playground_${item.pivot.playground_id}`}
+                                    id={`playground_${item.pivot.playground_uuid}`}
                                     text={item.name}
-                                    value={item.pivot.playground_id}
-                                    checked={this.state.playgroundId === item.pivot.playground_id}
+                                    value={item.pivot.playground_uuid}
+                                    checked={this.state.playgroundId === item.pivot.playground_uuid}
                                     onChange={this.onChangeRadio}
                                     modif={'b-checkbox--add-schedule'}
                                 />

@@ -21,12 +21,12 @@ function createSchedule (type, data) {
     });
 };
 
-function editSchedule (schedule_id, data) {
+function editSchedule (schedule_uuid, data) {
     let valueToken = localStorage.getItem('userToken');
 
     return axios ({
         method: 'post',
-        url: `${API_URL}/api/schedule/edit/${schedule_id}`,
+        url: `${API_URL}/api/schedule/edit/${schedule_uuid}`,
         headers: {
             'Authorization': `Bearer ${valueToken}`
         },
@@ -34,12 +34,12 @@ function editSchedule (schedule_id, data) {
     });
 };
 
-function deleteSchedule (schedule_id) {
+function deleteSchedule (schedule_uuid) {
     let valueToken = localStorage.getItem('userToken');
 
     return axios ({
         method: 'delete',
-        url: `${API_URL}/api/schedule/delete/${schedule_id}`,
+        url: `${API_URL}/api/schedule/delete/${schedule_uuid}`,
         headers: {
             'Authorization': `Bearer ${valueToken}`
         }

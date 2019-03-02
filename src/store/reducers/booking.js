@@ -78,7 +78,7 @@ export default function(state = initialState, action) {
                     nameCourt: item.playground ? item.playground.name : '',
                     // Note: Преобразовываем UTC время в местное (с сервера приходит UTC).
                     time: `${moment(item.start_time).format('DD.MM.YYYY')} (${moment(item.start_time).format('dddd')}): ${moment(item.start_time).format('HH:mm')} - ${moment(item.end_time).format('HH:mm')}`,
-                    bookingId: item.id,
+                    bookingId: item.uuid,
                     status: item.status
                 }
             };
@@ -125,7 +125,7 @@ export default function(state = initialState, action) {
             }
         
         case CONFIRM_BOOKINGS_SUCCESS:
-            const confirmId = action.payload.data.data.id;
+            const confirmId = action.payload.data.data.uuid;
             const startTimeConfirm = action.payload.data.data.start_time;
 
             const newStateConfirm = filterBooking(confirmId, startTimeConfirm);
@@ -164,12 +164,12 @@ export default function(state = initialState, action) {
             }
 
         case DECLINE_BOOKING_SUCCESS:
-            const confirmIdDecline = action.payload.data.data.id;
+            const confirmIdDecline = action.payload.data.data.uuid;
             const startTimeConfirmDecline = action.payload.data.data.start_time;
             
             const newStateDecline = filterBooking(confirmIdDecline, startTimeConfirmDecline);
             const newDataMyBooking = state.dataMyBooking.map(item => {
-                if(item.id === confirmIdDecline) {
+                if(item.uuid === confirmIdDecline) {
                     item.status = action.payload.data.data.status;
                     item.note = action.payload.data.data.note;
                     return item;

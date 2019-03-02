@@ -1,5 +1,5 @@
 const REST_API: string = 'REST_API';
-const API_URL: string = 'http://207.154.236.8';
+const API_URL: string = process.env.REACT_APP_API_URL;
 
 const GET: string = 'GET';
 const PUT: string = 'PUT';

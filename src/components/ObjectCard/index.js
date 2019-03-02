@@ -87,7 +87,7 @@ class ObjectCard extends Component {
                         }
                         
                         <div className="b-object-card__button-item">
-                            <Button to={`${configPathRouter.scheduleTrainer}/${trainerInfo.id}`} modif="b-button--orange b-button--full" name="Забронировать"/>
+                            <Button to={`${configPathRouter.scheduleTrainer}/${trainerInfo.uuid}`} modif="b-button--orange b-button--full" name="Забронировать"/>
                         </div>
                         {/* TODO: Кнопку "подробнее выводить как будет раздел детальной о тренере" */}
                         {/* <div className="b-object-card__button-item">

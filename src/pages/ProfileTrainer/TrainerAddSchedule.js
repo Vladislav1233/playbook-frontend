@@ -35,7 +35,7 @@ class TrainerAddSchedule extends Component {
                 end_time: null,
                 price_per_hour: '',
                 currency: 'RUB',
-                schedule_id: -1,
+                schedule_uuid: '',
                 playgrounds: [],
                 playgroundsCheck: []
             }],
@@ -95,9 +95,9 @@ class TrainerAddSchedule extends Component {
                                 end_time: moment(item.end_time).format("HH:mm"),
                                 price_per_hour: convertTypeMoney(item.price_per_hour, 'RUB', 'banknote'),
                                 currency: 'RUB',
-                                schedule_id: item.id,
+                                schedule_uuid: item.uuid,
                                 playgrounds: this.state.playgroundsForTraining,
-                                playgroundsCheck: item.playgrounds.map(item => item.id)
+                                playgroundsCheck: item.playgrounds.map(item => item.uuid)
                             }
                         });
 
@@ -112,7 +112,7 @@ class TrainerAddSchedule extends Component {
                                 end_time: null,
                                 price_per_hour: '',
                                 currency: 'RUB',
-                                schedule_id: -1,
+                                schedule_uuid: '',
                                 playgrounds: this.state.playgroundsForTraining,
                                 playgroundsCheck: []
                             }];
@@ -209,7 +209,7 @@ class TrainerAddSchedule extends Component {
                 end_time: null,
                 price_per_hour: '',
                 currency: 'RUB',
-                schedule_id: -1,
+                schedule_uuid: '',
                 playgrounds: this.state.playgroundsForTraining,
                 playgroundsCheck: []
             }])
@@ -220,12 +220,12 @@ class TrainerAddSchedule extends Component {
         const { cards } = this.state;
 
         //  Note: если карточка с сервера то удаляем её совсем
-        if (cards[idx].schedule_id >= 0) {
-            scheduleService.deleteSchedule(cards[idx].schedule_id);
+        if (cards[idx].schedule_uuid) {
+            scheduleService.deleteSchedule(cards[idx].schedule_uuid);
         };
 
         // Note: если последняя карточка с сервера, то очищаем её.
-        if (cards.length === 1 && cards[idx].schedule_id >= 0) {
+        if (cards.length === 1 && cards[idx].schedule_uuid) {
             this.setState({
                 ...this.state,
                 cards: [{
@@ -234,7 +234,7 @@ class TrainerAddSchedule extends Component {
                     end_time: null,
                     price_per_hour: '',
                     currency: 'RUB',
-                    schedule_id: -1,
+                    schedule_uuid: '',
                     playgrounds: this.state.playgroundsForTraining,
                     playgroundsCheck: []
                 }]
@@ -308,7 +308,7 @@ class TrainerAddSchedule extends Component {
                     end_time: null,
                     price_per_hour: '',
                     currency: 'RUB',
-                    schedule_id: -1,
+                    schedule_uuid: '',
                     playgrounds: this.state.playgroundsForTraining,
                     playgroundsCheck: []
                 }],
@@ -355,11 +355,11 @@ class TrainerAddSchedule extends Component {
                 }
             });
 
-            // Note: если у нас карточка с сервера, то у неё schedule_id 0 и больше, мы определяем какой запрос отправлять.
+            // Note: если у нас карточка с сервера, то у неё schedule_uuid не пустая строка, мы определяем какой запрос отправлять.
             const edit = async () => {
-                if (card.schedule_id >= 0) {
+                if (card.schedule_uuid) {
                     dispatch(editTrainerSchedule(
-                        card.schedule_id,  
+                        card.schedule_uuid,  
                         createDataForRequest(null, dates[0].start_time, dates[0].end_time)
                     ));
                 }
@@ -367,7 +367,7 @@ class TrainerAddSchedule extends Component {
             }
 
             const create = () => {
-                if (card.schedule_id < 0) {
+                if (card.schedule_uuid) {
                     dispatch(createScheduleTrainer(createDataForRequest(dates, null, null)));
                 };
             };
