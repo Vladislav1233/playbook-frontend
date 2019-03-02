@@ -16,7 +16,7 @@
     }
 
     &__input {
-        @include input();
+        @include font-size-5();
         background-color: transparent;
         border: none;
         border-bottom: 2px solid $mint;

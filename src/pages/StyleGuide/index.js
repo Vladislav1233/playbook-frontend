@@ -23,9 +23,12 @@ class StyleGuide extends Component {
             <h6> Example h6 </h6>
           </section>
 
-          <section className="b-guide__section">
+          <section className="b-guide__section" style={{ fontSize: '20px' }}>
             <h2 className="b-guide__heading"> Typography: </h2>
-            <p> Example p Example p </p>
+            <p style={{ fontFamily: 'montserratlight' }}> 300 Example p Example p Example p Example p  </p>
+            <p style={{ fontFamily: 'montserratregular' }}> 400 Example p Example p Example p Example p  </p>
+            <p style={{ fontFamily: 'montserratmedium' }}> 500 Example p Example p Example p Example p  </p>
+            <p style={{ fontFamily: 'montserratbold' }}> 700 Example p Example p Example p Example p  </p>
           </section>
 
           <section className="b-guide__section">

@@ -1,6 +1,6 @@
 // 320
 .b-hint-profile {
-    @include text();
+    @include font-size-5();
     background: $telegray;
     color: #fff;
     margin-left: -15px;

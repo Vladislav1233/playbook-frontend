@@ -18,92 +18,55 @@ $animation-time-double: $animation-time * 2;
 
 $materialFunction: cubic-bezier(0.4, 0.0, 0.2, 1);
 
-// ----- colors -----
-$mainFontColor: #2c2c2c;
-
-$orange-diamond-yellow: #ef396f; // - кнопки
+/** ----- colors ----- */
+// Просто цвета:
 $mint: #0b4e35;
 $telegray: #8c8c8c;
 $bright-telegray: #cccccc;
-$carmine-pink: #e94d51;
+$carmine-pink: #ef396f;
+$orange-diamond-yellow: #ef396f;
 
-$border-color: #ebebeb;
+// Сущности:
+$mainFontColor: #2c2c2c;
 $main-background: #f3f3f3;
 $background-schedule: #f3f3f3;
 
-// ссылки
 $hover-link-on-dark: #ef396f;
-
 $header-hover: rgba(255, 255, 255, 0.1);
 $body-hover: rgba(0, 0, 0, 0.1);
 
-// Border
+$border-color: #ebebeb;
 $border-radius: 5px;
 
 // ----- typography -----
 @mixin  h1() {
     font-family: $medium;
-    font-size: 25px;
-    line-height: 35px;
+    font-size: 24px;
+    line-height: 1.2;
     letter-spacing: 0.3px;
 
     @media (min-width: $desktopMin) {
-        font-size: 30px;
-        line-height: 45px;
+        font-size: 28px;
     }
 }
 
 @mixin h2 {
     font-family: $medium;
     font-size: 20px;
-    line-height: 30px;
+    line-height: 1.2;
     letter-spacing: 0.3px;
 
     @media (min-width: $desktopMin) {
-        font-size: 25px;
-        line-height: 40px;
+        font-size: 24px;
     }
 }
 
-@mixin text() {
-    font-size: 14px;
-    line-height: 19px;
-
-    @media (min-width: $desktopMin) {
-        font-size: 15px;
-        line-height: 21px;
-    }
-
-    @media (min-width: $desktop) {
-        font-size: 16px;
-        line-height: 24px;
-    }
+@mixin font-size-5() {
+    font-size: 16px;
+    line-height: 1.4;
 }
 
 @mixin label() {
-    @include text();
+    @include font-size-5();
     font-family: $bold;
 }
-
-@mixin input() {
-    font-size: 15px;
-
-    @media (min-width: $desktop) {
-        font-size: 17px;
-    }
-}
-
-// 2019 new font
-// @mixin fontCompination($size, $height) {
-//     font-size: $size;
-//     line-height: $height;
-// }
-
-// .text_48 { @include fontCompination(48px, 64px) }
-// .text_40 { @include fontCompination(40px, 56px) }
-// .text_32 { @include fontCompination(32px, 40px) }
-// .text_24 { @include fontCompination(24px, 32px) }
-// .text_18 { @include fontCompination(18px, 26px) }
-// .text_16 { @include fontCompination(16px, 24px) }
-// .text_14 { @include fontCompination(14px, 20px) }
-// .text_12 { @include fontCompination(12px, 16px) }
