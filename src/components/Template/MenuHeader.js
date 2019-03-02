@@ -90,41 +90,51 @@ class MenuHeader extends Component {
                     </svg>
                 </a>
 
-                <div className={`b-menu ${this.props.toggleMenu ? 'open' : ''}`}>
-                    <div className="b-menu__header"></div>
-                    <ul className="b-menu__list">
-                        <li className="b-menu__item">
-                            {/* TODO: Сделать попап с выбором городов. По клику на ссылку менять город */}
-                            <a className="b-menu__link" href="" title="Ваш город">Ваш город: Ульяновск</a>
-                        </li>
-
-                        {/* <li className="b-menu__item">
-                            <Link className="b-menu__link" to={configPathRouter.listCourt}>Мне нужен корт</Link>
-                        </li> */}
-                        <li className="b-menu__item">
-                            <Link className="b-menu__link" to={configPathRouter.listTrainer}>Мне нужен тренер</Link>
-                        </li>
-                        
-                        {/* <li className="b-menu__item">
-                            <Link className="b-menu__link" to={configPathRouter.myBooking}>Мои бронирования</Link>
-                        </li> */}
-
-                        {isAuthorization ? profileLink() : null}
-                        
-                        {/* {isAuthorization ? (
-                            profileLink()
-                        ) : (
+                <aside className={`b-menu ${this.props.toggleMenu ? 'open' : ''}`}>
+                    <header className="b-menu__header"></header>
+                    <section className="b-menu__body">
+                        <ul className="b-menu__list">
                             <li className="b-menu__item">
-                                <Link className="b-menu__link" to={configPathRouter.authorization}>Авторизация</Link>
-                                <Link className="b-menu__link" to={configPathRouter.registration}>Регистрация</Link>
+                                {/* TODO: Сделать попап с выбором городов. По клику на ссылку менять город */}
+                                <a className="b-menu__link b-menu__link--disabled" href="" title="Ваш город">Ваш город: Ульяновск</a>
                             </li>
-                        )} */}
-                        <li className="b-menu__item">
-                            <a className="b-menu__link" href="" title="Написать нам">Написать нам</a>
-                        </li>
+                            <li className="b-menu__item">
+                                <a className="b-menu__link b-menu__link--disabled" href="" title="Ваш город">Язык: Русский</a>
+                            </li>
+                        </ul>
 
-                    </ul>
-                </div>
+                        <ul className="b-menu__list b-menu__list--main">
+                            <li className="b-menu__item">
+                                <Link className="b-menu__link" to={configPathRouter.listTrainer}>Мне нужен тренер</Link>
+                            </li>
+                            <li className="b-menu__item">
+                                <Link className="b-menu__link b-menu__link--disabled" to={configPathRouter.listTrainer}>Мне нужен корт</Link>
+                            </li>
+                        </ul>
+
+                        <ul className="b-menu__list">
+                            <li className="b-menu__item">
+                                <a className="b-menu__link b-menu__link--disabled" href="" title="Написать нам">Написать нам</a>
+                            </li>
+                            <li className="b-menu__item">
+                                <a className="b-menu__link b-menu__link--disabled" href="" title="Помощь">Помощь</a>
+                            </li>
+                        </ul>
+
+                        <ul className="b-menu__social-list">
+                            <li className="b-menu__social-item">
+                                <i className="fab fa-google-play"></i>
+                            </li>
+                            <li className="b-menu__social-item">
+                                <i className="fab fa-apple"></i>
+                            </li>
+                        </ul>
+
+                        <footer>
+                            <small className="b-menu__copyright">© playbook 2018-2019 • все права защищены</small>
+                        </footer>
+                    </section>
+                </aside>
             </Fragment>
         );
     }
