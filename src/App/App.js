@@ -48,10 +48,11 @@ class App extends Component {
 
         const mainClass = cn('b-main', {
             'b-main--schedule-court': location.pathname === configPathRouter.scheduleCourt,
-            'b-main--schedule': location.pathname === configPathRouter.scheduleCourt || howLocation[1] === howRouterConfig(configPathRouter.scheduleTrainer)
+            'b-main--schedule': location.pathname === configPathRouter.scheduleCourt || howLocation[1] === howRouterConfig(configPathRouter.scheduleTrainer),
+            'b-main--hello-page': location.pathname === '/',
         });
 
-        const renderRoutePage = () => {
+        const renderRoutePage = () => {            
             // TODO: Ещё 404 страницу сделать
             switch (userRole ? userRole[0] : '') {
                 case 'user':

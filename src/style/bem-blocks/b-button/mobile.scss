@@ -6,19 +6,16 @@
     border-radius: $border-radius;
     font-family: $bold;
     color: #fff;
-    padding: 12px 25px;
+    padding: 14px 25px;
     font-size: 14px;
     display: inline-block;
     text-align: center;
 
-    &:focus {
-        // outline: none;
-    }
+    &:focus {}
 
     .no-touchevents &:hover,
     .touchevents &:active {
         background-color: #0d6041;
-        // color: $mint;
     }
 
     &--full {
@@ -27,13 +24,11 @@
 
     &--hollow {
         color: #121212;
-        // background: $orange-diamond-yellow;
         background: none;
         border: 1px solid $mint;
 
         .no-touchevents &:hover,
         .touchevents &:active {
-            // color: #fff;
             color: $mint;
             background-color: #0d60412c;
         }
@@ -42,7 +37,6 @@
     &--save {
         width: 100%;
         border-radius: 0;
-        // padding: 12px 30px;
     }
 
     &--hello-page {

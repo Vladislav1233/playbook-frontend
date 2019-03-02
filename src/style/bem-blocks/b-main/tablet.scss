@@ -1,5 +1,7 @@
 .b-main {
-    // &--schedule-court {
-    //     background-color: $background-schedule;
-    // }
+    background-color: $main-background;
+
+    &--hello-page {
+        background: #fff;
+    }
 }

@@ -21,10 +21,6 @@
         }
     }
 
-    &.open {
-        // left: calc(100vw - 64px);
-    }
-
     &.open & {
         &__top-bar,
         &__bottom-bar {
