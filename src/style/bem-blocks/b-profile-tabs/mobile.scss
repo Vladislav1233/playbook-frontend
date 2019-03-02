@@ -2,38 +2,70 @@
 .b-profile-tabs {
     background: #fff;
 
-    &__list-wrapper {
-        padding: 60px 15px;
-        background: #f4f8f9;
+    &__header {
+        height: 64px;
+        border-bottom: 1px solid #02100b;
+    }
 
+    &__list-wrapper {
+        background: $mint;
         position: fixed;
-        z-index: 50;
+        z-index: 500;
         top: 0px;
         left: 0px;
         height: 100%;
-        width: calc(100% - 60px);
+        width: 100%;
         transform: translateX(-100%);
-        transition-property: transform;
         transition-duration: $animation-time;
         transition-timing-function: $materialFunction;
+        opacity: 0;
 
         &.open {
             transform: translateX(0%);
+            opacity: 1;
         }
     }
 
     &__list {
-        margin: 0px;
-        padding: 0;
+        width: max-content;
+        margin: auto;
+        max-width: 100%;
+        color: #fff;
+        padding: 15px 60px 15px 60px;
     }
 
     &__back {
-        font-family: $medium;
+        position: fixed;
+        z-index: 560;
+        width: 30px;
+        left: 0;
         font-size: 16px;
-        line-height: 1;
-        padding: 10px 0px;
+        height: 44px;
         display: block;
-        margin-top: -43px;
-        margin-bottom: 30px;
+        line-height: 44px;
+        top: 78px;
+        padding: 2px 8px 0;
+        font-size: 19px;
+
+        background-color: rgba(0, 0, 0, 0.432);
+        color: #fff;
+        border-radius: 0 22px 22px 0;
+
+        transition-timing-function: $materialFunction;
+        transition: $animation-time;
+
+        i.icon {
+            transform-origin: center;
+            transition-timing-function: $materialFunction;
+            transition: $animation-time;
+        }
+        
+        &.open {
+            width: 40px;
+
+            i.icon {
+                transform: scale(-1, 1) translateX(-10px);
+            }
+        }
     }
 }

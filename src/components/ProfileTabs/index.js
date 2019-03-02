@@ -24,17 +24,27 @@ class ProfileTabs extends Component {
     render() {
         const { children, isOpen, onToggleCabinet } = this.props;
         const { activeTab } =this.state;
-
-        // TODO_AMED: не понял как работает это скрытие на мобилке, там и названия есть и стили но чёт хуй) сделай статику мб?
-        const classNameList = cn('b-profile-tabs__list-wrapper', {
-            open: isOpen
-        });
+        const classNameList = cn(
+            'b-profile-tabs__list-wrapper',
+            {
+                open: isOpen
+            }
+        );
+        const classNameButton = cn(
+            'b-profile-tabs__back',
+            {
+                open: isOpen
+            }
+        );
 
         return(
             <div className="b-profile-tabs">
-                <div className={classNameList}>
-                    <div className="b-profile-tabs__back" onClick={(e) => onToggleCabinet(e)}>{`< Назад`}</div>
+                <div className={ classNameButton } onClick={(e) => onToggleCabinet(e)}>
+                    <i class="fas fa-angle-right icon"></i>
+                </div>
 
+                <nav className={classNameList}>
+                    <div className="b-profile-tabs__header"></div>
                     <ul className="b-profile-tabs__list">
                         {children.map(child => {
                             const { label, src} = child.props;
@@ -50,7 +60,7 @@ class ProfileTabs extends Component {
                             )
                         })}                    
                     </ul>
-                </div>
+                </nav>
 
                 <ProfileTabContent>
                     {children.map(child => {

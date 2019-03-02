@@ -1,8 +1,9 @@
 // 320
 .b-trainer-add-schedule {
+    background-color: $mint;
+
     &__calendar {
-        margin-bottom: 20px;
-        padding-top: 1px;
+        border-top: 1px solid #06281b;
         z-index: 20;
     }
 
@@ -22,6 +23,8 @@
     }
 
     &__schedule {
+        border-radius: 15px 15px 0 0;
+        background-color: #fff;
         padding: 15px 15px 100px;
     }
 }

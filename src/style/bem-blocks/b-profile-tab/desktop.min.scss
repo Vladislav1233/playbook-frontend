@@ -4,6 +4,7 @@
     transition: border-color $animation-time;
     padding: 8px;
     margin-bottom: 25px;
+    border-radius: $border-radius;
 
     &.active {
         border-color: $mint;
