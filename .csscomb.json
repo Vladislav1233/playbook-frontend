@@ -51,6 +51,8 @@
             "left",
 
             "display",
+            "align-items",
+            "justify-content",
             "visibility",
             "float",
             "clear",
@@ -316,6 +318,7 @@
             "-webkit-box-shadow",
             "-moz-box-shadow",
             "box-shadow",
+            "filter",
             "filter:progid:DXImageTransform.Microsoft.gradient",
             "-ms-filter:\\'progid:DXImageTransform.Microsoft.gradient",
             "text-shadow"
