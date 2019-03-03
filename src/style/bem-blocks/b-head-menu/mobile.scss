@@ -4,17 +4,18 @@
     z-index: 40;
 
     &__open-button {
-        color: #fff;
         display: inline-flex;
-        align-items: center;
         height: 100%;
         height: 64px;
         padding: 0 15px;
+        color: #fff;
+
+        align-items: center;
 
         .b-head-menu--open &,
         .no-touchevents &:hover {
-            background: $header-hover;
             color: #fff;
+            background: $header-hover;
         }
 
         span {
@@ -25,58 +26,60 @@
 
     &__account-wrapper {
         display: flex;
+
         align-items: center;
     }
 
     &__account-name {
         display: none;
+        margin-top: 6px;
         margin-right: 8px;
         color: #e8e8e8;
-        margin-top: 6px;
     }
 
     &__image-wrapper {
-        height: 30px;
-        width: 30px;
         overflow: hidden;
-        border-radius: 100%;
-        text-align: center;
-        transition-property: border-color;
+        width: 30px;
+        height: 30px;
         transition-duration: $animation-time;
+        transition-property: border-color;
+        text-align: center;
+        border-radius: 100%;
 
         &--blank {
-            border-radius: 0;
             width: 40px;
             height: 40px;
+            border-radius: 0;
         }
     }
 
     &__image {
         width: 100%;
         height: 100%;
+
         object-fit: cover;
     }
 
     &__content {
-        position: absolute;
         font-size: 14px;
-        text-align: left;
+        position: absolute;
         top: calc(100% + 2px);
         right: 0;
-        background: white;
         width: calc(100vw - 30px);
         max-width: 480px;
         padding-top: 15px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        text-align: left;
         border: 1px solid $border-color;
         border-radius: 3px;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,.1);
     }
 
     &__content-list {
         margin-top: 0px;
         margin-bottom: 10px;
-        padding-left: 15px;
         padding-right: 15px;
+        padding-left: 15px;
 
         &:not(:last-child) {
             padding-bottom: 10px;
@@ -86,20 +89,20 @@
 
     &__content-item {
         list-style-type: none;
-        
+
         &:not(:last-child) {
             margin-bottom: 10px;
         }
     }
 
     &__content-text {
-        color: $mainFontColor;
         display: block;
         padding: 5px 0px;
+        color: $mainFontColor;
 
         &--name {
             font-family: $bold;
-            letter-spacing: 0.3px;
+            letter-spacing: .3px;
         }
     }
 
@@ -110,7 +113,6 @@
     }
 
     &--open & {
-        
         &__image-wrapper {
             border-color: $carmine-pink;
         }

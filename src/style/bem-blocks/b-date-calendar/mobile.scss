@@ -1,63 +1,63 @@
 // 320++
 .b-date-calendar {
-    background-color: $mint;
-    padding-left: 8px;
-    padding-right: 8px;
     padding-top: 10px;
+    padding-right: 8px;
     padding-bottom: 20px;
+    padding-left: 8px;
+    background-color: $mint;
 
     &__calendar {
-        background-color: transparent;
-        border: none;
-        margin: 0px auto;
         font-family: $medium;
         width: 100%;
         max-width: 320px;
+        margin: 0px auto;
+        border: none;
+        background-color: transparent;
     }
 
     .react-calendar--selectRange {
         .react-calendar__tile--hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, .2);
         }
     }
 
     .react-calendar__month-view__weekdays__weekday {
         font-family: $medium;
         font-size: 14px;
-        opacity: 0.48;
-        color: #ffffff;
+        opacity: .48;
+        color: #fff;
 
         @media (min-width: 768px) {
-        font-size: 20px;
+            font-size: 20px;
         }
     }
 
     .react-calendar__month-view__days__day {
-        color: #ffffff;
+        color: #fff;
 
         &--neighboringMonth {
-            color: rgba(255, 255, 255, 0.65);
             opacity: 1;
+            color: rgba(255, 255, 255, .65);
         }
     }
 
     .react-calendar__tile {
         font-family: $medium;
         font-size: 14px;
-        border-radius: 3px;
-        transition-property: box-shadow;
         transition-duration: $animation-time;
+        transition-property: box-shadow;
         border: 1px solid $mint;
+        border-radius: 3px;
 
         &:enabled:hover,
         &:enabled:active {
+            background: rgba(255, 255, 255, .2);
             background-color: transparent;
-            background: rgba(255, 255, 255, 0.2);
         }
 
         &--active {
-            background: #fff;
             color: #121212;
+            background: #fff;
 
             .no-touchevents &:enabled:hover,
             .touchevents &:enabled:active {
@@ -67,8 +67,8 @@
 
         &--now {
             font-family: $bold;
-            border: 1px solid $orange-diamond-yellow;
             color: $orange-diamond-yellow;
+            border: 1px solid $orange-diamond-yellow;
         }
 
         &:enabled:focus {
@@ -76,7 +76,7 @@
         }
 
         &:disabled {
-            color: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, .15);
             background-color: transparent;
         }
     }
@@ -88,22 +88,22 @@
 
     .react-calendar__navigation__label {
         font-family: $regular;
-        color: #ffffff;
-        padding-bottom: 0px;
-        padding-top: 6px;
         font-size: 20px;
+        padding-top: 6px;
+        padding-bottom: 0px;
+        color: #fff;
     }
 
     .react-calendar__navigation__arrow {
-        color: #ffffff;
         font-size: 30px;
-        transition-property: background-color, color;
         transition-duration: $animation-time;
+        transition-property: background-color, color;
+        color: #fff;
 
         .no-touchevents &:enabled:hover,
         .touchevents &:enabled:active {
-            background-color: #fff;
             color: $mint;
+            background-color: #fff;
         }
 
         &:enabled:focus {
@@ -118,7 +118,7 @@
 
     .react-calendar__navigation {
         button[disabled] {
-        background-color: transparent;
+            background-color: transparent;
         }
     }
 

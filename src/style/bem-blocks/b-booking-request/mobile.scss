@@ -1,18 +1,18 @@
 // 320
 .b-booking-request {
-    margin-left: -15px;
-    margin-right: -15px;
     font-size: 0;
+    margin-right: -15px;
+    margin-left: -15px;
 
-    > p {
-        padding: 0px 15px;
-        margin-bottom: 50px;
+    & > p {
         font-family: $bold;
+        margin-bottom: 50px;
+        padding: 0px 15px;
     }
 
     h2 {
-        padding: 0px 15px;
         margin-bottom: 30px;
+        padding: 0px 15px;
     }
 
     &__item {
@@ -52,6 +52,7 @@
 
     &__buttons {
         display: flex;
+
         flex-flow: row nowrap;
 
         & > * + * {

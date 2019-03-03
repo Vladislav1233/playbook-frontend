@@ -1,16 +1,17 @@
 // 320
 .b-object-service {
-    padding: 0px;
     margin-bottom: 30px;
+    padding: 0px;
 
     &__item {
-        display: flex;
-        align-items: center;
-        list-style-type: none;
         position: relative;
+        display: flex;
         padding: 6px 0px;
+        list-style-type: none;
         border-bottom: 1px solid $border-color;
-        
+
+        align-items: center;
+
         &:not(:last-child) {
             margin-bottom: 20px;
         }
@@ -30,9 +31,9 @@
 
     &__info {
         display: inline-block;
-        vertical-align: top;
         width: calc(100% - 60px);
         padding-left: 10px;
+        vertical-align: top;
 
         p {
             font-size: 16px;
@@ -43,22 +44,22 @@
 
     &__icon {
         display: inline-block;
-        vertical-align: top;
         width: 60px;
-        text-align: center;
         padding-top: 3px;
+        text-align: center;
+        vertical-align: top;
 
         &::after {
-            content: '';
             position: absolute;
             top: 6px;
             bottom: 6px;
             left: 60px;
+            content: '';
             border-right: 1px solid $border-color;
         }
 
         svg {
-            fill: #F55F0C;
+            fill: #f55f0c;
         }
     }
 }
