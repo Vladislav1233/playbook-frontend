@@ -1,15 +1,14 @@
 // 320++
 .b-button {
-    font-family: $bold;
-    font-size: 14px;
     display: inline-block;
     padding: 14px 25px;
+    font-family: $bold;
+    font-size: 14px;
     text-align: center;
     color: #fff;
     border: none;
     border-radius: $border-radius;
     background: #0b4e35;
-    background-color: $orange-diamond-yellow;
 
     .no-touchevents &:hover,
     .touchevents &:active {
