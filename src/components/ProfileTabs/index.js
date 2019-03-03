@@ -40,7 +40,7 @@ class ProfileTabs extends Component {
         return(
             <div className="b-profile-tabs">
                 <div className={ classNameButton } onClick={(e) => onToggleCabinet(e)}>
-                    <i class="fas fa-angle-right icon"></i>
+                    <i className="fas fa-angle-right icon"></i>
                 </div>
 
                 <nav className={classNameList}>

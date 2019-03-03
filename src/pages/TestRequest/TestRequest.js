@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { API_URL } from '../../store/constants/restAPI';
 
 class TestRequest extends Component {
     request = (event) => {
@@ -11,7 +12,7 @@ class TestRequest extends Component {
 
         axios({
             method: 'post',
-            url: 'http://207.154.236.8/api/playground/create',
+            url: `${API_URL}/api/playground/create`,
             headers: {
                 'Authorization': `Bearer ${valueToken}`
             },
@@ -20,8 +21,7 @@ class TestRequest extends Component {
                 "description": "Playground description Ulgu",
                 "address": "Отрадная, 12",
                 "opening_time": "09:00:00",
-                "closing_time": "23:20:00",
-                "type_uuid": "1"
+                "closing_time": "23:20:00"
               }
         }).then(response => {
             console.log(response);
@@ -35,7 +35,7 @@ class TestRequest extends Component {
 
         axios({
             method: 'post',
-            url: 'http://playbook.ga/api/organization/create',
+            url: `${API_URL}/api/organization/create`,
             headers: {
                 'Authorization': `Bearer ${valueToken}`
             },

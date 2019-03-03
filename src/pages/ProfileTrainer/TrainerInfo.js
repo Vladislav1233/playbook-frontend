@@ -151,9 +151,10 @@ class TrainerInfo extends Component {
         } = this.state.trainerInfo;
 
         const { idInfo } = this.state;
+        console.log(playgrounds);
 
         const playgroundsId = playgrounds.length > 0 ? playgrounds.map(item => {
-            return item.id;
+            return item.uuid;
         }) : [];
 
         const data = {

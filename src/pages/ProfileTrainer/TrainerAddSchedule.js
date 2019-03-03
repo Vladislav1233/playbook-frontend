@@ -184,7 +184,7 @@ class TrainerAddSchedule extends Component {
         let newPlaygroundsCheck = this.state.cards[idx].playgroundsCheck;
 
         if (checked) {
-            newPlaygroundsCheck = [...newPlaygroundsCheck, +name];
+            newPlaygroundsCheck = [...newPlaygroundsCheck, name];
         } else {
             newPlaygroundsCheck = newPlaygroundsCheck.filter(item => {
                 return item !== name;
@@ -329,7 +329,7 @@ class TrainerAddSchedule extends Component {
                 let result = {
                     price_per_hour: formatPrice,
                     currency: card.currency,
-                    playgrounds: [1] // TODO: как бэк заработает поставить - card.playgroundsCheck  
+                    playgrounds: card.playgroundsCheck  
                 };
 
                 if (datesRequest) {
@@ -367,7 +367,7 @@ class TrainerAddSchedule extends Component {
             }
 
             const create = () => {
-                if (card.schedule_uuid) {
+                if (!card.schedule_uuid) {
                     dispatch(createScheduleTrainer(createDataForRequest(dates, null, null)));
                 };
             };
