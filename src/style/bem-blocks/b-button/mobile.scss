@@ -1,17 +1,15 @@
 // 320++
 .b-button {
-    background-color: $orange-diamond-yellow;
-    border: none;
-    background: #0b4e35;
-    border-radius: $border-radius;
     font-family: $bold;
-    color: #fff;
-    padding: 14px 25px;
     font-size: 14px;
     display: inline-block;
+    padding: 14px 25px;
     text-align: center;
-
-    &:focus {}
+    color: #fff;
+    border: none;
+    border-radius: $border-radius;
+    background: #0b4e35;
+    background-color: $orange-diamond-yellow;
 
     .no-touchevents &:hover,
     .touchevents &:active {
@@ -24,8 +22,8 @@
 
     &--hollow {
         color: #121212;
-        background: none;
         border: 1px solid $mint;
+        background: none;
 
         .no-touchevents &:hover,
         .touchevents &:active {
@@ -45,9 +43,9 @@
 
     &--login {
         width: 100%;
-        background: none;
         color: #fff;
         border: 1px solid $mint;
+        background: none;
 
         .no-touchevents &:hover,
         .touchevents &:active {

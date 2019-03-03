@@ -1,23 +1,23 @@
 // 320
 .b-cost-information {
-    font-size: 14px;
     font-family: $medium;
+    font-size: 14px;
     margin-bottom: 25px;
 
     &__title {
-        color: $mint;
         line-height: 18px;
         margin-bottom: 5px;
+        color: $mint;
     }
 
     &__cost {
-        padding: 10px 7px 7px 10px;
-        border: 1px solid #eee;
-        background-color: hsla(200, 13%, 98%, .8);
-        color: $carmine-pink;
-        border-radius: 3px;
-        line-height: 22px;
         font-size: 18px;
+        line-height: 22px;
+        padding: 10px 7px 7px 10px;
         vertical-align: baseline;
+        color: $carmine-pink;
+        border: 1px solid #eee;
+        border-radius: 3px;
+        background-color: hsla(200, 13%, 98%, .8);
     }
 }
