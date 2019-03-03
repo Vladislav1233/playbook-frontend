@@ -8,17 +8,17 @@
     }
 
     &__list-wrapper {
-        background: $mint;
         position: fixed;
         z-index: 500;
         top: 0px;
         left: 0px;
-        height: 100%;
         width: 100%;
-        transform: translateX(-100%);
-        transition-duration: $animation-time;
+        height: 100%;
         transition-timing-function: $materialFunction;
+        transition-duration: $animation-time;
+        transform: translateX(-100%);
         opacity: 0;
+        background: $mint;
 
         &.open {
             transform: translateX(0%);
@@ -28,38 +28,36 @@
 
     &__list {
         width: max-content;
-        margin: auto;
         max-width: 100%;
-        color: #fff;
+        margin: auto;
         padding: 15px 60px 15px 60px;
+        color: #fff;
     }
 
     &__back {
+        font-size: 16px;
+        font-size: 19px;
+        line-height: 44px;
         position: fixed;
         z-index: 560;
-        width: 30px;
-        left: 0;
-        font-size: 16px;
-        height: 44px;
-        display: block;
-        line-height: 44px;
         top: 78px;
+        left: 0;
+        display: block;
+        width: 30px;
+        height: 44px;
         padding: 2px 8px 0;
-        font-size: 19px;
-
-        background-color: rgba(0, 0, 0, 0.432);
+        transition: $animation-time;
+        transition-timing-function: $materialFunction;
         color: #fff;
         border-radius: 0 22px 22px 0;
-
-        transition-timing-function: $materialFunction;
-        transition: $animation-time;
+        background-color: rgba(0, 0, 0, .432);
 
         i.icon {
-            transform-origin: center;
-            transition-timing-function: $materialFunction;
             transition: $animation-time;
+            transition-timing-function: $materialFunction;
+            transform-origin: center;
         }
-        
+
         &.open {
             width: 40px;
 
