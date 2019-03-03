@@ -1,52 +1,52 @@
 // 320++
 .b-schedule {
+    overflow: hidden;
     margin: 0px -15px;
     padding: 0px 15px;
-    border-top-right-radius: 15px;
     border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
     background: #fff;
-    overflow: hidden;
 
     &__date {
-        font-family: $medium;
-        font-size: 18px;
-        text-transform: uppercase;
-        margin-left: -15px;
         margin-right: -15px;
         margin-bottom: 30px;
+        margin-left: -15px;
         padding: 15px;
+        font-family: $roboto;
+        font-size: 18px;
         line-height: 1;
+        text-transform: uppercase;
         border-bottom: 1px solid #ebebeb;
     }
 
     &__timetable {
+        font-family: $light;
         font-size: 11px;
         line-height: 14px;
         text-transform: none;
-        font-family: $light;
     }
 
     &__title {
+        margin-bottom: 10px;
         font-family: $bold;
         font-size: 16px;
         line-height: 16px;
         color: $mainFontColor;
-        margin-bottom: 10px;
     }
 
     &__price-value {
         display: inline-block;
         padding: 0 0 0 4px;
-        color: $carmine-pink;
         font-weight: 700;
+        color: $carmine-pink;
     }
 
     &__cost,
     &__playground {
         display: block;
-        color: $mint;
-        font-size: 14px;
         font-family: $medium;
+        font-size: 14px;
+        color: $mint;
     }
 
     &__cost {
@@ -64,8 +64,8 @@
     }
 
     &__playground-name {
-        font-size: 16px;
         display: inline-block;
+        font-size: 16px;
     }
 
     &__playground-address {
@@ -75,7 +75,6 @@
     }
 
     &__playground-item {
-
         &:not(:last-child) {
             margin-bottom: 24px;
         }
