@@ -5,7 +5,7 @@
     padding: 0px 15px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    background: #fff;
+    background: #ffffff;
 
     &__date {
         margin-right: -15px;
@@ -20,7 +20,7 @@
     }
 
     &__timetable {
-        font-family: $light;
+        font-weight: 300;
         font-size: 11px;
         line-height: 14px;
         text-transform: none;
@@ -28,8 +28,8 @@
 
     &__title {
         margin-bottom: 10px;
-        font-family: $bold;
         font-size: 16px;
+        font-weight: 300;
         line-height: 16px;
         color: $mainFontColor;
     }
@@ -44,7 +44,6 @@
     &__cost,
     &__playground {
         display: block;
-        font-family: $medium;
         font-size: 14px;
         color: $mint;
     }

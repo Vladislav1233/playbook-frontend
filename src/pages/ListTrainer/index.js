@@ -34,8 +34,8 @@ class ListTrainer extends Component {
 
         return (
             <div className="b-list-trainer">
-                <div className="container container--white">
-                    <h1>
+                <div className="container">
+                    <h1 className="b-list-trainer__heading">
                         Список тренеров
                         <span className="b-list-trainer__note">
                             Всего тренеров: {totalCount}
@@ -52,7 +52,13 @@ class ListTrainer extends Component {
                                     </li>
                                 )       
                             })
-                            : <p>Тренеров нет</p>
+                            : (
+                                <li key='only-one-key' className="b-list-trainer__item">
+                                    <div class="b-object-card__info">
+                                        Тренеров нет
+                                    </div>
+                                </li>
+                            )
                         }
                     </ul>  
 

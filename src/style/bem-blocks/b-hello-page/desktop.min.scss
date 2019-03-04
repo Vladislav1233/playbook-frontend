@@ -1,1 +1,11 @@
 // 1024
+
+.b-hello-page {
+    &__head {
+        font-size: 45px;
+    }
+
+    &__logo {
+        width: 45px;
+    }
+}

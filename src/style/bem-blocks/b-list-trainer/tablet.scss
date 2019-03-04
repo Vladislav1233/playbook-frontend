@@ -3,21 +3,12 @@
     &__list {
         display: flex;
         flex-wrap: wrap;
+        margin: 0;
     }
 
     &__item {
-        display: inline-block;
-        vertical-align: top;
-        width: 100%;
-        padding: 0px 15px;
-        border-bottom: none;
-        margin-left: 0px;
-        margin-right: 0px;
-        margin-bottom: 30px;
-
         & + & {
-            padding: 0px 15px;
-            border: none;
+            margin-top: 15px;
         }
     }
 }

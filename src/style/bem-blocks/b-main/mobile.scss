@@ -1,3 +1,8 @@
 .b-main {
     flex: 1 0 auto;
+    background-color: $main-background;
+
+    &--hello-page {
+        background: #fff;
+    }
 }

@@ -14,11 +14,10 @@ $desktopBig: 1440px;
 $desktopFullHd: 1680px;
 
 // ----- animation time -----
-$animation-time: 0.30s; // full screean animation
+$animation-time: .30s; // full screean animation
 $animation-time-half: $animation-time / 2;
 $animation-time-double: $animation-time * 2;
-
-$materialFunction: cubic-bezier(0.4, 0.0, 0.2, 1);
+$materialFunction: cubic-bezier(.4, .0, .2, 1);
 
 /** ----- colors ----- */
 // Просто цвета:
@@ -30,36 +29,33 @@ $orange-diamond-yellow: #ef396f;
 
 // Сущности:
 $mainFontColor: #2c2c2c;
-$main-background: #f3f3f3;
-$background-schedule: #f3f3f3;
-
+$main-background: hsl(220, 9%, 90%);
+$background-schedule: hsl(220, 9%, 90%);
 $hover-link-on-dark: #ef396f;
-$header-hover: rgba(255, 255, 255, 0.1);
-$body-hover: rgba(0, 0, 0, 0.1);
-
+$header-hover: rgba(255, 255, 255, .1);
+$body-hover: rgba(0, 0, 0, .1);
 $border-color: #ebebeb;
 $border-radius: 5px;
 
 // ----- typography -----
 @mixin  h1() {
     font-family: $medium;
-    font-size: 24px;
+    font-size: 20px;
     line-height: 1.2;
-    letter-spacing: 0.3px;
 
     @media (min-width: $desktopMin) {
-        font-size: 28px;
+        font-size: 24px;
     }
 }
 
 @mixin h2 {
     font-family: $medium;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 1.2;
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
 
     @media (min-width: $desktopMin) {
-        font-size: 24px;
+        font-size: 22px;
     }
 }
 
@@ -69,6 +65,7 @@ $border-radius: 5px;
 }
 
 @mixin label() {
-    @include font-size-5();
     font-family: $bold;
+
+    @include font-size-5();
 }
