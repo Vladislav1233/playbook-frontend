@@ -1,25 +1,22 @@
 // 320++
 .b-schedule-item {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
     cursor: pointer;
     position: relative;
+    padding: 15px;
+    margin: 0 -15px;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
 
     &__time-wrap {
-        line-height: 32px;
-        display: inline-block;
-        flex-shrink: 0;
-        margin-right: 35px;
-        padding-top: 10px;
+        display: flex;
+        align-items: center;
     }
 
     &__time {
         color: #222222;
         font-family: $medium;
-        // font-size: 24px;
-        font-size: 14px;
-        line-height: 21px;
+        font-size: 18px;
+        line-height: 1.4;
 
         &--finish {
             color: #cccccc;
@@ -27,32 +24,25 @@
     }
 
     &__info {
-        display: inline-block;
         width: 100%;
-        border-bottom: 1px solid #ebebeb;
-        padding-top: 5px;
-        padding-bottom: 10px;
-        min-height: 115px;
     }
 
     &__state {
         font-family: $regular;
-        // font-size: 30px;
-        // line-height: 42px;
         font-size: 18px;
         line-height: 26px;
         position: relative;
-        margin-bottom: 6px;
+        padding: 0 15px;
 
         &:before {
             content: '';
             display: block;
-            width: 7px;
-            height: 7px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             position: absolute;
-            top: 11px;
-            left: -13px;
+            top: 10px;
+            left: 0px;
             background-color: transparent;
         }
 
@@ -83,25 +73,15 @@
     &__click {
         font-family: $regular;
         font-size: 14px;
-        line-height: 18px;
-        margin-top: 15px;
-        color: $temperate-slate-blue;
+        line-height: 1.2;
+        margin-top: 10px;
+        color: $mint;
+        text-align: right;
     }
-
-    // &__price {
-    //     display: inline-block;
-    //     padding: 4px 4px 2px;
-    //     border: 1px solid #eee;
-    //     background-color: #f2f4f5;
-    //     color: $temperate-slate-blue;
-    //     border-radius: 3px;
-    //     line-height: 22px;
-    //     vertical-align: middle;
-    // }
 
     &__name-court {
         font-family: $bold;
-        font-size: 15px;
+        font-size: 16px;
         margin: 0;
         margin-bottom: 1px;
         color: $mint;

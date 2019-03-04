@@ -7,13 +7,17 @@ const initUserInformation = {
 }
 
 const initialState = {
+    preloader: false,
+
     authorization: localStorage.getItem('userToken') ? true : false,
 
     userRole: localStorage.getItem('userRole') ? JSON.parse(localStorage.getItem('userRole')) : null,
 
-    userId:  localStorage.getItem('userId') ? JSON.parse(localStorage.getItem('userId')) : null,
+    userId:  localStorage.getItem('userId') ? localStorage.getItem('userId') : null,
 
-    userInformation: localStorage.getItem('userInformation') ? initUserInformation : null
+    userInformation: localStorage.getItem('userInformation') ? initUserInformation : null,
+
+    answerResendVerificationCode: false
 };
 
 export default function identificate(state = initialState, action) {
@@ -24,16 +28,15 @@ export default function identificate(state = initialState, action) {
             }
 
         case userConstants.LOGIN_SUCCESS:
-            console.log(action.payload);
             const newUserInformation = {
                 firstName: action.payload.first_name,
                 lastName: action.payload.last_name
-            }
+            };
             return {
                 ...state,
                 authorization: true,
                 userRole: action.payload.roles,
-                userId: action.payload.id,
+                userId: action.payload.uuid,
                 userInformation: newUserInformation
             }
 
@@ -59,6 +62,31 @@ export default function identificate(state = initialState, action) {
         case userConstants.LOGOUT_FAILURE:
             return {
                 ...state
+            }
+
+        case userConstants.RESEND_VERIFICATION_CODE_START:
+            return {
+                ...state,
+                preloader: true
+            }
+
+        case userConstants.RESEND_VERIFICATION_CODE_SUCCESS:
+            console.log(action.payload);
+            console.log(action.payload.data.success);
+            if (action.payload.data.success) {
+                alert('На ваш номер отправлен код. Введите его в поле "Пароль" и нажмите "Подтвердить"');
+            };
+
+            return {
+                ...state,
+                preloader: false
+            }
+
+        case userConstants.RESEND_VERIFICATION_CODE_FAILURE:
+            console.log(action.payload);
+            return {
+                ...state,
+                preloader: false
             }
 
         default:

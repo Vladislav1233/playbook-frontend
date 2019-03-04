@@ -1,36 +1,68 @@
 // 320
 .b-object-card {
-    
-    &__header {
-        font-size: 0px;
-        line-height: 0px;
-        margin-bottom: 20px;
-    }
+    font-family: $roboto;
+    list-style-type: none;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 1px 1px #00000033;
 
     &__photo-wrapper {
-        height: 160px;
         overflow: hidden;
+        height: 160px;
+        background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
     }
 
     &__photo {
-        max-width: 100%;
-        // max-height: 100%;
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+    }
+
+    &__info {
+        padding: 10px 10px 10px;
+        line-height: 1.4;
+        word-break: break-word;
     }
 
     &__name-group {
-        font-size: 18px;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        font-size: (16em/15);
+        font-weight: 700;
         line-height: 25px;
-        margin-bottom: 5px;
+        border-bottom: 1px solid #eeeeee;
     }
 
-    &__about {
-        margin-bottom: 20px;
+    &__info-block {
+        margin-bottom: 10px;
+    }
+
+    &__title {
+        padding: 0;
+        font-weight: 300;
+    }
+
+    &__cost {
+        font-size: (16em/15);
+        font-weight: 500;
+        color: var(--accent-text);
+    }
+
+    &__list-place {
+        padding: 0;
+    }
+
+    &__item-place {
+        list-style: none;
+    }
+
+    &__button {
+        // margin-top: 20px;
     }
 
     &__button-item {
-
         &:not(:last-child) {
-            margin-bottom: 15px;            
+            margin-bottom: 10px;
         }
     }
-} 
+}

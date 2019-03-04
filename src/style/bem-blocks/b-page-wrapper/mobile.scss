@@ -6,7 +6,7 @@
     justify-content: space-between;
     // -webkit-overflow-scrolling: touch;
     // overflow-y: auto;
-    height: 100%;
+    min-height: 100vh;
     min-width: 320px;
 
     &--overflow {

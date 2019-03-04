@@ -1,11 +1,35 @@
 // 320
 .b-hello-page {
-    margin-top: 40px;
+    margin-top: 60px;
+
+    &__head {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        font-size: 34px;
+        text-align: center;
+    }
+
+    &__logo {
+        width: 35px;
+        margin-right: 10px;
+        margin-bottom: 6px;
+    }
+
+    &__heading {
+        margin: auto;
+        margin-bottom: 30px;
+        font-size: 16px;
+        line-height: 1.5;
+        text-align: center;
+        color: #121212;
+    }
 
     &__list {
-        text-align: center;
+        margin: 20px 0 10px;
         padding: 0px;
-        margin: 20px 0 10px; 
+        text-align: center;
     }
 
     &__item {

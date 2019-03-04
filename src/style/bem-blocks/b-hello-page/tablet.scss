@@ -1,1 +1,14 @@
 // 768
+.b-hello-page {
+    &__head {
+        font-size: 40px;
+    }
+
+    &__logo {
+        width: 40px;
+    }
+
+    &__heading {
+        font-size: 18px;
+    }
+}

@@ -1,11 +1,11 @@
 // 320
 .b-search-list-playground {
-    display: block;
-    border: 1px solid $border-color;
-    padding: 10px;
-    border-radius: 5px;
-    transition: border-color $animation-time;
     position: relative;
+    display: block;
+    padding: 10px;
+    transition: border-color $animation-time;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
 
     &--hover {
         cursor: pointer;
@@ -22,40 +22,41 @@
 
     &__label {
         display: inline-block;
-        vertical-align: text-bottom;
         width: 20px;
         height: 20px;
         padding: 3px;
-        border-radius: 50%;
-        border: 1px solid lightgray;
-        background-color: transparent;
-        transition-property: background-color;
         transition-duration: $animation-time;
+        transition-property: background-color;
+        vertical-align: text-bottom;
+        border: 1px solid lightgray;
+        border-radius: 50%;
+        background-color: transparent;
     }
 
     &__icon-check {
+        transition: opacity $animation-time;
         vertical-align: top;
         opacity: 0;
-        transition: opacity $animation-time;
     }
 
     &__input:checked + &__label {
-        background-color: $mint;
+        border-color: $hover-link-on-dark;
+        background-color: #fff;
 
         .b-search-list-playground__icon-check {
             opacity: 1;
         }
     }
-    
+
 
     &__content {
         display: inline-block;
-        vertical-align: text-top;
         padding-left: 15px;
+        vertical-align: text-top;
     }
 
     &__name {
-        font-size: 15px;
+        font-size: 16px;
         line-height: 18px;
         color: $mint;
     }
@@ -67,11 +68,11 @@
     }
 
     &__delete {
-        cursor: pointer;
-        display: block;
         position: absolute;
-        width: 20px;
-        right: 5px;
         top: 5px;
+        right: 5px;
+        display: block;
+        width: 20px;
+        cursor: pointer;
     }
 }

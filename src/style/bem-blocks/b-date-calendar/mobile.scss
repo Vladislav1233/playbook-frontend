@@ -1,100 +1,113 @@
 // 320++
 .b-date-calendar {
-    background-color: $temperate-slate-blue;
-    padding-left: 8px;
-    padding-right: 8px;
     padding-top: 10px;
+    padding-right: 8px;
     padding-bottom: 20px;
+    padding-left: 8px;
+    background-color: $mint;
 
     &__calendar {
-        background-color: transparent;
-        border: none;
-        margin: 0px auto;
         font-family: $medium;
         width: 100%;
         max-width: 320px;
+        margin: 0px auto;
+        border: none;
+        background-color: transparent;
+    }
+
+    .react-calendar--selectRange {
+        .react-calendar__tile--hover {
+            background: rgba(255, 255, 255, .2);
+        }
     }
 
     .react-calendar__month-view__weekdays__weekday {
         font-family: $medium;
         font-size: 14px;
-        opacity: 0.48;
-        color: #ffffff;
+        opacity: .48;
+        color: #fff;
 
         @media (min-width: 768px) {
-        font-size: 20px;
+            font-size: 20px;
         }
     }
 
     .react-calendar__month-view__days__day {
-        color: #ffffff;
+        color: #fff;
 
         &--neighboringMonth {
-        opacity: 0.16;
+            opacity: 1;
+            color: rgba(255, 255, 255, .65);
         }
     }
 
     .react-calendar__tile {
         font-family: $medium;
         font-size: 14px;
-        border-radius: 50%;
-        transition-property: box-shadow;
         transition-duration: $animation-time;
+        transition-property: box-shadow;
+        border: 1px solid $mint;
+        border-radius: 3px;
 
-        .no-touchevents &:enabled:hover,
-        .touchevents &:enabled:active {
-            background-color: transparent;
-            box-shadow: 0 16px 16px rgba(0, 0, 0, 0.08), 0 8px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        &:enabled:focus {
+        &:enabled:hover,
+        &:enabled:active {
+            background: rgba(255, 255, 255, .2);
             background-color: transparent;
         }
 
         &--active {
-            box-shadow: 0 16px 16px rgba(0, 0, 0, 0.08), 0 8px 8px rgba(0, 0, 0, 0.08);
-            background: $white;
-            border-radius: 50%;
-            color: #7c4dff;
+            color: #121212;
+            background: #fff;
 
             .no-touchevents &:enabled:hover,
             .touchevents &:enabled:active {
-                background: $white;
+                background: #fff;
             }
         }
 
+        &--now {
+            font-family: $bold;
+            color: $orange-diamond-yellow;
+            border: 1px solid $orange-diamond-yellow;
+        }
+
+        &:enabled:focus {
+            background-color: transparent;
+        }
+
         &:disabled {
-            color: #a7a7a7;
+            color: rgba(255, 255, 255, .15);
             background-color: transparent;
         }
     }
 
-    button.react-calendar__tile--active:enabled:hover, button.react-calendar__tile--active:enabled:focus {
-        background: #ffffff;
+    button.react-calendar__tile--active:enabled:hover,
+    button.react-calendar__tile--active:enabled:focus {
+        background: #fff;
     }
 
     .react-calendar__navigation__label {
         font-family: $regular;
-        color: #ffffff;
-        padding-bottom: 0px;
-        padding-top: 6px;
         font-size: 20px;
+        padding-top: 6px;
+        padding-bottom: 0px;
+        color: #fff;
     }
 
     .react-calendar__navigation__arrow {
-        color: #ffffff;
         font-size: 30px;
-        transition-property: background-color, color;
         transition-duration: $animation-time;
+        transition-property: background-color, color;
+        color: #fff;
 
         .no-touchevents &:enabled:hover,
         .touchevents &:enabled:active {
-            background-color: $white;
-            color: #7c4dff;
+            color: $mint;
+            background-color: #fff;
         }
 
         &:enabled:focus {
-            color: $white;
+            color: #fff;
             background-color: transparent;
         }
 
@@ -105,17 +118,12 @@
 
     .react-calendar__navigation {
         button[disabled] {
-        background-color: transparent;
+            background-color: transparent;
         }
     }
 
     .react-calendar__navigation__next2-button,
     .react-calendar__navigation__prev2-button {
         display: none;
-    }
-
-    .react-calendar__tile--now {
-        font-family: $bold;
-        color: $orange-diamond-yellow;
     }
 }

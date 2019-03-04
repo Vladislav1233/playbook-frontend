@@ -1,6 +1,8 @@
 // react, redux
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from "react-router";
+import cn from 'classnames';
 
 // style
 import '../../style/bem-blocks/b-header/index.scss';
@@ -11,6 +13,7 @@ import MenuHeader from './MenuHeader';
 import HeadMenu from '../HeadMenu';
 
 import tennisBallIcon from '../../style/images/icon/logo.svg';
+// import Registration from '../../pages/Registration/Registration';
 
 class Header extends Component {
     constructor(props) {
@@ -26,31 +29,47 @@ class Header extends Component {
 
     render() {
         console.log('render Header');
+
+        const { location } = this.props;
+        const onRegistrationPages = (location.pathname === '/registration') || (location.pathname === '/authorization');
+
+        const rootClassHeader = cn(
+            'b-header',
+            {
+                'b-header--light': onRegistrationPages,
+            }
+        )
+
         return (
-            <header className="b-header">
+            <header className={ rootClassHeader }>
                 <div className="container">
                     <div className="b-header__wrapper">
-                        <div className="b-header__left">
-                            <MenuHeader 
-                                isAuthorization={this.state.isAuthorization}
-                                location={this.props.location}
-                            />
-                        </div>
+                        {/* Гамбургер */}
+                        { !onRegistrationPages &&
+                            <div className="b-header__left">
+                                <MenuHeader 
+                                    isAuthorization={this.state.isAuthorization}
+                                    location={this.props.location}
+                                />
+                            </div>
+                        }
 
-                        <div className="b-header__center">
-                            {/* TODO: для главной страницы не надо сслыку to выводить, чтобы не перерендеривало при клике */}
-                            <Link className="b-logotype" to='/'>
-                                <img className="b-logotype__image" src={tennisBallIcon} alt="Логотип - теннисный мяч"/>
-                                <span className="b-logotype__text">На главную</span>
-                            </Link>
-                        </div>
-                        
-                        <div className="b-header__right">
-                            <HeadMenu />
-                        </div>
+                        {/* Логотип */}
+                        { location.pathname !== '/' &&
+                            <div className="b-header__center">
+                                <Link className="b-logotype" to='/'>
+                                    <img className="b-logotype__image" src={tennisBallIcon} alt="Логотип - теннисный мяч"/>
+                                    <span className="b-logotype__text">PlayBook</span>
+                                </Link>
+                            </div>
+                        }
 
-                        {/*TODO: здесь меняем в зависимости от  того, чье расписание сейчас смотрим: переключаем расписание между кортом и тренером (наверное с помощью router) */}
-                        {/*<a className="b-header__get-schedule" href="" title=''>Мне нужен корт</a>*/}
+                        {/* Профиль */}
+                        { !onRegistrationPages &&
+                            <div className="b-header__right">
+                                <HeadMenu />
+                            </div>
+                        }
                     </div>
                 </div>
             </header>
@@ -58,4 +77,4 @@ class Header extends Component {
     }
 }
 
-export default Header;
+export default withRouter(Header);

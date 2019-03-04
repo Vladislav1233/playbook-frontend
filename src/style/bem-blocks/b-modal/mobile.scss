@@ -8,7 +8,7 @@
     &__title-group {
         font-family: $bold;
         font-size: 18px;
-        color: $temperate-slate-blue;
+        color: $mint;
     }
     
     &__button-wrapper {
@@ -17,21 +17,20 @@
 }
 
 .ReactModal {
-
     &__Content {
         top: auto !important;
         left: 0px !important;
         right: 0px !important;
         bottom: auto !important;
-        padding: 45px 15px !important;
-        max-width: 700px;
+        padding: 15px !important;
+        max-width: 520px;
         box-shadow: 0 2px 6px rgba(40, 36, 35, .1);
         min-height: 100%;
     }
 
     &__Overlay {
         z-index: 98;
-        background-color: rgba(0, 0, 0, 0.2) !important;
+        background-color: rgba(0, 8, 14, 0.85) !important;
         overflow: auto;
     }
 }

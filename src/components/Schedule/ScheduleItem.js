@@ -2,8 +2,6 @@ import React, { Component, Fragment } from 'react';
 import moment from 'moment';
 import cn from 'classnames';
 
-
-
 // Note: components
 import BookingModal from '../Modal/BookingModal';
 import DeclineBookingModal from '../Modal/DeclineBookingModal';
@@ -56,7 +54,7 @@ class ScheduleItem extends Component {
             end_time,
             isStatus // true - это время свободно, false - это время занято
         } = this.props.dataScheduleItem;
-        const bookingId = this.props.dataScheduleItem.id;
+        const bookingId = this.props.dataScheduleItem.uuid;
     
         const { template, playgroundsForTraining, userId, creator, isWhoBooked, onClickDecline, cost } = this.props;
         const textBooking = 'Нажми, чтобы забронировать';
@@ -107,8 +105,13 @@ class ScheduleItem extends Component {
             <Fragment>
                 <div className="b-schedule-item" onClick={() => {if(isStatus) { this.openModal(); } }}>
                     <div className="b-schedule-item__time-wrap">
-                        <div className="b-schedule-item__time">{moment(start_time).format('HH:mm')}</div>
-                        <div className="b-schedule-item__time b-schedule-item__time--finish">{moment(end_time).format('HH:mm')}</div>
+                        <div className="b-schedule-item__time">
+                            {moment(start_time).format('HH:mm')}
+                        </div>
+                        &nbsp;—&nbsp;
+                        <div className="b-schedule-item__time b-schedule-item__time--finish">
+                            {moment(end_time).format('HH:mm')}
+                        </div>
                     </div>
 
                     <div className="b-schedule-item__info">

@@ -2,14 +2,23 @@
 .b-add-schedule-card {
     padding: 30px;
     margin: 0px auto 30px;
-    max-width: 480px;
+    max-width: 520px;
     overflow: hidden;
-    border-radius: 6px;
+    border-radius: $border-radius;
     border: 1px solid $border-color;
-    background-color: $white;
+    background-color: #fff;
 
     &__delete {
-        right: 6px;
-        top: 6px;
+        right: 0px;
+        top: 0px;
+        width: 38px;
+        padding: 9px;
+        border-left: 1px solid transparent;
+        border-bottom: 1px solid transparent;
+
+        .no-touchevents &:hover,
+        .touchevents &:active {
+            border-color: $body-hover;
+        }
     }
 }

@@ -1,20 +1,22 @@
 // 320
 .b-head-menu {
-    height: 42px;
     position: relative;
     z-index: 40;
 
     &__open-button {
         display: inline-flex;
         height: 100%;
-        align-items: center;
+        height: 64px;
+        padding: 0 15px;
         color: #fff;
 
-        // .no-touchevents &:hover {
-        //     .b-head-menu__image-wrapper {
-        //         border-color: $orange-diamond-yellow;
-        //     }   
-        // }
+        align-items: center;
+
+        .b-head-menu--open &,
+        .no-touchevents &:hover {
+            color: #fff;
+            background: $header-hover;
+        }
 
         span {
             font-size: 14px;
@@ -22,43 +24,62 @@
         }
     }
 
+    &__account-wrapper {
+        display: flex;
+
+        align-items: center;
+    }
+
+    &__account-name {
+        display: none;
+        margin-top: 6px;
+        margin-right: 8px;
+        color: #e8e8e8;
+    }
+
     &__image-wrapper {
-        height: 40px;
-        width: 40px;
         overflow: hidden;
-        border-radius: 100%;
-        // border: 1px solid #fff;
-        text-align: center;
-        transition-property: border-color;
+        width: 30px;
+        height: 30px;
         transition-duration: $animation-time;
+        transition-property: border-color;
+        text-align: center;
+        border-radius: 100%;
+
+        &--blank {
+            width: 40px;
+            height: 40px;
+            border-radius: 0;
+        }
     }
 
     &__image {
         width: 100%;
         height: 100%;
+
         object-fit: cover;
     }
 
     &__content {
-        position: absolute;
         font-size: 14px;
-        text-align: left;
-        top: calc(100% + 17px);
-        right: 0px;
-        background: white;
+        position: absolute;
+        top: calc(100% + 2px);
+        right: 0;
         width: calc(100vw - 30px);
         max-width: 480px;
         padding-top: 15px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        text-align: left;
         border: 1px solid $border-color;
         border-radius: 3px;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,.1);
     }
 
     &__content-list {
         margin-top: 0px;
         margin-bottom: 10px;
-        padding-left: 15px;
         padding-right: 15px;
+        padding-left: 15px;
 
         &:not(:last-child) {
             padding-bottom: 10px;
@@ -68,20 +89,20 @@
 
     &__content-item {
         list-style-type: none;
-        
+
         &:not(:last-child) {
             margin-bottom: 10px;
         }
     }
 
     &__content-text {
-        color: $black;
         display: block;
         padding: 5px 0px;
+        color: $mainFontColor;
 
         &--name {
             font-family: $bold;
-            letter-spacing: 0.3px;
+            letter-spacing: .3px;
         }
     }
 
@@ -92,7 +113,6 @@
     }
 
     &--open & {
-        
         &__image-wrapper {
             border-color: $carmine-pink;
         }

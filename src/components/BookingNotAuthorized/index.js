@@ -16,7 +16,7 @@ class BookingNotAuthorized extends Component {
                 isOpen={isOpenModal}
             >
                 <button className="b-modal__close" onClick={closeModal}>Закрыть</button>
-                <h2 className="b-modal__title">Букинг</h2>
+                <h2 className="b-modal__title">Бронирование</h2>
                 <div className="b-modal__description">
                     Чтобы забронировать время вам нужно авторизоваться. Нет профиля? Пройдите быструю регистрацию.
                 </div>

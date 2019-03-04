@@ -2,6 +2,10 @@
 .b-profile-tabs {
     display: flex;
 
+    &__header {
+        display: none;
+    }
+
     &__list-wrapper {
         width: 85px;
         flex-shrink: 0;
@@ -11,13 +15,18 @@
         padding-left: 15px;
         padding-right: 15px;  
         padding-top: 60px;
-        background-color: $white;
+        background-color: #fff;
         border-right: 1px solid $border-color;
         position: sticky;
         top: 0px;
         margin-bottom: 0px;
         transform: translateX(0%);
         z-index: 1;
+        opacity: 1;
+    }
+
+    &__list {
+        padding: 0;
     }
 
     &__content {

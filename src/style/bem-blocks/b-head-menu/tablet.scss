@@ -2,11 +2,15 @@
 .b-head-menu {
 
     &__content {
-        font-size: 15px;
+        font-size: 16px;
         max-width: 320px;
     }
 
     &__content-list {
         margin-bottom: 15px;
+    }
+
+    &__account-name {
+        display: block;
     }
 }

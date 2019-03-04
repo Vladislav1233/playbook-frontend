@@ -6,6 +6,7 @@ export const userService = {
     login,
     logout,
     register,
+    resendVerificationCode,
     getAll,
     getById,
     // update,
@@ -29,12 +30,13 @@ function login(data) {
     }).then(user => {
             console.log(user);
             if (user.data.data.access_token) {
+                console.log(user.data.data)
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('userToken', user.data.data.access_token);
                 // Note: Храним роль юзера
                 localStorage.setItem('userRole', JSON.stringify(user.data.data.roles));
-                // Note: храним id юзера
-                localStorage.setItem('userId', user.data.data.id);
+                // Note: храним uuid юзера
+                localStorage.setItem('userId', user.data.data.uuid);
                 // Note: храним информацию о юзере
                 const userInformation = {
                     first_name: user.data.data.first_name,
@@ -65,6 +67,21 @@ function logout() {
             localStorage.removeItem('userInformation');
         };
         return res.data.data
+    });
+};
+
+/*
+* resendVerificationCode - функция получения кода для регистрации в системе (сброс своего пароля)
+* data = {
+*   phone: номер телефона, на который отправится код    
+*}
+*/
+function resendVerificationCode(data) {
+
+    return axios({
+        method: 'post',
+        url: `${API_URL}/api/resend_verification_code`,
+        data: data
     });
 }
 

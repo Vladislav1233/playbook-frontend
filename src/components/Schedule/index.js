@@ -9,6 +9,7 @@ import NumberFormat from 'react-number-format';
 import DateCalendar from '../../components/Calendar';
 import ScheduleList from './ScheduleList';
 import TinySlider from "tiny-slider-react";
+import Preloader from '../Preloader/Preloader';
 
 // Note: helpers
 import { convertTypeMoney } from '../../helpers/convertTypeMoney';
@@ -46,7 +47,17 @@ class Schedule extends Component {
     };
 
     render() {
-        const { schedule, template, bookedTime, cost, playgroundsForTraining, userId, isWhoBooked, onClickDecline } = this.props;
+        const { 
+            schedule, 
+            template, 
+            bookedTime, 
+            cost, 
+            playgroundsForTraining, 
+            userId, 
+            isWhoBooked, 
+            onClickDecline, 
+            preloader 
+        } = this.props;
 
         const notScheduleTemplate = () => (
             <div className="b-schedule__not">Нет свободного времени</div>
@@ -65,9 +76,11 @@ class Schedule extends Component {
                         {cost.length > 0 
                             ? 
                             <div className="b-schedule__price">
-                                <div className="b-schedule__title">Стоимость</div>
+                                <div className="b-schedule__title">Стоимость:</div>
                                 {cost.map((item, index) => {
+
                                     const getTimeOutRange = (indexPostition) => Moment(item.time.toDate()[indexPostition]).format('HH:mm');
+
                                     return (
                                         <span className="b-schedule__cost" key={index}> 
                                             {`${getTimeOutRange(0)} - ${getTimeOutRange(1)} будет `}
@@ -91,20 +104,20 @@ class Schedule extends Component {
 
                         {playgroundsForTraining.length > 0 ? 
                             <div className='b-schedule__playground'>
-                                <div className="b-schedule__title">Тренирую на</div>
+                                <div className="b-schedule__title">Тренирую на:</div>
                                 
                                 {playgroundsForTraining.map(item => {
                                     return (
-                                        <div className="b-schedule__playground-item" key={item.id}>
+                                        <div className="b-schedule__playground-item" key={item.uuid}>
                                             <div className="b-schedule__playground-name">{item.name}</div>
-                                            <div className="b-schedule__playground-address">{item.address}</div>
+                                            <div className="b-schedule__playground-address">({item.address})</div>
                                         </div>
                                     )
                                 })}
                             </div>
                         : null}
                         
-                        <div className="b-schedule__title">Расписание</div>
+                        <div className="b-schedule__title">Свободное время:</div>
                         {/* Note: расписание свободного времени тренера */}
                         {template === 'trainer' ?
                             schedule.schedule.length > 0
@@ -123,7 +136,7 @@ class Schedule extends Component {
                             schedule.court
                                 ? <TinySlider className="b-slider-schedule" settings={this.props.settingSlider} ref={ts => this.ts = ts}>
                                     {schedule.court.map((schedule) => (
-                                        <div className="b-slider-schedule__slide" key={schedule.id}>
+                                        <div className="b-slider-schedule__slide" key={schedule.uuid}>
                                             <div className="b-slider-schedule__header">
                                                 <div className="b-slider-schedule__title">{schedule.name}: {schedule.type}</div>
                                             </div>
@@ -131,7 +144,7 @@ class Schedule extends Component {
                                             <ScheduleList 
                                                 list={schedule.list} 
                                                 template={template} 
-                                                key={schedule.id} />
+                                                key={schedule.uuid} />
                                         </div>
                                     ))}
                                 </TinySlider>
@@ -141,7 +154,7 @@ class Schedule extends Component {
                         {/* Note: Расписание забронированного времени */}
                         {bookedTime.length > 0 
                             ? ( <Fragment>
-                                <div className="b-schedule__title">Забронированное время</div>
+                                <div className="b-schedule__title">Забронированное время:</div>
                                 <ScheduleList 
                                     list={bookedTime}
                                     template={template}
@@ -154,6 +167,8 @@ class Schedule extends Component {
 
                     </div>
                 </div>
+
+                {preloader ? <Preloader/> : null}
             </Fragment>
         )
     }

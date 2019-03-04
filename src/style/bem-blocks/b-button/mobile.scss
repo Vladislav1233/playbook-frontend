@@ -1,45 +1,55 @@
 // 320++
 .b-button {
-    background-color: $orange-diamond-yellow;
-    border: none;
-    background: linear-gradient(to right, #68a2b8, #55bc96);
-    border-radius: 8px;
-    font-family: $bold;
-    color: #000;
-    padding: 15px 30px;
-    transition: color $animation-time;
-    font-size: 14px;
     display: inline-block;
+    padding: 10px 15px;
+    font-size: 1rem;
+    font-weight: 500;
     text-align: center;
-
-    &:focus {
-        outline: none;
-    }
+    color: #ffffff;
+    border: none;
+    border-radius: $border-radius;
+    background: #0b4e35;
 
     .no-touchevents &:hover,
     .touchevents &:active {
-        // color: $white;
-        color: #000;
-        background-color: #0d60412c;
+        background-color: #0d6041;
     }
 
     &--full {
         width: 100%;
     }
 
-    &--orange {
-        // background: $orange-diamond-yellow;
-        background: none;
+    &--hollow {
+        color: #121212;
         border: 1px solid $mint;
+        background: none;
+
+        .no-touchevents &:hover,
+        .touchevents &:active {
+            color: $mint;
+            background-color: #0d60412c;
+        }
     }
 
     &--save {
         width: 100%;
         border-radius: 0;
-        padding: 12px 30px;
     }
 
     &--hello-page {
-        width: 260px;
+        width: 290px;
+    }
+
+    &--login {
+        width: 100%;
+        color: #ffffff;
+        border: 1px solid $mint;
+        background: none;
+
+        .no-touchevents &:hover,
+        .touchevents &:active {
+            color: #ffffff;
+            background-color: #0d60412c;
+        }
     }
 }

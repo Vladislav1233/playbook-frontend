@@ -1,19 +1,30 @@
 // 320
 .b-logotype {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     width: auto;
+    height: 64px;
+    padding: 12px;
+    font-family: $medium;
     text-align: center;
-    color: #fff;
+    color: #ffffff;
+
+    .no-touchevents &:hover,
+    .touchevents &:active {
+        color: #ffffff;
+        background: $header-hover;
+    }
 
     &__image {
-        width: 30px;
         display: inline-block;
-        margin-bottom: 5px;
+        width: 32px;
+        margin-bottom: 1px;
     }
 
     &__text {
-        font-size: 12px;
         display: block;
-        letter-spacing: 0.4px;
+        margin-left: 8px;
+        font-size: 21px;
+        letter-spacing: .4px;
     }
 }

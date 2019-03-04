@@ -6,7 +6,8 @@ export const bookingService = {
     createBooking,
     getBookings,
     confirmBooking,
-    declineBooking
+    declineBooking,
+    getAllBookingsForUser
 };
 
 /*
@@ -29,9 +30,9 @@ function createBooking(type, data) {
 /*
 * Получить входящие запросы на бронирование времени тренера или площадки
 * type (required) - trainer or playground
-* id - trainer or playground id
+* uuid - trainer or playground uuid
 */
-function getBookings(type, id, data = { // TODO
+function getBookings(type, uuid, data = { // TODO
     limit: 100,
     offset: 0,
     start_time: Moment(new Date(2018, 0, 1)).format('YYYY-MM-DD HH:mm:ss'),
@@ -41,7 +42,7 @@ function getBookings(type, id, data = { // TODO
 
     return axios ({
         method: 'get',
-        url: `${API_URL}/api/booking/${type}/${id}`,
+        url: `${API_URL}/api/booking/${type}/${uuid}`,
         headers: {
             'Authorization': `Bearer ${valueToken}`
         },
@@ -51,7 +52,7 @@ function getBookings(type, id, data = { // TODO
 
 /*
 * Принять запрос на бронирование времени тренера или площадки
-* bookingId - id объекта бронирования
+* bookingId - uuid объекта бронирования
 */
 function confirmBooking(bookingId) {
     const valueToken = localStorage.getItem('userToken');
@@ -67,7 +68,7 @@ function confirmBooking(bookingId) {
 
 /*
 * Отменить бронирование
-* bookingId - id объекта бронирования
+* bookingId - uuid объекта бронирования
 * data: {
 *   note: 'Сообщение пользователю'
 *}
@@ -84,3 +85,26 @@ function declineBooking(bookingId, data) {
         data: data
     });
 }
+
+/*
+* getAllBookingsForUser - Получить все бронирования пользователем.
+* По дефолту получаем бронирования от текущего начала дня и до 2050 года.
+*/
+function getAllBookingsForUser(data = {
+    limit: 100,
+    offset: 0,
+    start_time: Moment(new Date()).utc().format('YYYY-MM-DD HH:mm:ss'), // Note: дату и время преобразовываем в UTC формат
+    end_time: Moment(new Date(2050, 0, 1)).utc().format('YYYY-MM-DD HH:mm:ss') // Note: дату и время преобразовываем в UTC формат
+}) {// TODO
+    const valueToken = localStorage.getItem('userToken');
+    console.log(Moment(new Date()).utc().format('YYYY-MM-DD HH:mm:ss'));
+
+    return axios({
+        method: 'get',
+        url: `${API_URL}/api/booking/all`,
+        headers: {
+            'Authorization': `Bearer ${valueToken}`
+        },
+        params: data
+    });
+};

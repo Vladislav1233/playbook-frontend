@@ -1,1 +1,17 @@
 // 1024
+.b-list-trainer {
+    &__list {
+        margin: 0 -8px;
+    }
+
+    &__item {
+        width: 50%;
+        margin: 0 0 16px;
+        padding: 0 8px;
+        background: transparent;
+
+        & + & {
+            margin: 0 0 16px;
+        }
+    }
+}

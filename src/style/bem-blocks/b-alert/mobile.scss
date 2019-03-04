@@ -1,0 +1,21 @@
+// 320
+.b-alert {
+    position: fixed;
+    z-index: 1000;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 30px);
+    max-width: 768px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-left: 2px solid #F55F0C;
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 18px;
+    line-height: 1.5;
+
+    &__button-wrapper {
+        text-align: center;
+        margin-top: 30px;
+    }
+}

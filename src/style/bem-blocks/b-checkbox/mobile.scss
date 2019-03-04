@@ -10,10 +10,10 @@
     }
 
     &--add-schedule {
-        margin-bottom: 30px;
+        margin-bottom: 20px;
 
         &:not(:last-child) {
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
     }
 
@@ -22,58 +22,60 @@
     }
 
     &__label {
-        color: #757575;;
         font-size: 14px;
-        cursor: pointer;
         display: inline-block;
         padding-top: 3px;
+        cursor: pointer;
         transition: color $animation-time;
+        color: #757575;;
 
         .no-touchevents &:hover,
         .touchevents &:active {
-            color: $white;
+            color: #fff;
         }
     }
 
     &__check {
-        cursor: pointer;
         position: relative;
-        margin: 0;
-        margin-right: 10px;
+        display: inline-block;
         width: 30px;
         height: 30px;
-        display: inline-block;
-        -webkit-tap-highlight-color: transparent;
+        margin: 0;
+        margin-right: 10px;
+        cursor: pointer;
         transform: translate3d(0, 0, 0);
+
+        -webkit-tap-highlight-color: transparent;
 
         .no-touchevents &:hover + .b-checkbox__label,
         .touchevents &:active + .b-checkbox__label {
-            color: $white;
+            color: #fff;
         }
 
         &:before {
-            content: "";
             position: absolute;
             top: -15px;
             left: -15px;
             width: 48px;
             height: 48px;
-            border-radius: 50%;
-            background: rgba(34,50,84,0.03);
+            content: '';
+            transition: opacity .2s ease;
             opacity: 0;
-            transition: opacity 0.2s ease;
+            border-radius: 50%;
+            background: rgba(34,50,84,.03);
         }
 
         svg {
             position: relative;
             z-index: 1;
+            transition: all .2s ease;
+            transform: translate3d(0, 0, 0);
+
             fill: none;
+            stroke: $mint;
             stroke-linecap: round;
             stroke-linejoin: round;
-            stroke: $mint;
             stroke-width: 1.5;
-            transform: translate3d(0, 0, 0);
-            transition: all 0.2s ease;
 
             path {
                 stroke-dasharray: 60;
@@ -86,7 +88,7 @@
             }
         }
 
-        &:hover  {
+        &:hover {
             &:before {
                 opacity: 1;
             }
@@ -99,13 +101,15 @@
             svg {
                 stroke: $mint;
                 path {
+                    transition: all .3s linear;
+
                     stroke-dashoffset: 60;
-                    transition: all 0.3s linear;
                 }
                 polyline {
+                    transition: all .2s linear;
+                    transition-delay: .15s;
+
                     stroke-dashoffset: 42;
-                    transition: all 0.2s linear;
-                    transition-delay: 0.15s;
                 }
             }
         }

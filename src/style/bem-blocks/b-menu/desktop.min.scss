@@ -1,12 +1,16 @@
 // 1024
+
 .b-menu {
-    &__link {
-        font-size: 18px;
+    max-width: 420px;
+    font-size: 16px;
+
+    &__list {
+        &--main {
+            font-size: 19px;
+        }
     }
 
-    &__item {
-        &--cabinet {
-            display: none;
-        }
+    &__copyright {
+        font-size: 14px;
     }
 }

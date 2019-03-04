@@ -1,9 +1,12 @@
 // 1024
 .b-trainer-add-schedule {
-
     &__save {
         width: calc(100% - 85px);
         left: auto;
         right: 0px;
+    }
+
+    &__schedule {
+        border-radius: 0;
     }
 }

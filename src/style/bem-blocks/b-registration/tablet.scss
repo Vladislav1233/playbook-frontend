@@ -1,7 +1,15 @@
 // 768++
 .b-registration {
+    &__form-wrapper {
+        max-width: 460px;
+    }
+
     &__form {
-        padding: 60px 45px 90px;
+        padding: 30px;
+    }
+
+    &__sub-navigation {
+        padding: 15px 30px;
     }
 
     &__error {

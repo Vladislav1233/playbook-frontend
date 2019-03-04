@@ -71,10 +71,15 @@ export default function(state = initialState, action) {
 
         case GET_SUCCESS_SCHEDULE_TRAINER:
             const responseSchedule = action.payload.data;
+            console.log(responseSchedule);
             // Note: Забронированное подтвержденное время
-            const reservedTime = action.reservedResponse.data.data.filter(reservedResponseItem => {
-                return reservedResponseItem.status === 1;
-            });
+            let reservedTime = [];
+
+            if (action.isCabinet) {
+                reservedTime = action.reservedResponse.data.data.filter(reservedResponseItem => {
+                    return reservedResponseItem.status === 1;
+                });
+            };
             // Note: Cтоимость часа во всех промежутках времени
             let newCost = [];
             // Note: Площадки на которых в этот день тренирует тренер
@@ -90,6 +95,7 @@ export default function(state = initialState, action) {
 
             // Note: Обходим массив ответа с расписанием тренера, чтобы собрать все данные
             responseSchedule.forEach((item, i, arr) => {
+                console.log(item);
 
                 // Note: Получаем дипазоны всего расписания
                 if(arr.length - 1 !== i) {
@@ -105,8 +111,8 @@ export default function(state = initialState, action) {
                     };
                 }
 
-                // Note: Получаем стоимость часа во всех промежутках времени для тренера
-                const timeRangeCost = moment.range(item.start_time, item.end_time);
+                // Note: Получаем стоимость часа во всех промежутках времени для тренера. Время переводим в локальный часовой пояс (с сервера нам приходит +00:00).
+                const timeRangeCost = moment.range(moment(item.start_time), moment(item.end_time));
                 newCost.push({
                     time: timeRangeCost,
                     cost: item.price_per_hour
@@ -114,7 +120,15 @@ export default function(state = initialState, action) {
                 
                 // Note: получаем площадки на которых в этот день тренирует тренер
                 arrayPlaygrounds.push(...item.playgrounds);
+
+                // Note: получаем занятое время из расписания тренера
+                if(!action.isCabinet) {
+                    reservedTime = reservedTime.concat(item.confirmed_bookings);
+                };
             });
+
+            console.log(reservedTime);
+
 
             // Note: Фильтруем диапазон, чтобы в нём не было свободного времени для "занято" (убираем занятые промежутки из свободного времени)
             const filterRange = () => {
@@ -151,8 +165,8 @@ export default function(state = initialState, action) {
                 playgroundsForTraining: newPlaygroundsForTraining,
                 scheduleTrainer: {
                     ...state.scheduleTrainer,
-                    date: moment(action.date),
-                    nameDay: moment(action.date).format('dddd'),
+                    date: moment(`${action.date} +00:00`),
+                    nameDay: moment(`${action.date} +00:00`).format('dddd'),
                     schedule: rangeSchedule,
                     cost: newCost
                 }

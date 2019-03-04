@@ -13,21 +13,26 @@ import {
 
     DECLINE_BOOKING_START,
     DECLINE_BOOKING_SUCCESS,
-    DECLINE_BOOKING_FAILURE
+    DECLINE_BOOKING_FAILURE,
+
+    GET_ALL_BOOKINGS_FOR_USER_START,
+    GET_ALL_BOOKINGS_FOR_USER_SUCCESS,
+    GET_ALL_BOOKINGS_FOR_USER_FAILURE
 } from '../constants/booking';
 
 import { bookingService } from '../../services/booking';
+import { alertActions } from './alertAction';
 
 /*
 * Получить входящие запросы на бронирование времени тренера или площадки
 * type (required) - trainer or playground
-* id - trainer or playground id
+* uuid - trainer or playground uuid
 */
-export function getBookings(type, id) {
+export function getBookings(type, uuid) {
     return dispatch => {
         dispatch(start());
 
-        bookingService.getBookings(type, id)
+        bookingService.getBookings(type, uuid)
             .then(
                 res => {
                     dispatch(success(res));
@@ -109,10 +114,13 @@ export function createBooking(typeBooking, data) {
             .then(
                 res => {
                     dispatch(success(res)); 
+                    dispatch(alertActions.success('Запрос на бронирование успешно отправлен! Как только ваш запрос обработают на ваш номер прийдет смс-оповещение. Статус можно смотреть в разделе "Мои бронирования".'));
             }, 
                 err => {
                     dispatch(failure(err));
-                    console.log(err);
+                    const textError = err.response.data[Object.keys(err.response.data)[0]][0];
+                    dispatch(alertActions.error( `Ошибка! ${textError}` ));
+                    console.log(err.response.data[Object.keys(err.response.data)[0]][0]);
             });
     }
 
@@ -132,14 +140,14 @@ export function createBooking(typeBooking, data) {
     function failure(error) {
         return {
             type: CREATE_BOOKING_FAILURE,
-            payload: error
+            payload: error.response
         }
     }
 }
 
 /*
 * Отменить бронирование
-* bookingId - id объекта бронирования
+* bookingId - uuid объекта бронирования
 * data: {
 *   note: 'Сообщение пользователю'
 *}
@@ -179,3 +187,40 @@ export function declineBooking(bookingId, data) {
         }
     }
 }
+
+export function getAllBookingsForUser() {
+    return dispatch => {
+        dispatch(start());
+
+        bookingService.getAllBookingsForUser()
+            .then(
+                res => {
+                    console.log(res);
+                    dispatch(success(res));
+                },
+                error => {
+                    dispatch(failure(error));
+                }
+            );
+    }
+
+    function start() {
+        return {
+            type: GET_ALL_BOOKINGS_FOR_USER_START
+        }
+    }
+
+    function success(response) {
+        return {
+            type: GET_ALL_BOOKINGS_FOR_USER_SUCCESS,
+            payload: response
+        }
+    }
+
+    function failure(error) {
+        return {
+            type: GET_ALL_BOOKINGS_FOR_USER_FAILURE,
+            payload: error
+        }
+    }
+};

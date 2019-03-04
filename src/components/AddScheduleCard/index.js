@@ -14,12 +14,20 @@ import deleteIcon from '../../style/images/icon/delete.svg';
 class AddScheduleCard extends Component {
 
     render() {
-        const { idRender, data, onChangeTime, onRemoveCard, playgroundsForTraining, onChangeInput, onChangeCheckbox } = this.props;
+        const { 
+            idRender, 
+            data, 
+            onChangeTime, 
+            onRemoveCard, 
+            playgroundsForTraining, 
+            onChangeInput, 
+            onChangeCheckbox 
+        } = this.props;
 
         return(
             <div className="b-add-schedule-card">
-                <div onClick={onRemoveCard} className="b-add-schedule-card__delete">
-                    <img className="b-add-schedule-card__delete-icon" src={deleteIcon} alt="Удалить" />
+                <div onClick={onRemoveCard} className="b-add-schedule-card__delete" title="Удалить">
+                    <img className="b-add-schedule-card__delete-icon" src={deleteIcon} alt="Корзина" />
                 </div>
                 <div className="b-add-schedule-card__field b-add-schedule-card__field--left">
                     <TimeField
@@ -59,7 +67,7 @@ class AddScheduleCard extends Component {
                             playgroundsForTraining.map(item => {
                                 
                                 const isCheck = (num) => {
-                                    return num === item.id
+                                    return num === item.uuid
                                 }
                                 let checkIs = false;
 
@@ -68,12 +76,12 @@ class AddScheduleCard extends Component {
                                 };
 
                                 return (
-                                    <li key={item.id} className="b-add-schedule-card__check-item">
+                                    <li key={item.uuid} className="b-add-schedule-card__check-item">
                                         <Checkbox 
-                                            name={`${item.id}`}
+                                            name={`${item.uuid}`}
                                             id={`court-${item.id}${idRender}`}
                                             text={item.name}
-                                            value={item.id}
+                                            value={item.uuid}
                                             checked={checkIs}
                                             onChange={onChangeCheckbox}
                                             modif='b-checkbox--add-schedule'

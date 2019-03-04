@@ -2,28 +2,46 @@
 
 .b-hamburger {
     display: inline-block;
-    width: 40px;
-    height: 40px;
-    border: 2px solid $white;
-    border-radius: 50%;
     position: relative;
-    z-index: 50;
-    overflow: hidden;
-    transition: border-color $animation-time, right $animation-time-double;
+    z-index: 250;
     left: 0;
+    height: 64px;
+    padding: 4px 5px 4px 3px;
+    margin-left: -10px;
+    overflow: hidden;
+    
+
+    .no-touchevents &:hover,
+    .touchevents &:active {
+        background: $header-hover;
+        color: #fff;
+
+        path {
+            stroke: #fff;
+        }
+    }
+
+    &.open & {
+        &__top-bar,
+        &__bottom-bar {
+            stroke-dashoffset: -650px;
+        }
+
+        &__middle-bar {
+            stroke-dasharray: 0px 220px;
+            stroke-dashoffset: -120px;
+        }
+    }
 
     svg {
-        width: 50px;
-        position: absolute;
-        top: -2px;
-        left: -8px;
-        z-index: 1;
+        height: 50px;
+        transition: none;
     }
 
     path {
         stroke-width: 40;
         stroke-linecap: round;
-        stroke: $white;
+        stroke: #fff;
         fill: none;
         transition: all $animation-time-double ease-in-out, stroke $animation-time;
     }
@@ -35,31 +53,5 @@
 
     &__middle-bar {
         stroke-dasharray: 240px 240px;
-    }
-
-    .no-touchevents &:hover,
-    .touchevents &:active {
-        border-color: lighten($orange-diamond-yellow, 10%);
-
-        path {
-            stroke: lighten($orange-diamond-yellow, 10%);
-        }        
-    }
-
-    &.open {
-        left: calc(100vw - 64px);
-    }
-
-    &.open & {
-
-        &__top-bar,
-        &__bottom-bar {
-            stroke-dashoffset: -650px;
-        }
-
-        &__middle-bar {
-            stroke-dasharray: 0px 220px;
-            stroke-dashoffset: -120px;
-        }
     }
 }

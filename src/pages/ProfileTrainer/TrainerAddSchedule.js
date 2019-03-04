@@ -3,10 +3,14 @@ import { connect } from "react-redux";
 import { createScheduleTrainer, editTrainerSchedule, toggleResponse } from '../../store/actions/schedule';
 import moment from 'moment';
 import 'moment/locale/ru';
-import getArrayDateRange from '../../helpers/getArrayDateRange';
-import { dataTime } from '../../helpers/dataTime';
+
+// Note: services
 import { scheduleService } from '../../services/scheduleService';
 import { trainerInfoService } from '../../services/trainerInfoService';
+
+// Note: helpers
+import { dataTime } from '../../helpers/dataTime';
+import getArrayDateRange from '../../helpers/getArrayDateRange';
 import { convertTypeMoney } from '../../helpers/convertTypeMoney';
 
 // Note: components
@@ -31,7 +35,7 @@ class TrainerAddSchedule extends Component {
                 end_time: null,
                 price_per_hour: '',
                 currency: 'RUB',
-                schedule_id: -1,
+                schedule_uuid: '',
                 playgrounds: [],
                 playgroundsCheck: []
             }],
@@ -57,8 +61,8 @@ class TrainerAddSchedule extends Component {
     }
 
     // componentDidMount() {
-    //     // const data = dataTime();
-    //     // this.getTrainerScheduleRequest(this.state.dateCalendar, data)
+    //     const data = dataTime();
+    //     this.getTrainerScheduleRequest(this.state.dateCalendar, data);
     // }
 
     componentDidUpdate() {
@@ -91,9 +95,9 @@ class TrainerAddSchedule extends Component {
                                 end_time: moment(item.end_time).format("HH:mm"),
                                 price_per_hour: convertTypeMoney(item.price_per_hour, 'RUB', 'banknote'),
                                 currency: 'RUB',
-                                schedule_id: item.id,
+                                schedule_uuid: item.uuid,
                                 playgrounds: this.state.playgroundsForTraining,
-                                playgroundsCheck: item.playgrounds.map(item => item.id)
+                                playgroundsCheck: item.playgrounds.map(item => item.uuid)
                             }
                         });
 
@@ -104,11 +108,11 @@ class TrainerAddSchedule extends Component {
                     } else {
                         const newCards = [{
                                 dates: [date],
-                                start_time: null, // Example 09:00:00
-                                end_time: null, // Example 17:00:00
-                                price_per_hour: '', // Example 7000 (70rub)
+                                start_time: null,
+                                end_time: null,
+                                price_per_hour: '',
                                 currency: 'RUB',
-                                schedule_id: -1,
+                                schedule_uuid: '',
                                 playgrounds: this.state.playgroundsForTraining,
                                 playgroundsCheck: []
                             }];
@@ -180,7 +184,7 @@ class TrainerAddSchedule extends Component {
         let newPlaygroundsCheck = this.state.cards[idx].playgroundsCheck;
 
         if (checked) {
-            newPlaygroundsCheck = [...newPlaygroundsCheck, +name];
+            newPlaygroundsCheck = [...newPlaygroundsCheck, name];
         } else {
             newPlaygroundsCheck = newPlaygroundsCheck.filter(item => {
                 return item !== name;
@@ -205,7 +209,7 @@ class TrainerAddSchedule extends Component {
                 end_time: null,
                 price_per_hour: '',
                 currency: 'RUB',
-                schedule_id: -1,
+                schedule_uuid: '',
                 playgrounds: this.state.playgroundsForTraining,
                 playgroundsCheck: []
             }])
@@ -216,12 +220,12 @@ class TrainerAddSchedule extends Component {
         const { cards } = this.state;
 
         //  Note: если карточка с сервера то удаляем её совсем
-        if (cards[idx].schedule_id >= 0) {
-            scheduleService.deleteSchedule(cards[idx].schedule_id);
+        if (cards[idx].schedule_uuid) {
+            scheduleService.deleteSchedule(cards[idx].schedule_uuid);
         };
 
         // Note: если последняя карточка с сервера, то очищаем её.
-        if (cards.length === 1 && cards[idx].schedule_id >= 0) {
+        if (cards.length === 1 && cards[idx].schedule_uuid) {
             this.setState({
                 ...this.state,
                 cards: [{
@@ -230,7 +234,7 @@ class TrainerAddSchedule extends Component {
                     end_time: null,
                     price_per_hour: '',
                     currency: 'RUB',
-                    schedule_id: -1,
+                    schedule_uuid: '',
                     playgrounds: this.state.playgroundsForTraining,
                     playgroundsCheck: []
                 }]
@@ -304,7 +308,7 @@ class TrainerAddSchedule extends Component {
                     end_time: null,
                     price_per_hour: '',
                     currency: 'RUB',
-                    schedule_id: -1,
+                    schedule_uuid: '',
                     playgrounds: this.state.playgroundsForTraining,
                     playgroundsCheck: []
                 }],
@@ -318,37 +322,53 @@ class TrainerAddSchedule extends Component {
         // NOTE: Создается один запрос на одну карточку. Добавление расписания
         this.state.cards.forEach(function(card) {
             let formatPrice = convertTypeMoney(card.price_per_hour, 'RUB', 'coin');
-            console.log(card.start_time);
+
             // TODO: добавить чек-бокс playgrounds
-            const dataForCreate = {
-                dates: card.dates,
-                start_time: `${card.start_time}:00`,
-                end_time: `${card.end_time}:00`,
-                price_per_hour: formatPrice,
-                currency: card.currency,
-                playgrounds: [1] // TODO: как бэк заработает поставить - card.playgroundsCheck
+            // Note: Функция, которая генерирует данные по расписанию как для create так и для edit для отправки на сервер.
+            const createDataForRequest = (datesRequest, startTimeRequest, endTimeRequest) => {
+                let result = {
+                    price_per_hour: formatPrice,
+                    currency: card.currency,
+                    playgrounds: card.playgroundsCheck  
+                };
+
+                if (datesRequest) {
+                    result.dates = datesRequest;
+                };
+
+                if (startTimeRequest) {
+                    result.start_time = startTimeRequest
+                };
+
+                if (endTimeRequest) {
+                    result.end_time = endTimeRequest
+                };
+
+                return result;
             };
 
-            const dataForEdit = {
-                dates: card.dates,
-                start_time: `${card.dates[0]} ${card.start_time}:00`,
-                end_time: `${card.dates[0]} ${card.end_time}:00`,
-                price_per_hour: formatPrice,
-                currency: card.currency,
-                playgrounds: [1] // TODO: как бэк заработает поставить - card.playgroundsCheck
-            };
+            // Note: Получаем даты начала расписания и окончания расписания относительно UTC
+            const dates = card.dates.map(date => {
+                return {
+                    start_time: moment.utc(moment(`${date} ${card.start_time}:00`)).format('YYYY-MM-DD HH:mm:ss'),
+                    end_time: moment.utc(moment(`${date} ${card.end_time}:00`)).format('YYYY-MM-DD HH:mm:ss')
+                }
+            });
 
-            // Note: если у нас карточка с сервера, то у неё schedule_id 0 и больше, мы определяем какой запрос отправлять.
+            // Note: если у нас карточка с сервера, то у неё schedule_uuid не пустая строка, мы определяем какой запрос отправлять.
             const edit = async () => {
-                if (card.schedule_id >= 0) {
-                    dispatch(editTrainerSchedule(card.schedule_id, dataForEdit));
+                if (card.schedule_uuid) {
+                    dispatch(editTrainerSchedule(
+                        card.schedule_uuid,  
+                        createDataForRequest(null, dates[0].start_time, dates[0].end_time)
+                    ));
                 }
                 await create();
             }
 
             const create = () => {
-                if (card.schedule_id < 0) {
-                    dispatch(createScheduleTrainer(dataForCreate));
+                if (!card.schedule_uuid) {
+                    dispatch(createScheduleTrainer(createDataForRequest(dates, null, null)));
                 };
             };
 
@@ -381,6 +401,8 @@ class TrainerAddSchedule extends Component {
                 </div>
                 
                 <div className="b-trainer-add-schedule__schedule">
+                    <h1>Добавить расписание</h1>
+
                     <SettingChooseDay 
                         optionsSelect={optionsSelect}
                         getValueSelect={this.onSelectChooseDay}

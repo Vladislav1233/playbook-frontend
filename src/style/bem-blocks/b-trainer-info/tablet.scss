@@ -6,19 +6,21 @@
     &__form {
         max-width: 480px;
         margin: 0px auto;
-        background-color: $white;
+        background-color: #fff;
         padding: 30px;
         overflow: hidden;
-        border-radius: 6px;
+        border-radius: $border-radius;
         border: 1px solid $border-color;
-        margin-bottom: 50px;
+        margin-bottom: 30px;
     }
 
     &__playground {
-        margin-left: -15px;
-        margin-right: -15px;
-        padding: 20px 15px;
-        background-color: $white;
+        max-width: 480px;
+        min-height: 230px;
+        margin: 0px auto;
+        padding: 30px;
+        border-radius: $border-radius;
+        background-color: #fff;
         margin-bottom: 50px;
         border-top: 1px solid;
         border-bottom: 1px solid;
@@ -26,13 +28,14 @@
     }
 
     &__playground-list {
-        margin-left: -15px;
-        margin-right: -15px;
+        margin-left: -7px;
+        margin-right: -7px;
+        margin-bottom: 0;
     }
 
     &__playground-item {
-        padding-left: 15px;
-        padding-right: 15px;
+        padding-left: 7px;
+        padding-right: 7px;
         width: 50%;
     }
 

@@ -33,9 +33,9 @@ class ListTrainer extends Component {
         const { listTrainer, totalCount, pagination } = this.props;
 
         return (
-            <div className="container container--white">
-                <div className="b-list-trainer">
-                    <h1>
+            <div className="b-list-trainer">
+                <div className="container">
+                    <h1 className="b-list-trainer__heading">
                         Список тренеров
                         <span className="b-list-trainer__note">
                             Всего тренеров: {totalCount}
@@ -47,18 +47,25 @@ class ListTrainer extends Component {
                         {listTrainer.length > 0
                             ? listTrainer.map(item => {
                                 return (
-                                    <li key={item.id} className="b-list-trainer__item">
+                                    <li key={item.uuid} className="b-list-trainer__item">
                                         <ObjectCard trainerInfo={item} />
                                     </li>
                                 )       
                             })
-                            : <p>Тренеров нет</p>
+                            : (
+                                <li key='only-one-key' className="b-list-trainer__item">
+                                    <div class="b-object-card__info">
+                                        Тренеров нет
+                                    </div>
+                                </li>
+                            )
                         }
                     </ul>  
 
                     {totalCount > pagination.offset
                         ? <div className="b-list-trainer__more">
                             <Button 
+                                theme={{orange:true}}
                                 name="Показать ещё"
                                 onClick={this.moreTrainer}
                             />

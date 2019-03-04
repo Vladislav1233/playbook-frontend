@@ -16,6 +16,8 @@ import ErrorPage from '../pages/ErrorPage/ErrorPage';
 import ListCourt from '../pages/ListCourt';
 import ListTrainer from '../pages/ListTrainer';
 import TestRequest from '../pages/TestRequest/TestRequest';
+import MyBooking from '../pages/MyBooking';
+import StyleGuide from '../pages/StyleGuide';
 
 export default () => (
     <Switch>
@@ -28,7 +30,10 @@ export default () => (
         {/*<Route component={ScheduleCourt} path={configPathRouter.scheduleCourt} />*/}
         <Route component={Registration} path={configPathRouter.registration} />
         <Route component={Auth} path={configPathRouter.authorization} />
+        <Route component={MyBooking} path={configPathRouter.myBooking} />
         <Route component={ErrorPage} path="/error" />
+
+        <Route component={StyleGuide} path={"/style-guide"} />
 
         <Route component={TestRequest} path="/test-request" />
     </Switch>

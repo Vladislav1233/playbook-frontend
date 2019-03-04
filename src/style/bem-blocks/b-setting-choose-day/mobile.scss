@@ -1,8 +1,8 @@
 // 320
 .b-setting-choose-day {
-    border-bottom: 1px solid #7c4dff;
+    border-bottom: 1px solid $mint;
     margin-bottom: 30px;
-    padding: 0px 15px 20px;
+    padding: 0px 0 20px;
 
     &__title {
         @include label();

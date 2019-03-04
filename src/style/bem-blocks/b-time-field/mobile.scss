@@ -9,9 +9,9 @@
     }
 
     &__input {
-        @include input();
+        @include font-size-5();
         border-bottom: 2px solid $mint;
-        color: $black;
+        color: $mainFontColor;
         height: 40px;
         display: flex;
         align-items: center;
@@ -52,5 +52,5 @@
 
 .time_picker_preview {
     box-shadow: none !important;
-    border-bottom: 2px solid #0b4e35;
+    border-bottom: 1px solid #0b4e35;
 }

@@ -1,4 +1,15 @@
 // 768
 .b-trainer-add-schedule {
-    background-color: $background-schedule;
+    // background-color: $background-schedule;
+    
+    &__calendar {
+    }
+
+    &__schedule {
+        background-color: $background-schedule;
+    }
+
+    &__save {
+        background-color: $background-schedule;
+    }
 }

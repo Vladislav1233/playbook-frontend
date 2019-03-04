@@ -3,9 +3,12 @@
     height: 100%;
     border-radius: 0;
 
+    &__date {
+        padding: 30px;
+    }
+
     &__title {
         font-size: 18px;
-        margin-bottom: 30px; 
     }
 
     &__cost,
@@ -18,12 +21,6 @@
     }
 
     &__price {
-        margin-bottom: 50px;
-    }
-
-    &__playground {
-        &:not(:last-child) {
-            margin-bottom: 50px;
-        }
+        margin-bottom: 30px;
     }
 }

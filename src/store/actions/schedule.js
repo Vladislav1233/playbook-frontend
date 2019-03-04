@@ -14,7 +14,7 @@ import {
     TOGGLE_RESPONSE,
 
     DECLINE_CONFIRM_BOOKING_START,
-    DECLINE_CONFIRM_BOOKING_SUCCESS,
+    // DECLINE_CONFIRM_BOOKING_SUCCESS,
     DECLINE_CONFIRM_BOOKING_FAILURE
 } from '../constants/schedule';
 
@@ -59,11 +59,11 @@ export function createScheduleTrainer(data) {
     }
 }
 
-export function editTrainerSchedule(schedule_id, data) {
+export function editTrainerSchedule(schedule_uuid, data) {
     return dispatch => {
         dispatch(start());
 
-        scheduleService.editSchedule(schedule_id, data)
+        scheduleService.editSchedule(schedule_uuid, data)
             .then(
                 response => {
                     dispatch(success(response));
@@ -97,8 +97,12 @@ export function editTrainerSchedule(schedule_id, data) {
     }
 }
 
-// Note: отправляем запрос на получение расписания тренера
-export function getTrainerSchedule(userId, data) {
+/* Note: отправляем запрос на получение расписания тренера
+* userId - uuid пользователя расписание которого хотим получить.
+* data - данные API для отправки запроса
+* isCabinet - если true, то присылаем данные забронированного времени тренера со всей конфиденциальной информацией, которую модет знать и читать только тренер.
+*/
+export function getTrainerSchedule(userId, data, isCabinet = false) {
     return dispatch => {
         dispatch(start());
 
@@ -110,11 +114,16 @@ export function getTrainerSchedule(userId, data) {
                         offset: 0,
                         ...data
                     }
-                    bookingService.getBookings('trainer', userId, params).then(
-                        responseReservedTime => {
-                            dispatch(success(response, responseReservedTime));
-                        }
-                    )
+                    
+                    if (isCabinet) {
+                        bookingService.getBookings('trainer', userId, params).then(
+                            responseReservedTime => {
+                                dispatch(success(response, responseReservedTime));
+                            }
+                        )
+                    } else {
+                        dispatch(success(response));
+                    }
                 },
                 error => {
                     console.log(error);
@@ -134,7 +143,8 @@ export function getTrainerSchedule(userId, data) {
             type: GET_SUCCESS_SCHEDULE_TRAINER,
             payload: response.data,
             date: data.start_time,
-            reservedResponse: booked
+            reservedResponse: booked,
+            isCabinet: isCabinet
         }
     }
 
@@ -154,7 +164,7 @@ export function toggleResponse() {
 
 /*
 * Отменить подтвержденное бронирование
-* bookingId - id объекта бронирования
+* bookingId - uuid объекта бронирования
 * data: {
 *   note: 'Сообщение пользователю'
 *}
@@ -166,7 +176,7 @@ export function declineConfirmBooking(bookingId, data, userId, dataForGetSchedul
         bookingService.declineBooking(bookingId, data)
             .then(
                 () => {
-                    dispatch(success());
+                    // dispatch(success());
                     dispatch(getTrainerSchedule(userId, dataForGetSchedule));
                 },
                 err => {
@@ -181,11 +191,11 @@ export function declineConfirmBooking(bookingId, data, userId, dataForGetSchedul
         }
     }
 
-    function success() {
-        return {
-            type: DECLINE_CONFIRM_BOOKING_SUCCESS
-        }
-    }
+    // function success() {
+    //     return {
+    //         type: DECLINE_CONFIRM_BOOKING_SUCCESS
+    //     }
+    // }
 
     function failure(error) {
         return {

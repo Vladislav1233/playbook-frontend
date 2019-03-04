@@ -16,15 +16,22 @@ class ScheduleTrainer extends Component {
         // Note: собираем данные для get запроса расписания при инициализации страницы. Берём текущий день
         const data = dataTime();
         // Note: userId достаем из url'a с помощью withRouter
-        const userId = +this.props.match.params.slug;
+        const userId = this.props.match.params.slug;
         getTrainerSchedule(userId, data);
     }
 
     render() {
-        const { scheduleTrainer, getTrainerSchedule, bookedTime, playgroundsForTraining, match } = this.props;
+        const { 
+            scheduleTrainer, 
+            getTrainerSchedule, 
+            bookedTime, 
+            playgroundsForTraining, 
+            match,
+            bookingPreloader 
+        } = this.props;
 
         // Note: userId достаем из url'a с помощью withRouter
-        const userId = +match.params.slug;
+        const userId = match.params.slug;
 
         return (
             <Fragment>
@@ -36,6 +43,7 @@ class ScheduleTrainer extends Component {
                     bookedTime={bookedTime}
                     cost={scheduleTrainer.cost}
                     playgroundsForTraining={playgroundsForTraining}
+                    preloader={bookingPreloader}
                 />
 
                 { this.props.preloader ? <Preloader /> : null }
@@ -45,12 +53,13 @@ class ScheduleTrainer extends Component {
 }
 
 
-const mapStateToProps = ({ scheduleTrainer }) => {
+const mapStateToProps = ({ scheduleTrainer, booking }) => {
     return {
         scheduleTrainer: scheduleTrainer.scheduleTrainer,
         bookedTime: scheduleTrainer.bookedTime,
+        playgroundsForTraining: scheduleTrainer.playgroundsForTraining,
         preloader: scheduleTrainer.preloader,
-        playgroundsForTraining: scheduleTrainer.playgroundsForTraining
+        bookingPreloader: booking.preloader
     }
 };
   
@@ -58,7 +67,7 @@ const mapStateToDispatch = (dispatch) => {
     return {
         /*
         * getTrainerSchedule - Запрос на получение расписания тренера
-        * userId - id пользователя (тренера) расписание которого запрашиваем
+        * userId - uuid пользователя (тренера) расписание которого запрашиваем
         * data - принимает объект с ключами start_time и end_time - период на который прийдет расписание.
         */
         getTrainerSchedule: (userId, data) => dispatch(getTrainerSchedule(userId, data))

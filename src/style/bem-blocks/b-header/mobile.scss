@@ -3,24 +3,28 @@
     flex-shrink: 0;
     background-color: $mint;
     font-size: 0;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    
+    &--light {
+        z-index: 1;
+        background: #00000095;
+    }
 
     &__wrapper {
         display: flex;
         align-items: center;
         justify-content: space-between;
         position: relative;
+        height: 64px;
     }
 
     &__get-schedule {
         font-family: $medium;
-        font-size: 15px;
+        font-size: 16px;
         line-height: 1;
         display: inline-block;
         padding-top: 3px;
         padding-bottom: 3px;
-        color: $white;
+        color: #fff;
     }
 
     &__left,

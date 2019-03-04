@@ -1,26 +1,26 @@
 // 320
 .b-booking-request {
-    margin-left: -15px;
-    margin-right: -15px;
     font-size: 0;
+    margin-right: -15px;
+    margin-left: -15px;
 
-    p {
-        padding: 0px 15px;
-        margin-bottom: 50px;
+    & > p {
         font-family: $bold;
+        margin-bottom: 50px;
+        padding: 0px 15px;
     }
 
     h2 {
-        padding: 0px 15px;
         margin-bottom: 30px;
+        padding: 0px 15px;
     }
 
     &__item {
-        padding-left: 15px;
-        padding-right: 15px;
-        padding-bottom: 30px;
-        border-bottom: 1px solid $temperate-slate-blue;
-        margin-bottom: 40px;
+        padding: 20px 15px;
+
+        & + & {
+            border-top: 1px solid $mint;
+        }
     }
 
     &__player-name {
@@ -39,7 +39,7 @@
     }
 
     &__training-playground {
-        font-size: 15px;
+        font-size: 16px;
         line-height: 21px;
         color: $mint;
     }
@@ -50,9 +50,13 @@
         color: $carmine-pink;
     }
 
-    &__button-item {
-        &:not(:last-child) {
-            margin-bottom: 20px;
+    &__buttons {
+        display: flex;
+
+        flex-flow: row nowrap;
+
+        & > * + * {
+            margin-left: 15px;
         }
     }
 }

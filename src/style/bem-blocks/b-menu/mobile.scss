@@ -5,33 +5,84 @@
     z-index: 50;
     top: 0px;
     left: 0px;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    min-width: 300px;
+    max-width: 360px;
     height: 100%;
-    width: calc(100% - 60px);
-    background-color: $mint;
-    transform: translateX(-100%);
-    transition-property: transform;
+    font-size: 16px;
+    transition-timing-function: $materialFunction;
     transition-duration: $animation-time;
+    transition-property: transform;
+    transform: translateX(-100%);
+    background-color: $mint;
 
     &.open {
         transform: translateX(0%);
     }
 
+    &__header {
+        height: 64px;
+        border-bottom: 1px solid #02100b;
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        padding: 15px;
+    }
+
     &__list {
-        padding: 60px 15px 0px;
+        margin: 0;
+        padding: 0;
+
+        &--main {
+            font-size: 18px;
+        }
+
+        & + & {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid hsla(0, 0%, 100%, .5);
+        }
     }
 
     &__item {
         list-style-type: none;
-        margin-bottom: 10px;
     }
 
     &__link {
-        font-family: $medium;
-        font-size: 15px;
-        line-height: 1;
-        padding: 10px 0px;
         display: block;
-        color: $white;
-        // border-bottom: 1px solid $orange-diamond-yellow;
+        padding: 8px 0px;
+        line-height: 1;
+
+        &--disabled {
+            cursor: default;
+            pointer-events: none;
+            color: #ffffff40;
+        }
+    }
+
+    &__social-list {
+        margin: auto 0 15px 0;
+        padding: 0;
+        font-size: 23px;
+        text-align: center;
+        color: #ffffff40;
+    }
+
+    &__social-item {
+        display: inline-block;
+        padding: 10px;
+        list-style: none;
+    }
+
+    &__copyright {
+        display: block;
+        font-size: 12px;
+        text-align: center;
+        color: #dddddd;
     }
 }

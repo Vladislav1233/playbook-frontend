@@ -7,6 +7,8 @@ import { connect } from "react-redux";
 import '../../style/bem-blocks/b-button/index.scss';
 import '../../style/bem-blocks/b-hello-page/index.scss';
 
+import tennisBallIcon from '../../style/images/icon/logo.svg';
+
 class HelloPage extends Component {
 
     render() { 
@@ -24,35 +26,74 @@ class HelloPage extends Component {
                 return configPathRouter.profileUser;
             }
         };
-
+        
         return(
-            <nav className="b-hello-page">
-                <ul className="b-hello-page__list">
-                    <li className="b-hello-page__item">
-                        <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.listCourt}>Мне нужен корт</Link>
-                    </li>
-                    <li className="b-hello-page__item">
-                        <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.listTrainer}>Мне нужен тренер</Link>
-                    </li>
-                </ul>
+            <div className="container">
+                <div className="b-hello-page">
+                    <h1 className="b-hello-page__head">
+                        <img className="b-hello-page__logo" src={tennisBallIcon} alt="Логотип - теннисный мяч" />
+                        PlayBook
+                    </h1>
+                    <h2 className="b-hello-page__heading">
+                        Забронируй корт для  тенниса и играй в удобное для тебя время
+                    </h2>
+                    <nav className="b-hello-page__nav">
+                        <ul className="b-hello-page__list">
+                            {/* <li className="b-hello-page__item">
+                                <Link className="b-button b-button--hollow b-button--hello-page" to={configPathRouter.listCourt}>Мне нужен корт</Link>
+                            </li> */}
+                            <li className="b-hello-page__item">
+                                <Link 
+                                    className="b-button b-button--hollow b-button--hello-page" 
+                                    to={configPathRouter.listTrainer}
+                                >
+                                    Мне нужен тренер
+                                </Link>
+                            </li>
+                        </ul>
 
-                {!isAuthorization ? 
-                    <ul className="b-hello-page__list">
-                        <li className="b-hello-page__item">
-                            <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.authorization}>Авторизация</Link>
-                        </li>
-                        <li className="b-hello-page__item">
-                            <Link className="b-button b-button--orange b-button--hello-page" to={configPathRouter.registration}>Регистрация</Link>
-                        </li>
-                    </ul>
-                    :
-                    <ul className="b-hello-page__list">
-                        <li className="b-hello-page__item">
-                            <Link className="b-button b-button--orange b-button--hello-page" to={profileTo()}>Личный кабинет</Link>
-                        </li>
-                    </ul> 
-                }
-            </nav>
+                        {!isAuthorization ? 
+                            <ul className="b-hello-page__list">
+                                <li className="b-hello-page__item">
+                                    <Link 
+                                        className="b-button b-button--hollow b-button--hello-page" 
+                                        to={configPathRouter.authorization}
+                                    >
+                                        Авторизация
+                                    </Link>
+                                </li>
+                                <li className="b-hello-page__item">
+                                    <Link 
+                                        className="b-button b-button--hollow b-button--hello-page" 
+                                        to={configPathRouter.registration}
+                                    >
+                                        Регистрация
+                                    </Link>
+                                </li>
+                            </ul>
+                            :
+                            <ul className="b-hello-page__list">
+                                <li className="b-hello-page__item">
+                                    <Link 
+                                        className="b-button b-button--hollow b-button--hello-page" 
+                                        to={configPathRouter.myBooking}
+                                    > 
+                                        Мои бронирования
+                                    </Link>
+                                </li>
+                                <li className="b-hello-page__item">
+                                    <Link 
+                                        className="b-button b-button--hollow b-button--hello-page" 
+                                        to={profileTo()}
+                                    >
+                                        Личный кабинет
+                                    </Link>
+                                </li>
+                            </ul> 
+                        }
+                    </nav>
+                </div>
+            </div>
         )
     }
 }

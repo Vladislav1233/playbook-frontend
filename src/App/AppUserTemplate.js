@@ -13,6 +13,8 @@ import Auth from '../pages/Auth/Auth';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
 import ListCourt from '../pages/ListCourt';
 import ListTrainer from '../pages/ListTrainer';
+import MyBooking from '../pages/MyBooking';
+import StyleGuide from '../pages/StyleGuide';
 
 // TODO: Добавить 404
 export default () => (
@@ -24,8 +26,12 @@ export default () => (
         {/*<Route component={ScheduleCourt} path={configPathRouter.scheduleCourt} />*/}
         <Route component={Registration} path={configPathRouter.registration} />
         <Route component={Auth} path={configPathRouter.authorization} />
+        <Route component={MyBooking} path={configPathRouter.myBooking} />
         <Route component={ErrorPage} path="/error" />
 
+        <Route component={StyleGuide} path={"/style-guide"} />
+
         <Route component={TestRequest} path="/test-request" />
+
     </Switch>
 );

@@ -1,6 +1,6 @@
 // 320++
 .b-input {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 
     &--inline {
         display: inline-block;
@@ -16,12 +16,12 @@
     }
 
     &__input {
-        @include input();
+        @include font-size-5();
         background-color: transparent;
         border: none;
-        border-bottom: 2px solid $mint;
+        border-bottom: 1px solid $mint;
         width: 100%;
-        color: $white;
+        color: #fff;
         height: 40px;
 
         &:focus {
@@ -50,7 +50,7 @@
     &--black-color & {
 
         &__input {
-            color: $black;
+            color: $mainFontColor;
         }
     }
 }

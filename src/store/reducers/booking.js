@@ -13,7 +13,11 @@ import {
 
     DECLINE_BOOKING_START,
     DECLINE_BOOKING_SUCCESS,
-    DECLINE_BOOKING_FAILURE
+    DECLINE_BOOKING_FAILURE,
+
+    GET_ALL_BOOKINGS_FOR_USER_START,
+    GET_ALL_BOOKINGS_FOR_USER_SUCCESS,
+    GET_ALL_BOOKINGS_FOR_USER_FAILURE
 } from '../constants/booking';
 
 import moment from 'moment';
@@ -24,12 +28,14 @@ const initialState = {
     dataBookingRequest: [], // Note: текущие не подтвержденные заявки
     dataPastBooking: [], // Note: прошедшие не подтвержденные заявки
     confirmBooking: [], // Note: текущие подтвержденные заявки
-    confirmPastBooking: [] // Note: прошедшие подтвержденные заявки
+    confirmPastBooking: [], // Note: прошедшие подтвержденные заявки
+    dataMyBooking: [] // Note: Текущие бронирования пользователя
 }
 
 export default function(state = initialState, action) {
 
     const filterBooking = (confirmId, startTimeConfirm) => {
+        console.log(startTimeConfirm);
         if (!moment().isAfter(startTimeConfirm)) { // Note: если заявка не истекла, то удаляем элемент из текущих заявок
             return {
                 ...state,
@@ -70,8 +76,9 @@ export default function(state = initialState, action) {
                     lastName: item.creator.last_name,
                     tel: `+${item.creator.phone}`,
                     nameCourt: item.playground ? item.playground.name : '',
+                    // Note: Преобразовываем UTC время в местное (с сервера приходит UTC).
                     time: `${moment(item.start_time).format('DD.MM.YYYY')} (${moment(item.start_time).format('dddd')}): ${moment(item.start_time).format('HH:mm')} - ${moment(item.end_time).format('HH:mm')}`,
-                    bookingId: item.id,
+                    bookingId: item.uuid,
                     status: item.status
                 }
             };
@@ -118,7 +125,7 @@ export default function(state = initialState, action) {
             }
         
         case CONFIRM_BOOKINGS_SUCCESS:
-            const confirmId = action.payload.data.data.id;
+            const confirmId = action.payload.data.data.uuid;
             const startTimeConfirm = action.payload.data.data.start_time;
 
             const newStateConfirm = filterBooking(confirmId, startTimeConfirm);
@@ -137,17 +144,20 @@ export default function(state = initialState, action) {
 
         case CREATE_BOOKING_START:
             return {
-                ...state
+                ...state,
+                preloader: true
             }
 
         case CREATE_BOOKING_SUCCESS:
             return {
-                ...state
+                ...state,
+                preloader: false
             }
         
         case CREATE_BOOKING_FAILURE:
             return {
-                ...state
+                ...state,
+                preloader: false
             }
 
         case DECLINE_BOOKING_START: 
@@ -157,17 +167,48 @@ export default function(state = initialState, action) {
             }
 
         case DECLINE_BOOKING_SUCCESS:
-            const confirmIdDecline = action.payload.data.data.id;
+            const confirmIdDecline = action.payload.data.data.uuid;
             const startTimeConfirmDecline = action.payload.data.data.start_time;
             
             const newStateDecline = filterBooking(confirmIdDecline, startTimeConfirmDecline);
+            const newDataMyBooking = state.dataMyBooking.map(item => {
+                if(item.uuid === confirmIdDecline) {
+                    item.status = action.payload.data.data.status;
+                    item.note = action.payload.data.data.note;
+                    return item;
+                } else {
+                    return item;
+                // eslint-disable-next-line
+                };
+            });
 
             return {
                 ...newStateDecline,
+                dataMyBooking: newDataMyBooking,
                 preloader: false
             }
 
         case DECLINE_BOOKING_FAILURE:
+            console.log(action.payload);
+            return {
+                ...state,
+                preloader: false
+            }
+
+        case GET_ALL_BOOKINGS_FOR_USER_START:
+            return {
+                ...state,
+                preloader: true
+            }
+        
+        case GET_ALL_BOOKINGS_FOR_USER_SUCCESS:
+            return {
+                ...state,
+                preloader: false,
+                dataMyBooking: action.payload.data.data
+            }
+
+        case GET_ALL_BOOKINGS_FOR_USER_FAILURE:
             console.log(action.payload);
             return {
                 ...state,

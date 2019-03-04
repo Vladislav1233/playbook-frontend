@@ -1,18 +1,3 @@
 // 768++
 .b-schedule-list {
-
-    &__item {
-        border: 1px solid $border-color;
-        border-radius: 6px;
-        overflow: hidden;
-        transition: border-color $animation-time;
-
-        &--hover {
-
-            .no-touchevents &:hover,
-            .touchevents &:active {
-                border-color: $orange-diamond-yellow;
-            }
-        }
-    }
 }

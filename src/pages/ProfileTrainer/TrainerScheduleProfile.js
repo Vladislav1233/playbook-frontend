@@ -19,7 +19,7 @@ class TrainerScheduleProfile extends Component {
         // Note: собираем данные для get запроса расписания при инициализации страницы. Берём текущий день
         const data = dataTime();
         const { userId } = this.props;
-        getTrainerSchedule(userId, data);
+        getTrainerSchedule(userId, data, true);
     }
 
     onClickDecline = (bookingId, note) => {
@@ -34,12 +34,19 @@ class TrainerScheduleProfile extends Component {
     }
 
     render() {
-        const { scheduleTrainer, getTrainerSchedule, bookedTime, playgroundsForTraining } = this.props;
+        const { 
+            scheduleTrainer, 
+            getTrainerSchedule, 
+            bookedTime, 
+            playgroundsForTraining,
+            bookingPreloader
+        } = this.props;
         
-        // Note: userId - это id пользователя (тренера) расписание которого надо получить, в нашем случае мы находимся в личном кабинете и запрашиваем свой id тренера
+        // Note: userId - это uuid пользователя (тренера) расписание которого надо получить, в нашем случае мы находимся в личном кабинете и запрашиваем свой uuid тренера
         const { userId } = this.props;
 
         return(
+            // TODO_AMED: тут вёрстку приведи к одному виду во всех табах. чё там прыгает всё туда обратно + h1 тут добавь как в табе выше
             <div className="b-trainer-schedule-profile">
                 <Schedule 
                     schedule={scheduleTrainer}
@@ -51,6 +58,7 @@ class TrainerScheduleProfile extends Component {
                     playgroundsForTraining={playgroundsForTraining}
                     isWhoBooked={true}
                     onClickDecline={this.onClickDecline}
+                    preloader={bookingPreloader}
                 />
 
                 { this.props.preloader ? <Preloader /> : null }
@@ -59,13 +67,14 @@ class TrainerScheduleProfile extends Component {
     }
 }
 
-const mapStateToProps = ({ scheduleTrainer, identificate }) => {
+const mapStateToProps = ({ scheduleTrainer, identificate, booking }) => {
     return {
         scheduleTrainer: scheduleTrainer.scheduleTrainer,
         bookedTime: scheduleTrainer.bookedTime,
         preloader: scheduleTrainer.preloader,
         playgroundsForTraining: scheduleTrainer.playgroundsForTraining,
-        userId: identificate.userId
+        userId: identificate.userId,
+        bookingPreloader: booking.preloader
     }
 }
   
@@ -73,13 +82,14 @@ const mapStateToDispatch = (dispatch) => {
     return {
         /*
         * getTrainerSchedule - Запрос на получение расписания тренера
-        * userId - id пользователя (тренера) расписание которого запрашиваем
+        * userId - uuid пользователя (тренера) расписание которого запрашиваем
         * data - принимает объект с ключами start_time и end_time - период на который прийдет расписание.
+        * isCabinet - если true, то присылаем данные забронированного времени тренера со всей конфиденциальной информацией, которую модет знать и читать только тренер.
         */
-        getTrainerSchedule: (userId, data) => dispatch(getTrainerSchedule(userId, data)),
+        getTrainerSchedule: (userId, data, isCabinet) => dispatch(getTrainerSchedule(userId, data, isCabinet)),
         /*
         * Отменить бронирование
-        * bookingId - id объекта бронирования
+        * bookingId - uuid объекта бронирования
         * data: {
         *   note: 'Сообщение пользователю'
         *}

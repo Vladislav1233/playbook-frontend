@@ -1,8 +1,10 @@
 // 320
 .b-trainer-add-schedule {
+    background-color: $mint;
 
     &__calendar {
-        margin-bottom: 20px;
+        border-top: 1px solid #06281b;
+        z-index: 20;
     }
 
     &__add-more {
@@ -16,9 +18,13 @@
         left: 0;
         width: 100%;
         z-index: 10;
+        padding: 0 16px 16px;
+        background-color: #fff;
     }
 
     &__schedule {
-        padding-bottom: 38px;
+        border-radius: 15px 15px 0 0;
+        background-color: #fff;
+        padding: 15px 15px 100px;
     }
 }

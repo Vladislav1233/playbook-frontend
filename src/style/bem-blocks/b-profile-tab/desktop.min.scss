@@ -1,17 +1,19 @@
 // 1024+
 .b-profile-tab {
-    border: 2px solid transparent;
-    transition: border-color $animation-time;
-    padding: 8px;
     margin-bottom: 25px;
+    padding: 8px;
+    transition: $animation-time-half;
+    border: 1px solid transparent;
+    border-radius: $border-radius;
 
     &.active {
         border-color: $mint;
+        background-color: #0b4e3536;
     }
 
     &__icon {
-        max-width: 100%;
         width: auto;
+        max-width: 100%;
         margin: 0px;
     }
 

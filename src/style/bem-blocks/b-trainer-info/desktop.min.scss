@@ -1,7 +1,15 @@
 // 1024
 .b-trainer-info {
 
+    &__form {
+        max-width: 520px;
+    }
+
+    &__playground {
+        max-width: 520px;
+    }
+
     &__playground-item {
-        width: calc(100% / 3);
+        width: calc(100% / 2);
     }
 }

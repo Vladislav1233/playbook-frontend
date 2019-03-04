@@ -8,8 +8,8 @@
     padding: 0px;
     border: 0px;
     background: none;
-    border-radius: 50%;
-    background-color: $orange-diamond-yellow;
+    border-radius: $border-radius;
+    background-color: $mint;
     transition: box-shadow $animation-time;
 
     .no-touchevents &:hover {
@@ -28,7 +28,7 @@
         content: ' ';
         height: 18px;
         width: 2px;
-        background-color: $white;
+        background-color: #fff;
     }
 
     &:before {
@@ -42,12 +42,18 @@
     &--modal {
         position: absolute;
         top: 10px;
-        right: 15px;
+        right: 10px;
     }
 
     &--schedule-item {
         position: absolute;
         right: 0px;
         top: 2px;
+    }
+
+    &--my-book-card {
+        right: 0;
+        top: 0;
+        position: absolute;
     }
 }
