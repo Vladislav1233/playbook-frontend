@@ -21,6 +21,7 @@ import {
 } from '../constants/booking';
 
 import { bookingService } from '../../services/booking';
+import { alertActions } from './alertAction';
 
 /*
 * Получить входящие запросы на бронирование времени тренера или площадки
@@ -113,10 +114,13 @@ export function createBooking(typeBooking, data) {
             .then(
                 res => {
                     dispatch(success(res)); 
+                    dispatch(alertActions.success('Запрос на бронирование успешно отправлен! Как только ваш запрос обработают на ваш номер прийдет смс-оповещение. Статус можно смотреть в разделе "Мои бронирования".'));
             }, 
                 err => {
                     dispatch(failure(err));
-                    console.log(err);
+                    const textError = err.response.data[Object.keys(err.response.data)[0]][0];
+                    dispatch(alertActions.error( `Ошибка! ${textError}` ));
+                    console.log(err.response.data[Object.keys(err.response.data)[0]][0]);
             });
     }
 
@@ -136,7 +140,7 @@ export function createBooking(typeBooking, data) {
     function failure(error) {
         return {
             type: CREATE_BOOKING_FAILURE,
-            payload: error
+            payload: error.response
         }
     }
 }

@@ -144,17 +144,20 @@ export default function(state = initialState, action) {
 
         case CREATE_BOOKING_START:
             return {
-                ...state
+                ...state,
+                preloader: true
             }
 
         case CREATE_BOOKING_SUCCESS:
             return {
-                ...state
+                ...state,
+                preloader: false
             }
         
         case CREATE_BOOKING_FAILURE:
             return {
-                ...state
+                ...state,
+                preloader: false
             }
 
         case DECLINE_BOOKING_START: 

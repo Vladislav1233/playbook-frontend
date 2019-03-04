@@ -130,12 +130,16 @@ class BookingModal extends Component {
 
         if(isAuthorization) {
             createBooking(typeBooking, data);
+            this.onCancel();
         } else {
             const dataLogin = {
                 phone: telWithoutPlus(this.state.phone),
                 password: this.state.password
             };
-            loginAction(dataLogin, false, () => createBooking(typeBooking, data));
+            loginAction(dataLogin, false, () => {
+                createBooking(typeBooking, data); 
+                this.onCancel();
+            });
         };
     };
 

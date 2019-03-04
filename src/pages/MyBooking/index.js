@@ -32,8 +32,8 @@ class MyBooking extends Component {
                                         <MyBookingCard 
                                             bookableFirstName={item.bookable.first_name}
                                             bookableLastName={item.bookable.last_name}
-                                            playgroundName={item.playground.name}
-                                            playgroundAddress={item.playground.address}
+                                            playgroundName={item.playground ? item.playground.name : ''}
+                                            playgroundAddress={item.playground ? item.playground.address: ''}
                                             startTime={item.start_time}
                                             endTime={item.end_time}
                                             price={item.price}
