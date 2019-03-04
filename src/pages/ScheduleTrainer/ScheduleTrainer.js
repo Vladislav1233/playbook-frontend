@@ -21,7 +21,14 @@ class ScheduleTrainer extends Component {
     }
 
     render() {
-        const { scheduleTrainer, getTrainerSchedule, bookedTime, playgroundsForTraining, match } = this.props;
+        const { 
+            scheduleTrainer, 
+            getTrainerSchedule, 
+            bookedTime, 
+            playgroundsForTraining, 
+            match,
+            bookingPreloader 
+        } = this.props;
 
         // Note: userId достаем из url'a с помощью withRouter
         const userId = match.params.slug;
@@ -36,6 +43,7 @@ class ScheduleTrainer extends Component {
                     bookedTime={bookedTime}
                     cost={scheduleTrainer.cost}
                     playgroundsForTraining={playgroundsForTraining}
+                    preloader={bookingPreloader}
                 />
 
                 { this.props.preloader ? <Preloader /> : null }
@@ -45,12 +53,13 @@ class ScheduleTrainer extends Component {
 }
 
 
-const mapStateToProps = ({ scheduleTrainer }) => {
+const mapStateToProps = ({ scheduleTrainer, booking }) => {
     return {
         scheduleTrainer: scheduleTrainer.scheduleTrainer,
         bookedTime: scheduleTrainer.bookedTime,
+        playgroundsForTraining: scheduleTrainer.playgroundsForTraining,
         preloader: scheduleTrainer.preloader,
-        playgroundsForTraining: scheduleTrainer.playgroundsForTraining
+        bookingPreloader: booking.preloader
     }
 };
   

@@ -2,8 +2,6 @@ import React, { Component, Fragment } from 'react';
 import moment from 'moment';
 import cn from 'classnames';
 
-
-
 // Note: components
 import BookingModal from '../Modal/BookingModal';
 import DeclineBookingModal from '../Modal/DeclineBookingModal';

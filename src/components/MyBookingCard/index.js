@@ -116,7 +116,12 @@ class MyBookingCard extends Component {
 
                 <div className="b-my-booking-card__playground">
                     <p className="b-my-booking-card__title">Корт</p>
-                    <div className="b-my-booking-card__playground-name">{playgroundName} ({playgroundAddress})</div>
+                    <div className="b-my-booking-card__playground-name">
+                        {playgroundName || playgroundAddress ?
+                            `${playgroundName} (${playgroundAddress})`
+                            : 'Не выбран'
+                        }    
+                        </div>
                 </div>
 
                 <div className="b-my-booking-card__cost">
