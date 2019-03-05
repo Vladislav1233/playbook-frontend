@@ -1,1 +1,11 @@
 // 1024
+.b-date-calendar {
+    order: 1;
+    flex-shrink: 0;
+    width: 320px;
+
+    &__calendar {
+        position: sticky;
+        top: 10px;
+    }
+}

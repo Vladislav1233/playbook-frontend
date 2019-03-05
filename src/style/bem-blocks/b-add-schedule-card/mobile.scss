@@ -1,13 +1,13 @@
 // 320
 
 .b-add-schedule-card {
-    border-bottom: 1px solid $mint;
-    margin-bottom: 30px;
-    padding: 20px 15px 40px;
     position: relative;
+    margin: 0 -15px 15px;
+    padding: 15px;
+    background: #fff;
+    box-shadow: $cardShadow;
 
     &__field {
-
         &--left,
         &--right {
             display: inline-block;
@@ -24,9 +24,10 @@
     }
 
     &__title-section {
-        @include label();
         margin-bottom: 5px;
         margin-bottom: 15px;
+
+        @include label();
     }
 
     &__check-list {
@@ -47,11 +48,11 @@
     }
 
     &__delete {
-        width: 25px;
         position: absolute;
-        right: 5px;
-        top: -10px;
-        padding: 3px;
+        top: 0px;
+        right: 0px;
+        width: 38px;
+        padding: 10px;
         cursor: pointer;
     }
 }

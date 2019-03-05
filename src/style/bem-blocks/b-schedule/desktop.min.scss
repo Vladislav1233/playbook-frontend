@@ -1,1 +1,15 @@
 // 1024
+.b-schedule {
+    display: flex;
+    width: 100%;
+    min-height: 100%;
+
+    &__content {
+        height: 100%;
+        width: 100%;
+    }
+
+    &__date {
+        padding: 30px;
+    }
+}

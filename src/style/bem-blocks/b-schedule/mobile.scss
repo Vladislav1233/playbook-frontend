@@ -1,5 +1,6 @@
 // 320++
 .b-schedule {
+    margin: 0 -15px;
 
     &__content {
         overflow: hidden;
@@ -27,11 +28,10 @@
     }
 
     &__title {
-        margin-bottom: 10px;
-        font-size: 16px;
+        font-size: 1rem;
         font-weight: 300;
-        line-height: 16px;
         color: $mainFontColor;
+        margin-bottom: 3px;
     }
 
     &__price-value {
@@ -43,9 +43,10 @@
 
     &__cost,
     &__playground {
+        // font-size: 14px;
+        // color: $mint;
         display: block;
-        font-size: 14px;
-        color: $mint;
+        font-weight: 500;
     }
 
     &__cost {
@@ -55,16 +56,15 @@
     }
 
     &__price {
-        margin-bottom: 30px;
+        margin-bottom: 15px;
     }
 
     &__playground {
-        margin-bottom: 30px;
+        margin-bottom: 15px;
     }
 
     &__playground-name {
         display: inline-block;
-        font-size: 16px;
     }
 
     &__playground-address {
