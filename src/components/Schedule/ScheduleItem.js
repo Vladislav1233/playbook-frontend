@@ -8,6 +8,7 @@ import DeclineBookingModal from '../Modal/DeclineBookingModal';
 
 // style
 import '../../style/bem-blocks/b-schedule-item/index.scss';
+import deleteIcon from '../../style/images/icon/delete.svg';
 
 class ScheduleItem extends Component {
 
@@ -69,78 +70,51 @@ class ScheduleItem extends Component {
         };
 
         // Note: Классы css
-        const classNameState = cn('b-schedule-item__state', {
-            'b-schedule-item__state--free': isStatus,
-            'b-schedule-item__state--busy': !isStatus
-        });
+        const classNameStateRoot = cn(
+            'b-schedule-item',
+            {
+                'b-schedule-item--free': isStatus,
+                'b-schedule-item--busy': !isStatus
+            }
+        );
         const classNameStateName = cn('b-schedule-item__state-name', {
             'b-schedule-item__state-name--block': template === 'court'
         });
 
-        const itemTrainer = () => (
-            isStatus ? 
-                <Fragment>
-                    {/* <div className='b-schedule-item__court-info'>
-                        <p className='b-schedule-item__name-court'>{courts[0].name}</p>
-                        <p className='b-schedule-item__address-court'>{courts[0].street}, д. {courts[0].number}</p>
-                        {courts.length > 1 ?
-                            <p className="b-schedule-item__additional-court">или ещё {courts.length - 1} корт(а)</p>
-                            :
-                            null
-                        }
-                    </div> */}
-                    <div className="b-schedule-item__click">{ textBooking }</div>
-                </Fragment>
-                :
-                null
-        );
-
-        const itemCourt = () => (
-            isStatus ? 
-                <div className="b-schedule-item__click">{ textBooking }</div>
-            : null
-        );
-
         return (
             <Fragment>
-                <div className="b-schedule-item" onClick={() => {if(isStatus) { this.openModal(); } }}>
-                    <div className="b-schedule-item__time-wrap">
-                        <div className="b-schedule-item__time">
-                            {moment(start_time).format('HH:mm')}
-                        </div>
-                        &nbsp;—&nbsp;
-                        <div className="b-schedule-item__time b-schedule-item__time--finish">
-                            {moment(end_time).format('HH:mm')}
-                        </div>
-                    </div>
-
-                    <div className="b-schedule-item__info">
-                        <div className={classNameState}>
-                            <span className={classNameStateName}>{isStatus ? 'Свободно ' : 'Занято '} </span>
+                <div className={classNameStateRoot} onClick={() => {if(isStatus) { this.openModal(); } }}>
+                    <div>
+                        <div className="b-schedule-item__time-wrap">
+                            <div className="b-schedule-item__time">
+                                {moment(start_time).format('HH:mm')}
+                            </div>
+                            &nbsp;—&nbsp;
+                            <div className="b-schedule-item__time b-schedule-item__time--finish">
+                                {moment(end_time).format('HH:mm')}
+                            </div>
                         </div>
 
-                        {creator && isWhoBooked 
+                        {creator && isWhoBooked
                             ? whoBookedTemplate(
                                 `${creator.first_name} ${creator.last_name}`,
                                 creator.phone
-                            ) 
-                            : null
-                        }
-
-                        { 
-                            template === 'trainer' ?
-                                itemTrainer()
-                            :
-                            template === 'court' ?
-                                itemCourt()
+                            )
                             : null
                         }
                     </div>
                     
+                    { !!isStatus &&
+                        <div className="b-schedule-item__click">{textBooking}</div>
+                    }
+                    
                     {/* TODO: Добавить тултип */}
                     {!isStatus && isWhoBooked 
                         ? ( <Fragment>
-                                <button onClick={this.openDeclineModal} className="b-close b-close--schedule-item"></button>   
+                                <button type="button" onClick={this.openDeclineModal} className="b-schedule-item__cancel">
+                                    <img className="b-add-schedule-card__delete-icon" src={deleteIcon} alt="Корзина" />
+                                </button>
+
                                 <DeclineBookingModal 
                                     isOpenModal={this.state.declineModal}
                                     closeModal={this.closeDeclineModal}

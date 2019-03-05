@@ -37,13 +37,12 @@ body {
         padding: 0px 30px;
     }
 
-    &--schedule {
-        max-width: none;
-        background-color: $mint;
-    }
-
     &--cabinet {
         height: 100%;
+        padding: 0px;
+    }
+
+    &--schedule-trainer {
         padding: 0px;
     }
 }

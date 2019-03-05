@@ -35,7 +35,7 @@ class ScheduleTrainer extends Component {
 
         return (
             <Fragment>
-                <div className="container">
+                <div className="container container--schedule-trainer">
                     <Schedule
                         schedule={scheduleTrainer}
                         template={'trainer'}
