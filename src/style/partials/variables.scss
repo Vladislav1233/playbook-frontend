@@ -37,6 +37,8 @@ $body-hover: rgba(0, 0, 0, .1);
 $border-color: #ebebeb;
 $border-radius: 5px;
 $cardShadow: 0px 0px 1px 1px unquote("#00000033");
+$error: #ff0b0b;
+$ok: #03ad2d;
 
 // ----- typography -----
 @mixin  h1() {

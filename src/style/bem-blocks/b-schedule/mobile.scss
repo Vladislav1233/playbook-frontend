@@ -1,11 +1,12 @@
 // 320++
 .b-schedule {
-    margin: 0 -15px;
+    background-color: $mint;
 
     &__content {
         overflow: hidden;
-        padding: 0px 15px;
-        background: #ffffff;
+        padding: 15px 15px 45px;
+        background: #fff;
+        border-radius: 15px 15px 0 0;
     }
 
     &__date {
@@ -38,7 +39,7 @@
         display: inline-block;
         padding: 0 0 0 4px;
         font-weight: 700;
-        color: $carmine-pink;
+        color: var(--accent-text);
     }
 
     &__cost,
@@ -69,8 +70,7 @@
 
     &__playground-address {
         display: inline-block;
-        padding-left: 4px;
-        color: $carmine-pink;
+        // padding-left: 4px;
     }
 
     &__playground-item {
