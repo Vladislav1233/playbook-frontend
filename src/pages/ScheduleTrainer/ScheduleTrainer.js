@@ -45,6 +45,7 @@ class ScheduleTrainer extends Component {
                         cost={scheduleTrainer.cost}
                         playgroundsForTraining={playgroundsForTraining}
                         preloader={bookingPreloader}
+                        titlePage="Расписание тренера"
                     />
                 </div>
 

@@ -61,11 +61,11 @@ class MenuHeader extends Component {
 
                         <ul className="b-menu__list">
                             <li className="b-menu__item">
-                                <a className="b-menu__link b-menu__link--disabled" href="" title="Написать нам">Написать нам</a>
+                                <a className="b-menu__link" href="mailto:manage.playbook@gmail.com" title="Написать нам">Написать нам</a>
                             </li>
-                            <li className="b-menu__item">
+                            {/* <li className="b-menu__item">
                                 <a className="b-menu__link b-menu__link--disabled" href="" title="Позвонить нам"> +7 (999) 000-00-00</a>
-                            </li>
+                            </li> */}
                             <li className="b-menu__item">
                                 <a className="b-menu__link b-menu__link--disabled" href="" title="Помощь">Помощь</a>
                             </li>
