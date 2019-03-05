@@ -6,6 +6,7 @@ import { getAllBookingsForUser, declineBooking } from '../../store/actions/booki
 
 // Note: components
 import MyBookingCard from '../../components/MyBookingCard';
+import Preloader from '../../components/Preloader/Preloader';
 
 // Note: styles
 import '../../style/bem-blocks/b-my-booking/index.scss';
@@ -16,7 +17,11 @@ class MyBooking extends Component {
     }
 
     render() {
-        const { dataMyBooking, declineBooking } = this.props;
+        const { 
+            dataMyBooking, 
+            declineBooking,
+            preloaderBooking
+        } = this.props;
         console.log(dataMyBooking);
         return(
             <div className="b-my-booking">
@@ -50,6 +55,8 @@ class MyBooking extends Component {
                         }
                     </div>
                 </div>
+
+                {preloaderBooking ? <Preloader /> : null}
             </div>
         )
     }
@@ -57,7 +64,8 @@ class MyBooking extends Component {
 
 const mapStateToProps = ({ booking }) => {
     return {
-        dataMyBooking: booking.dataMyBooking
+        dataMyBooking: booking.dataMyBooking,
+        preloaderBooking: booking.preloader
     }
 };
 

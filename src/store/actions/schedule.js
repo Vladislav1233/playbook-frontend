@@ -20,6 +20,8 @@ import {
 
 import { scheduleService } from '../../services/scheduleService';
 import { bookingService } from '../../services/booking';
+import { alertActions } from './alertAction';
+import textErrorFromServer from '../../helpers/textErrorFromServer';
 
 // Note: Отправляем запрос на создание расписания тренера
 export function createScheduleTrainer(data) {
@@ -176,11 +178,12 @@ export function declineConfirmBooking(bookingId, data, userId, dataForGetSchedul
         bookingService.declineBooking(bookingId, data)
             .then(
                 () => {
-                    // dispatch(success());
                     dispatch(getTrainerSchedule(userId, dataForGetSchedule));
+                    dispatch(alertActions.success('Бронирование успешно отменено.'));
                 },
                 err => {
                     dispatch(failure(err));
+                    dispatch(alertActions.error(`Ошибка! ${textErrorFromServer(err)}`));
                 }
             )
     };
