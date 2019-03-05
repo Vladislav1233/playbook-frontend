@@ -230,6 +230,7 @@ class BookingModal extends Component {
                 <form className="b-booking-form">
                     <fieldset className="b-booking-form__fieldset">
                         <legend className="b-modal__title-group">Время</legend>
+                        {/* TODO_HOT: вывести время по которому тыкнули в попАп*/}
                         <Input 
                             labelText='С'
                             typeInput='time'
@@ -253,7 +254,7 @@ class BookingModal extends Component {
                         />
                     </fieldset>
                     
-                    {/* TODO: радиобаттоны для корта */}
+                    {/* TODO_HOT: радиобаттоны для корта, по умолчанию "другое" +добавить */}
                     <fieldset className="b-booking-form__fieldset">
                         <legend className="b-modal__title-group">Корт</legend>
                         {playgroundsForTraining ? playgroundsForTraining.map(item => {
@@ -276,7 +277,7 @@ class BookingModal extends Component {
                     <fieldset className="b-booking-form__fieldset">
                         {/* TODO: валидировать поле времени и если не проходит валидацию то и не выводим стоимость. */}
                         <legend className="b-modal__title-group">Стоимость</legend>
-
+                        {/* TODO_HOT: сразу показывать общую стоимость из суммы */}
                         {start_time && end_time 
                             ? <Fragment>
                                 {templateCost(

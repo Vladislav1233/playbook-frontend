@@ -16,9 +16,21 @@
     &.cancel {
         border-color: #e92617;
     }
+
+    &__type {
+        font-weight: 500;
+    }
+
+    &__time {
+        font-weight: 500;
+    }
+
+    &__playground {
+        font-weight: 500;
+    }
     
     &__title {
-        font-weight: 700;
+        font-weight: 300;
         margin: 0;
         padding: 0;
     }
@@ -45,6 +57,8 @@
     }
 
     &__cost-text {
-        font-size: 24px;
+        font-size: (16em/15);
+        font-weight: 500;
+        color: var(--accent-text);
     }
 }

@@ -17,6 +17,8 @@ class Alert extends Component {
     render() {
         const { children, buttonOk } = this.props;
 
+        // TODO_HOT: выводить общий класс для error sucsess в корень
+        // TODO_HOT: попробывать засунуть в общий фулскрин затемняшку
         return(
             <div className="b-alert">
                 <div className="b-alert__content">
