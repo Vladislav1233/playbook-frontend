@@ -15,7 +15,7 @@ export default function alertReducer(state = initialState, action) {
 
         case alertConstants.ERROR:
             return {
-                type: 'alert-danger',
+                type: 'alert-error',
                 message: action.message
             }
 
