@@ -22,6 +22,7 @@ import {
 
 import { bookingService } from '../../services/booking';
 import { alertActions } from './alertAction';
+import textErrorFromServer from '../../helpers/textErrorFromServer';
 
 /*
 * Получить входящие запросы на бронирование времени тренера или площадки
@@ -118,8 +119,7 @@ export function createBooking(typeBooking, data) {
             }, 
                 err => {
                     dispatch(failure(err));
-                    const textError = err.response.data[Object.keys(err.response.data)[0]][0];
-                    dispatch(alertActions.error( `Ошибка! ${textError}` ));
+                    dispatch(alertActions.error( `Ошибка! ${textErrorFromServer(err)}` ));
                     console.log(err.response.data[Object.keys(err.response.data)[0]][0]);
             });
     }
@@ -159,10 +159,14 @@ export function declineBooking(bookingId, data) {
         bookingService.declineBooking(bookingId, data)
             .then(
                 res => {
+                    console.log(res);
                     dispatch(success(res));
+                    dispatch(alertActions.success('Бронирование успешно отменено.'));
                 },
                 err => {
+                    console.log(err);
                     dispatch(failure(err));
+                    dispatch(alertActions.error(`Ошибка! ${textErrorFromServer(err)}`));
                 }
             )
     };
