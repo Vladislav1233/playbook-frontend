@@ -42,7 +42,8 @@ class App extends Component {
             toggleMenu, 
             userRole, 
             scrollPage, 
-            alertMessage
+            alertMessage,
+            alertType
         } = this.props;
         console.log(alertMessage);
         console.log('renderApp');
@@ -94,7 +95,7 @@ class App extends Component {
                 <CoverPage />
 
                 {alertMessage ?
-                    <Alert buttonOk closeAlert={this.props.closeAlert}>
+                    <Alert buttonOk type={alertType} closeAlert={this.props.closeAlert}>
                         {alertMessage}
                     </Alert>
                 : null}
@@ -108,7 +109,8 @@ const mapStateToProps = ({ toggleMenu, identificate, scrollPage, alertReducer })
         toggleMenu: toggleMenu.toggleMenu,
         userRole: identificate.userRole,
         scrollPage: scrollPage.isNotScrollPage,
-        alertMessage: alertReducer.message
+        alertMessage: alertReducer.message,
+        alertType: alertReducer.type
     }
 };
 
