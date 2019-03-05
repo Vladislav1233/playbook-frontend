@@ -391,14 +391,12 @@ class TrainerAddSchedule extends Component {
             <div className="b-trainer-add-schedule">
                 {/*TODO: Это лучше сделать отдельной всплывающей подсказкой или сообщением
                 <div className="b-hint-profile">Укажите дни, для которых установить время и добавьте свободные временные промежутки с ценой</div>*/}
-                
-                <div className="b-trainer-add-schedule__calendar">                
-                    <Calendar 
-                        selectRange={selectChooseDay === 'period' ? true : false}
-                        returnValue={selectChooseDay === 'period' ? 'range' : 'start'}
-                        onChange={this.onClickDateCalendar}
-                    />
-                </div>
+                               
+                <Calendar 
+                    selectRange={selectChooseDay === 'period' ? true : false}
+                    returnValue={selectChooseDay === 'period' ? 'range' : 'start'}
+                    onChange={this.onClickDateCalendar}
+                />
                 
                 <div className="b-trainer-add-schedule__schedule">
                     <h1>Добавить расписание</h1>

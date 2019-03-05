@@ -27,6 +27,7 @@ body {
 }
 
 .container {
+    width: 100%;
     min-width: 320px;
     max-width: 1440px;
     margin: 0px auto;
@@ -55,15 +56,6 @@ a {
     .no-touchevents &:hover,
     .touchevents &:active {
         color: $hover-link-on-dark;
-    }
-}
-
-@media (min-width: 1280px) {
-    .container {
-        &--schedule {
-            width: calc(100% - 320px);
-            max-width: none;
-        }
     }
 }
 

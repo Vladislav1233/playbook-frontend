@@ -96,7 +96,6 @@ class HeadMenu extends Component {
                                         <Link className="b-head-menu__content-text" to={dataAboutRole.pathProfile}>Личный кабинет</Link>
                                     </li>
                                     <li className="b-head-menu__content-item">
-                                        {/*TODO_AMED: вся что связано с аккаутом и моим в попАп аккаунта над кинуть  */}
                                         <Link className="b-head-menu__content-text" to={configPathRouter.myBooking}>Мои бронирования</Link>
                                     </li>
                                 </ContentItem>

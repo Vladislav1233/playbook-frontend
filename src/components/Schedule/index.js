@@ -65,9 +65,9 @@ class Schedule extends Component {
 
         return (
             <Fragment>
-                <DateCalendar onClickDay={this.onClickDay}/>
-                <div className="container container--schedule">
-                    <div className="b-schedule">
+                <div className="b-schedule">
+                    <DateCalendar onClickDay={this.onClickDay}/>
+                    <div className="b-schedule__content">
                         <div className="b-schedule__date">{schedule.nameDay}, {Moment(schedule.date).format('DD.MM.YYYY')}.
                             {schedule.timeWork ? <div className="b-schedule__timetable">Время работы: {schedule.timeWork}</div> : null}
                         </div>

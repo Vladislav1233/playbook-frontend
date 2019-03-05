@@ -1,11 +1,11 @@
 // 320++
 .b-schedule {
-    overflow: hidden;
-    margin: 0px -15px;
-    padding: 0px 15px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    background: #ffffff;
+
+    &__content {
+        overflow: hidden;
+        padding: 0px 15px;
+        background: #ffffff;
+    }
 
     &__date {
         margin-right: -15px;

@@ -35,16 +35,18 @@ class ScheduleTrainer extends Component {
 
         return (
             <Fragment>
-                <Schedule
-                    schedule={scheduleTrainer}
-                    template={'trainer'}
-                    getTrainerSchedule={getTrainerSchedule}
-                    userId={userId}
-                    bookedTime={bookedTime}
-                    cost={scheduleTrainer.cost}
-                    playgroundsForTraining={playgroundsForTraining}
-                    preloader={bookingPreloader}
-                />
+                <div className="container">
+                    <Schedule
+                        schedule={scheduleTrainer}
+                        template={'trainer'}
+                        getTrainerSchedule={getTrainerSchedule}
+                        userId={userId}
+                        bookedTime={bookedTime}
+                        cost={scheduleTrainer.cost}
+                        playgroundsForTraining={playgroundsForTraining}
+                        preloader={bookingPreloader}
+                    />
+                </div>
 
                 { this.props.preloader ? <Preloader /> : null }
             </Fragment>

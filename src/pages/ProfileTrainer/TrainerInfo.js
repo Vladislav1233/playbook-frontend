@@ -194,7 +194,6 @@ class TrainerInfo extends Component {
 
         return(
             <div className="b-trainer-info">
-                {/* TODO_AMED: тут тоже общую вёрстку проверь по табам  */}
                 <h1>Информация о себе</h1>
                 <div className="b-trainer-info__form">
                     <Input 
