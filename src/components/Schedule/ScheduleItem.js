@@ -77,9 +77,6 @@ class ScheduleItem extends Component {
                 'b-schedule-item--busy': !isStatus
             }
         );
-        const classNameStateName = cn('b-schedule-item__state-name', {
-            'b-schedule-item__state-name--block': template === 'court'
-        });
 
         return (
             <Fragment>
