@@ -8,7 +8,7 @@
     color: #ffffff;
     border: none;
     border-radius: $border-radius;
-    background: #0b4e35;
+    background: $mint;
 
     .no-touchevents &:hover,
     .touchevents &:active {
@@ -22,7 +22,7 @@
     &--hollow {
         color: #121212;
         border: 1px solid $mint;
-        background: none;
+        background: #ffffff;
 
         .no-touchevents &:hover,
         .touchevents &:active {
@@ -32,8 +32,12 @@
     }
 
     &--save {
-        width: 100%;
-        border-radius: 0;
+        width: 50%;
+        margin-right: 10px;
+    }
+
+    &--add-more {
+        width: 50%;
     }
 
     &--hello-page {
@@ -51,5 +55,9 @@
             color: #ffffff;
             background-color: #0d60412c;
         }
+    }
+
+    &--alert-prima {
+        min-width: 100px;
     }
 }

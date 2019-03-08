@@ -1,17 +1,18 @@
 // 320
 .b-trainer-info {
     padding: 15px;
+    height: 100%;
 
     &__playground-list {
-        padding-left: 0px;
         margin-top: 0px;
         margin-bottom: 30px;
+        padding-left: 0px;
     }
 
     &__playground-item {
         display: inline-block;
-        list-style-type: none;
         width: 100%;
+        list-style-type: none;
 
         &:not(:last-child) {
             margin-bottom: 15px;
@@ -19,8 +20,9 @@
     }
 
     &__title-field {
-        @include label();
         margin-bottom: 5px;
+
+        @include label();
 
         &--light {
             font-family: $medium;
@@ -32,7 +34,6 @@
     }
 
     &__button {
-        // margin-bottom: 30px;
         text-align: center;
     }
 }

@@ -104,6 +104,7 @@
         transition-duration: $animation-time;
         transition-property: background-color, color;
         color: #ffffff;
+        border-radius: 6px;
 
         .no-touchevents &:enabled:hover,
         .touchevents &:enabled:active {

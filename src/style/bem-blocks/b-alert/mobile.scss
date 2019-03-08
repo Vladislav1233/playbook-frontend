@@ -4,18 +4,31 @@
     z-index: 1000;
     top: 100px;
     left: 50%;
-    transform: translateX(-50%);
     width: calc(100% - 30px);
-    max-width: 768px;
-    background-color: rgba(0, 0, 0, 0.8);
-    border-left: 2px solid #F55F0C;
-    color: #fff;
-    padding: 10px 15px;
+    max-width: 540px;
+    padding: 15px 15px 15px 15px;
     font-size: 18px;
     line-height: 1.5;
+    transform: translateX(-50%);
+    border-left: 10px solid #f55f0c;
+    border-radius: $border-radius;
+    background-color: #ffffff;
+    box-shadow: 5px 5px 10px 3px #00000033;
+
+    &--success {
+        border-color: $ok;
+    }
+
+    &--error {
+        border-color: $error;
+    }
+
+    &__heading {
+        margin-bottom: 15px;
+    }
 
     &__button-wrapper {
-        text-align: center;
-        margin-top: 30px;
+        margin-top: 15px;
+        text-align: right;
     }
 }

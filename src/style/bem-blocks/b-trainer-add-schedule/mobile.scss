@@ -12,6 +12,8 @@
     }
 
     &__save {
+        display: flex;
+        justify-content: space-between;
         position: fixed;
         z-index: 10;
         bottom: 0;
@@ -21,7 +23,7 @@
     }
 
     &__schedule {
-        padding: 15px 15px 100px;
+        padding: 15px 15px 65px;
         border-radius: 15px 15px 0 0;
         background-color: $main-background;
     }

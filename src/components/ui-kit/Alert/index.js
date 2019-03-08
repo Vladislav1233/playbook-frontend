@@ -27,10 +27,16 @@ class Alert extends Component {
             'b-alert--error': type === 'alert-error'
         });
 
-        // TODO_HOT: выводить общий класс для error sucsess в корень
         // TODO_HOT: попробывать засунуть в общий фулскрин затемняшку
         return(
-            <div className={classNameAlert}>
+            <aside className={classNameAlert}>
+                <h1 className="b-alert__heading">
+                    { type === 'alert-success'
+                        ? 'Успех'
+                        : 'Ошибка'
+                    }
+                </h1>
+
                 <div className="b-alert__content">
                     {children}
                 </div>
@@ -39,11 +45,12 @@ class Alert extends Component {
                     <div className="b-alert__button-wrapper">
                         <Button 
                             name="Ok"
+                            modif="b-button--alert-prima"
                             onClick={this.closeAlert}
                         />
                     </div>  
                 : null}
-            </div>
+            </aside>
         )
     }
 };

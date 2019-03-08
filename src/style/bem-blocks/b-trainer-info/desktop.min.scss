@@ -1,12 +1,13 @@
 // 1024
 .b-trainer-info {
+    &__info-wrap {
+        margin-bottom: 30px;
+    }
 
     &__form {
-        max-width: 520px;
     }
 
     &__playground {
-        max-width: 520px;
     }
 
     &__playground-item {
