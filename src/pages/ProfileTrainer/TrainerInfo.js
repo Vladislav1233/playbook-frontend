@@ -1,16 +1,21 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from "react-redux";
-import { searchPlayground, clearSearchPlayground } from '../../store/actions/searchPlayground';
 import { trainerInfoService } from '../../services/trainerInfoService';
+
+// actions
+import { searchPlayground, clearSearchPlayground } from '../../store/actions/searchPlayground';
+import { alertActions } from '../../store/actions/alertAction';
 
 // Note: helpers
 import { convertTypeMoney } from '../../helpers/convertTypeMoney';
+import textErrorFromServer from '../../helpers/textErrorFromServer';
 
 // Note: components
 import Input from '../../components/ui-kit/Input/Input';
 import Textarea from '../../components/ui-kit/Textarea';
 import SearchListPlayground from '../../components/SearchListPlayground';
 import Button from '../../components/ui-kit/Button/Button';
+import Preloader from '../../components/Preloader/Preloader';
 
 // Note: styles
 import '../../style/bem-blocks/b-trainer-info/index.scss';
@@ -31,7 +36,8 @@ class TrainerInfo extends Component {
                 maxPrice: '',
                 searchCourt: '',
                 playgrounds: []
-            }
+            },
+            preloader: false
         }
     }
 
@@ -45,13 +51,19 @@ class TrainerInfo extends Component {
 
     getTrainerInfo = () => {
         const { userId } = this.props;
+
+        if (this.state.preloader === false) {
+            this.setState({ preloader: true });
+        };
+
         trainerInfoService.getTrainerInformation(userId)
             .then(
                 response => {
                     console.log(response.data.data);
-                    if(response.data.data.uuid) {
+                    this.setState({ preloader: false });
+                    if (response.data.data.uuid) {
 
-                        const { 
+                        const {
                             first_name,
                             last_name,
                             playgrounds,
@@ -75,6 +87,7 @@ class TrainerInfo extends Component {
                     }
                 },
                 error => {
+                    this.setState({ preloader: false });
                     alert(error);
                 }
             )
@@ -94,15 +107,15 @@ class TrainerInfo extends Component {
     }
 
     onSearchCourt = (event) => {
-        const { value } = event.target; 
+        const { value } = event.target;
         const { searchPlayground, onClearSearchPlayground } = this.props;
 
         let data = {
             query: value
         };
-        
+
         // TODO: Сделать, что запрос будет отправляться после ввода трёх символов. + подсказку в поле, что нужно больше 3-х символов.
-        if(value.length > 0) {
+        if (value.length > 0) {
             searchPlayground(data);
         } else {
             onClearSearchPlayground();
@@ -116,7 +129,7 @@ class TrainerInfo extends Component {
 
         if (event.target.checked) {
             const getCheckPlayground = this.props.foundPlagrounds.filter(item => {
-                return item.uuid === event.target.value && playgrounds.every(itemSome =>  item.uuid !== itemSome.uuid);
+                return item.uuid === event.target.value && playgrounds.every(itemSome => item.uuid !== itemSome.uuid);
             });
 
             this.setState({
@@ -142,8 +155,12 @@ class TrainerInfo extends Component {
     }
 
     onSaveInformation = () => {
+        if (this.state.preloader === false) {
+            this.setState({ preloader: true });
+        };
+
         // TODO: здесь надо будет обсудить и доделать так, чтобы найденные новые площадки не пересекались с уже добавленными себе, чтобы лишнего не выводилось тренеру. + Надо придумать как удалять площадку на которой тренируешь.
-        const { 
+        const {
             playgrounds,
             about,
             minPrice,
@@ -169,43 +186,46 @@ class TrainerInfo extends Component {
             trainerInfoService.editTrainerInformation(idInfo, data)
                 .then(
                     res => {
-                        alert('Успешно сохранено');
+                        this.setState({ preloader: false });
+                        this.props.dispatch(alertActions.success('Успешно сохранено!'));
                     },
-                    error => {
-                        alert('Ошибка');
+                    err => {
+                        this.setState({ preloader: false });
+                        this.props.dispatch(alertActions.error(`Ошибка! ${textErrorFromServer(err)}`));
                     }
                 );
         } else {
             trainerInfoService.createTrainerInformation(data)
                 .then(
                     res => {
-                        alert('Успешно сохранено');
+                        this.setState({ preloader: false });
+                        this.props.dispatch(alertActions.success('Успешно сохранено!'));
                     },
-                    error => {
-                        alert('Ошибка');
+                    err => {
+                        this.setState({ preloader: false });
+                        this.props.dispatch(alertActions.error(`Ошибка! ${textErrorFromServer(err)}`));
                     }
                 );
         }
     }
 
     render() {
-        const { trainerInfo } = this.state;
+        const { trainerInfo, preloader } = this.state;
         const { foundPlagrounds } = this.props;
 
-        return(
+        return (
             <div className="b-trainer-info">
                 <h1>Информация о себе</h1>
-                
                 <div className="b-trainer-info__info-wrap">
                     <div className="b-trainer-info__form">
-                        <Input 
+                        <Input
                             labelText="Имя"
                             idInput="profile_name"
                             nameInput="name"
                             placeholder="Имя"
                             value={trainerInfo.name}
                             onChange={e => this.handleChangeInput(e)}
-                            theme={{blackColor: true}}
+                            theme={{ blackColor: true }}
                         />
 
                         {/* <Input 
@@ -218,14 +238,14 @@ class TrainerInfo extends Component {
                             theme={{blackColor: true}}
                         /> */}
 
-                        <Input 
+                        <Input
                             labelText="Фамилия"
                             idInput="profile_surname"
                             nameInput="surname"
                             placeholder="Фамилия"
                             value={trainerInfo.surname}
                             onChange={e => this.handleChangeInput(e)}
-                            theme={{blackColor: true}}
+                            theme={{ blackColor: true }}
                         />
 
                         <Textarea
@@ -236,7 +256,7 @@ class TrainerInfo extends Component {
                             placeholder="О себе"
                             value={trainerInfo.about}
                             onChange={e => this.handleChangeInput(e)}
-                            theme={{blackColor: true}}
+                            theme={{ blackColor: true }}
                         />
 
                         <div className="b-trainer-info__cost">
@@ -248,7 +268,7 @@ class TrainerInfo extends Component {
                                 placeholder="Минимальная"
                                 value={trainerInfo.minPrice}
                                 onChange={e => this.handleChangeInput(e)}
-                                theme={{blackColor: true}}
+                                theme={{ blackColor: true }}
                                 modif="b-input--time-booking"
                             />
                             <Input
@@ -257,84 +277,85 @@ class TrainerInfo extends Component {
                                 placeholder="Максимальная"
                                 value={trainerInfo.maxPrice}
                                 onChange={e => this.handleChangeInput(e)}
-                                theme={{blackColor: true}}
+                                theme={{ blackColor: true }}
                                 modif="b-input--time-booking"
                             />
                         </div>
                     </div>
 
                     <div className="b-trainer-info__playground">
-                            <div className="b-trainer-info__title-field">Выбор площадок, на которых вы тренируете</div>
-                            <Input
-                                idInput="profile_search-court"
-                                nameInput="searchCourt"
-                                placeholder="Введите название или адрес"
-                                value={trainerInfo.searchCourt}
-                                onChange={e => {
-                                    this.handleChangeInput(e);
-                                    this.onSearchCourt(e);
-                                }}
-                                theme={{blackColor: true}}
-                            />
-                            
-                            {foundPlagrounds.length > 0 ?
-                                <Fragment>
-                                    <div className="b-trainer-info__title-field b-trainer-info__title-field--light">Найденные площадки:</div>
-                                    <ul className='b-trainer-info__playground-list'>
-                                        {foundPlagrounds.map(item => {
-                                            return(
-                                                <li key={item.uuid} className="b-trainer-info__playground-item">
-                                                    <SearchListPlayground 
-                                                        id={`search_${item.uuid}`}
-                                                        namePlayground={item.name}
-                                                        addressPlayground={item.address}
-                                                        onChange={this.handlePlayground}
-                                                        value={item.uuid}
-                                                        hover
-                                                    />
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                </Fragment>
-                                :
-                                null
-                            }
+                    <div className="b-trainer-info__title-field">Выбор площадок, на которых вы тренируете</div>
+                    <Input
+                        idInput="profile_search-court"
+                        nameInput="searchCourt"
+                        placeholder="Введите название или адрес"
+                        value={trainerInfo.searchCourt}
+                        onChange={e => {
+                            this.handleChangeInput(e);
+                            this.onSearchCourt(e);
+                        }}
+                        theme={{ blackColor: true }}
+                    />
 
-                            {trainerInfo.playgrounds.length > 0 ?
-                                <Fragment>
-                                    <div className="b-trainer-info__title-field b-trainer-info__title-field--light">Добавленные площадки:</div>
-                                    <ul className='b-trainer-info__playground-list'>
-                                        {trainerInfo.playgrounds.map(item => {
-                                            return(
-                                                <li key={item.uuid} className="b-trainer-info__playground-item">
-                                                    <SearchListPlayground
-                                                        id={`work_${item.uuid}`}
-                                                        namePlayground={item.name}
-                                                        addressPlayground={item.address}
-                                                        disabled
-                                                        checked
-                                                        value={item.uuid}
-                                                        onChange={this.handlePlayground}
-                                                    />
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                </Fragment>
-                                :
-                                null
-                            }
+                    {foundPlagrounds.length > 0 ?
+                        <Fragment>
+                            <div className="b-trainer-info__title-field b-trainer-info__title-field--light">Найденные площадки:</div>
+                            <ul className='b-trainer-info__playground-list'>
+                                {foundPlagrounds.map(item => {
+                                    return (
+                                        <li key={item.uuid} className="b-trainer-info__playground-item">
+                                            <SearchListPlayground
+                                                id={`search_${item.uuid}`}
+                                                namePlayground={item.name}
+                                                addressPlayground={item.address}
+                                                onChange={this.handlePlayground}
+                                                value={item.uuid}
+                                                hover
+                                            />
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </Fragment>
+                        :
+                        null
+                    }
 
-                        </div>
+                    {trainerInfo.playgrounds.length > 0 ?
+                        <Fragment>
+                            <div className="b-trainer-info__title-field b-trainer-info__title-field--light">Добавленные площадки:</div>
+                            <ul className='b-trainer-info__playground-list'>
+                                {trainerInfo.playgrounds.map(item => {
+                                    return (
+                                        <li key={item.uuid} className="b-trainer-info__playground-item">
+                                            <SearchListPlayground
+                                                id={`work_${item.uuid}`}
+                                                namePlayground={item.name}
+                                                addressPlayground={item.address}
+                                                disabled
+                                                checked
+                                                value={item.uuid}
+                                                onChange={this.handlePlayground}
+                                            />
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </Fragment>
+                        :
+                        null
+                    }
 
-                    </div>
+                </div>
+                </div>
                 <div className="b-trainer-info__button">
-                    <Button 
+                    <Button
                         name="Сохранить"
                         onClick={this.onSaveInformation}
                     />
                 </div>
+                
+                {preloader ? <Preloader /> : null}
             </div>
         )
     }
@@ -350,7 +371,8 @@ const mapStateToProps = ({ searchPlayground, identificate }) => {
 const mapStateToDispatch = dispatch => {
     return {
         searchPlayground: (data) => dispatch(searchPlayground(data)),
-        onClearSearchPlayground: () => dispatch(clearSearchPlayground()) 
+        onClearSearchPlayground: () => dispatch(clearSearchPlayground()),
+        dispatch: (action) => dispatch(action)
     }
 }
 

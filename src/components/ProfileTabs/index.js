@@ -17,6 +17,12 @@ class ProfileTabs extends Component {
         }
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if(prevState.activeTab !== this.state.activeTab) {
+            this.props.onToggleCabinet(null, 'close');
+        }
+    };
+
     onClickTabItem = (tab) => {
         this.setState({ activeTab: tab });
     }

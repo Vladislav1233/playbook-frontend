@@ -5,7 +5,7 @@ import {
 
     EDIT_START_SCHEDULE_TRAINER,
     EDIT_SUCCESS_SCHEDULE_TRAINER,
-    EDIT_FAILURE__SCHEDULE_TRAINER,
+    EDIT_FAILURE_SCHEDULE_TRAINER,
 
     GET_START_SCHEDULE_TRAINER,
     GET_SUCCESS_SCHEDULE_TRAINER,
@@ -93,7 +93,7 @@ export function editTrainerSchedule(schedule_uuid, data) {
 
     function failure(error) {
         return {
-            type: EDIT_FAILURE__SCHEDULE_TRAINER,
+            type: EDIT_FAILURE_SCHEDULE_TRAINER,
             payload: error
         }
     }

@@ -4,6 +4,11 @@ import cn from 'classnames';
 import { connect } from "react-redux";
 import { userActions } from '../../store/actions/userAction';
 import { configPathRouter } from '../../App/configPathRouter';
+import OutsideClickHandler from 'react-outside-click-handler';
+
+
+// helpers
+import { history } from '../../helpers/history';
 
 // Note: style
 import '../../style/bem-blocks/b-head-menu/index.scss';
@@ -20,9 +25,17 @@ const ContentItem = ({ children }) => {
 };
 
 class HeadMenu extends Component {
-    state = {
-        showContent: false
-    };
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showContent: false
+        };
+
+        history.listen(() => {
+            this.closeContent();
+        });
+    }
 
     toggleContent = (e) => {
         e.preventDefault();
@@ -30,6 +43,12 @@ class HeadMenu extends Component {
         this.setState({
             ...this.state,
             showContent: !this.state.showContent
+        })
+    };
+
+    closeContent = () => {
+        this.setState({
+            showContent: false
         })
     };
 
@@ -66,61 +85,69 @@ class HeadMenu extends Component {
 
         return(
             <div className={classNameBlock}>
-                <a onClick={this.toggleContent} className="b-head-menu__open-button" href="/">
-                    { isAuthorization
-                        ? (
-                            <div className="b-head-menu__account-wrapper">
-                                <span className="b-head-menu__account-name">{ userInformation.firstName }</span>
-                                <div className="b-head-menu__image-wrapper b-head-menu__image-wrapper--blank">
-                                    <img className="b-head-menu__image" src={avaImg} alt=""/>
+                <OutsideClickHandler 
+                    onOutsideClick={() => {
+                        console.log('onOutsideClick');
+                        this.closeContent();
+                    }}
+                    display="inline-block"
+                >
+                    <a onClick={this.toggleContent} className="b-head-menu__open-button" href="/">
+                        { isAuthorization
+                            ? (
+                                <div className="b-head-menu__account-wrapper">
+                                    <span className="b-head-menu__account-name">{ userInformation.firstName }</span>
+                                    <div className="b-head-menu__image-wrapper b-head-menu__image-wrapper--blank">
+                                        <img className="b-head-menu__image" src={avaImg} alt=""/>
+                                    </div>
                                 </div>
-                            </div>
-                        ) : (
-                            <span>Войти</span>
-                        )
-                    }
-                </a>
-                {showContent &&
-                    <div className="b-head-menu__content">
-                        {isAuthorization 
-                            ? <Fragment>
-                                <ContentItem>
-                                    <li className="b-head-menu__content-item">
-                                        <span className="b-head-menu__content-text b-head-menu__content-text--name">{`${userInformation.firstName} ${userInformation.lastName}`}</span>
-                                        <div className="b-head-menu__content-additional">{dataAboutRole.roleName}</div>
-                                    </li>
-                                </ContentItem>
-
-                                <ContentItem>
-                                    <li className="b-head-menu__content-item">
-                                        <Link className="b-head-menu__content-text" to={dataAboutRole.pathProfile}>Личный кабинет</Link>
-                                    </li>
-                                    <li className="b-head-menu__content-item">
-                                        <Link className="b-head-menu__content-text" to={configPathRouter.myBooking}>Мои бронирования</Link>
-                                    </li>
-                                </ContentItem>
-
-                                <ContentItem>
-                                    <li className="b-head-menu__content-item">
-                                        <a href="" className="b-head-menu__content-text" title="Выйти" onClick={this.props.onLogout}>Выйти</a>
-                                    </li>
-                                </ContentItem>
-                            </Fragment>
-                            :
-                            <Fragment>
-                                <ContentItem>
-                                    <li className="b-head-menu__content-item">
-                                        <Link className="b-head-menu__content-text" to={configPathRouter.authorization}>Авторизация</Link>
-                                    </li>
-                                    <li className="b-head-menu__content-item">
-                                        <Link className="b-head-menu__content-text" to={configPathRouter.registration}>Регистрация</Link>
-                                    </li>
-                                </ContentItem>
-                            </Fragment>
+                            ) : (
+                                <span>Войти</span>
+                            )
                         }
+                    </a>
+                    {showContent &&
+                        <div className="b-head-menu__content">
+                            {isAuthorization 
+                                ? <Fragment>
+                                    <ContentItem>
+                                        <li className="b-head-menu__content-item">
+                                            <span className="b-head-menu__content-text b-head-menu__content-text--name">{`${userInformation.firstName} ${userInformation.lastName}`}</span>
+                                            <div className="b-head-menu__content-additional">{dataAboutRole.roleName}</div>
+                                        </li>
+                                    </ContentItem>
 
-                    </div>
-                }
+                                    <ContentItem>
+                                        <li className="b-head-menu__content-item">
+                                            <Link className="b-head-menu__content-text" to={dataAboutRole.pathProfile}>Личный кабинет</Link>
+                                        </li>
+                                        <li className="b-head-menu__content-item">
+                                            <Link className="b-head-menu__content-text" to={configPathRouter.myBooking}>Мои бронирования</Link>
+                                        </li>
+                                    </ContentItem>
+
+                                    <ContentItem>
+                                        <li className="b-head-menu__content-item">
+                                            <a href="" className="b-head-menu__content-text" title="Выйти" onClick={this.props.onLogout}>Выйти</a>
+                                        </li>
+                                    </ContentItem>
+                                </Fragment>
+                                :
+                                <Fragment>
+                                    <ContentItem>
+                                        <li className="b-head-menu__content-item">
+                                            <Link className="b-head-menu__content-text" to={configPathRouter.authorization}>Авторизация</Link>
+                                        </li>
+                                        <li className="b-head-menu__content-item">
+                                            <Link className="b-head-menu__content-text" to={configPathRouter.registration}>Регистрация</Link>
+                                        </li>
+                                    </ContentItem>
+                                </Fragment>
+                            }
+
+                        </div>
+                    }
+                </OutsideClickHandler>
             </div>
         )
     }
