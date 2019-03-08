@@ -419,19 +419,26 @@ class TrainerAddSchedule extends Component {
                         />
                     ))}
 
-                    <div className="b-trainer-add-schedule__add-more">
+                    {/* <div className="b-trainer-add-schedule__add-more">
                         <Button 
                             name={'Добавить ещё'}
                             theme={{orange: true}}
                             onClick={this.handleAddCard}
                         />
-                    </div>
+                    </div> */}
 
                     <div className="b-trainer-add-schedule__save"> 
                         <Button
                             modif="b-button--save"
                             name={'Сохранить'}
                             onClick={() => this.onSubmitCreateSchedule()}
+                        />
+
+                        <Button
+                            modif="b-button--add-more"
+                            name={'Добавить ещё'}
+                            theme={{ orange: true }}
+                            onClick={this.handleAddCard}
                         />
                     </div>
                 </div>

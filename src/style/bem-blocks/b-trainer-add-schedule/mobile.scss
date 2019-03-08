@@ -7,22 +7,22 @@
     }
 
     &__add-more {
-        text-align: center;
         padding: 5px 0px 30px;
+        text-align: center;
     }
 
     &__save {
         position: fixed;
+        z-index: 10;
         bottom: 0;
         left: 0;
         width: 100%;
-        z-index: 10;
         padding: 0 16px 16px;
     }
 
     &__schedule {
+        padding: 15px 15px 100px;
         border-radius: 15px 15px 0 0;
         background-color: $main-background;
-        padding: 15px 15px 100px;
     }
 }
