@@ -4,16 +4,15 @@
     padding-right: 8px;
     padding-bottom: 20px;
     padding-left: 8px;
-    // background-color: $mint;
     border-top: 1px solid #06281b;
 
     &__calendar {
-        font-family: $medium;
         width: 100%;
         max-width: 320px;
         margin: 0px auto;
+        font-family: $medium;
         border: none;
-        background-color: transparent;
+        background: transparent;
     }
 
     .react-calendar--selectRange {
@@ -26,7 +25,7 @@
         font-family: $medium;
         font-size: 14px;
         opacity: .48;
-        color: #fff;
+        color: #ffffff;
 
         @media (min-width: 768px) {
             font-size: 20px;
@@ -34,7 +33,7 @@
     }
 
     .react-calendar__month-view__days__day {
-        color: #fff;
+        color: #ffffff;
 
         &--neighboringMonth {
             opacity: 1;
@@ -47,69 +46,74 @@
         font-size: 14px;
         transition-duration: $animation-time;
         transition-property: box-shadow;
-        border: 1px solid $mint;
-        border-radius: 3px;
+        border: 2px solid $mint;
+        border-radius: 6px;
 
         &:enabled:hover,
         &:enabled:active {
             background: rgba(255, 255, 255, .2);
-            background-color: transparent;
         }
 
         &--active {
             color: #121212;
-            background: #fff;
+            background: #ffffff;
 
             .no-touchevents &:enabled:hover,
             .touchevents &:enabled:active {
-                background: #fff;
+                background: #ffffff;
             }
         }
 
         &--now {
             font-family: $bold;
-            color: $orange-diamond-yellow;
-            border: 1px solid $orange-diamond-yellow;
+            color: #ffffff;
+            border-color: $orange-diamond-yellow;
+
+            &.react-calendar__tile--active:enabled:hover,
+            &.react-calendar__tile--active:enabled:focus,
+            &.react-calendar__tile--active {
+                background: rgba(255, 255, 255, .2);
+            }
         }
 
         &:enabled:focus {
-            background-color: transparent;
+            background: transparent;
         }
 
         &:disabled {
             color: rgba(255, 255, 255, .15);
-            background-color: transparent;
+            background: transparent;
         }
     }
 
     button.react-calendar__tile--active:enabled:hover,
     button.react-calendar__tile--active:enabled:focus {
-        background: #fff;
+        background: #ffffff;
     }
 
     .react-calendar__navigation__label {
-        font-family: $regular;
-        font-size: 20px;
         padding-top: 6px;
         padding-bottom: 0px;
-        color: #fff;
+        font-family: $regular;
+        font-size: 20px;
+        color: #ffffff;
     }
 
     .react-calendar__navigation__arrow {
         font-size: 30px;
         transition-duration: $animation-time;
         transition-property: background-color, color;
-        color: #fff;
+        color: #ffffff;
 
         .no-touchevents &:enabled:hover,
         .touchevents &:enabled:active {
             color: $mint;
-            background-color: #fff;
+            background: #ffffff;
         }
 
         &:enabled:focus {
-            color: #fff;
-            background-color: transparent;
+            color: #ffffff;
+            background: transparent;
         }
 
         &:disabled {
@@ -119,7 +123,7 @@
 
     .react-calendar__navigation {
         button[disabled] {
-            background-color: transparent;
+            background: transparent;
         }
     }
 
