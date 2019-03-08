@@ -18,6 +18,7 @@ import SettingChooseDay from '../../components/SettingChooseDay/SettingChooseDay
 import Calendar from '../../components/Calendar';
 import AddScheduleCard from '../../components/AddScheduleCard';
 import Button from '../../components/ui-kit/Button/Button';
+import Preloader from '../../components/Preloader/Preloader';
 
 // Note: style
 // import '../../style/bem-blocks/b-hint-profile/index.scss';
@@ -42,7 +43,8 @@ class TrainerAddSchedule extends Component {
             selectChooseDay: 'one', // Note: это для настроек календаря: one - выбрать можно 1 день, period - выбрать можно период от / до
             dateCalendar: `${moment(new Date()).format('YYYY-MM-DD')}`,
             successPostResponse: false,
-            playgroundsForTraining: []
+            playgroundsForTraining: [],
+            preloader: false
         }
     };
 
@@ -60,10 +62,11 @@ class TrainerAddSchedule extends Component {
         }
     }
 
-    // componentDidMount() {
-    //     const data = dataTime();
-    //     this.getTrainerScheduleRequest(this.state.dateCalendar, data);
-    // }
+    componentDidMount() {
+        this.setState({preloader: true});
+        // const data = dataTime();
+        // this.getTrainerScheduleRequest(this.state.dateCalendar, data);
+    }
 
     componentDidUpdate() {
         if(this.state.successPostResponse === true) {
@@ -74,7 +77,7 @@ class TrainerAddSchedule extends Component {
             const dateForGet = moment(this.state.dateCalendar).format('YYYY-MM-DD');
 
             this.getTrainerScheduleRequest(dateForGet, dataForGet);
-        }
+        };
     }
 
     getTrainerScheduleRequest = (date, data) => {
@@ -82,6 +85,10 @@ class TrainerAddSchedule extends Component {
         const { userId } = this.props;
 
         const getScheduleRequest = () => { 
+            if (this.state.preloader !== true) {
+                this.setState({preloader: true});
+            };
+
             scheduleService.getSchedule('trainer', userId, data)
             .then(
                 response => {
@@ -103,8 +110,9 @@ class TrainerAddSchedule extends Component {
 
                         this.setState({
                             ...this.state,
-                            cards: newCards
-                        })
+                            cards: newCards,
+                            preloader: false
+                        });
                     } else {
                         const newCards = [{
                                 dates: [date],
@@ -119,8 +127,9 @@ class TrainerAddSchedule extends Component {
 
                         this.setState({
                             ...this.state,
-                            cards: newCards
-                        })
+                            cards: newCards,
+                            preloader: false
+                        });
                     }
                 },
                 error => {
@@ -160,7 +169,6 @@ class TrainerAddSchedule extends Component {
     };
 
     onChangeTime = (idx) => (value, name) => {
-        console.log(value, name);
         const newCards = this.createDataCard(idx, name, value);
 
         this.setState({
@@ -377,7 +385,15 @@ class TrainerAddSchedule extends Component {
     };
 
     render() {
-        const { cards, selectChooseDay } = this.state;
+        const { 
+            cards, 
+            selectChooseDay,
+            preloader 
+        } = this.state;
+
+        const {
+            preloaderSchedule
+        } = this.props;
 
         const optionsSelect = [{
             value: 'one',
@@ -435,6 +451,8 @@ class TrainerAddSchedule extends Component {
                         />
                     </div>
                 </div>
+
+                {preloader || preloaderSchedule ? <Preloader /> : null}
             </div>
         )
     }
@@ -443,7 +461,8 @@ class TrainerAddSchedule extends Component {
 const mapStateToProps = ({ scheduleTrainer, identificate }) => {
     return {
         successPostResponse: scheduleTrainer.successPostResponse,
-        userId: identificate.userId
+        userId: identificate.userId,
+        preloaderSchedule: scheduleTrainer.preloader
     }
 };
 
