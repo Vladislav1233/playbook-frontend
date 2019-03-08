@@ -6,6 +6,10 @@ import { userActions } from '../../store/actions/userAction';
 import { configPathRouter } from '../../App/configPathRouter';
 import OutsideClickHandler from 'react-outside-click-handler';
 
+
+// helpers
+import { history } from '../../helpers/history';
+
 // Note: style
 import '../../style/bem-blocks/b-head-menu/index.scss';
 
@@ -21,9 +25,17 @@ const ContentItem = ({ children }) => {
 };
 
 class HeadMenu extends Component {
-    state = {
-        showContent: false
-    };
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showContent: false
+        };
+
+        history.listen(() => {
+            this.closeContent();
+        });
+    }
 
     toggleContent = (e) => {
         e.preventDefault();
