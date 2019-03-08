@@ -108,7 +108,7 @@ class ScheduleItem extends Component {
                     {/* TODO: Добавить тултип */}
                     {!isStatus && isWhoBooked 
                         ? ( <Fragment>
-                                <button type="button" onClick={this.openDeclineModal} className="b-schedule-item__cancel">
+                                <button type="button" onClick={this.openDeclineModal} tytle="Отменить" className="b-schedule-item__cancel">
                                     <img className="b-add-schedule-card__delete-icon" src={deleteIcon} alt="Корзина" />
                                 </button>
 

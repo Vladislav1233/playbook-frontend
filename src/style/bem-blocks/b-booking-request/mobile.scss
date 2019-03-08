@@ -1,13 +1,9 @@
 // 320
 .b-booking-request {
-    font-size: 0;
-    margin-right: -15px;
-    margin-left: -15px;
-
     & > p {
-        font-family: $bold;
         margin-bottom: 50px;
         padding: 0px 15px;
+        font-family: $bold;
     }
 
     h2 {
@@ -15,11 +11,23 @@
         padding: 0px 15px;
     }
 
+    &__list {
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
     &__item {
-        padding: 20px 15px;
+        padding: 15px;
+        background-color: #ffffff;
+        box-shadow: $cardShadow;
+
+        .b-booking-request__list--old & {
+            box-shadow: none;
+            background: #ffffffb5;
+        }
 
         & + & {
-            border-top: 1px solid $mint;
+            margin-top: 15px;
         }
     }
 
@@ -29,8 +37,8 @@
     }
 
     &__player-tel {
-        font-size: 16px;
-        line-height: 1;
+        font-size: 1.1rem;
+        color: $mint;
     }
 
     &__training {
@@ -52,8 +60,8 @@
 
     &__buttons {
         display: flex;
-
         flex-flow: row nowrap;
+        margin-top: auto;
 
         & > * + * {
             margin-left: 15px;

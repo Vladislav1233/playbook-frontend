@@ -38,8 +38,11 @@
     &--textarea & {
 
         &__input {
-            height: 80px;
-            resize: none;
+            display: block;
+            height: 3.5em;
+            resize: vertical;
+            border-right: 1px solid $mint;
+            // border-radius: $border-radius;
         }
 
         &__label {

@@ -5,16 +5,14 @@
 
     &__open-button {
         display: inline-flex;
-        height: 100%;
-        height: 64px;
-        padding: 0 16px;
-        color: #fff;
-
         align-items: center;
+        height: 64px;
+        padding: 0 10px;
+        color: #ffffff;
 
         .b-head-menu--open &,
         .no-touchevents &:hover {
-            color: #fff;
+            color: #ffffff;
             background: $header-hover;
         }
 
@@ -26,7 +24,6 @@
 
     &__account-wrapper {
         display: flex;
-
         align-items: center;
     }
 
@@ -61,13 +58,13 @@
     }
 
     &__content {
-        font-size: 14px;
         position: absolute;
         top: calc(100% + 2px);
         right: 0;
         width: calc(100vw - 30px);
         max-width: 480px;
         padding-top: 15px;
+        font-size: 14px;
         text-align: left;
         border: 1px solid $border-color;
         border-radius: 3px;

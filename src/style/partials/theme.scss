@@ -104,3 +104,29 @@ h6 {
 p {
     margin: 0px;
 }
+
+
+// Общий стиль: заголовок - описание
+/**
+* <div className="info-block">
+* <p className="info-block__title">  </p>
+* <p className="info-block__text">  </p>
+* </div>
+*/
+.info-block {
+    margin-bottom: 10px;
+    font-weight: 500;
+
+    &__title {
+        padding: 0;
+        font-weight: 300;
+    }
+
+    &--accent {
+        .info-block__text {
+            font-size: (16em/15);
+            font-weight: 500;
+            color: var(--accent-text);
+        }
+    }
+}
