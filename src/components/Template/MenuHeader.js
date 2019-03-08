@@ -1,7 +1,7 @@
 // react, redux
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { toggleMenu } from '../../store/actions/toggleMenu';
+import { toggleMenu, closeMenu } from '../../store/actions/toggleMenu';
 import { toggleCabinet } from '../../store/actions/toggleCabinet';
 import { Link } from 'react-router-dom';
 import { configPathRouter } from '../../App/configPathRouter';
@@ -13,6 +13,14 @@ import '../../style/bem-blocks/b-hamburger/index.scss';
 
 
 class MenuHeader extends Component {
+
+    componentDidUpdate(prevProps) {
+        if(this.props.location.pathname !== prevProps.location.pathname 
+            && prevProps.toggleMenu !== false) {
+            
+            this.props.onCloseMenu();
+        };
+    };
 
     render() {
         console.log('render MenuHeader');
@@ -103,6 +111,12 @@ const mapDispatchToProps = (dispatch) => {
         onToggleMenu: (e) => {
             e.preventDefault();
             dispatch(toggleMenu());
+        },
+        onCloseMenu: (e) => {
+            if(e) {
+                e.preventDefault();
+            };
+            dispatch(closeMenu());
         },
         onToggleCabinet: (e, status) => {
             e.preventDefault();
