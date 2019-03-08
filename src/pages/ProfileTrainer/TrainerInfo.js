@@ -1,10 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from "react-redux";
-import { searchPlayground, clearSearchPlayground } from '../../store/actions/searchPlayground';
 import { trainerInfoService } from '../../services/trainerInfoService';
+
+// actions
+import { searchPlayground, clearSearchPlayground } from '../../store/actions/searchPlayground';
+import { alertActions } from '../../store/actions/alertAction';
 
 // Note: helpers
 import { convertTypeMoney } from '../../helpers/convertTypeMoney';
+import textErrorFromServer from '../../helpers/textErrorFromServer';
 
 // Note: components
 import Input from '../../components/ui-kit/Input/Input';
@@ -183,11 +187,11 @@ class TrainerInfo extends Component {
                 .then(
                     res => {
                         this.setState({preloader: false});
-                        alert('Успешно сохранено');
+                        this.props.dispatch(alertActions.success('Успешно сохранено!'));
                     },
-                    error => {
+                    err => {
                         this.setState({preloader: false});
-                        alert('Ошибка');
+                        this.props.dispatch(alertActions.error(`Ошибка! ${textErrorFromServer(err)}`));
                     }
                 );
         } else {
@@ -195,11 +199,11 @@ class TrainerInfo extends Component {
                 .then(
                     res => {
                         this.setState({preloader: false});
-                        alert('Успешно сохранено');
+                        this.props.dispatch(alertActions.success('Успешно сохранено!'));
                     },
-                    error => {
+                    err => {
                         this.setState({preloader: false});
-                        alert('Ошибка');
+                        this.props.dispatch(alertActions.error(`Ошибка! ${textErrorFromServer(err)}`));
                     }
                 );
         }
@@ -366,7 +370,8 @@ const mapStateToProps = ({ searchPlayground, identificate }) => {
 const mapStateToDispatch = dispatch => {
     return {
         searchPlayground: (data) => dispatch(searchPlayground(data)),
-        onClearSearchPlayground: () => dispatch(clearSearchPlayground()) 
+        onClearSearchPlayground: () => dispatch(clearSearchPlayground()),
+        dispatch: (action) => dispatch(action)
     }
 }
 
