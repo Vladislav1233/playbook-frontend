@@ -1,23 +1,21 @@
 // 320 ++
 
 .b-hamburger {
-    display: inline-block;
     position: relative;
     z-index: 250;
     left: 0;
-    height: 64px;
-    padding: 4px 5px 4px 3px;
-    margin-left: -10px;
+    display: inline-flex;
+    align-items: center;
     overflow: hidden;
-    
+    height: 64px;
 
     .no-touchevents &:hover,
     .touchevents &:active {
+        color: #ffffff;
         background: $header-hover;
-        color: #fff;
 
         path {
-            stroke: #fff;
+            stroke: #ffffff;
         }
     }
 
@@ -34,16 +32,18 @@
     }
 
     svg {
+        display: block;
         height: 50px;
+        margin: 0 -2px 0 -4px;
         transition: none;
     }
 
     path {
-        stroke-width: 40;
-        stroke-linecap: round;
-        stroke: #fff;
-        fill: none;
         transition: all $animation-time-double ease-in-out, stroke $animation-time;
+        fill: none;
+        stroke: #ffffff;
+        stroke-linecap: round;
+        stroke-width: 40;
     }
 
     &__top-bar,
