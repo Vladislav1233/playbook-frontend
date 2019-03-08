@@ -54,7 +54,7 @@ class ListTrainer extends Component {
                             })
                             : (
                                 <li key='only-one-key' className="b-list-trainer__item">
-                                    <div class="b-object-card__info">
+                                    <div className="b-object-card__info">
                                         Тренеров нет
                                     </div>
                                 </li>

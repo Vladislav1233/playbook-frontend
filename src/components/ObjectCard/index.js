@@ -60,7 +60,7 @@ class ObjectCard extends Component {
                     {/* TODO: интегрировать */}
                     {trainerInfo.playgrounds.length > 0 &&
                         <div className="b-object-card__info-block">
-                            <p class="b-object-card__title">Тренерую:</p>
+                            <p className="b-object-card__title">Тренерую:</p>
                             <ul className="b-object-card__list-place">
                                     <li className="b-object-card__item-place">{nameCourt()} ({addressCourt()})</li>
                                 {/* TODO: добавить в ЛК поля для описания вида предоставляемых услуг по тренировкам */}

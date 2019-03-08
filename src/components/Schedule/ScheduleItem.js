@@ -57,7 +57,7 @@ class ScheduleItem extends Component {
         } = this.props.dataScheduleItem;
         const bookingId = this.props.dataScheduleItem.uuid;
     
-        const { template, playgroundsForTraining, userId, creator, isWhoBooked, onClickDecline, cost } = this.props;
+        const { playgroundsForTraining, userId, creator, isWhoBooked, onClickDecline, cost } = this.props;
         const textBooking = 'Нажми, чтобы забронировать';
 
         const whoBookedTemplate = (whoName, whoTel) => {
