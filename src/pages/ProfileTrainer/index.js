@@ -53,7 +53,7 @@ const mapStateToProps = ({ toggleCabinet }) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onToggleCabinet: (e) => {
-            e.preventDefault();
+            if(e) e.preventDefault();
             dispatch(toggleCabinet());
         }
     }
