@@ -2,6 +2,8 @@ import { userConstants } from '../constants/userConstants';
 import { userService } from '../../services/userService';
 import { history } from '../../helpers/history';
 import { configPathRouter } from '../../App/configPathRouter';
+import { alertActions } from './alertAction';
+import textErrorFromServer from '../../helpers/textErrorFromServer';
 
 export const userActions = {
     login,
@@ -20,13 +22,12 @@ function register(user) {
             .then(
                 user => {
                     dispatch(success());
+                    dispatch(alertActions.success('Вы успешно зарегистрированы. Введите свои данные для входа на сайт.'))
                     history.push(configPathRouter.authorization);
-                    // dispatch(alertActions.success('Registration successful'));
                 },
-                // TODO: Обрабатывать ошибки от сервера при регистрации
                 error => {
-                    history.push('/error');
                     dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(textErrorFromServer(error)));
                     // dispatch(alertActions.error(error.toString()));
                 }
             );
@@ -52,10 +53,11 @@ function login(data, toMain = true, callback) {
 
                     if(toMain) {
                         history.push('/');
-                    }
+                    };
                 },
                 error => {
                     dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(textErrorFromServer(error)));
                     // dispatch(alertActions.error(error.toString()));
                 }
             );
