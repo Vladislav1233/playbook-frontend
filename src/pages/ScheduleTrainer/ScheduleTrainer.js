@@ -78,3 +78,4 @@ const mapStateToDispatch = (dispatch) => {
 };
   
 export default withRouter(connect(mapStateToProps, mapStateToDispatch)(ScheduleTrainer));
+

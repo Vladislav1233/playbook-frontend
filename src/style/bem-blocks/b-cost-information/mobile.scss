@@ -7,7 +7,7 @@
     &__title {
         line-height: 18px;
         margin-bottom: 5px;
-        color: $mint;
+        // color: $mint;
     }
 
     &__cost {
@@ -15,9 +15,9 @@
         line-height: 22px;
         padding: 10px 7px 7px 10px;
         vertical-align: baseline;
-        color: $carmine-pink;
-        border: 1px solid #eee;
-        border-radius: 3px;
-        background-color: hsla(200, 13%, 98%, .8);
+        color: var(--accent-text);
+        border: 1px solid $border-color;
+        border-radius: $border-radius;
+        // background-color: hsla(200, 13%, 98%, .8);
     }
 }

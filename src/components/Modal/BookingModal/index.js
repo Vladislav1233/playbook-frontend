@@ -203,7 +203,7 @@ class BookingModal extends Component {
                             />
 
                 } else if (cost === null) {
-                    return 'Стоимость не указана администраторм, уточняйте лично.';
+                    return 'Стоимость не указана администратором, уточняйте лично.';
 
                 } else if (cost <= 0) {
                     return 'Укажите верные временные рамки бронирования услуги.';
@@ -225,7 +225,7 @@ class BookingModal extends Component {
                     closeModal()
                     this.onCancel()
                 }}
-                title='Бронирование'
+                title='Бронирование. (8:00 - 19:00)'
             >
                 <form className="b-booking-form">
                     <fieldset className="b-booking-form__fieldset">
@@ -299,7 +299,7 @@ class BookingModal extends Component {
                                 }
                             </Fragment>
 
-                            : <p style={{marginBottom: '30px'}}>Укажите параметры бронирования</p>
+                            : <p style={{marginBottom: '30px'}}>Будет расчитана автоматически</p>
                         }
                     </fieldset>
 
@@ -385,7 +385,6 @@ class BookingModal extends Component {
                         <div className="b-booking-form__button">
                             <Button
                                 name={!showFileldPassword ? "Забронировать" : "Подтвердить"}
-                                theme={{orange: true}}
                                 onClick={e => {
                                     if (!showFileldPassword && !isAuthorization) {
                                         this.onRegisterUser(e);
