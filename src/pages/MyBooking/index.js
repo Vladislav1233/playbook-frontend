@@ -29,30 +29,31 @@ class MyBooking extends Component {
                     <h1>Мои бронирования</h1>
 
                     <div className="b-booking-request">
-                        {dataMyBooking.length > 0
-                            ? dataMyBooking.map(item => {
-                                console.log(item);
-                                return (
-                                    <div key={item.uuid} className="b-booking-request__item">
-                                        <MyBookingCard 
-                                            bookableFirstName={item.bookable.first_name}
-                                            bookableLastName={item.bookable.last_name}
-                                            playgroundName={item.playground ? item.playground.name : ''}
-                                            playgroundAddress={item.playground ? item.playground.address: ''}
-                                            startTime={item.start_time}
-                                            endTime={item.end_time}
-                                            price={item.price}
-                                            status={item.status}
-                                            note={item.note}
-                                            declineBooking={declineBooking}
-                                            bookingId={item.uuid}
-                                        />
-                                    </div>
-                               )
-                            })
-
-                            : <p>У вас нет текущих броней</p>
-                        }
+                        <div className="b-booking-request__list">
+                            { dataMyBooking.length > 0
+                                ? dataMyBooking.map(item => {
+                                    console.log(item);
+                                    return (
+                                        <div key={item.uuid} className="b-booking-request__item">
+                                            <MyBookingCard 
+                                                bookableFirstName={item.bookable.first_name}
+                                                bookableLastName={item.bookable.last_name}
+                                                playgroundName={item.playground ? item.playground.name : ''}
+                                                playgroundAddress={item.playground ? item.playground.address: ''}
+                                                startTime={item.start_time}
+                                                endTime={item.end_time}
+                                                price={item.price}
+                                                status={item.status}
+                                                note={item.note}
+                                                declineBooking={declineBooking}
+                                                bookingId={item.uuid}
+                                            />
+                                        </div>
+                                    )
+                                })
+                                : <p>У вас нет текущих броней</p>
+                            }
+                        </div>
                     </div>
                 </div>
 

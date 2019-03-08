@@ -81,18 +81,6 @@ class MyBookingCard extends Component {
 
         return(
             <div className={styleBookingCard}>
-                {status !== 2 &&
-                    <Fragment>
-                        <button onClick={this.openDeclineModal} className="b-close b-close--my-book-card"></button>
-                        <DeclineBookingModal 
-                            isOpenModal={this.state.declineModal}
-                            closeModal={this.closeDeclineModal}
-                            onClickDecline={(note) => { this.onClickDecline(bookingId, note) }}
-                            nameButton="Отменить бронь"
-                        />
-                    </Fragment>
-                }
-
                 <div className="b-my-booking-card__status">
                     <p className="b-my-booking-card__title">Статус</p>
                     <div className="b-my-booking-card__status-text">{howStatus(status)}</div>
@@ -124,31 +112,27 @@ class MyBookingCard extends Component {
                         </div>
                 </div>
 
-                <div className="b-my-booking-card__cost">
-                    <p className="b-my-booking-card__title">Цена</p>
-                    <div className="b-my-booking-card__cost-text">{convertTypeMoney(price, 'RUB', 'banknote')} ₽</div>
+                <div className="info-block info-block--accent">
+                    <p className="info-block__title">Цена</p>
+                    <div className="info-block__text">{convertTypeMoney(price, 'RUB', 'banknote')} ₽</div>
                 </div>
+
+                { status !== 2 &&
+                    <Fragment>
+                        <DeclineBookingModal
+                            isOpenModal={this.state.declineModal}
+                            closeModal={this.closeDeclineModal}
+                            onClickDecline={(note) => { this.onClickDecline(bookingId, note) }}
+                            nameButton="Отменить бронь"
+                        />
+                        <div className="b-my-booking-card__button-wrap">
+                            <button type="button" onClick={this.openDeclineModal} className="b-button">Отказаться</button>
+                        </div>
+                    </Fragment>
+                }
             </div>
         )
     }
 }
 
 export default MyBookingCard;
-
-// Верстка для площадки
-//<div className="b-my-booking-card">
-//    <div className="b-my-booking-card__type">Забронировано: Площадка</div>
-//    <div className="b-my-booking-card__time">
-//      18.02.2019 (понедельник)<br/>
-//      10:00 - 11:00
-//  </div>
-//
-//  <div className="b-my-booking-card__playground">
-//      <div className="b-my-booking-card__playground-name">Ulgu</div>
-//      <div className="b-my-booking-card__playground-address">ул. Хабенского, 88</div>
-//  </div>
-//
-//  <div className="b-cost-information">
-//      <div className="b-cost-information__cost">700 рублей</div>
-//  </div>
-//</div>
