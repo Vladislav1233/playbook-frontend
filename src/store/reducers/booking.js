@@ -60,7 +60,8 @@ export default function(state = initialState, action) {
     switch (action.type) {
         case GET_BOOKINGS_START:
             return {
-                ...state
+                ...state,
+                preloader: true
             }
             
         case GET_BOOKINGS_SUCCESS:
@@ -109,13 +110,15 @@ export default function(state = initialState, action) {
                 dataBookingRequest: newDataBookingRequest,
                 dataPastBooking: newPastBooking,
                 confirmBooking: newConfirmBooking,
-                confirmPastBooking: newConfirmPastBooking
+                confirmPastBooking: newConfirmPastBooking,
+                preloader: false
             }
 
         case GET_BOOKINGS_FAILURE:
             console.log(action.payload);
             return {
-                ...state
+                ...state,
+                preloader: false
             }
 
         case CONFIRM_BOOKINGS_START:

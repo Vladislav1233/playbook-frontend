@@ -11,6 +11,7 @@ import Input from '../../components/ui-kit/Input/Input';
 import Textarea from '../../components/ui-kit/Textarea';
 import SearchListPlayground from '../../components/SearchListPlayground';
 import Button from '../../components/ui-kit/Button/Button';
+import Preloader from '../../components/Preloader/Preloader';
 
 // Note: styles
 import '../../style/bem-blocks/b-trainer-info/index.scss';
@@ -31,7 +32,8 @@ class TrainerInfo extends Component {
                 maxPrice: '',
                 searchCourt: '',
                 playgrounds: []
-            }
+            },
+            preloader: false
         }
     }
 
@@ -45,10 +47,16 @@ class TrainerInfo extends Component {
 
     getTrainerInfo = () => {
         const { userId } = this.props;
+
+        if(this.state.preloader === false) {
+            this.setState({preloader: true});
+        };
+
         trainerInfoService.getTrainerInformation(userId)
             .then(
                 response => {
                     console.log(response.data.data);
+                    this.setState({preloader: false});
                     if(response.data.data.uuid) {
 
                         const { 
@@ -75,6 +83,7 @@ class TrainerInfo extends Component {
                     }
                 },
                 error => {
+                    this.setState({preloader: false});
                     alert(error);
                 }
             )
@@ -142,6 +151,10 @@ class TrainerInfo extends Component {
     }
 
     onSaveInformation = () => {
+        if(this.state.preloader === false) {
+            this.setState({preloader: true});
+        };
+
         // TODO: здесь надо будет обсудить и доделать так, чтобы найденные новые площадки не пересекались с уже добавленными себе, чтобы лишнего не выводилось тренеру. + Надо придумать как удалять площадку на которой тренируешь.
         const { 
             playgrounds,
@@ -169,9 +182,11 @@ class TrainerInfo extends Component {
             trainerInfoService.editTrainerInformation(idInfo, data)
                 .then(
                     res => {
+                        this.setState({preloader: false});
                         alert('Успешно сохранено');
                     },
                     error => {
+                        this.setState({preloader: false});
                         alert('Ошибка');
                     }
                 );
@@ -179,9 +194,11 @@ class TrainerInfo extends Component {
             trainerInfoService.createTrainerInformation(data)
                 .then(
                     res => {
+                        this.setState({preloader: false});
                         alert('Успешно сохранено');
                     },
                     error => {
+                        this.setState({preloader: false});
                         alert('Ошибка');
                     }
                 );
@@ -189,7 +206,7 @@ class TrainerInfo extends Component {
     }
 
     render() {
-        const { trainerInfo } = this.state;
+        const { trainerInfo, preloader } = this.state;
         const { foundPlagrounds } = this.props;
 
         return(
@@ -262,76 +279,78 @@ class TrainerInfo extends Component {
                 </div>
 
                 <div className="b-trainer-info__playground">
-                        <div className="b-trainer-info__title-field">Выбор площадок, на которых вы тренируете</div>
-                        <Input
-                            idInput="profile_search-court"
-                            nameInput="searchCourt"
-                            placeholder="Введите название или адрес"
-                            value={trainerInfo.searchCourt}
-                            onChange={e => {
-                                this.handleChangeInput(e);
-                                this.onSearchCourt(e);
-                            }}
-                            theme={{blackColor: true}}
-                        />
+                    <div className="b-trainer-info__title-field">Выбор площадок, на которых вы тренируете</div>
+                    <Input
+                        idInput="profile_search-court"
+                        nameInput="searchCourt"
+                        placeholder="Введите название или адрес"
+                        value={trainerInfo.searchCourt}
+                        onChange={e => {
+                            this.handleChangeInput(e);
+                            this.onSearchCourt(e);
+                        }}
+                        theme={{blackColor: true}}
+                    />
                         
-                        {foundPlagrounds.length > 0 ?
-                            <Fragment>
-                                <div className="b-trainer-info__title-field b-trainer-info__title-field--light">Найденные площадки:</div>
-                                <ul className='b-trainer-info__playground-list'>
-                                    {foundPlagrounds.map(item => {
-                                        return(
-                                            <li key={item.uuid} className="b-trainer-info__playground-item">
-                                                <SearchListPlayground 
-                                                    id={`search_${item.uuid}`}
-                                                    namePlayground={item.name}
-                                                    addressPlayground={item.address}
-                                                    onChange={this.handlePlayground}
-                                                    value={item.uuid}
-                                                    hover
-                                                />
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            </Fragment>
-                            :
-                            null
-                        }
+                    {foundPlagrounds.length > 0 ?
+                        <Fragment>
+                            <div className="b-trainer-info__title-field b-trainer-info__title-field--light">Найденные площадки:</div>
+                            <ul className='b-trainer-info__playground-list'>
+                                {foundPlagrounds.map(item => {
+                                    return(
+                                        <li key={item.uuid} className="b-trainer-info__playground-item">
+                                            <SearchListPlayground 
+                                                id={`search_${item.uuid}`}
+                                                namePlayground={item.name}
+                                                addressPlayground={item.address}
+                                                onChange={this.handlePlayground}
+                                                value={item.uuid}
+                                                hover
+                                            />
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </Fragment>
+                        :
+                        null
+                    }
 
-                        {trainerInfo.playgrounds.length > 0 ?
-                            <Fragment>
-                                <div className="b-trainer-info__title-field b-trainer-info__title-field--light">Добавленные площадки:</div>
-                                <ul className='b-trainer-info__playground-list'>
-                                    {trainerInfo.playgrounds.map(item => {
-                                        return(
-                                            <li key={item.uuid} className="b-trainer-info__playground-item">
-                                                <SearchListPlayground
-                                                    id={`work_${item.uuid}`}
-                                                    namePlayground={item.name}
-                                                    addressPlayground={item.address}
-                                                    disabled
-                                                    checked
-                                                    value={item.uuid}
-                                                    onChange={this.handlePlayground}
-                                                />
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            </Fragment>
-                            :
-                            null
-                        }
+                    {trainerInfo.playgrounds.length > 0 ?
+                        <Fragment>
+                            <div className="b-trainer-info__title-field b-trainer-info__title-field--light">Добавленные площадки:</div>
+                            <ul className='b-trainer-info__playground-list'>
+                                {trainerInfo.playgrounds.map(item => {
+                                    return(
+                                        <li key={item.uuid} className="b-trainer-info__playground-item">
+                                            <SearchListPlayground
+                                                id={`work_${item.uuid}`}
+                                                namePlayground={item.name}
+                                                addressPlayground={item.address}
+                                                disabled
+                                                checked
+                                                value={item.uuid}
+                                                onChange={this.handlePlayground}
+                                            />
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </Fragment>
+                        :
+                        null
+                    }
 
-                    </div>
+                </div>
 
-                    <div className="b-trainer-info__button">
-                        <Button 
-                            name="Сохранить"
-                            onClick={this.onSaveInformation}
-                        />
-                    </div>
+                <div className="b-trainer-info__button">
+                    <Button 
+                        name="Сохранить"
+                        onClick={this.onSaveInformation}
+                    />
+                </div>
+
+                {preloader ? <Preloader /> : null}
             </div>
         )
     }
