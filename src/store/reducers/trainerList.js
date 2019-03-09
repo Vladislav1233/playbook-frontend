@@ -30,7 +30,6 @@ export default function(state = initialState, action) {
 
             if (list.length > 0) {
                 const newListTrainer = [...state.listTrainer, ...list];
-                console.log(total_count, state.pagination.limit);
 
                 return {
                     ...state,

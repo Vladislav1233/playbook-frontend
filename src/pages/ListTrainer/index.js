@@ -5,6 +5,7 @@ import { getTrainerList, clearTrainerListStore } from '../../store/actions/train
 // Note: components
 import ObjectCard from '../../components/ObjectCard';
 import Button from '../../components/ui-kit/Button/Button';
+import Preloader from '../../components/Preloader/Preloader';
 
 // Note: styles
 import '../../style/bem-blocks/b-list-trainer/index.scss';
@@ -30,7 +31,12 @@ class ListTrainer extends Component {
     }
 
     render() {
-        const { listTrainer, totalCount, pagination } = this.props;
+        const { 
+            listTrainer, 
+            totalCount, 
+            pagination,
+            preloader
+        } = this.props;
 
         return (
             <div className="b-list-trainer">
@@ -73,6 +79,11 @@ class ListTrainer extends Component {
                         : null
                     }
                 </div>
+
+                {preloader
+                    ? <Preloader />
+                    : null
+                }
             </div>
         )
     }
@@ -83,7 +94,8 @@ const mapStateToProps = ({ trainerList }) => {
     return {
         listTrainer: trainerList.listTrainer,
         pagination: trainerList.pagination,
-        totalCount: trainerList.total_count
+        totalCount: trainerList.total_count,
+        preloader: trainerList.preloader
     }
 };
 
