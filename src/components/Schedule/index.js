@@ -70,7 +70,9 @@ class Schedule extends Component {
                     <DateCalendar onClickDay={this.onClickDay}/>
                     <div className="b-schedule__content">
                         <h1>{titlePage}</h1>
-                        <div className="b-schedule__date">{schedule.nameDay}, {Moment(schedule.date).format('DD.MM.YYYY')}.
+                        <div className="b-schedule__date">
+                            <div className="b-schedule__date-top">{schedule.nameDay}</div>
+                            <div className="b-schedule__date-bottom">{Moment(schedule.date).format('DD.MM.YYYY')}</div>
                             {schedule.timeWork ? <div className="b-schedule__timetable">Время работы: {schedule.timeWork}</div> : null}
                         </div>
                         

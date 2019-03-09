@@ -5,34 +5,43 @@
     &__content {
         overflow: hidden;
         padding: 15px 15px 45px;
-        background: #fff;
         border-radius: 15px 15px 0 0;
+        background: #ffffff;
     }
 
     &__date {
         margin-right: -15px;
-        margin-bottom: 30px;
         margin-left: -15px;
-        padding: 15px;
+        margin-bottom: 20px;
+        padding: 0 15px 10px;
         font-family: $roboto;
-        font-size: 18px;
         line-height: 1;
-        text-transform: uppercase;
+        text-transform: capitalize;
         border-bottom: 1px solid #ebebeb;
     }
 
-    &__timetable {
+    &__date-top {
+        font-size: 1.1rem;
         font-weight: 300;
+        margin-bottom: 5px;
+    }
+
+    &__date-bottom {
+        font-size: 1.3rem;
+    }
+
+    &__timetable {
         font-size: 11px;
+        font-weight: 300;
         line-height: 14px;
         text-transform: none;
     }
 
     &__title {
+        margin-bottom: 3px;
         font-size: 1rem;
         font-weight: 300;
         color: $mainFontColor;
-        margin-bottom: 3px;
     }
 
     &__price-value {
