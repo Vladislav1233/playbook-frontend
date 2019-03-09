@@ -324,7 +324,7 @@ class BookingModal extends Component {
                                     <div className="b-cost-information__cost">
                                         { playgroundId
                                             ? numberCost(calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, costPlaygroundForPayBooking))
-                                            : ''
+                                            : '0 ₽'
                                         }
                                     </div>
                                 </div>
