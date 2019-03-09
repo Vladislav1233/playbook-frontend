@@ -322,10 +322,6 @@ class BookingModal extends Component {
                                 <div className="b-cost-information">
                                     <div className="b-cost-information__title">Аренда корта</div>
                                     <div className="b-cost-information__cost">
-                                        {/* TODO_AMED: Надо посчитать сумму - сейчас заглушка */}
-                                        {/* numberCost(
-                                                calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, costPlaygroundForPayBooking) 
-                                        ) */}
                                         { playgroundId
                                             ? numberCost(calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, costPlaygroundForPayBooking))
                                             : ''
