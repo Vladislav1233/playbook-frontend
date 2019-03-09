@@ -72,11 +72,12 @@ export function confirmBooking(bookingId) {
         bookingService.confirmBooking(bookingId)
             .then(
                 res => {
-                    console.log(res);
                     dispatch(success(res));
+                    dispatch(alertActions.success('Запрос на бронирование принят и отобразится в вашем расписании.'))
                 },
                 error => {
                     dispatch(failure(error));
+                    dispatch(alertActions.error(`Ошибка! ${textErrorFromServer(error)}`));
                 }
             );
     }
