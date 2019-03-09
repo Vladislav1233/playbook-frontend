@@ -2,14 +2,6 @@
 .b-checkbox {
     margin-bottom: 60px;
 
-    &--add-schedule {
-        margin-bottom: 20px;
-
-        &:not(:last-child) {
-            margin-bottom: 40px;
-        }
-    }
-
     &__label {
         font-size: 16px;
     }

@@ -12,8 +12,8 @@ import { userActions } from '../../../store/actions/userAction';
 import Input from '../../ui-kit/Input/Input';
 import InputMask from 'react-input-mask';
 import Button from '../../ui-kit/Button/Button';
-import Checkbox from '../../ui-kit/Checkbox/Checkbox';
 import ModalComponent from '../index';
+import Radio from '../../ui-kit/Radio';
 
 // Note: services
 import { userService } from '../../../services/userService';
@@ -44,7 +44,7 @@ class BookingModal extends Component {
         };
 
         this.initialState = this.state;
-    }
+    };
 
     onChangeInput = (e) => {
         const { name, value } = e.target;
@@ -60,9 +60,9 @@ class BookingModal extends Component {
 
         this.setState({
             ...this.state,
-            playgroundId: value
+            playgroundId: value === 'playground_other' ? null : value
         })
-    }
+    };
 
     onRegisterUser = (e) => {
         e.preventDefault();
@@ -107,7 +107,7 @@ class BookingModal extends Component {
         if (!localStorage.getItem('userRole') && localStorage.getItem('userToken')) {
             localStorage.removeItem('userToken');
         };
-    }
+    };
 
     onSubmitBooking = (e) => {
         e.preventDefault();
@@ -203,7 +203,7 @@ class BookingModal extends Component {
                 displayType='text'
                 decimalScale={0}
             />
-        }
+        };
 
         // Сейчас проверка цены корта
         const validCheck = (cost) => {
@@ -218,14 +218,14 @@ class BookingModal extends Component {
                 return 'negativeSumm';
             }
             return false;
-        }
+        };
 
         const cssClassTimeWrap = cn(
             'b-booking-form__fieldset',
             {
                 'b-booking-form__fieldset--error': (validCheckTrainer() === 'negativeSumm')
             }
-        )
+        );
 
         return(
             <ModalComponent
@@ -262,25 +262,31 @@ class BookingModal extends Component {
                             modif='b-input--time-booking'
                         />
                     </fieldset>
-                    
-                    {/* TODO_HOT: радиобаттоны для корта, по умолчанию "другое" +добавить */}
+
                     <fieldset className="b-booking-form__fieldset">
                         <legend className="b-modal__title-group">Корт</legend>
                         {playgroundsForTraining ? playgroundsForTraining.map(item => {
                             return (
-                                <Checkbox 
+                                <Radio
                                     key={`playground_${item.pivot.playground_uuid}`}
-                                    type='radio'
                                     name="playground"
                                     id={`playground_${item.pivot.playground_uuid}`}
                                     text={item.name}
                                     value={item.pivot.playground_uuid}
                                     checked={this.state.playgroundId === item.pivot.playground_uuid}
                                     onChange={this.onChangeRadio}
-                                    modif={'b-checkbox--add-schedule'}
                                 />
                             )
                         }): null}
+                        <Radio
+                            key='playground_other'
+                            name='playground'
+                            id='playground_other'
+                            text='Другое'
+                            value='playground_other'
+                            checked={playgroundId === null || playgroundId === 'playground_other'}
+                            onChange={this.onChangeRadio}
+                        />
                     </fieldset>
                     
                     <fieldset className="b-booking-form__fieldset">

@@ -33,7 +33,6 @@ const calcCostService = (startTimeBooking, endTimeBooking, rangeCostArray) => {
         return null
     };
 
-    // TODO: Эту стоимость нужно хранить на бэке так как мы же можем удалить расписание и получается это больше не посчитается у нас.
     return resultCost;
 };
 
