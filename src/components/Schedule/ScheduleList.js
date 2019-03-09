@@ -10,7 +10,15 @@ import '../../style/bem-blocks/b-schedule-list/index.scss';
 class ScheduleList extends Component {
 
   render() {
-    const { template, list, playgroundsForTraining, userId, isWhoBooked, onClickDecline, cost } = this.props;
+    const { 
+        template, 
+        list, 
+        playgroundsForTraining, 
+        userId, 
+        isWhoBooked, 
+        onClickDecline, 
+        cost 
+    } = this.props;
 
     return (
         <ul className="b-schedule-list">
@@ -31,6 +39,7 @@ class ScheduleList extends Component {
                                 creator={item.creator}
                                 onClickDecline={onClickDecline}
                                 cost={cost}
+                                bookedCost={item.price}
                             />
                         </li>
                     )

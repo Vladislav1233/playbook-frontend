@@ -1,6 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import moment from 'moment';
 import cn from 'classnames';
+import NumberFormat from 'react-number-format';
+
+// Note: helpers
+import { convertTypeMoney } from '../../helpers/convertTypeMoney';
 
 // Note: components
 import BookingModal from '../Modal/BookingModal';
@@ -57,7 +61,16 @@ class ScheduleItem extends Component {
         } = this.props.dataScheduleItem;
         const bookingId = this.props.dataScheduleItem.uuid;
     
-        const { playgroundsForTraining, userId, creator, isWhoBooked, onClickDecline, cost } = this.props;
+        const { 
+            playgroundsForTraining, 
+            userId, 
+            creator, 
+            isWhoBooked, 
+            onClickDecline, 
+            cost,
+            bookedCost
+        } = this.props;
+
         const textBooking = 'Нажми, чтобы забронировать';
 
         const whoBookedTemplate = (whoName, whoTel) => {
@@ -98,6 +111,22 @@ class ScheduleItem extends Component {
                                 creator.phone
                             )
                             : null
+                        }
+
+                        {bookedCost
+                            ? <div className="info-block info-block--accent">
+                                <p className="info-block__title">Цена</p>
+                                <div className="info-block__text">
+                                    {<NumberFormat 
+                                        value={convertTypeMoney(bookedCost, 'RUB', 'banknote')}
+                                        suffix=' ₽'
+                                        thousandSeparator={' '}
+                                        displayType='text'
+                                        decimalScale={0}
+                                    />}
+                                </div>
+                            </div>
+                            :null
                         }
                     </div>
                     
