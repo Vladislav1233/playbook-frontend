@@ -3,6 +3,9 @@
     background-color: $main-background;
 
     &--hello-page {
-        background: #fff;
+        background: #fbfbfb;
+        background-image: url(../../../style/images/back-main-1.jpg);
+        background-position: left top;
+        background-size: cover;
     }
 }

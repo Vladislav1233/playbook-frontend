@@ -22,7 +22,7 @@
     &--hollow {
         color: #121212;
         border: 1px solid $mint;
-        background: #ffffff;
+        background: hsla(0, 0%, 100%, 0.8);
 
         .no-touchevents &:hover,
         .touchevents &:active {
