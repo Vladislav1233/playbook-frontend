@@ -358,7 +358,7 @@ class BookingModal extends Component {
                                             Ты уже зарегистрированный пользователь.
                                             <br/>
                                             Введи свой пароль авторизации если он у тебя есть или 
-                                            <a href="" title="получи новый пароль" 
+                                            <a className="link-in-text-white" href="" title="Получи новый пароль" 
                                                 onClick={(e) => {
                                                     e.preventDefault();
                                                     resetPasswordRequest({
