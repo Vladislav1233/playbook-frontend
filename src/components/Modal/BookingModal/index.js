@@ -177,7 +177,7 @@ class BookingModal extends Component {
             playgroundsForTraining, 
             isAuthorization, 
             dateBooking,
-            resendVerificationCode } = this.props;
+            resetPasswordRequest } = this.props;
 
         const { 
             start_time, 
@@ -353,7 +353,7 @@ class BookingModal extends Component {
                                             <a href="" title="получи новый пароль" 
                                                 onClick={(e) => {
                                                     e.preventDefault();
-                                                    resendVerificationCode({
+                                                    resetPasswordRequest({
                                                         phone: telWithoutPlus(this.state.phone)
                                                     })
                                                 }
@@ -461,7 +461,7 @@ const mapStateToDispatch = (dispatch) => {
     return {
         createBooking: (typeBooking, data) => dispatch(createBooking(typeBooking, data)),
         loginAction: (data, toMain, callback) => dispatch(userActions.login(data, toMain, callback)),
-        resendVerificationCode: (data) => dispatch(userActions.resendVerificationCode(data))
+        resetPasswordRequest: (data) => dispatch(userActions.resetPasswordRequest(data))
     }
 }
 
