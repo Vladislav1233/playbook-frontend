@@ -10,6 +10,7 @@ export const userActions = {
     logout,
     register,
     resendVerificationCode,
+    resetPasswordRequest,
     getAll,
     delete: _delete
 };
@@ -159,6 +160,43 @@ function resendVerificationCode(data) {
     function failure(err) {
         return {
             type: userConstants.RESEND_VERIFICATION_CODE_FAILURE,
+            payload: err
+        }
+    }
+};
+
+function resetPasswordRequest(data) {
+    
+    return dispatch => {
+        dispatch(start());
+
+        userService.resetPasswordRequest(data).then(
+            res => {
+                dispatch(success(res));
+            }, 
+
+            err => {
+                dispatch(failure(err));
+            }
+        )
+    }
+
+    function start() {
+        return { 
+            type: userConstants.RESET_PASSWORD_REQUEST_START
+        }
+    }
+
+    function success(res) {
+        return {
+            type: userConstants.RESET_PASSWORD_REQUEST_SUCCESS,
+            payload: res
+        }
+    }
+
+    function failure(err) {
+        return {
+            type: userConstants.RESET_PASSWORD_REQUEST_FAILURE,
             payload: err
         }
     }

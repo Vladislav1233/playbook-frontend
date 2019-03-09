@@ -192,7 +192,7 @@ class BookingModal extends Component {
         };
 
         const numberCost = (cost) => {
-            if (cost === 0) {
+            if (!cost) {
                 return '--'
             }
 
@@ -327,8 +327,8 @@ class BookingModal extends Component {
                                                 calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, costPlaygroundForPayBooking) 
                                         ) */}
                                         { playgroundId
-                                            ? 'Не известно'
-                                            : numberCost(0)
+                                            ? numberCost(calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, costPlaygroundForPayBooking))
+                                            : ''
                                         }
                                     </div>
                                 </div>

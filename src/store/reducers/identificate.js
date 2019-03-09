@@ -89,6 +89,24 @@ export default function identificate(state = initialState, action) {
                 preloader: false
             }
 
+        case userConstants.RESET_PASSWORD_REQUEST_STARS:
+            return {
+                ...state,
+                preloader: true
+            }
+
+        case userConstants.RESET_PASSWORD_REQUEST_SUCCESS:
+            return {
+                ...state,
+                preloader: false
+            }
+
+        case userConstants.RESET_PASSWORD_REQUEST_FAILURE:
+            return {
+                ...state,
+                preloader: false
+            }
+
         default:
             return {
                 ...state
