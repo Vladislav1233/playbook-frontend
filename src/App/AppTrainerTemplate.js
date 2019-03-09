@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { configPathRouter } from './configPathRouter';
 import configureStore from '../store/reducers/configureStore';
+
 // Note: components
 // --- Только у user === trainer
 import ProfileTrainer from '../pages/ProfileTrainer';
