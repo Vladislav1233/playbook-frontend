@@ -115,7 +115,7 @@ class ScheduleItem extends Component {
                         }
                         
 
-                        {bookedCost
+                        {bookedCost && isWhoBooked
                             ? <div className="info-block info-block--accent info-block--compact">
                                 <p className="info-block__title">К оплате:</p>
                                 <p className="info-block__text">
