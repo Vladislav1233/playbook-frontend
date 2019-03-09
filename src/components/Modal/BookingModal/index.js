@@ -177,7 +177,8 @@ class BookingModal extends Component {
             playgroundsForTraining, 
             isAuthorization, 
             dateBooking,
-            resetPasswordRequest } = this.props;
+            resetPasswordRequest
+        } = this.props;
 
         const { 
             start_time, 
@@ -234,12 +235,11 @@ class BookingModal extends Component {
                     closeModal()
                     this.onCancel()
                 }}
-                title='Бронирование. (8:00 - 19:00)'
+                title={`Бронирование. (${moment(this.props.startTime).format('HH:mm')} - ${moment(this.props.endTime).format('HH:mm')})`}
             >
                 <form className="b-booking-form">
                     <fieldset className={ cssClassTimeWrap }>
                         <legend className="b-modal__title-group">Время</legend>
-                        {/* TODO_HOT: вывести время по которому тыкнули в попАп*/}
                         <Input 
                             labelText='С'
                             typeInput='time'
