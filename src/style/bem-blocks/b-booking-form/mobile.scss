@@ -6,12 +6,16 @@
 
     &__fieldset {
         margin-bottom: 20px;
-        padding: 15px 15px 0px;
+        padding: 15px;
         border: 1px solid $border-color;
         border-radius: $border-radius;
 
         &--error {
             border-color: $error;
+        }
+
+        > *:last-child {
+            margin-bottom: 0;
         }
     }
 

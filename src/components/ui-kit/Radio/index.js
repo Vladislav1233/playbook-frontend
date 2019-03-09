@@ -10,13 +10,13 @@ class Radio extends Component {
 
         const classNameRadio = cn(
             'b-radio',
-            modif
+            modif,
         );
 
-        const classNameStyleCheck = cn(
-            'b-radio__check',
+        const classNameStyleLabel = cn(
+            'b-radio__label',
             {
-                'b-radio__check--checked': checked
+                'b-radio__label--checked': checked
             }
         );
 
@@ -33,13 +33,10 @@ class Radio extends Component {
                         this.props.onChange(e)
                     }}
                 />
-                <label className={classNameStyleCheck} htmlFor={id}></label>
-                {text ? 
-                    ( 
-                    <label className="b-radio__label" htmlFor={id}>
-                        <span>{text}</span>
-                    </label>
-                    ) : null}
+                <label className={classNameStyleLabel} htmlFor={id}>
+                    <i className="b-radio__icon"></i>
+                    <span className="b-radio__text">{text}</span>
+                </label>
             </div>
         )
     }
