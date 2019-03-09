@@ -235,7 +235,8 @@ class BookingModal extends Component {
                     closeModal()
                     this.onCancel()
                 }}
-                title={`Бронирование. (${moment(this.props.startTime).format('HH:mm')} - ${moment(this.props.endTime).format('HH:mm')})`}
+                title='Бронирование'
+                subTitle={`с ${moment(this.props.startTime).format('HH:mm')} до ${moment(this.props.endTime).format('HH:mm')}`}
             >
                 <form className="b-booking-form">
                     <fieldset className={ cssClassTimeWrap }>
