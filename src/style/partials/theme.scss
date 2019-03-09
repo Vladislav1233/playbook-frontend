@@ -117,14 +117,27 @@ p {
     margin-bottom: 10px;
     font-weight: 500;
 
-    &__title {
-        padding: 0;
-        font-weight: 300;
+    &:not(:first-child) {
+        margin-top: 10px;
+    }
+
+    &--compact {
+        display: flex;
+
+        .info-block__title {
+            min-width: 70px;
+            margin-right: 10px;
+        }
     }
 
     &--accent {
         .info-block__text {
             @include costStyle();
         }
+    }
+
+    &__title {
+        padding: 0;
+        font-weight: 300;
     }
 }

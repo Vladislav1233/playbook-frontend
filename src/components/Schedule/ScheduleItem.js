@@ -73,15 +73,6 @@ class ScheduleItem extends Component {
 
         const textBooking = 'Нажми, чтобы забронировать';
 
-        const whoBookedTemplate = (whoName, whoTel) => {
-            return (
-                <div className="b-schedule-item__who-booked">
-                    <p className="b-schedule-item__who-name">{whoName}</p>
-                    <a href={`tel:+${whoTel}`} className="b-schedule-item__who-tel">{`+${whoTel}`}</a>
-                </div>
-            )
-        };
-
         // Note: Классы css
         const classNameStateRoot = cn(
             'b-schedule-item',
@@ -105,18 +96,29 @@ class ScheduleItem extends Component {
                             </div>
                         </div>
 
-                        {creator && isWhoBooked
-                            ? whoBookedTemplate(
-                                `${creator.first_name} ${creator.last_name}`,
-                                creator.phone
-                            )
-                            : null
+                        {/* Имя */}
+                        {creator && isWhoBooked &&
+                            <div className="info-block info-block--compact">
+                                <p className="info-block__title">Имя:</p>
+                                <p className="info-block__text">{ `${creator.first_name} ${creator.last_name}` }</p>
+                            </div>
                         }
 
+                        {/* Телефон */}
+                        {creator && isWhoBooked &&
+                            <div className="info-block info-block--compact">
+                                <p className="info-block__title">Телефон:</p>
+                                <p className="info-block__text">
+                                    <a href={`tel:+${creator.phone}`} className="b-schedule-item__who-tel">{`+${creator.phone}`}</a>
+                                </p>
+                            </div>
+                        }
+                        
+
                         {bookedCost
-                            ? <div className="info-block info-block--accent">
-                                <p className="info-block__title">Цена</p>
-                                <div className="info-block__text">
+                            ? <div className="info-block info-block--accent info-block--compact">
+                                <p className="info-block__title">К оплате:</p>
+                                <p className="info-block__text">
                                     {<NumberFormat 
                                         value={convertTypeMoney(bookedCost, 'RUB', 'banknote')}
                                         suffix=' ₽'
@@ -124,7 +126,7 @@ class ScheduleItem extends Component {
                                         displayType='text'
                                         decimalScale={0}
                                     />}
-                                </div>
+                                </p>
                             </div>
                             :null
                         }
@@ -137,7 +139,7 @@ class ScheduleItem extends Component {
                     {/* TODO: Добавить тултип */}
                     {!isStatus && isWhoBooked 
                         ? ( <Fragment>
-                                <button type="button" onClick={this.openDeclineModal} tytle="Отменить" className="b-schedule-item__cancel">
+                                <button type="button" onClick={this.openDeclineModal} title="Отменить" className="b-schedule-item__cancel">
                                     <img className="b-add-schedule-card__delete-icon" src={deleteIcon} alt="Корзина" />
                                 </button>
 
