@@ -53,6 +53,22 @@ class Auth extends Component {
         this.setState({ submitted: true });
         const { phone, password } = this.state.user;
         const { dispatch } = this.props;
+
+        // Note: Проверяем все ли поля заполнены
+        for (let key in this.state.user) {
+            if (!Boolean(this.state.user[key])) {
+                this.setState({
+                    validation: {
+                        ...this.state.validation,
+                        text: 'Все поля должны быть заполнены',
+                        fieldEmpty: true
+                    }
+                })
+                
+                return false;
+            }
+        };
+
         if (phone && password) {
             const dataRequest = {
                 phone,
@@ -63,7 +79,7 @@ class Auth extends Component {
             dataRequest.phone = telWithoutPlus(dataRequest.phone);
             // Note: Диспатчим запрос
             dispatch(userActions.login(dataRequest));
-        }
+        };
     }
 
     render() {
@@ -120,8 +136,10 @@ class Auth extends Component {
     }
 }
 
-// const mapStateToProps = (state) => {
+const mapStateToProps = ({ identificate }) => {
+    return {
+        preloader: identificate.preloader
+    }
+}
 
-// }
-
-export default connect()(Auth);
+export default connect(mapStateToProps, null)(Auth);

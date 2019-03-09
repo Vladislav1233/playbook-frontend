@@ -38,23 +38,16 @@
         transform: translate3d(0, 0, 0);
 
         -webkit-tap-highlight-color: transparent;
+        transition-property: background-color;
+        transition-duration: $animation-time;
+
+        .no-touchevents &:hover {
+            background-color: rgba(234, 241, 236, 0.9);
+        }
 
         .no-touchevents &:hover + .b-checkbox__label,
         .touchevents &:active + .b-checkbox__label {
             color: #fff;
-        }
-
-        &:before {
-            position: absolute;
-            top: -15px;
-            left: -15px;
-            width: 48px;
-            height: 48px;
-            content: '';
-            transition: opacity .2s ease;
-            opacity: 0;
-            border-radius: 50%;
-            background: rgba(34,50,84,.03);
         }
 
         svg {
@@ -81,9 +74,6 @@
         }
 
         &:hover {
-            &:before {
-                opacity: 1;
-            }
             svg {
                 stroke: $mint;
             }

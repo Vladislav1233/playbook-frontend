@@ -18,14 +18,6 @@ import '../../style/bem-blocks/b-registration/index.scss';
 
 class Registration extends Component {
     state = {
-        // {
-        //     "first_name": "User first name.",
-        //     "last_name": "User last name.",
-        //     "phone": "User phone without '+' symbol",
-        //     "password": "User password.",
-        //     "c_password": "User password confirm.",
-        //     "is_trainer": "Boolean flag (0 or 1)"
-        // }
         user: {
             first_name: '',
             last_name: '',
@@ -42,7 +34,7 @@ class Registration extends Component {
         },
         submitted: false,
         isCheck: false
-    }
+    };
 
     handleChange = (event) => {
         const { name, value } = event.target;
@@ -231,9 +223,9 @@ class Registration extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ registration }) => {
     return {
-        preloader: state.registration.preloader
+        preloader: registration.preloader
     }
 }
 
