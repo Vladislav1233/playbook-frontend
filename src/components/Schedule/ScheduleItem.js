@@ -133,6 +133,8 @@ class ScheduleItem extends Component {
                         playgroundsForTraining={playgroundsForTraining}
                         userId={userId}
                         cost={cost}
+                        startTime={start_time}
+                        endTime={end_time}
                     />
                 }
             </Fragment>

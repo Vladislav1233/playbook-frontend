@@ -331,7 +331,6 @@ class TrainerAddSchedule extends Component {
         this.state.cards.forEach(function(card) {
             let formatPrice = convertTypeMoney(card.price_per_hour, 'RUB', 'coin');
 
-            // TODO: добавить чек-бокс playgrounds
             // Note: Функция, которая генерирует данные по расписанию как для create так и для edit для отправки на сервер.
             const createDataForRequest = (datesRequest, startTimeRequest, endTimeRequest) => {
                 let result = {
