@@ -9,6 +9,7 @@
     border: none;
     border-radius: $border-radius;
     background: $mint;
+    transition: .1s;
 
     .no-touchevents &:hover,
     .touchevents &:active {
@@ -20,14 +21,15 @@
     }
 
     &--hollow {
-        color: #121212;
+        color: #000;
         border: 1px solid $mint;
         background: hsla(0, 0%, 100%, 0.8);
 
         .no-touchevents &:hover,
         .touchevents &:active {
-            color: $mint;
-            background-color: #0d60412c;
+            color: #000;
+            background-color: rgba(234, 241, 236, 0.9);
+            border-color: transparent;
         }
     }
 

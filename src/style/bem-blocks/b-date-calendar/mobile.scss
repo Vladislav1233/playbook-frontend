@@ -55,7 +55,7 @@
         }
 
         &--active {
-            color: #121212;
+            color: $mainFontColor;
             background: #ffffff;
 
             .no-touchevents &:enabled:hover,
