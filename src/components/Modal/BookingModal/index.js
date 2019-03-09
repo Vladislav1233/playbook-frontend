@@ -235,7 +235,8 @@ class BookingModal extends Component {
                     closeModal()
                     this.onCancel()
                 }}
-                title={`Бронирование. (${moment(this.props.startTime).format('HH:mm')} - ${moment(this.props.endTime).format('HH:mm')})`}
+                title='Бронирование'
+                subTitle={`с ${moment(this.props.startTime).format('HH:mm')} до ${moment(this.props.endTime).format('HH:mm')}`}
             >
                 <form className="b-booking-form">
                     <fieldset className={ cssClassTimeWrap }>
@@ -265,6 +266,16 @@ class BookingModal extends Component {
 
                     <fieldset className="b-booking-form__fieldset">
                         <legend className="b-modal__title-group">Корт</legend>
+                        <Radio
+                            key='playground_other'
+                            name='playground'
+                            id='playground_other'
+                            text='Другое'
+                            value='playground_other'
+                            checked={playgroundId === null || playgroundId === 'playground_other'}
+                            onChange={this.onChangeRadio}
+                        />
+
                         {playgroundsForTraining ? playgroundsForTraining.map(item => {
                             return (
                                 <Radio
@@ -278,15 +289,6 @@ class BookingModal extends Component {
                                 />
                             )
                         }): null}
-                        <Radio
-                            key='playground_other'
-                            name='playground'
-                            id='playground_other'
-                            text='Другое'
-                            value='playground_other'
-                            checked={playgroundId === null || playgroundId === 'playground_other'}
-                            onChange={this.onChangeRadio}
-                        />
                     </fieldset>
                     
                     <fieldset className="b-booking-form__fieldset">
@@ -335,7 +337,7 @@ class BookingModal extends Component {
                                     </div>
                                 </div>
                             </Fragment>
-                            : <p style={{marginBottom: '15px'}}>Будет расчитана автоматически</p>
+                            : <p>Будет расчитана автоматически</p>
                         }
                     </fieldset>
 
