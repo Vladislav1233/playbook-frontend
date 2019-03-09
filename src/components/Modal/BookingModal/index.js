@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import NumberFormat from 'react-number-format';
+import cn from 'classnames';
 
 // Note: action
 import { createBooking } from '../../../store/actions/booking';
@@ -190,33 +191,41 @@ class BookingModal extends Component {
             costPlaygroundForPayBooking =  [ ...this.getCostPlaygroundForPayBooking() ];
         };
 
-        const templateCost = (title, cost) => {
-            
-            const textCost = function() {
-                if (cost > 0) {
-                    return <NumberFormat 
-                                value={cost} 
-                                suffix=' ₽'
-                                thousandSeparator={' '}
-                                displayType='text'
-                                decimalScale={0}
-                            />
+        const numberCost = (cost) => {
+            if (cost === 0) {
+                return '--'
+            }
 
-                } else if (cost === null) {
-                    return 'Стоимость не указана администратором, уточняйте лично.';
+            return <NumberFormat
+                value={cost}
+                suffix=' ₽'
+                thousandSeparator={' '}
+                displayType='text'
+                decimalScale={0}
+            />
+        }
 
-                } else if (cost <= 0) {
-                    return 'Укажите верные временные рамки бронирования услуги.';
-                };
-            };
-
-            return(
-                <div className="b-cost-information">
-                    <div className="b-cost-information__title">{title}</div>
-                    <div className="b-cost-information__cost">{textCost()}</div>
-                </div>
-            )
+        // Сейчас проверка цены корта
+        const validCheck = (cost) => {
+            if (cost === null) {
+                return 'Стоимость данного корта не указана администратором, уточняйте лично.';
+            }
         };
+
+        // проверка валидности цены тренера (1 пункт)
+        const validCheckTrainer = () => {
+            if (!!start_time && !!end_time && (calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, this.props.cost) <= 0)) {
+                return 'negativeSumm';
+            }
+            return false;
+        }
+
+        const cssClassTimeWrap = cn(
+            'b-booking-form__fieldset',
+            {
+                'b-booking-form__fieldset--error': (validCheckTrainer() === 'negativeSumm')
+            }
+        )
 
         return(
             <ModalComponent
@@ -228,7 +237,7 @@ class BookingModal extends Component {
                 title='Бронирование. (8:00 - 19:00)'
             >
                 <form className="b-booking-form">
-                    <fieldset className="b-booking-form__fieldset">
+                    <fieldset className={ cssClassTimeWrap }>
                         <legend className="b-modal__title-group">Время</legend>
                         {/* TODO_HOT: вывести время по которому тыкнули в попАп*/}
                         <Input 
@@ -280,26 +289,51 @@ class BookingModal extends Component {
                         {/* TODO_HOT: сразу показывать общую стоимость из суммы */}
                         {start_time && end_time 
                             ? <Fragment>
-                                {templateCost(
-                                    'Оплата услуг тренера', 
-                                    calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, this.props.cost))}
+                                <div className="b-cost-information b-cost-information--total">
+                                    <div className="b-cost-information__title">Итого:</div>
+                                    
+                                    {/* TODO_AMED: добавить "более" для корта без цены */}
+                                    <div className="b-cost-information__cost">
+                                        { playgroundId ? 'Более ' : ''}
+                                        { numberCost(
+                                            +calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, this.props.cost)
+                                            +
+                                            +calcCostService(`${dateBooking} ${start_time}:00`, `${dateBooking} ${end_time}`, costPlaygroundForPayBooking)
+                                        )}
+                                    </div>
+                                </div>
+                                {/* { templateCost(
+                                        'Итого к оплате',
+                                        +calcCostService(`${dateBooking} ${start_time}`,
+                                        `${dateBooking} ${end_time}`, this.props.cost)
+                                        + +calcCostService(`${dateBooking} ${start_time}:00`,
+                                        `${dateBooking} ${end_time}`, costPlaygroundForPayBooking)
+                                )} */}
 
-                                {playgroundId 
-                                    ? templateCost( 
-                                        'Оплата услуг площадки', 
-                                        calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, costPlaygroundForPayBooking) )
-                                    : null
-                                }
+                                <div className="b-cost-information">
+                                    <div className="b-cost-information__title">Услуги тренера</div>
+                                    <div className="b-cost-information__cost">
+                                        { numberCost(
+                                            calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, this.props.cost)
+                                        )}
+                                    </div>
+                                </div>
 
-                                {playgroundId && costPlaygroundForPayBooking.length > 0
-                                    ? templateCost(
-                                        'Итого к оплате', 
-                                        +calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, this.props.cost) + +calcCostService(`${dateBooking} ${start_time}:00`, `${dateBooking} ${end_time}`, costPlaygroundForPayBooking))
-                                    : null
-                                }
+                                <div className="b-cost-information">
+                                    <div className="b-cost-information__title">Аренда корта</div>
+                                    <div className="b-cost-information__cost">
+                                        {/* TODO_AMED: Надо посчитать сумму - сейчас заглушка */}
+                                        {/* numberCost(
+                                                calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, costPlaygroundForPayBooking) 
+                                        ) */}
+                                        { playgroundId
+                                            ? 'Не известно'
+                                            : numberCost(0)
+                                        }
+                                    </div>
+                                </div>
                             </Fragment>
-
-                            : <p style={{marginBottom: '30px'}}>Будет расчитана автоматически</p>
+                            : <p style={{marginBottom: '15px'}}>Будет расчитана автоматически</p>
                         }
                     </fieldset>
 
@@ -379,6 +413,16 @@ class BookingModal extends Component {
                         </fieldset>
                     : 
                         null
+                    }
+
+                    { (validCheckTrainer() === 'negativeSumm') &&
+                        <p className="b-booking-form__error"> Укажите верные временные рамки бронирования услуги. </p>
+                    }
+
+                    { !!playgroundId && 
+                        <p className="b-booking-form__error">
+                            {validCheck( calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, costPlaygroundForPayBooking) )}
+                        </p>
                     }
 
                     <div className="b-booking-form__button-wrapper">

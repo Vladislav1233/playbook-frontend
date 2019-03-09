@@ -10,7 +10,6 @@ import { convertTypeMoney } from '../../helpers/convertTypeMoney';
 
 // Note: styles
 import '../../style/bem-blocks/b-my-booking-card/index.scss';
-import '../../style/bem-blocks/b-cost-information/index.scss';
 import '../../style/bem-blocks/b-close/index.scss';
 
 class MyBookingCard extends Component {

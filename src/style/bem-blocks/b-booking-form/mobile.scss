@@ -9,6 +9,10 @@
         padding: 15px 15px 0px;
         border: 1px solid $border-color;
         border-radius: $border-radius;
+
+        &--error {
+            border-color: $error;
+        }
     }
 
     &__note {
@@ -16,6 +20,12 @@
         font-size: 14px;
         line-height: 18px;
         color: $telegray;
+    }
+
+    &__error {
+        margin-bottom: 20px;
+        font-size: 1.2rem;
+        color: $error;
     }
 
     &__button {

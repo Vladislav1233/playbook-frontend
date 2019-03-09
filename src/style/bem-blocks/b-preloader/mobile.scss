@@ -4,12 +4,12 @@
     top: 0px;
     left: 0px;
     display: flex;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, .5);
-
     align-items: center;
     justify-content: center;
+    width: 100%;
+    min-width: 320px;
+    height: 100%;
+    background: rgba(0, 0, 0, .5);
 
     &__filter {
         position: absolute;
@@ -18,7 +18,6 @@
 
     &__dots {
         padding: 30px;
-
         filter: url(#gooeyness);
     }
 
@@ -28,7 +27,7 @@
         height: 32px;
         margin-right: 20px;
         border-radius: 50%;
-        background: #fff;
+        background: #ffffff;
 
         &:first-child {
             animation: FirstDot 3s infinite;

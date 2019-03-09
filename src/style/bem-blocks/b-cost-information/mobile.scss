@@ -1,23 +1,26 @@
 // 320
 .b-cost-information {
-    font-family: $medium;
-    font-size: 14px;
-    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    &--total {
+        padding-bottom: 10px;
+        border-bottom: 1px solid $border-color;
+    }
 
     &__title {
-        line-height: 18px;
-        margin-bottom: 5px;
-        // color: $mint;
+        .b-cost-information--total & {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
     }
 
     &__cost {
-        font-size: 18px;
-        line-height: 22px;
-        padding: 10px 7px 7px 10px;
-        vertical-align: baseline;
-        color: var(--accent-text);
-        border: 1px solid $border-color;
-        border-radius: $border-radius;
-        // background-color: hsla(200, 13%, 98%, .8);
+        .b-cost-information--total & {
+            @include costStyle();
+            font-size: 1.2rem;
+        }
     }
 }

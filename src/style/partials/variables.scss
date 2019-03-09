@@ -72,3 +72,9 @@ $ok: #03ad2d;
 
     @include font-size-5();
 }
+
+@mixin costStyle() {
+    font-size: (16em/15);
+    font-weight: 500;
+    color: var(--accent-text);
+}

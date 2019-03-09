@@ -124,9 +124,7 @@ p {
 
     &--accent {
         .info-block__text {
-            font-size: (16em/15);
-            font-weight: 500;
-            color: var(--accent-text);
+            @include costStyle();
         }
     }
 }
