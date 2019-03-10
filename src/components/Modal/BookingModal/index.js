@@ -140,7 +140,7 @@ class BookingModal extends Component {
             loginAction(dataLogin, false, () => {
                 createBooking(typeBooking, data); 
                 this.onCancel();
-            });
+            }).then(() => { this.onCancel(); });
         };
     };
 

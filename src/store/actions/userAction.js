@@ -43,7 +43,7 @@ function login(data, toMain = true, callback) {
     return dispatch => {
         dispatch(request(data));
 
-        userService.login(data)
+        return userService.login(data)
             .then(
                 user => {
                     dispatch(success(user));
