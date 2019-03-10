@@ -57,9 +57,9 @@ class ScheduleTrainer extends Component {
 
         const noteTrainerInformation = () => {
             if(location.state) {
-                return `Тренер: ${location.state.trainerInfo.first_name} ${location.state.trainerInfo.last_name}`
+                return `${location.state.trainerInfo.first_name} ${location.state.trainerInfo.last_name}`
             } else if(trainerInformation) {
-                return `Тренер: ${trainerInformation.first_name} ${trainerInformation.last_name}`
+                return `${trainerInformation.first_name} ${trainerInformation.last_name}`
             };
         };
 

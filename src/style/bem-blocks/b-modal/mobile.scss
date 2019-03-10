@@ -5,11 +5,7 @@
     }
 
     &__sub-title {
-        font-family: $roboto;
-        margin: 1px 0 0;
-        font-size: .8em;
-        font-weight: 300;
-        letter-spacing: normal;
+        @include subTitleStyle();
     }
 
     &__title-group {

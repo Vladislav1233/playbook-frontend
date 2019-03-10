@@ -11,8 +11,8 @@
 
     &__date {
         margin-right: -15px;
-        margin-left: -15px;
         margin-bottom: 20px;
+        margin-left: -15px;
         padding: 0 15px 10px;
         font-family: $roboto;
         line-height: 1;
@@ -21,9 +21,9 @@
     }
 
     &__date-top {
+        margin-bottom: 5px;
         font-size: 1.1rem;
         font-weight: 300;
-        margin-bottom: 5px;
     }
 
     &__date-bottom {
@@ -93,11 +93,6 @@
     }
 
     &__title-note {
-        display: block;
-        font-family: $roboto;
-        font-size: 1rem;
-        font-weight: 300;
-        line-height: 1;
-        color: $telegray;
+        @include subTitleStyle();
     }
 }
