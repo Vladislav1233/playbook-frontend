@@ -25,7 +25,9 @@ class ModalComponent extends Component {
           <div className="b-modal__wrapper">
             {title && <h2 className="b-modal__title">
                 { title }
-                <p className="b-modal__sub-title">{ `В период ${subTitle}` }</p>
+                {subTitle &&
+                  <p className="b-modal__sub-title">{ `В период ${subTitle}` }</p>
+                }
               </h2>
             }
             <div className="b-modal__content">
