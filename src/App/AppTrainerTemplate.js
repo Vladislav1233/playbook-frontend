@@ -1,7 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { configPathRouter } from './configPathRouter';
-import configureStore from '../store/reducers/configureStore';
 
 // Note: components
 // --- Только у user === trainer
@@ -20,9 +19,7 @@ import TestRequest from '../pages/TestRequest/TestRequest';
 import MyBooking from '../pages/MyBooking';
 import StyleGuide from '../pages/StyleGuide';
 
-const store = configureStore();
-
-export default () => (
+export default (isAuthorization) => (
     <Switch>
         <Route component={ProfileTrainer} path={configPathRouter.profileTrainer} />
 
@@ -32,7 +29,8 @@ export default () => (
         <Route component={ScheduleTrainer} path={`${configPathRouter.scheduleTrainer}/:slug`} />
         {/*<Route component={ScheduleCourt} path={configPathRouter.scheduleCourt} />*/}
         <Route render={() => {
-            if(store.getState().identificate.authorization) {
+            console.log(isAuthorization)
+            if(isAuthorization.isAuthorization) {
                 return <Redirect to='/' />
             } else {
                 return <Registration />
@@ -40,7 +38,7 @@ export default () => (
             };
         }} path={configPathRouter.registration} />
         <Route render={() => {
-            if(store.getState().identificate.authorization) {
+            if(isAuthorization.isAuthorization) {
                 return <Redirect to='/' />
             } else {
                 return <Auth />

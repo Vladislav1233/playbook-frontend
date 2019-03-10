@@ -43,7 +43,8 @@ class App extends Component {
             userRole, 
             scrollPage, 
             alertMessage,
-            alertType
+            alertType,
+            isAuthorization
         } = this.props;
         console.log(alertMessage);
         console.log('renderApp');
@@ -69,10 +70,10 @@ class App extends Component {
             // TODO: Ещё 404 страницу сделать
             switch (userRole ? userRole[0] : '') {
                 case 'user':
-                    return <AppUserTemplate />
+                    return <AppUserTemplate isAuthorization={isAuthorization} />
 
                 case 'trainer':
-                    return <AppTrainerTemplate />
+                    return <AppTrainerTemplate isAuthorization={isAuthorization} />
 
                 case 'organization-admin':
                     break;
@@ -81,7 +82,7 @@ class App extends Component {
                     break;
 
                 default: 
-                    return <AppUserTemplate />
+                    return <AppUserTemplate isAuthorization={isAuthorization} />
             }
         }
 
@@ -108,6 +109,7 @@ const mapStateToProps = ({ toggleMenu, identificate, scrollPage, alertReducer })
     return {
         toggleMenu: toggleMenu.toggleMenu,
         userRole: identificate.userRole,
+        isAuthorization: identificate.authorization,
         scrollPage: scrollPage.isNotScrollPage,
         alertMessage: alertReducer.message,
         alertType: alertReducer.type
