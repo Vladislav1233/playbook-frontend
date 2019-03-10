@@ -34,6 +34,13 @@ class ObjectCard extends Component {
             return `${trainerInfo.playgrounds[0].address} ${trainerInfo.playgrounds.length > 1 ? `и ещё ${trainerInfo.playgrounds.length - 1} корт(а)`: ''}`
         }
 
+        const linkTo = {
+            pathname: `${configPathRouter.scheduleTrainer}/${trainerInfo.uuid}`,
+            state: {
+                trainerInfo: trainerInfo
+            }
+        };
+
         return(
             <div className="b-object-card">
                 <div className="b-object-card__photo-wrapper">
@@ -87,7 +94,7 @@ class ObjectCard extends Component {
                         }
                         
                         <div className="b-object-card__button-item">
-                            <Button to={`${configPathRouter.scheduleTrainer}/${trainerInfo.uuid}`} modif="b-button--hollow b-button--full" name="Забронировать"/>
+                            <Button to={linkTo} modif="b-button--hollow b-button--full" name="Забронировать"/>
                         </div>
                         {/* TODO: Кнопку "подробнее выводить как будет раздел детальной о тренере" */}
                         {/* <div className="b-object-card__button-item">

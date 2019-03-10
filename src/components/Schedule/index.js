@@ -57,8 +57,10 @@ class Schedule extends Component {
             isWhoBooked, 
             onClickDecline, 
             preloader,
-            titlePage
+            titlePage,
+            noteTitle
         } = this.props;
+        console.log(this.props);
 
         const notScheduleTemplate = () => (
             <div className="b-schedule__not">Нет свободного времени</div>
@@ -69,7 +71,17 @@ class Schedule extends Component {
                 <div className="b-schedule">
                     <DateCalendar onClickDay={this.onClickDay}/>
                     <div className="b-schedule__content">
-                        <h1>{titlePage}</h1>
+
+                        <h1 className="b-schedule__title-page">
+                            { titlePage }
+                            
+                            {noteTitle &&
+                                <span className="b-schedule__title-note">
+                                    { noteTitle }
+                                </span>
+                            } 
+                        </h1>
+
                         <div className="b-schedule__date">
                             <div className="b-schedule__date-top">{schedule.nameDay}</div>
                             <div className="b-schedule__date-bottom">{Moment(schedule.date).format('DD.MM.YYYY')}</div>

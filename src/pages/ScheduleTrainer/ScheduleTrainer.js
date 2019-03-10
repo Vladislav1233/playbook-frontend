@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getTrainerSchedule } from '../../store/actions/schedule';
 import { dataTime } from '../../helpers/dataTime';
 import { withRouter } from 'react-router-dom';
+import { trainerInfoService } from '../../services/trainerInfoService';
 
 // component
 import Schedule from '../../components/Schedule';
@@ -10,14 +11,33 @@ import Preloader from '../../components/Preloader/Preloader';
 
 class ScheduleTrainer extends Component {
 
+    state = {
+        trainerInformation: null
+    }
+
     componentDidMount() {
-        const { getTrainerSchedule } = this.props;
+        const { getTrainerSchedule, location } = this.props;
 
         // Note: собираем данные для get запроса расписания при инициализации страницы. Берём текущий день
         const data = dataTime();
         // Note: userId достаем из url'a с помощью withRouter
         const userId = this.props.match.params.slug;
         getTrainerSchedule(userId, data);
+
+        // Note: Запрашиваем информацию о тренере если роутер нам её не передал (к примеру если по прямой ссылке пришли.).
+        if (!location.state) {
+            trainerInfoService.getTrainerInformation(userId)
+                .then(
+                    res => {
+                        this.setState({
+                            trainerInformation: res.data.data
+                        });
+                    },
+                    err => {
+                        alert('Ошибка!');
+                    }
+                );
+        };
     }
 
     render() {
@@ -27,8 +47,21 @@ class ScheduleTrainer extends Component {
             bookedTime, 
             playgroundsForTraining, 
             match,
-            bookingPreloader 
+            bookingPreloader,
+            location
         } = this.props;
+
+        const { 
+            trainerInformation
+        } = this.state;
+
+        const noteTrainerInformation = () => {
+            if(location.state) {
+                return `Тренер: ${location.state.trainerInfo.first_name} ${location.state.trainerInfo.last_name}`
+            } else if(trainerInformation) {
+                return `Тренер: ${trainerInformation.first_name} ${trainerInformation.last_name}`
+            };
+        };
 
         // Note: userId достаем из url'a с помощью withRouter
         const userId = match.params.slug;
@@ -46,6 +79,7 @@ class ScheduleTrainer extends Component {
                         playgroundsForTraining={playgroundsForTraining}
                         preloader={bookingPreloader}
                         titlePage="Расписание тренера"
+                        noteTitle={noteTrainerInformation()}
                     />
                 </div>
 
