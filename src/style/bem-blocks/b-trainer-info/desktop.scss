@@ -1,3 +1,12 @@
 // 1280
 .b-trainer-info {
+    &__info-wrap {
+        // как будто справа календарь
+        max-width: calc(100% - 320px);
+        margin-left: 0;
+    }
+
+    &__button {
+        max-width: calc(100% - 320px);
+    }
 }

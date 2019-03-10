@@ -1,1 +1,9 @@
 // 1440
+.b-hamburger {
+    transition: .3s;
+
+    &.open {
+        border-color: transparent;
+        opacity: 0;
+    }
+}

@@ -29,7 +29,7 @@ class BookingRequest extends Component {
                                 onClickDecline={onClickDecline}
                                 tel={item.tel}
                             />
-                        }) : <p>Нет текущих заявок.</p>
+                        }) : <p className="b-booking-request__item">Нет текущих заявок.</p>
                     }
                 </div>
                 

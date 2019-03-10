@@ -16,13 +16,11 @@
         margin: 0;
         margin-bottom: 0px;
         padding-top: 60px;
-        padding-right: 15px;
-        padding-left: 15px;
         transform: translateX(0%);
         text-align: center;
         opacity: 1;
-        border-right: 1px solid $border-color;
-        background-color: #ffffff;
+        border-right: 1px solid $mint;
+        border-left: 1px solid $mint;
 
         flex-shrink: 0;
     }

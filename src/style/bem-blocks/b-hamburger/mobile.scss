@@ -8,6 +8,7 @@
     align-items: center;
     overflow: hidden;
     height: 64px;
+    border-left: 1px solid transparent;
 
     .no-touchevents &:hover,
     .touchevents &:active {
@@ -17,6 +18,13 @@
         path {
             stroke: #ffffff;
         }
+    }
+
+    &.open {
+        background: rgba(255, 255, 255, 0.05);
+        border-left: 1px solid #02100b;
+        border-bottom: 1px solid #02100b;
+        // border-right: 1px solid #02100b;
     }
 
     &.open & {

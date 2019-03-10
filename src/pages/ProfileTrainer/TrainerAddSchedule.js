@@ -421,18 +421,20 @@ class TrainerAddSchedule extends Component {
                         getValueSelect={this.onSelectChooseDay}
                     />
 
-                    {cards.map((card, idx) => (
-                        <AddScheduleCard
-                            key={idx}
-                            data={card}
-                            idRender={idx}
-                            onChangeInput={this.onChangeInput(idx)}
-                            onChangeTime={this.onChangeTime(idx)}
-                            onRemoveCard={this.handleRemoveCard(idx)}
-                            playgroundsForTraining={card.playgrounds}
-                            onChangeCheckbox={this.onChangeCheckbox(idx)}
-                        />
-                    ))}
+                    <div className="b-add-schedule-card__list">
+                        {cards.map((card, idx) => (
+                            <AddScheduleCard
+                                key={idx}
+                                data={card}
+                                idRender={idx}
+                                onChangeInput={this.onChangeInput(idx)}
+                                onChangeTime={this.onChangeTime(idx)}
+                                onRemoveCard={this.handleRemoveCard(idx)}
+                                playgroundsForTraining={card.playgrounds}
+                                onChangeCheckbox={this.onChangeCheckbox(idx)}
+                            />
+                        ))}
+                    </div>
 
                     {/* <div className="b-trainer-add-schedule__add-more">
                         <Button 
