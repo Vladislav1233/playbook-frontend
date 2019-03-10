@@ -15,11 +15,6 @@
             color: #ffffff;
             background: $header-hover;
         }
-
-        span {
-            font-size: 14px;
-            line-height: 21px;
-        }
     }
 
     &__account-wrapper {
@@ -29,9 +24,11 @@
 
     &__account-name {
         display: none;
-        margin-top: 6px;
-        margin-right: 8px;
+        margin-top: 8px;
+        margin-right: 5px;
         color: #e8e8e8;
+        font-size: 0.9rem;
+        font-family: $regular;
     }
 
     &__image-wrapper {
@@ -86,27 +83,24 @@
 
     &__content-item {
         list-style-type: none;
-
-        &:not(:last-child) {
-            margin-bottom: 10px;
-        }
     }
 
     &__content-text {
         display: block;
-        padding: 5px 0px;
+        padding: 7px 0px;
         color: $mainFontColor;
 
         &--name {
+            font-size: 1.1rem;
             font-family: $bold;
-            letter-spacing: .3px;
+            letter-spacing: -0.3px;
+            margin: 0;
+            padding: 0;
         }
     }
 
     &__content-additional {
-        font-size: 12px;
-        line-height: 16px;
-        color: $telegray;
+        font-weight: 300;
     }
 
     &--open & {

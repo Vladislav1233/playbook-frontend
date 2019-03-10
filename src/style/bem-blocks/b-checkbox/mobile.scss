@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 
     &--hide {
         display: none;
@@ -42,7 +42,7 @@
         transition-duration: $animation-time;
 
         .no-touchevents &:hover {
-            background-color: rgba(234, 241, 236, 0.9);
+            // background-color: rgba(234, 241, 236, 0.9);
         }
 
         .no-touchevents &:hover + .b-checkbox__label,

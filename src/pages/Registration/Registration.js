@@ -190,6 +190,7 @@ class Registration extends Component {
                                 id="is_trainer"
                                 text="Я тренер"
                                 value="1"
+                                modif="b-checkbox--hide"
                                 checked={isCheck}
                                 onChange={this.handleCheck}
                             />
@@ -201,12 +202,12 @@ class Registration extends Component {
                                     name={'Зарегистрироваться'}
                                 />
 
-                                {validation.fieldEmpty || validation.confirmPassword ?
-                                    <div className="b-registration__error">{validation.text}</div>
-                                    :
-                                    null
-                                }
                             </div>
+                            { validation.fieldEmpty || validation.confirmPassword ?
+                                <div className="b-registration__error">{validation.text}</div>
+                                :
+                                null
+                            }
                         </form>
                         <div className="b-registration__sub-navigation">
                             <span className="b-registration__sub-question"> У вас уже есть профиль? </span>

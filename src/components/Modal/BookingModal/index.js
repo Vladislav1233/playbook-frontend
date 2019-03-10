@@ -349,15 +349,17 @@ class BookingModal extends Component {
                                 <Fragment>
                                     {registeredNewUser 
                                         ? <div className="b-booking-form__note">
-                                            Привет! На указанный тобой номер телефона выслан пароль. Введи его в поле ниже, затем нажми кнопку <b>"Подтвердить"</b>.
+                                            Привет!
                                             <br/>
-                                            Пароль можно использовать повторно для авторизации в системе для твоего номера телефона.
+                                            На указанный тобой номер телефона выслан пароль. Введи его в поле ниже, затем нажми кнопку <i>"Подтвердить"</i>.
+                                            <br/>
+                                            Пароль можно использовать повторно для авторизации в системе по твоему номеру телефона.
                                         </div>
 
                                         : <div className="b-booking-form__note">
                                             Ты уже зарегистрированный пользователь.
                                             <br/>
-                                            Введи свой пароль авторизации если он у тебя есть или 
+                                            Введи свой пароль авторизации или 
                                             <a className="link-in-text-white" href="" title="Получи новый пароль" 
                                                 onClick={(e) => {
                                                     e.preventDefault();
@@ -369,8 +371,9 @@ class BookingModal extends Component {
                                         </div> 
                                     }
                                     <Input
-                                        labelText="Пароль"
+                                        // labelText="Пароль"
                                         typeInput="password"
+                                        placeholder="Введи пароль"
                                         idInput="password"
                                         nameInput="password"
                                         value={this.state.password}
