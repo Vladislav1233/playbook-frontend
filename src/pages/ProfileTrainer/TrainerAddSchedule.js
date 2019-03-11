@@ -206,6 +206,8 @@ class TrainerAddSchedule extends Component {
 
                             return currentCardRange.overlaps(validationCardRange);
                         };
+
+                        return false;
                     });
 
                     if(isNotValidRange) {
