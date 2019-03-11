@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { createScheduleTrainer, editTrainerSchedule, toggleResponse } from '../../store/actions/schedule';
 import moment from 'moment';
 import 'moment/locale/ru';
+import { extendMoment } from 'moment-range';
 
 // Note: services
 import { scheduleService } from '../../services/scheduleService';
@@ -24,6 +25,8 @@ import Preloader from '../../components/Preloader/Preloader';
 // import '../../style/bem-blocks/b-hint-profile/index.scss';
 import '../../style/bem-blocks/b-trainer-add-schedule/index.scss';
 
+const Moment = extendMoment(moment);
+
 class TrainerAddSchedule extends Component {
 
     constructor(props) {
@@ -38,14 +41,18 @@ class TrainerAddSchedule extends Component {
                 currency: 'RUB',
                 schedule_uuid: '',
                 playgrounds: [],
-                playgroundsCheck: []
+                playgroundsCheck: [],
+                errorCardText: ''
             }],
             selectChooseDay: 'one', // Note: это для настроек календаря: one - выбрать можно 1 день, period - выбрать можно период от / до
             dateCalendar: `${moment(new Date()).format('YYYY-MM-DD')}`,
             successPostResponse: false,
             playgroundsForTraining: [],
-            preloader: false
+            preloader: false,
+            isNotValidCards: false
         }
+
+        this.initialDataCards = this.state.cards; 
     };
 
     static getDerivedStateFromProps(props, state) {
@@ -104,7 +111,8 @@ class TrainerAddSchedule extends Component {
                                 currency: 'RUB',
                                 schedule_uuid: item.uuid,
                                 playgrounds: this.state.playgroundsForTraining,
-                                playgroundsCheck: item.playgrounds.map(item => item.uuid)
+                                playgroundsCheck: item.playgrounds.map(item => item.uuid),
+                                errorCardText: ''
                             }
                         });
 
@@ -122,7 +130,8 @@ class TrainerAddSchedule extends Component {
                                 currency: 'RUB',
                                 schedule_uuid: '',
                                 playgrounds: this.state.playgroundsForTraining,
-                                playgroundsCheck: []
+                                playgroundsCheck: [],
+                                errorCardText: ''
                             }];
 
                         this.setState({
@@ -158,9 +167,16 @@ class TrainerAddSchedule extends Component {
     }
 
     createDataCard = (idx, name, value) => {
-        return this.state.cards.map((card, sidx) => {
+        /*
+        * idx - индекс в массиве карточки, которую правят.
+        */
+        const { cards } = this.state;
+
+        return cards.map((card, sidx) => {
+            // Note: Если карточки нет ещё то создается новая
             if (idx !== sidx) return card;
 
+            // Note: Если карточка есть то она редактируется
             return {
                 ...card,
                 [name]: value
@@ -171,10 +187,48 @@ class TrainerAddSchedule extends Component {
     onChangeTime = (idx) => (value, name) => {
         const newCards = this.createDataCard(idx, name, value);
 
-        this.setState({
-            ...this.state,
-            cards: newCards
-        })
+        const validationRange = (currCard) => {
+            
+            if(currCard.start_time && currCard.end_time) {
+                const startRange = `${currCard.dates[0]} ${currCard.start_time}`;
+                const endRange = `${currCard.dates[0]} ${currCard.end_time}`;
+                const currentCardRange = Moment.range(startRange, endRange);
+
+                if(moment(startRange).isBefore(endRange)) {
+                    let numberCardWithError = null;
+                    let isNotValidRange = newCards.some((validationCard, indexValidationCard) => {
+                        if (idx !== indexValidationCard) {
+                            const startRangeValidation = `${validationCard.dates[0]} ${validationCard.start_time}`;
+                            const endRangeValidation = `${validationCard.dates[0]} ${validationCard.end_time}`;
+                            const validationCardRange = Moment.range(startRangeValidation, endRangeValidation);
+                            
+                            numberCardWithError = indexValidationCard;
+
+                            return currentCardRange.overlaps(validationCardRange);
+                        };
+                    });
+
+                    if(isNotValidRange) {
+                        newCards[idx].errorCardText = `Диапазон этой карточки пересекается с карточкой №${numberCardWithError + 1}`;
+                    } else {
+                        newCards[idx].errorCardText = ''
+                    };
+                } else {
+                    newCards[idx].errorCardText = 'Время начала тренировки должно быть перед окончанием.'
+                }
+            } else {
+                newCards[idx].errorCardText = 'Укажите время начала и окончания тренировки.'
+            };
+        };
+
+        
+        this.setState(() => {
+            validationRange(newCards[idx]);
+            return {
+                ...this.state,
+                cards: newCards
+            };
+        });
     };
 
     onChangeInput = (idx) => (event) => {
@@ -219,7 +273,8 @@ class TrainerAddSchedule extends Component {
                 currency: 'RUB',
                 schedule_uuid: '',
                 playgrounds: this.state.playgroundsForTraining,
-                playgroundsCheck: []
+                playgroundsCheck: [],
+                errorCardText: ''
             }])
         })
     };
@@ -236,16 +291,7 @@ class TrainerAddSchedule extends Component {
         if (cards.length === 1 && cards[idx].schedule_uuid) {
             this.setState({
                 ...this.state,
-                cards: [{
-                    dates: [],
-                    start_time: null,
-                    end_time: null,
-                    price_per_hour: '',
-                    currency: 'RUB',
-                    schedule_uuid: '',
-                    playgrounds: this.state.playgroundsForTraining,
-                    playgroundsCheck: []
-                }]
+                cards: this.initialDataCards
             })
         } else if(cards.length === 1) {
             alert("Нельзя удалять последнюю карточку");
@@ -310,16 +356,7 @@ class TrainerAddSchedule extends Component {
         } else {
             this.setState({
                 ...this.state,
-                cards: [{
-                    dates: [],
-                    start_time: null,
-                    end_time: null,
-                    price_per_hour: '',
-                    currency: 'RUB',
-                    schedule_uuid: '',
-                    playgrounds: this.state.playgroundsForTraining,
-                    playgroundsCheck: []
-                }],
+                cards: this.initialDataCards,
                 selectChooseDay: value.value
             });
         };
@@ -328,7 +365,7 @@ class TrainerAddSchedule extends Component {
     onSubmitCreateSchedule = () => {
         const { dispatch } = this.props;
         // NOTE: Создается один запрос на одну карточку. Добавление расписания
-        this.state.cards.forEach(function(card) {
+        this.state.cards.forEach((card) => {
             let formatPrice = convertTypeMoney(card.price_per_hour, 'RUB', 'coin');
 
             // Note: Функция, которая генерирует данные по расписанию как для create так и для edit для отправки на сервер.
@@ -401,6 +438,7 @@ class TrainerAddSchedule extends Component {
             value: 'period',
             label: 'Период (от - до)'
         }];
+        console.log(this.state);
 
         return(
             <div className="b-trainer-add-schedule">
