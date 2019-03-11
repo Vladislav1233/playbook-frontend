@@ -4,8 +4,6 @@
 
     &__label {
         display: inline-block;
-        margin-bottom: 5px;
-
         @include label();
     }
 
@@ -53,9 +51,13 @@
     left: 0px !important;
     padding-left: 0px !important;
     transform: translateX(0) !important;
+    height: 40px!important;
+    padding-top: 5px;
+    line-height: 35px!important;
 }
 
 .time_picker_preview {
     border-bottom: 1px solid #0b4e35;
     box-shadow: none !important;
+    height: 40px!important;
 }
