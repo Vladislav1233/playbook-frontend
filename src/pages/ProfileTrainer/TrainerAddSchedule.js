@@ -212,14 +212,28 @@ class TrainerAddSchedule extends Component {
 
                     if(isNotValidRange) {
                         newCards[idx].errorCardText = `Диапазон этой карточки пересекается с карточкой №${numberCardWithError + 1}`;
+
+                        this.setState({
+                            isNotValidCards: true
+                        });
                     } else {
-                        newCards[idx].errorCardText = ''
+                        newCards[idx].errorCardText = '';
+                        this.setState({
+                            isNotValidCards: false
+                        });
                     };
+
                 } else {
-                    newCards[idx].errorCardText = 'Время начала тренировки должно быть перед окончанием.'
+                    newCards[idx].errorCardText = 'Время начала тренировки должно быть перед окончанием.';
+                    this.setState({
+                        isNotValidCards: true
+                    });
                 }
             } else {
-                newCards[idx].errorCardText = 'Укажите время начала и окончания тренировки.'
+                newCards[idx].errorCardText = 'Укажите время начала и окончания тренировки.';
+                this.setState({
+                    isNotValidCards: true
+                });
             };
         };
 
@@ -227,7 +241,6 @@ class TrainerAddSchedule extends Component {
         this.setState(() => {
             validationRange(newCards[idx]);
             return {
-                ...this.state,
                 cards: newCards
             };
         });
@@ -418,7 +431,12 @@ class TrainerAddSchedule extends Component {
                 };
             };
 
-            edit();
+            if(this.state.isNotValidCards) {
+                console.log('Не валидно');
+                return false
+            } else {
+                edit();
+            }
         });
     };
 
