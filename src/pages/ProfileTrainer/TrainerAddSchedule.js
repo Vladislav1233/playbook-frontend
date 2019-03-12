@@ -481,20 +481,22 @@ class TrainerAddSchedule extends Component {
             preloaderSchedule
         } = this.props;
 
+        // TODO: Сделать валидацию сабмита для периода и тогда включить опцию
+        // const optionsSelect = [{
+        //     value: 'one',
+        //     label: 'Один день'
+        // }, {
+        //     value: 'period',
+        //     label: 'Период (от - до)'
+        // }];
+
         const optionsSelect = [{
             value: 'one',
             label: 'Один день'
-        }, {
-            value: 'period',
-            label: 'Период (от - до)'
         }];
-        console.log(this.state);
 
         return(
             <div className="b-trainer-add-schedule">
-                {/*TODO: Это лучше сделать отдельной всплывающей подсказкой или сообщением
-                <div className="b-hint-profile">Укажите дни, для которых установить время и добавьте свободные временные промежутки с ценой</div>*/}
-                               
                 <Calendar 
                     selectRange={selectChooseDay === 'period' ? true : false}
                     returnValue={selectChooseDay === 'period' ? 'range' : 'start'}
