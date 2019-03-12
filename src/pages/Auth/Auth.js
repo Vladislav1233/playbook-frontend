@@ -84,10 +84,11 @@ class Auth extends Component {
 
     render() {
         const { user, validation} = this.state;
-        const { preloader } = this.props;
+        const { preloader, bgImage } = this.props;
 
         return (
             <div className="b-registration">
+                <img className="b-registration__bg" alt="" src={bgImage} importance="high" />
                 <div className="container">
                     <div className="b-registration__form-wrapper">
                         <form className="b-registration__form" name="authorization" onSubmit={this.handleSubmit}>

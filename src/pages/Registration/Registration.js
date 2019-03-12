@@ -132,10 +132,11 @@ class Registration extends Component {
 
     render() {
         const { user, validation, isCheck } = this.state;
-        const { preloader } = this.props;
+        const { preloader, bgImage } = this.props;
 
         return(
             <div className="b-registration">
+                <img className="b-registration__bg" alt="" src={bgImage} importance="high" />
                 <div className="container">
                     <div className="b-registration__form-wrapper">
                         <form name='register-user' onSubmit={this.handleSubmit} className="b-registration__form">

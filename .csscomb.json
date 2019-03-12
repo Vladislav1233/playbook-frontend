@@ -317,6 +317,7 @@
             "-moz-background-size",
             "-o-background-size",
             "background-size",
+            "object-fit",
             "box-decoration-break",
             "-webkit-box-shadow",
             "-moz-box-shadow",
