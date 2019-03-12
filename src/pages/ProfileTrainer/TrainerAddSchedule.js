@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { createScheduleTrainer, editTrainerSchedule, toggleResponse } from '../../store/actions/schedule';
 import moment from 'moment';
 import 'moment/locale/ru';
 import { extendMoment } from 'moment-range';
+
+// Note: actions
+import { createScheduleTrainer, editTrainerSchedule, toggleResponse } from '../../store/actions/schedule';
+import { alertActions } from '../../store/actions/alertAction';
 
 // Note: services
 import { scheduleService } from '../../services/scheduleService';
@@ -324,7 +327,6 @@ class TrainerAddSchedule extends Component {
 
         if (selectChooseDay === 'one') {
             const date = moment(value).format('YYYY-MM-DD');
-            // dateData(date);
 
             const data = dataTime({
                 valueStart: value,
@@ -432,7 +434,7 @@ class TrainerAddSchedule extends Component {
             };
 
             if(this.state.isNotValidCards) {
-                console.log('Не валидно');
+                this.props.alertActionsError('Не сохранено! Исправьте ошибки указанные в карточках раснписания.')
                 return false
             } else {
                 edit();
@@ -532,4 +534,11 @@ const mapStateToProps = ({ scheduleTrainer, identificate }) => {
     }
 };
 
-export default connect(mapStateToProps)(TrainerAddSchedule);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        alertActionsError: (message) => dispatch( alertActions.error(message) ),
+        dispatch: (action) => dispatch(action)
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TrainerAddSchedule);
