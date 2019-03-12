@@ -9,9 +9,9 @@
     min-height: 100vh;
     min-width: 320px;
 
-    &--overflow {
-        overflow: hidden;
-    }
+    // &--overflow {
+    //     overflow: hidden;
+    // }
 
     &.no-scroll, .ReactModal__Body--open & {
         position: fixed;
