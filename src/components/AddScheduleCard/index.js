@@ -21,7 +21,7 @@ class AddScheduleCard extends Component {
             onRemoveCard, 
             playgroundsForTraining, 
             onChangeInput, 
-            onChangeCheckbox 
+            onChangeCheckbox
         } = this.props;
 
         return(
@@ -93,6 +93,11 @@ class AddScheduleCard extends Component {
                         }
                     </ul>
                 </div>
+
+                { data.errorCardText ?
+                    <div className="b-add-schedule-card__error">{data.errorCardText}</div>
+                    : null
+                }
             </div>
         )
     }

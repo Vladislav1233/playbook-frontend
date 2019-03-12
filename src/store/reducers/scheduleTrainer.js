@@ -75,7 +75,6 @@ export default function(state = initialState, action) {
 
         case GET_SUCCESS_SCHEDULE_TRAINER:
             const responseSchedule = action.payload.data;
-            console.log(responseSchedule);
             // Note: Забронированное подтвержденное время
             let reservedTime = [];
 
