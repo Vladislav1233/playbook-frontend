@@ -44,7 +44,7 @@ class Alert extends Component {
                 {buttonOk ?
                     <div className="b-alert__button-wrapper">
                         <Button 
-                            name="Ok"
+                            name="Отлично"
                             modif="b-button--alert-prima"
                             onClick={this.closeAlert}
                         />

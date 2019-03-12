@@ -69,11 +69,16 @@
         box-shadow: 0 2px 4px rgba(0,0,0,.1);
     }
 
+    &__content-header {
+        margin-bottom: 10px;
+        border-bottom: 1px solid $border-color;
+        padding: 0 15px 10px;
+    }
+
     &__content-list {
         margin-top: 0px;
         margin-bottom: 10px;
-        padding-right: 15px;
-        padding-left: 15px;
+        padding-left: 0;
 
         &:not(:last-child) {
             padding-bottom: 10px;
@@ -83,12 +88,18 @@
 
     &__content-item {
         list-style-type: none;
+
+        a:hover {
+            background: hsl(0, 0%, 99%);
+        }
     }
 
     &__content-text {
         display: block;
         padding: 7px 0px;
         color: $mainFontColor;
+        padding-right: 15px;
+        padding-left: 15px;
 
         &--name {
             font-size: 1.1rem;

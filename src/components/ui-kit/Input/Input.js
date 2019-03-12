@@ -14,7 +14,10 @@ class Input extends Component {
     }
     // TODO: Отключить или стилизовать автозаполнение в input
     render() {
-        const { labelText, typeInput, idInput, placeholder, value, nameInput, modif, theme, onChange, autoComplete, maxValue, minValue } = this.props;
+        const {
+            labelText, typeInput, idInput, placeholder, value, nameInput, modif,
+            theme, onChange, autoComplete, maxValue, minValue, disabled
+        } = this.props;
 
         const classInput = cn('b-input', modif, {
             'b-input--black-color': theme ? theme.blackColor : false
@@ -37,6 +40,7 @@ class Input extends Component {
                     autoComplete={autoComplete}
                     max={maxValue}
                     min={minValue}
+                    disabled={disabled ? disabled : null}
                 />
             </div>
         )

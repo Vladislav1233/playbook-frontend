@@ -226,6 +226,7 @@ class TrainerInfo extends Component {
                             value={trainerInfo.name}
                             onChange={e => this.handleChangeInput(e)}
                             theme={{ blackColor: true }}
+                            disabled
                         />
 
                         {/* <Input 
@@ -246,6 +247,7 @@ class TrainerInfo extends Component {
                             value={trainerInfo.surname}
                             onChange={e => this.handleChangeInput(e)}
                             theme={{ blackColor: true }}
+                            disabled
                         />
 
                         <Textarea

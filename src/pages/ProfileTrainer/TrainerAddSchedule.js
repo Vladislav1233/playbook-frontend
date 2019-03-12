@@ -398,7 +398,7 @@ class TrainerAddSchedule extends Component {
                     return true
                 };
 
-                this.props.alertActionsError('Не сохранено! Исправьте ошибки указанные в карточках раснписания и попробуйте ещё раз.');
+                this.props.alertActionsError('Не сохранено! Исправьте ошибки указанные в карточках рассписания и попробуйте ещё раз.');
                 const newCardsWithError = [...this.state.cards];
                 newCardsWithError[indexCard].errorCardText = 'Все поля должны быть заполнены.';
                 this.setState({
@@ -466,7 +466,7 @@ class TrainerAddSchedule extends Component {
                 this.props.alertActionsSuccess('Расписание сохранено.');
             };
         } else {
-            this.props.alertActionsError('Не сохранено! Исправьте ошибки указанные в карточках раснписания и попробуйте ещё раз.');
+            this.props.alertActionsError('Не сохранено! Исправьте ошибки указанные в карточках рассписания и попробуйте ещё раз.');
         };
     };
 

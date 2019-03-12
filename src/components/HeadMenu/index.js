@@ -110,12 +110,10 @@ class HeadMenu extends Component {
                         <div className="b-head-menu__content">
                             {isAuthorization 
                                 ? <Fragment>
-                                    <ContentItem>
-                                        <li className="b-head-menu__content-item">
-                                            <span className="b-head-menu__content-text b-head-menu__content-text--name">{`${userInformation.firstName} ${userInformation.lastName}`}</span>
-                                            <div className="b-head-menu__content-additional">{dataAboutRole.roleName}</div>
-                                        </li>
-                                    </ContentItem>
+                                    <div className="b-head-menu__content-header">
+                                        <span className="b-head-menu__content-text b-head-menu__content-text--name">{`${userInformation.firstName} ${userInformation.lastName}`}</span>
+                                        <div className="b-head-menu__content-additional">{dataAboutRole.roleName}</div>
+                                    </div> 
 
                                     <ContentItem>
                                         <li className="b-head-menu__content-item">
@@ -128,7 +126,7 @@ class HeadMenu extends Component {
 
                                     <ContentItem>
                                         <li className="b-head-menu__content-item">
-                                            <a href="" className="b-head-menu__content-text" title="Выйти" onClick={this.props.onLogout}>Выйти</a>
+                                            <a href="" className="b-head-menu__content-text" onClick={this.props.onLogout}>Выйти</a>
                                         </li>
                                     </ContentItem>
                                 </Fragment>
