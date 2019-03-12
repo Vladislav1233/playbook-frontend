@@ -4,7 +4,7 @@
     position: relative;
     margin: 0 -15px 15px;
     padding: 15px;
-    background: #fff;
+    background: #ffffff;
     box-shadow: $cardShadow;
 
     &__field {
@@ -24,9 +24,7 @@
     }
 
     &__title-section {
-        margin-bottom: 5px;
-        margin-bottom: 15px;
-
+        margin-bottom: 10px;
         @include label();
     }
 
@@ -49,10 +47,16 @@
 
     &__delete {
         position: absolute;
+        z-index: 1;
         top: 0px;
         right: 0px;
         width: 38px;
         padding: 10px;
         cursor: pointer;
+    }
+
+    &__error {
+        margin-top: 15px;
+        color: $error;
     }
 }

@@ -41,7 +41,10 @@ class Checkbox extends Component {
 
         const classNameCheckbox = cn(
             'b-checkbox',
-            modif
+            modif,
+            {
+                'b-checkbox--check': checked
+            }
         );
 
         const classNameStyleCheck = cn(

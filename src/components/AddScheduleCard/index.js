@@ -26,10 +26,6 @@ class AddScheduleCard extends Component {
 
         return(
             <div className="b-add-schedule-card">
-                {data.errorCardText ?
-                    <div className="b-add-schedule__error">{data.errorCardText}</div>
-                : null}
-
                 <div onClick={onRemoveCard} className="b-add-schedule-card__delete" title="Удалить">
                     <img className="b-add-schedule-card__delete-icon" src={deleteIcon} alt="Корзина" />
                 </div>
@@ -97,6 +93,11 @@ class AddScheduleCard extends Component {
                         }
                     </ul>
                 </div>
+
+                { data.errorCardText ?
+                    <div className="b-add-schedule-card__error">{data.errorCardText}</div>
+                    : null
+                }
             </div>
         )
     }

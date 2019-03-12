@@ -328,7 +328,9 @@
             "fill",
             "stroke",
             "stroke-linecap",
-            "stroke-width"
+            "stroke-width",
+
+            "stroke-dashoffset"
         ]
     ]
 }

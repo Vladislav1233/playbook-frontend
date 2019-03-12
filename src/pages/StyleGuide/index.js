@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 // Note: components
 import Button from '../../components/ui-kit/Button/Button';
 import Input from '../../components/ui-kit/Input/Input';
+import Radio from '../../components/ui-kit/Radio';
+import Checkbox from '../../components/ui-kit/Checkbox/Checkbox';
 
 // Note: styles
 import '../../style/bem-blocks/b-guide/index.scss';
@@ -43,6 +45,50 @@ class StyleGuide extends Component {
               placeholder="Ваше имя"
               typeInput="text"
               idInput="first_n123edqame"
+            />
+          </section>
+
+          <section className="b-guide__section">
+            <h2 className="b-guide__heading"> Radio: </h2>
+            <fieldset className="b-booking-form__fieldset">
+              <Radio
+                key='playground_other'
+                name='playground'
+                id='1'
+                text='Другое'
+                value='playground_other'
+                onChange={e => { console.log(e) }}
+              />
+
+              <Radio
+                key={`1`}
+                name="playground"
+                text='Другое'
+                id={`1`}
+                checked={true}
+                onChange={e => {console.log(e)}}
+              />
+            </fieldset>
+          </section>
+
+          <section className="b-guide__section">
+            <h2 className="b-guide__heading"> Checkbox: </h2>
+            <Checkbox
+              name='name'
+              id={`court-1`}
+              text="name 1"
+              value={4}
+              checked={true}
+              onChange={e => { console.log(e) }}
+              modif='b-checkbox--add-schedule'
+            />
+            <Checkbox
+              name="name2"
+              id={`court-2`}
+              text="name 1"
+              value={4}
+              onChange={e => { console.log(e) }}
+              modif='b-checkbox--add-schedule'
             />
           </section>
         </div>
