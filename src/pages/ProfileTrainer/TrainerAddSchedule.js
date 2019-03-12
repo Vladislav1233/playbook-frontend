@@ -373,7 +373,17 @@ class TrainerAddSchedule extends Component {
         } else {
             this.setState({
                 ...this.state,
-                cards: this.initialDataCards,
+                cards: [{
+                    dates: [],
+                    start_time: null,
+                    end_time: null,
+                    price_per_hour: '',
+                    currency: 'RUB',
+                    schedule_uuid: '',
+                    playgrounds: this.state.playgroundsForTraining,
+                    playgroundsCheck: [],
+                    errorCardText: ''
+                }],
                 selectChooseDay: value.value
             });
         };
@@ -381,65 +391,83 @@ class TrainerAddSchedule extends Component {
 
     onSubmitCreateSchedule = () => {
         const { dispatch } = this.props;
-        // NOTE: Создается один запрос на одну карточку. Добавление расписания
-        this.state.cards.forEach((card) => {
-            let formatPrice = convertTypeMoney(card.price_per_hour, 'RUB', 'coin');
-
-            // Note: Функция, которая генерирует данные по расписанию как для create так и для edit для отправки на сервер.
-            const createDataForRequest = (datesRequest, startTimeRequest, endTimeRequest) => {
-                let result = {
-                    price_per_hour: formatPrice,
-                    currency: card.currency,
-                    playgrounds: card.playgroundsCheck  
+        
+        if(!this.state.isNotValidCards) {
+            let isValidCards = this.state.cards.every((card, indexCard) => {
+                if(card.start_time && card.end_time && card.playgroundsCheck.length > 0 && card.price_per_hour) {
+                    return true
                 };
 
-                if (datesRequest) {
-                    result.dates = datesRequest;
-                };
-
-                if (startTimeRequest) {
-                    result.start_time = startTimeRequest
-                };
-
-                if (endTimeRequest) {
-                    result.end_time = endTimeRequest
-                };
-
-                return result;
-            };
-
-            // Note: Получаем даты начала расписания и окончания расписания относительно UTC
-            const dates = card.dates.map(date => {
-                return {
-                    start_time: moment.utc(moment(`${date} ${card.start_time}:00`)).format('YYYY-MM-DD HH:mm:ss'),
-                    end_time: moment.utc(moment(`${date} ${card.end_time}:00`)).format('YYYY-MM-DD HH:mm:ss')
-                }
+                this.props.alertActionsError('Не сохранено! Исправьте ошибки указанные в карточках раснписания и попробуйте ещё раз.');
+                const newCardsWithError = [...this.state.cards];
+                newCardsWithError[indexCard].errorCardText = 'Все поля должны быть заполнены.';
+                this.setState({
+                    cards: newCardsWithError
+                });
+                return false
             });
 
-            // Note: если у нас карточка с сервера, то у неё schedule_uuid не пустая строка, мы определяем какой запрос отправлять.
-            const edit = async () => {
-                if (card.schedule_uuid) {
-                    dispatch(editTrainerSchedule(
-                        card.schedule_uuid,  
-                        createDataForRequest(null, dates[0].start_time, dates[0].end_time)
-                    ));
-                }
-                await create();
-            }
+            if (isValidCards) {
+                // NOTE: Создается один запрос на одну карточку. Добавление расписания
+                this.state.cards.forEach((card, indexCard, arrayCards) => {
+                    let formatPrice = convertTypeMoney(card.price_per_hour, 'RUB', 'coin');
 
-            const create = () => {
-                if (!card.schedule_uuid) {
-                    dispatch(createScheduleTrainer(createDataForRequest(dates, null, null)));
-                };
+                    // Note: Функция, которая генерирует данные по расписанию как для create так и для edit для отправки на сервер.
+                    const createDataForRequest = (datesRequest, startTimeRequest, endTimeRequest) => {
+                        let result = {
+                            price_per_hour: formatPrice,
+                            currency: card.currency,
+                            playgrounds: card.playgroundsCheck  
+                        };
+
+                        if (datesRequest) {
+                            result.dates = datesRequest;
+                        };
+
+                        if (startTimeRequest) {
+                            result.start_time = startTimeRequest
+                        };
+
+                        if (endTimeRequest) {
+                            result.end_time = endTimeRequest
+                        };
+
+                        return result;
+                    };
+
+                    // Note: Получаем даты начала расписания и окончания расписания относительно UTC
+                    const dates = card.dates.map(date => {
+                        return {
+                            start_time: moment.utc(moment(`${date} ${card.start_time}:00`)).format('YYYY-MM-DD HH:mm:ss'),
+                            end_time: moment.utc(moment(`${date} ${card.end_time}:00`)).format('YYYY-MM-DD HH:mm:ss')
+                        }
+                    });
+
+                    // Note: если у нас карточка с сервера, то у неё schedule_uuid не пустая строка, мы определяем какой запрос отправлять.
+                    const edit = async () => {
+                        if (card.schedule_uuid) {
+                            dispatch(editTrainerSchedule(
+                                card.schedule_uuid,  
+                                createDataForRequest(null, dates[0].start_time, dates[0].end_time)
+                            ));
+                        }
+                        await create();
+                    }
+
+                    const create = () => {
+                        if (!card.schedule_uuid) {
+                            dispatch(createScheduleTrainer(createDataForRequest(dates, null, null)));
+                        };
+                    };
+
+                    edit();
+                });
+
+                this.props.alertActionsSuccess('Расписание сохранено.');
             };
-
-            if(this.state.isNotValidCards) {
-                this.props.alertActionsError('Не сохранено! Исправьте ошибки указанные в карточках раснписания.')
-                return false
-            } else {
-                edit();
-            }
-        });
+        } else {
+            this.props.alertActionsError('Не сохранено! Исправьте ошибки указанные в карточках раснписания и попробуйте ещё раз.');
+        };
     };
 
     render() {
@@ -537,6 +565,7 @@ const mapStateToProps = ({ scheduleTrainer, identificate }) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         alertActionsError: (message) => dispatch( alertActions.error(message) ),
+        alertActionsSuccess: (message) => dispatch( alertActions.success(message) ),
         dispatch: (action) => dispatch(action)
     }
 };
