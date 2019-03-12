@@ -2,12 +2,25 @@
 .b-trainer-info {
     &__info-wrap {
         margin-bottom: 30px;
+        flex-wrap: wrap;
+        box-shadow: none;
+        margin: 0 -8px 17px;
     }
 
     &__form {
+        margin: 0 8px 8px;
+        border: none;
+        border-radius: 5px;
+        box-shadow: $cardShadow;
+        width: calc(50% - 16px);
     }
 
     &__playground {
+        margin: 0 8px 8px;
+        border: none;
+        border-radius: 5px;
+        box-shadow: $cardShadow;
+        width: calc(50% - 16px);
     }
 
     &__playground-item {
