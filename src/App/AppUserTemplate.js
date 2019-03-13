@@ -15,6 +15,7 @@ import ListCourt from '../pages/ListCourt';
 import ListTrainer from '../pages/ListTrainer';
 import MyBooking from '../pages/MyBooking';
 import StyleGuide from '../pages/StyleGuide';
+import NotFound from '../pages/NotFound';
 
 import bgSrcs from '../style/images/login-bg/images.js';
 
@@ -54,5 +55,6 @@ export default (isAuthorization) => (
 
         <Route component={TestRequest} path="/test-request" />
 
+        <Route component={NotFound} />
     </Switch>
 );

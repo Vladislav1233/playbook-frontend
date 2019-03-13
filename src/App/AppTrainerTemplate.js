@@ -18,6 +18,7 @@ import ListTrainer from '../pages/ListTrainer';
 import TestRequest from '../pages/TestRequest/TestRequest';
 import MyBooking from '../pages/MyBooking';
 import StyleGuide from '../pages/StyleGuide';
+import NotFound from '../pages/NotFound';
 
 export default (isAuthorization) => (
     <Switch>
@@ -51,5 +52,7 @@ export default (isAuthorization) => (
         <Route component={StyleGuide} path={"/style-guide"} />
 
         <Route component={TestRequest} path="/test-request" />
+
+        <Route component={NotFound} />
     </Switch>
 );
