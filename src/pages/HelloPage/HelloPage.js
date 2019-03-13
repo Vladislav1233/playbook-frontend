@@ -30,13 +30,21 @@ class HelloPage extends Component {
         return(
             <div className="container">
                 <div className="b-hello-page">
-                    <h1 className="b-hello-page__head">
-                        <img className="b-hello-page__logo" src={tennisBallIcon} alt="Логотип - теннисный мяч" />
-                        PlayBook
-                    </h1>
-                    <h2 className="b-hello-page__heading">
+                    <div className="b-hello-page__head-wrap">
+                        <h1 className="b-hello-page__head">
+                            <img className="b-hello-page__logo" src={tennisBallIcon} alt="Логотип - теннисный мяч" />
+                            PlayBook
+                        </h1>
+                        <h2 className="b-hello-page__sub-head">
+                            <span>
+                                Спорт без границ
+                            </span>
+                        </h2>
+                    </div>
+
+                    <h3 className="b-hello-page__heading">
                         Забронируй корт для  тенниса и играй в удобное для тебя время
-                    </h2>
+                    </h3>
                     <nav className="b-hello-page__nav">
                         <ul className="b-hello-page__list">
                             {/* <li className="b-hello-page__item">
@@ -52,27 +60,8 @@ class HelloPage extends Component {
                             </li>
                         </ul>
 
-                        {!isAuthorization ? 
-                            <ul className="b-hello-page__list">
-                                <li className="b-hello-page__item">
-                                    <Link 
-                                        className="b-button b-button--hollow b-button--hello-page" 
-                                        to={configPathRouter.authorization}
-                                    >
-                                        Авторизация
-                                    </Link>
-                                </li>
-                                <li className="b-hello-page__item">
-                                    <Link 
-                                        className="b-button b-button--hollow b-button--hello-page" 
-                                        to={configPathRouter.registration}
-                                    >
-                                        Регистрация
-                                    </Link>
-                                </li>
-                            </ul>
-                            :
-                            <ul className="b-hello-page__list">
+                        { isAuthorization
+                            ? <ul className="b-hello-page__list">
                                 <li className="b-hello-page__item">
                                     <Link 
                                         className="b-button b-button--hollow b-button--hello-page" 
@@ -89,7 +78,8 @@ class HelloPage extends Component {
                                         Личный кабинет
                                     </Link>
                                 </li>
-                            </ul> 
+                              </ul>
+                            : null
                         }
                     </nav>
                 </div>
