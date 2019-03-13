@@ -50,6 +50,7 @@ class BookingRequest extends Component {
                                     onClickConfirm={onClickConfirm}
                                     onClickDecline={onClickDecline}
                                     tel={item.tel}
+                                    price={item.price}
                                 />
                             })}
                         </div>
