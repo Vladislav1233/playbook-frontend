@@ -91,21 +91,21 @@ class HeadMenu extends Component {
                         this.closeContent();
                     }}
                     display="inline-block"
-                >
-                    <a onClick={this.toggleContent} className="b-head-menu__open-button" href="/">
-                        { isAuthorization
-                            ? (
-                                <div className="b-head-menu__account-wrapper">
-                                    <span className="b-head-menu__account-name">{ userInformation.firstName }</span>
-                                    <div className="b-head-menu__image-wrapper b-head-menu__image-wrapper--blank">
-                                        <img className="b-head-menu__image" src={avaImg} alt=""/>
-                                    </div>
+                >   
+                    {isAuthorization 
+                        ? <a onClick={this.toggleContent} className="b-head-menu__open-button" href="/">
+                            <div className="b-head-menu__account-wrapper">
+                                <span className="b-head-menu__account-name">{ userInformation.firstName }</span>
+                                <div className="b-head-menu__image-wrapper b-head-menu__image-wrapper--blank">
+                                    <img className="b-head-menu__image" src={avaImg} alt=""/>
                                 </div>
-                            ) : (
-                                <span>Войти</span>
-                            )
-                        }
-                    </a>
+                            </div>
+                        </a>
+                        : <div className="b-head-menu__wrapper-link">
+                            <Link to={configPathRouter.authorization}>Вход</Link>
+                            <Link to={configPathRouter.registration}>Регистрация</Link>
+                        </div>
+                    }
                     {showContent &&
                         <div className="b-head-menu__content">
                             {isAuthorization 
@@ -130,17 +130,7 @@ class HeadMenu extends Component {
                                         </li>
                                     </ContentItem>
                                 </Fragment>
-                                :
-                                <Fragment>
-                                    <ContentItem>
-                                        <li className="b-head-menu__content-item">
-                                            <Link className="b-head-menu__content-text" to={configPathRouter.authorization}>Авторизация</Link>
-                                        </li>
-                                        <li className="b-head-menu__content-item">
-                                            <Link className="b-head-menu__content-text" to={configPathRouter.registration}>Регистрация</Link>
-                                        </li>
-                                    </ContentItem>
-                                </Fragment>
+                                : null
                             }
 
                         </div>
