@@ -3,28 +3,29 @@
     background-color: $mint;
 
     &__calendar {
-        border-top: 1px solid #06281b;
         z-index: 20;
     }
 
     &__add-more {
-        text-align: center;
         padding: 5px 0px 30px;
+        text-align: center;
     }
 
     &__save {
         position: fixed;
+        z-index: 10;
         bottom: 0;
         left: 0;
+        display: flex;
+        justify-content: space-between;
         width: 100%;
-        z-index: 10;
+        min-width: 320px;
         padding: 0 16px 16px;
-        background-color: #fff;
     }
 
     &__schedule {
+        padding: 15px 15px 65px;
         border-radius: 15px 15px 0 0;
-        background-color: #fff;
-        padding: 15px 15px 100px;
+        background-color: $main-background;
     }
 }

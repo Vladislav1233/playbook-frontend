@@ -6,7 +6,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         font-size: 34px;
         text-align: center;
     }
@@ -19,15 +19,17 @@
 
     &__heading {
         margin: auto;
-        margin-bottom: 30px;
+        padding: 10px;
+        margin-bottom: 15px;
         font-size: 16px;
         line-height: 1.5;
         text-align: center;
-        color: #121212;
+        color: $mainFontColor;
+        background: hsla(0, 0%, 100%, 0.5);
     }
 
     &__list {
-        margin: 20px 0 10px;
+        margin: 15px 0;
         padding: 0px;
         text-align: center;
     }
@@ -36,7 +38,7 @@
         list-style-type: none;
 
         &:not(:last-child) {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
     }
 }

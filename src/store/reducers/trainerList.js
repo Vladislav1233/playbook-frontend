@@ -10,7 +10,7 @@ const initialState = {
     listTrainer: [],
     preloader: false,
     pagination: {
-        limit: 3,
+        limit: 4,
         offset: 0
     },
     total_count: 0
@@ -30,7 +30,6 @@ export default function(state = initialState, action) {
 
             if (list.length > 0) {
                 const newListTrainer = [...state.listTrainer, ...list];
-                console.log(total_count, state.pagination.limit);
 
                 return {
                     ...state,

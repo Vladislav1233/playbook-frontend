@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { configPathRouter } from './configPathRouter';
 
 // Note: component
@@ -16,16 +16,37 @@ import ListTrainer from '../pages/ListTrainer';
 import MyBooking from '../pages/MyBooking';
 import StyleGuide from '../pages/StyleGuide';
 
+import bgSrcs from '../style/images/login-bg/images.js';
+
+// генерируем новый фон регитрации 1 раз
+const randomIndexBg = Math.round(Math.random() * (bgSrcs.length - 1));
+const randomBg = bgSrcs[randomIndexBg];
+
 // TODO: Добавить 404
-export default () => (
+export default (isAuthorization) => (
     <Switch>
         <Route exact component={HelloPage} path='/' />
         <Route component={ListCourt} path={configPathRouter.listCourt} />
         <Route component={ListTrainer} path={configPathRouter.listTrainer} />
         <Route component={ScheduleTrainer} path={`${configPathRouter.scheduleTrainer}/:slug`} />
         {/*<Route component={ScheduleCourt} path={configPathRouter.scheduleCourt} />*/}
-        <Route component={Registration} path={configPathRouter.registration} />
-        <Route component={Auth} path={configPathRouter.authorization} />
+        <Route render={() => {
+            console.log(isAuthorization);
+            if(isAuthorization.isAuthorization) {
+                return <Redirect to='/' />
+            } else {
+                return <Registration bgImage={randomBg} />
+                // eslint-disable-next-line
+            };
+        }} path={configPathRouter.registration} />
+        <Route render={() => {
+            if(isAuthorization.isAuthorization) {
+                return <Redirect to='/' />
+            } else {
+                return <Auth bgImage={randomBg} />
+                // eslint-disable-next-line
+            };
+        }} path={configPathRouter.authorization} />
         <Route component={MyBooking} path={configPathRouter.myBooking} />
         <Route component={ErrorPage} path="/error" />
 

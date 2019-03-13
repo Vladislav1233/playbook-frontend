@@ -21,7 +21,9 @@ $materialFunction: cubic-bezier(.4, .0, .2, 1);
 
 /** ----- colors ----- */
 // Просто цвета:
-$mint: #0b4e35;
+// $mint: hsl(158, 75%, 17%);
+// $mint: hsl(157, 50%, 20%);
+$mint: hsl(156, 25%, 22%);
 $telegray: #8c8c8c;
 $bright-telegray: #cccccc;
 $carmine-pink: #ef396f;
@@ -36,6 +38,9 @@ $header-hover: rgba(255, 255, 255, .1);
 $body-hover: rgba(0, 0, 0, .1);
 $border-color: #ebebeb;
 $border-radius: 5px;
+$cardShadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.145);
+$error: #ff0b0b;
+$ok: #03ad2d;
 
 // ----- typography -----
 @mixin  h1() {
@@ -60,12 +65,27 @@ $border-radius: 5px;
 }
 
 @mixin font-size-5() {
-    font-size: 16px;
+    font-size: (16rem/15);
     line-height: 1.4;
 }
 
 @mixin label() {
-    font-family: $bold;
-
+    font-family: $roboto;
+    font-weight: 500;
     @include font-size-5();
+}
+
+@mixin costStyle() {
+    font-size: (16rem/15);
+    font-weight: 500;
+    color: var(--accent-text);
+}
+
+@mixin subTitleStyle() {
+    display: block;
+    margin: 1px 0 0;
+    font-family: $roboto;
+    font-size: .8em;
+    font-weight: 300;
+    letter-spacing: normal;
 }

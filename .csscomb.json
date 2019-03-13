@@ -38,7 +38,9 @@
             "display",
             "align-items",
             "justify-content",
+            "align-self",
             "flex-wrap",
+            "flex-flow",
             "visibility",
             "float",
             "clear",
@@ -315,6 +317,7 @@
             "-moz-background-size",
             "-o-background-size",
             "background-size",
+            "object-fit",
             "box-decoration-break",
             "-webkit-box-shadow",
             "-moz-box-shadow",
@@ -322,7 +325,13 @@
             "filter",
             "filter:progid:DXImageTransform.Microsoft.gradient",
             "-ms-filter:\\'progid:DXImageTransform.Microsoft.gradient",
-            "text-shadow"
+            "text-shadow",
+            "fill",
+            "stroke",
+            "stroke-linecap",
+            "stroke-width",
+
+            "stroke-dashoffset"
         ]
     ]
 }

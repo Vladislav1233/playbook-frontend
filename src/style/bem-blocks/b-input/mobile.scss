@@ -1,6 +1,6 @@
 // 320++
 .b-input {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 
     &--inline {
         display: inline-block;
@@ -27,19 +27,24 @@
         &:focus {
             outline: none;
         }
+
+        &:disabled {
+            border-color: #dddddd;
+            opacity: .7;
+        }
     }
 
     &__label {
         @include label();
         display: inline-block;
-        margin-bottom: 5px;
     }
 
     &--textarea & {
-
         &__input {
-            height: 80px;
-            resize: none;
+            display: block;
+            height: 3.5em;
+            resize: vertical;
+            border-right: 1px solid $mint;
         }
 
         &__label {
@@ -48,7 +53,6 @@
     }
 
     &--black-color & {
-
         &__input {
             color: $mainFontColor;
         }

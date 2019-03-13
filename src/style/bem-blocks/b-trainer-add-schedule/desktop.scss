@@ -1,32 +1,32 @@
 // 1280
-.b-trainer-add-schedule {
-    display: flex;
-    min-height: 100%;
+// .b-trainer-add-schedule {
+//     display: flex;
+//     min-height: 100%;
 
-    &__calendar {
-        margin: 0;
-        order: 1;
-        flex-shrink: 0;
-        padding-top: 78px;
-        box-shadow: -2px 0px 3px -2px #c5c5c5;
+//     &__calendar {
+//         margin: 0;
+//         order: 1;
+//         flex-shrink: 0;
+//         padding-top: 78px;
+//         box-shadow: -2px 0px 3px -2px #c5c5c5;
 
-        .b-date-calendar {
-            position: sticky;
-            top: 0;
-        }
-    }
+//         .b-date-calendar {
+//             position: sticky;
+//             top: 0;
+//         }
+//     }
 
-    &__schedule {
-        width: 100%;
-        padding-top: 20px;
-    }
+//     &__schedule {
+//         width: 100%;
+//         padding-top: 20px;
+//     }
 
-    &__save {
-        width: calc(100% - 405px);
-        right: auto;
-        left: 50%;
-        transform: translateX(-50%);
-        margin-left: -117px;
-        max-width: 1035px;
-    }
-}
+//     &__save {
+//         width: calc(100% - 405px);
+//         right: auto;
+//         left: 50%;
+//         transform: translateX(-50%);
+//         margin-left: -117px;
+//         max-width: 1035px;
+//     }
+// }

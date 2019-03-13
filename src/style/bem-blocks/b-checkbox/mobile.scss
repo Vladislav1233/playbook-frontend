@@ -3,66 +3,45 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
 
     &--hide {
         display: none;
     }
 
-    &--add-schedule {
-        margin-bottom: 20px;
 
-        &:not(:last-child) {
-            margin-bottom: 40px;
-        }
-    }
 
     &__input {
         display: none;
     }
 
     &__label {
-        font-size: 14px;
         display: inline-block;
         padding-top: 3px;
         cursor: pointer;
         transition: color $animation-time;
-        color: #757575;;
 
-        .no-touchevents &:hover,
-        .touchevents &:active {
-            color: #fff;
+        .b-checkbox--check & {
+            font-weight: 500;
         }
     }
 
     &__check {
         position: relative;
         display: inline-block;
-        width: 30px;
-        height: 30px;
+        width: 24px;
+        height: 24px;
         margin: 0;
         margin-right: 10px;
         cursor: pointer;
+        transition-duration: $animation-time;
+        transition-property: background-color;
         transform: translate3d(0, 0, 0);
 
         -webkit-tap-highlight-color: transparent;
 
-        .no-touchevents &:hover + .b-checkbox__label,
-        .touchevents &:active + .b-checkbox__label {
-            color: #fff;
-        }
-
-        &:before {
-            position: absolute;
-            top: -15px;
-            left: -15px;
-            width: 48px;
-            height: 48px;
-            content: '';
-            transition: opacity .2s ease;
-            opacity: 0;
-            border-radius: 50%;
-            background: rgba(34,50,84,.03);
+        .no-touchevents &:hover {
+            // background-color: rgba(234, 241, 236, 0.9);
         }
 
         svg {
@@ -70,63 +49,38 @@
             z-index: 1;
             transition: all .2s ease;
             transform: translate3d(0, 0, 0);
-
             fill: none;
             stroke: $mint;
             stroke-linecap: round;
+            stroke-width: 1;
+
             stroke-linejoin: round;
-            stroke-width: 1.5;
 
             path {
-                stroke-dasharray: 60;
+                transition: all .3s linear;
                 stroke-dashoffset: 0;
+
+                stroke-dasharray: 60;
             }
 
             polyline {
-                stroke-dasharray: 22;
+                transition: all .2s linear;
+                transition-delay: .15s;
                 stroke-dashoffset: 66;
-            }
-        }
 
-        &:hover {
-            &:before {
-                opacity: 1;
-            }
-            svg {
-                stroke: $mint;
+                stroke-dasharray: 22;
             }
         }
 
         &--check {
             svg {
-                stroke: $mint;
+                stroke-width: 2;
                 path {
-                    transition: all .3s linear;
-
                     stroke-dashoffset: 60;
                 }
                 polyline {
-                    transition: all .2s linear;
-                    transition-delay: .15s;
-
                     stroke-dashoffset: 42;
                 }
-            }
-        }
-    }
-
-    &--add-schedule & {
-        &__check {
-            .no-touchevents &:hover + .b-checkbox__label,
-            .touchevents &:active + .b-checkbox__label {
-                color: $orange-diamond-yellow;
-            }
-        }
-
-        &__label {
-            .no-touchevents &:hover,
-            .touchevents &:active {
-                color: $orange-diamond-yellow;
             }
         }
     }

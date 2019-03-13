@@ -5,36 +5,30 @@
 
     &__open-button {
         display: inline-flex;
-        height: 100%;
-        height: 64px;
-        padding: 0 15px;
-        color: #fff;
-
         align-items: center;
+        height: 64px;
+        padding: 0 10px;
+        color: #ffffff;
 
         .b-head-menu--open &,
         .no-touchevents &:hover {
-            color: #fff;
+            color: #ffffff;
             background: $header-hover;
-        }
-
-        span {
-            font-size: 14px;
-            line-height: 21px;
         }
     }
 
     &__account-wrapper {
         display: flex;
-
         align-items: center;
     }
 
     &__account-name {
         display: none;
-        margin-top: 6px;
-        margin-right: 8px;
+        margin-top: 8px;
+        margin-right: 5px;
         color: #e8e8e8;
+        font-size: 0.9rem;
+        font-family: $regular;
     }
 
     &__image-wrapper {
@@ -61,25 +55,30 @@
     }
 
     &__content {
-        font-size: 14px;
         position: absolute;
         top: calc(100% + 2px);
         right: 0;
         width: calc(100vw - 30px);
         max-width: 480px;
         padding-top: 15px;
+        font-size: 14px;
         text-align: left;
         border: 1px solid $border-color;
-        border-radius: 3px;
+        border-radius: $border-radius;
         background: white;
         box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    }
+
+    &__content-header {
+        margin-bottom: 10px;
+        border-bottom: 1px solid $border-color;
+        padding: 0 15px 10px;
     }
 
     &__content-list {
         margin-top: 0px;
         margin-bottom: 10px;
-        padding-right: 15px;
-        padding-left: 15px;
+        padding-left: 0;
 
         &:not(:last-child) {
             padding-bottom: 10px;
@@ -90,26 +89,29 @@
     &__content-item {
         list-style-type: none;
 
-        &:not(:last-child) {
-            margin-bottom: 10px;
+        a:hover {
+            background: hsl(0, 0%, 99%);
         }
     }
 
     &__content-text {
         display: block;
-        padding: 5px 0px;
+        padding: 7px 0px;
         color: $mainFontColor;
+        padding-right: 15px;
+        padding-left: 15px;
 
         &--name {
+            font-size: 1.1rem;
             font-family: $bold;
-            letter-spacing: .3px;
+            letter-spacing: -0.3px;
+            margin: 0;
+            padding: 0;
         }
     }
 
     &__content-additional {
-        font-size: 12px;
-        line-height: 16px;
-        color: $telegray;
+        font-weight: 300;
     }
 
     &--open & {

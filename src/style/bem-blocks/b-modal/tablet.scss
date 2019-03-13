@@ -1,9 +1,10 @@
 // 768
 .ReactModal {
-
-  &__Content {
-    margin: 60px auto;
-    padding: 30px !important;
-    min-height: 0px;
-  }
+    &__Content {
+        max-width: 520px;
+        min-height: 0px;
+        margin: 60px auto;
+        padding: 30px !important;
+        border-radius: $border-radius !important;
+    }
 }

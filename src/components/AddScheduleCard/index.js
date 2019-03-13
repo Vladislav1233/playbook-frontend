@@ -21,7 +21,7 @@ class AddScheduleCard extends Component {
             onRemoveCard, 
             playgroundsForTraining, 
             onChangeInput, 
-            onChangeCheckbox 
+            onChangeCheckbox
         } = this.props;
 
         return(
@@ -49,7 +49,7 @@ class AddScheduleCard extends Component {
 
                 <div className="b-add-schedule-card__field">
                     <Input 
-                        labelText={'Цена за час'}
+                        labelText={'Цена за час, ₽'}
                         idInput={`price-${idRender}`}
                         placeholder='Цена за час'
                         value={data.price_per_hour}
@@ -93,6 +93,11 @@ class AddScheduleCard extends Component {
                         }
                     </ul>
                 </div>
+
+                { data.errorCardText ?
+                    <div className="b-add-schedule-card__error">{data.errorCardText}</div>
+                    : null
+                }
             </div>
         )
     }

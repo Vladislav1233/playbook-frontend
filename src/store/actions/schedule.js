@@ -5,7 +5,7 @@ import {
 
     EDIT_START_SCHEDULE_TRAINER,
     EDIT_SUCCESS_SCHEDULE_TRAINER,
-    EDIT_FAILURE__SCHEDULE_TRAINER,
+    EDIT_FAILURE_SCHEDULE_TRAINER,
 
     GET_START_SCHEDULE_TRAINER,
     GET_SUCCESS_SCHEDULE_TRAINER,
@@ -20,6 +20,8 @@ import {
 
 import { scheduleService } from '../../services/scheduleService';
 import { bookingService } from '../../services/booking';
+import { alertActions } from './alertAction';
+import textErrorFromServer from '../../helpers/textErrorFromServer';
 
 // Note: Отправляем запрос на создание расписания тренера
 export function createScheduleTrainer(data) {
@@ -91,7 +93,7 @@ export function editTrainerSchedule(schedule_uuid, data) {
 
     function failure(error) {
         return {
-            type: EDIT_FAILURE__SCHEDULE_TRAINER,
+            type: EDIT_FAILURE_SCHEDULE_TRAINER,
             payload: error
         }
     }
@@ -176,11 +178,12 @@ export function declineConfirmBooking(bookingId, data, userId, dataForGetSchedul
         bookingService.declineBooking(bookingId, data)
             .then(
                 () => {
-                    // dispatch(success());
                     dispatch(getTrainerSchedule(userId, dataForGetSchedule));
+                    dispatch(alertActions.success('Бронирование успешно отменено.'));
                 },
                 err => {
                     dispatch(failure(err));
+                    dispatch(alertActions.error(`Ошибка! ${textErrorFromServer(err)}`));
                 }
             )
     };

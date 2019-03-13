@@ -42,7 +42,9 @@ class App extends Component {
             toggleMenu, 
             userRole, 
             scrollPage, 
-            alertMessage
+            alertMessage,
+            alertType,
+            isAuthorization
         } = this.props;
         console.log(alertMessage);
         console.log('renderApp');
@@ -55,7 +57,7 @@ class App extends Component {
 
         const pageWrapperClass = cn('b-page-wrapper', {
             'no-scroll': toggleMenu || scrollPage, // TODO: через screen snap сделать позицию страницы не дерганной.
-            'b-page-wrapper--overflow': location.pathname === '/authentication-trainer' || location.pathname === configPathRouter.authorization
+            // 'b-page-wrapper--overflow': location.pathname === '/authentication-trainer' || location.pathname === configPathRouter.authorization
         })
 
         const mainClass = cn('b-main', {
@@ -68,10 +70,10 @@ class App extends Component {
             // TODO: Ещё 404 страницу сделать
             switch (userRole ? userRole[0] : '') {
                 case 'user':
-                    return <AppUserTemplate />
+                    return <AppUserTemplate isAuthorization={isAuthorization} />
 
                 case 'trainer':
-                    return <AppTrainerTemplate />
+                    return <AppTrainerTemplate isAuthorization={isAuthorization} />
 
                 case 'organization-admin':
                     break;
@@ -80,7 +82,7 @@ class App extends Component {
                     break;
 
                 default: 
-                    return <AppUserTemplate />
+                    return <AppUserTemplate isAuthorization={isAuthorization} />
             }
         }
 
@@ -94,7 +96,7 @@ class App extends Component {
                 <CoverPage />
 
                 {alertMessage ?
-                    <Alert buttonOk closeAlert={this.props.closeAlert}>
+                    <Alert buttonOk type={alertType} closeAlert={this.props.closeAlert}>
                         {alertMessage}
                     </Alert>
                 : null}
@@ -107,8 +109,10 @@ const mapStateToProps = ({ toggleMenu, identificate, scrollPage, alertReducer })
     return {
         toggleMenu: toggleMenu.toggleMenu,
         userRole: identificate.userRole,
+        isAuthorization: identificate.authorization,
         scrollPage: scrollPage.isNotScrollPage,
-        alertMessage: alertReducer.message
+        alertMessage: alertReducer.message,
+        alertType: alertReducer.type
     }
 };
 

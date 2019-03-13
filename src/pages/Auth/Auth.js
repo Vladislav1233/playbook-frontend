@@ -53,6 +53,22 @@ class Auth extends Component {
         this.setState({ submitted: true });
         const { phone, password } = this.state.user;
         const { dispatch } = this.props;
+
+        // Note: Проверяем все ли поля заполнены
+        for (let key in this.state.user) {
+            if (!Boolean(this.state.user[key])) {
+                this.setState({
+                    validation: {
+                        ...this.state.validation,
+                        text: 'Все поля должны быть заполнены',
+                        fieldEmpty: true
+                    }
+                })
+                
+                return false;
+            }
+        };
+
         if (phone && password) {
             const dataRequest = {
                 phone,
@@ -63,15 +79,16 @@ class Auth extends Component {
             dataRequest.phone = telWithoutPlus(dataRequest.phone);
             // Note: Диспатчим запрос
             dispatch(userActions.login(dataRequest));
-        }
+        };
     }
 
     render() {
         const { user, validation} = this.state;
-        const { preloader } = this.props;
+        const { preloader, bgImage } = this.props;
 
         return (
             <div className="b-registration">
+                <img className="b-registration__bg" alt="" src={bgImage} importance="high" />
                 <div className="container">
                     <div className="b-registration__form-wrapper">
                         <form className="b-registration__form" name="authorization" onSubmit={this.handleSubmit}>
@@ -97,12 +114,12 @@ class Auth extends Component {
                                     name={'Войти'}
                                 />
 
-                                {validation.fieldEmpty || validation.confirmPassword ?
-                                    <div className="b-registration__error">{validation.text}</div>
-                                    :
-                                    null
-                                }
                             </div>
+                            { validation.fieldEmpty || validation.confirmPassword ?
+                                <div className="b-registration__error">{validation.text}</div>
+                                :
+                                null
+                            }
                         </form>
 
                         <div className="b-registration__sub-navigation">
@@ -120,8 +137,10 @@ class Auth extends Component {
     }
 }
 
-// const mapStateToProps = (state) => {
+const mapStateToProps = ({ identificate }) => {
+    return {
+        preloader: identificate.preloader
+    }
+}
 
-// }
-
-export default connect()(Auth);
+export default connect(mapStateToProps, null)(Auth);

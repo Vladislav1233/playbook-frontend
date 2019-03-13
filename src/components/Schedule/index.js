@@ -56,8 +56,11 @@ class Schedule extends Component {
             userId, 
             isWhoBooked, 
             onClickDecline, 
-            preloader 
+            preloader,
+            titlePage,
+            noteTitle
         } = this.props;
+        console.log(this.props);
 
         const notScheduleTemplate = () => (
             <div className="b-schedule__not">Нет свободного времени</div>
@@ -65,106 +68,120 @@ class Schedule extends Component {
 
         return (
             <Fragment>
-                <DateCalendar onClickDay={this.onClickDay}/>
-                <div className="container container--schedule">
-                    <div className="b-schedule">
-                        <div className="b-schedule__date">{schedule.nameDay}, {Moment(schedule.date).format('DD.MM.YYYY')}.
-                            {schedule.timeWork ? <div className="b-schedule__timetable">Время работы: {schedule.timeWork}</div> : null}
-                        </div>
-                        
-                        {/* Note: блок стоимости */}
-                        {cost.length > 0 
-                            ? 
-                            <div className="b-schedule__price">
-                                <div className="b-schedule__title">Стоимость:</div>
-                                {cost.map((item, index) => {
+                <div className="b-schedule">
+                    <DateCalendar onClickDay={this.onClickDay}/>
+                    <div className="b-schedule__content">
 
-                                    const getTimeOutRange = (indexPostition) => Moment(item.time.toDate()[indexPostition]).format('HH:mm');
+                        <h1 className="b-schedule__title-page">
+                            { titlePage }
+                            
+                            {noteTitle &&
+                                <span className="b-schedule__title-note">
+                                    { noteTitle }
+                                </span>
+                            } 
+                        </h1>
 
-                                    return (
-                                        <span className="b-schedule__cost" key={index}> 
-                                            {`${getTimeOutRange(0)} - ${getTimeOutRange(1)} будет `}
-
-                                            <span className="b-schedule__price-value">
-                                                <NumberFormat 
-                                                    value={convertTypeMoney(item.cost, 'RUB', 'banknote')} 
-                                                    suffix=' ₽/час'
-                                                    thousandSeparator={' '}
-                                                    displayType='text'
-                                                    decimalScale={2}
-                                                />
-                                            </span>
-                                        </span>
-                                    );
-                                })}
+                        <section className="b-schedule__card">
+                            <div className="b-schedule__date">
+                                <div className="b-schedule__date-top">{schedule.nameDay}</div>
+                                <div className="b-schedule__date-bottom">{Moment(schedule.date).format('DD.MM.YYYY')}</div>
+                                {schedule.timeWork ? <div className="b-schedule__timetable">Время работы: {schedule.timeWork}</div> : null}
                             </div>
                             
-                            : null
-                        }
+                            {/* Note: блок стоимости */}
+                            {cost.length > 0 
+                                ? 
+                                <div className="b-schedule__price">
+                                    <div className="b-schedule__title">Стоимость:</div>
+                                    {cost.map((item, index) => {
 
-                        {playgroundsForTraining.length > 0 ? 
-                            <div className='b-schedule__playground'>
-                                <div className="b-schedule__title">Тренирую на:</div>
+                                        const getTimeOutRange = (indexPostition) => Moment(item.time.toDate()[indexPostition]).format('HH:mm');
+
+                                        return (
+                                            <span className="b-schedule__cost" key={index}> 
+                                                {`${getTimeOutRange(0)} - ${getTimeOutRange(1)} будет `}
+
+                                                <span className="b-schedule__price-value">
+                                                    <NumberFormat 
+                                                        value={convertTypeMoney(item.cost, 'RUB', 'banknote')} 
+                                                        suffix=' ₽/час'
+                                                        thousandSeparator={' '}
+                                                        displayType='text'
+                                                        decimalScale={2}
+                                                    />
+                                                </span>
+                                            </span>
+                                        );
+                                    })}
+                                </div>
                                 
-                                {playgroundsForTraining.map(item => {
-                                    return (
-                                        <div className="b-schedule__playground-item" key={item.uuid}>
-                                            <div className="b-schedule__playground-name">{item.name}</div>
-                                            <div className="b-schedule__playground-address">({item.address})</div>
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                        : null}
-                        
-                        <div className="b-schedule__title">Свободное время:</div>
-                        {/* Note: расписание свободного времени тренера */}
-                        {template === 'trainer' ?
-                            schedule.schedule.length > 0
-                                ? <ScheduleList 
-                                    list={schedule.schedule}
-                                    template={template} 
-                                    playgroundsForTraining={playgroundsForTraining} 
-                                    userId={userId}
-                                    cost={cost}
-                                />
-                                : notScheduleTemplate()
-                        : null}
-                        
-                        {/* Note: Расписание свободного времени кортов */}
-                        {template === 'court' ? 
-                            schedule.court
-                                ? <TinySlider className="b-slider-schedule" settings={this.props.settingSlider} ref={ts => this.ts = ts}>
-                                    {schedule.court.map((schedule) => (
-                                        <div className="b-slider-schedule__slide" key={schedule.uuid}>
-                                            <div className="b-slider-schedule__header">
-                                                <div className="b-slider-schedule__title">{schedule.name}: {schedule.type}</div>
+                                : null
+                            }
+
+                            {playgroundsForTraining.length > 0 ? 
+                                <div className='b-schedule__playground'>
+                                    <div className="b-schedule__title">Тренирую на:</div>
+                                    
+                                    {playgroundsForTraining.map(item => {
+                                        return (
+                                            <div className="b-schedule__playground-item" key={item.uuid}>
+                                                <div className="b-schedule__playground-name">{item.name}</div>
+                                                <div className="b-schedule__playground-address">({item.address})</div>
                                             </div>
+                                        )
+                                    })}
+                                </div>
+                            : null}
+                            
+                            <div className="b-schedule__title b-schedule__title--list">Свободное время:</div>
+                            {/* Note: расписание свободного времени тренера */}
+                            {template === 'trainer' ?
+                                schedule.schedule.length > 0
+                                    ? <ScheduleList 
+                                        list={schedule.schedule}
+                                        template={template} 
+                                        playgroundsForTraining={playgroundsForTraining} 
+                                        userId={userId}
+                                        cost={cost}
+                                    />
+                                    : notScheduleTemplate()
+                            : null}
+                            
+                            {/* Note: Расписание свободного времени кортов */}
+                            {template === 'court' ? 
+                                schedule.court
+                                    ? <TinySlider className="b-slider-schedule" settings={this.props.settingSlider} ref={ts => this.ts = ts}>
+                                        {schedule.court.map((schedule) => (
+                                            <div className="b-slider-schedule__slide" key={schedule.uuid}>
+                                                <div className="b-slider-schedule__header">
+                                                    <div className="b-slider-schedule__title">{schedule.name}: {schedule.type}</div>
+                                                </div>
 
-                                            <ScheduleList 
-                                                list={schedule.list} 
-                                                template={template} 
-                                                key={schedule.uuid} />
-                                        </div>
-                                    ))}
-                                </TinySlider>
-                                : notScheduleTemplate()
-                        : null}
-                        
-                        {/* Note: Расписание забронированного времени */}
-                        {bookedTime.length > 0 
-                            ? ( <Fragment>
-                                <div className="b-schedule__title">Забронированное время:</div>
-                                <ScheduleList 
-                                    list={bookedTime}
-                                    template={template}
-                                    isWhoBooked={isWhoBooked} 
-                                    onClickDecline={onClickDecline}
-                                /> 
-                            </Fragment>)
-                            : null
-                        }
-
+                                                <ScheduleList 
+                                                    list={schedule.list} 
+                                                    template={template} 
+                                                    key={schedule.uuid} />
+                                            </div>
+                                        ))}
+                                    </TinySlider>
+                                    : notScheduleTemplate()
+                            : null}
+                            
+                            {/* Note: Расписание забронированного времени */}
+                            {bookedTime.length > 0 
+                                ? ( <Fragment>
+                                    <div className="b-schedule__title b-schedule__title--list">Забронированное время:</div>
+                                    <ScheduleList 
+                                        list={bookedTime}
+                                        template={template}
+                                        isWhoBooked={isWhoBooked} 
+                                        onClickDecline={onClickDecline}
+                                    /> 
+                                </Fragment>)
+                                : null
+                            }
+                        </section>
                     </div>
                 </div>
 

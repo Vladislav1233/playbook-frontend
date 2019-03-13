@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { createScheduleTrainer, editTrainerSchedule, toggleResponse } from '../../store/actions/schedule';
 import moment from 'moment';
 import 'moment/locale/ru';
+import { extendMoment } from 'moment-range';
+
+// Note: actions
+import { createScheduleTrainer, editTrainerSchedule, toggleResponse } from '../../store/actions/schedule';
+import { alertActions } from '../../store/actions/alertAction';
 
 // Note: services
 import { scheduleService } from '../../services/scheduleService';
@@ -18,10 +22,13 @@ import SettingChooseDay from '../../components/SettingChooseDay/SettingChooseDay
 import Calendar from '../../components/Calendar';
 import AddScheduleCard from '../../components/AddScheduleCard';
 import Button from '../../components/ui-kit/Button/Button';
+import Preloader from '../../components/Preloader/Preloader';
 
 // Note: style
 // import '../../style/bem-blocks/b-hint-profile/index.scss';
 import '../../style/bem-blocks/b-trainer-add-schedule/index.scss';
+
+const Moment = extendMoment(moment);
 
 class TrainerAddSchedule extends Component {
 
@@ -37,13 +44,18 @@ class TrainerAddSchedule extends Component {
                 currency: 'RUB',
                 schedule_uuid: '',
                 playgrounds: [],
-                playgroundsCheck: []
+                playgroundsCheck: [],
+                errorCardText: ''
             }],
             selectChooseDay: 'one', // Note: это для настроек календаря: one - выбрать можно 1 день, period - выбрать можно период от / до
             dateCalendar: `${moment(new Date()).format('YYYY-MM-DD')}`,
             successPostResponse: false,
-            playgroundsForTraining: []
+            playgroundsForTraining: [],
+            preloader: false,
+            isNotValidCards: false
         }
+
+        this.initialDataCards = this.state.cards; 
     };
 
     static getDerivedStateFromProps(props, state) {
@@ -60,10 +72,11 @@ class TrainerAddSchedule extends Component {
         }
     }
 
-    // componentDidMount() {
-    //     const data = dataTime();
-    //     this.getTrainerScheduleRequest(this.state.dateCalendar, data);
-    // }
+    componentDidMount() {
+        this.setState({preloader: true});
+        // const data = dataTime();
+        // this.getTrainerScheduleRequest(this.state.dateCalendar, data);
+    }
 
     componentDidUpdate() {
         if(this.state.successPostResponse === true) {
@@ -74,7 +87,7 @@ class TrainerAddSchedule extends Component {
             const dateForGet = moment(this.state.dateCalendar).format('YYYY-MM-DD');
 
             this.getTrainerScheduleRequest(dateForGet, dataForGet);
-        }
+        };
     }
 
     getTrainerScheduleRequest = (date, data) => {
@@ -82,6 +95,10 @@ class TrainerAddSchedule extends Component {
         const { userId } = this.props;
 
         const getScheduleRequest = () => { 
+            if (this.state.preloader !== true) {
+                this.setState({preloader: true});
+            };
+
             scheduleService.getSchedule('trainer', userId, data)
             .then(
                 response => {
@@ -97,14 +114,16 @@ class TrainerAddSchedule extends Component {
                                 currency: 'RUB',
                                 schedule_uuid: item.uuid,
                                 playgrounds: this.state.playgroundsForTraining,
-                                playgroundsCheck: item.playgrounds.map(item => item.uuid)
+                                playgroundsCheck: item.playgrounds.map(item => item.uuid),
+                                errorCardText: ''
                             }
                         });
 
                         this.setState({
                             ...this.state,
-                            cards: newCards
-                        })
+                            cards: newCards,
+                            preloader: false
+                        });
                     } else {
                         const newCards = [{
                                 dates: [date],
@@ -114,13 +133,15 @@ class TrainerAddSchedule extends Component {
                                 currency: 'RUB',
                                 schedule_uuid: '',
                                 playgrounds: this.state.playgroundsForTraining,
-                                playgroundsCheck: []
+                                playgroundsCheck: [],
+                                errorCardText: ''
                             }];
 
                         this.setState({
                             ...this.state,
-                            cards: newCards
-                        })
+                            cards: newCards,
+                            preloader: false
+                        });
                     }
                 },
                 error => {
@@ -149,9 +170,16 @@ class TrainerAddSchedule extends Component {
     }
 
     createDataCard = (idx, name, value) => {
-        return this.state.cards.map((card, sidx) => {
+        /*
+        * idx - индекс в массиве карточки, которую правят.
+        */
+        const { cards } = this.state;
+
+        return cards.map((card, sidx) => {
+            // Note: Если карточки нет ещё то создается новая
             if (idx !== sidx) return card;
 
+            // Note: Если карточка есть то она редактируется
             return {
                 ...card,
                 [name]: value
@@ -160,13 +188,65 @@ class TrainerAddSchedule extends Component {
     };
 
     onChangeTime = (idx) => (value, name) => {
-        console.log(value, name);
         const newCards = this.createDataCard(idx, name, value);
 
-        this.setState({
-            ...this.state,
-            cards: newCards
-        })
+        const validationRange = (currCard) => {
+            
+            if(currCard.start_time && currCard.end_time) {
+                const startRange = `${currCard.dates[0]} ${currCard.start_time}`;
+                const endRange = `${currCard.dates[0]} ${currCard.end_time}`;
+                const currentCardRange = Moment.range(startRange, endRange);
+
+                if(moment(startRange).isBefore(endRange)) {
+                    let numberCardWithError = null;
+                    let isNotValidRange = newCards.some((validationCard, indexValidationCard) => {
+                        if (idx !== indexValidationCard) {
+                            const startRangeValidation = `${validationCard.dates[0]} ${validationCard.start_time}`;
+                            const endRangeValidation = `${validationCard.dates[0]} ${validationCard.end_time}`;
+                            const validationCardRange = Moment.range(startRangeValidation, endRangeValidation);
+                            
+                            numberCardWithError = indexValidationCard;
+
+                            return currentCardRange.overlaps(validationCardRange);
+                        };
+
+                        return false;
+                    });
+
+                    if(isNotValidRange) {
+                        newCards[idx].errorCardText = `Диапазон этой карточки пересекается с карточкой №${numberCardWithError + 1}`;
+
+                        this.setState({
+                            isNotValidCards: true
+                        });
+                    } else {
+                        newCards[idx].errorCardText = '';
+                        this.setState({
+                            isNotValidCards: false
+                        });
+                    };
+
+                } else {
+                    newCards[idx].errorCardText = 'Время начала тренировки должно быть перед окончанием.';
+                    this.setState({
+                        isNotValidCards: true
+                    });
+                }
+            } else {
+                newCards[idx].errorCardText = 'Укажите время начала и окончания тренировки.';
+                this.setState({
+                    isNotValidCards: true
+                });
+            };
+        };
+
+        
+        this.setState(() => {
+            validationRange(newCards[idx]);
+            return {
+                cards: newCards
+            };
+        });
     };
 
     onChangeInput = (idx) => (event) => {
@@ -211,7 +291,8 @@ class TrainerAddSchedule extends Component {
                 currency: 'RUB',
                 schedule_uuid: '',
                 playgrounds: this.state.playgroundsForTraining,
-                playgroundsCheck: []
+                playgroundsCheck: [],
+                errorCardText: ''
             }])
         })
     };
@@ -228,16 +309,7 @@ class TrainerAddSchedule extends Component {
         if (cards.length === 1 && cards[idx].schedule_uuid) {
             this.setState({
                 ...this.state,
-                cards: [{
-                    dates: [],
-                    start_time: null,
-                    end_time: null,
-                    price_per_hour: '',
-                    currency: 'RUB',
-                    schedule_uuid: '',
-                    playgrounds: this.state.playgroundsForTraining,
-                    playgroundsCheck: []
-                }]
+                cards: this.initialDataCards
             })
         } else if(cards.length === 1) {
             alert("Нельзя удалять последнюю карточку");
@@ -255,7 +327,6 @@ class TrainerAddSchedule extends Component {
 
         if (selectChooseDay === 'one') {
             const date = moment(value).format('YYYY-MM-DD');
-            // dateData(date);
 
             const data = dataTime({
                 valueStart: value,
@@ -310,7 +381,8 @@ class TrainerAddSchedule extends Component {
                     currency: 'RUB',
                     schedule_uuid: '',
                     playgrounds: this.state.playgroundsForTraining,
-                    playgroundsCheck: []
+                    playgroundsCheck: [],
+                    errorCardText: ''
                 }],
                 selectChooseDay: value.value
             });
@@ -319,86 +391,117 @@ class TrainerAddSchedule extends Component {
 
     onSubmitCreateSchedule = () => {
         const { dispatch } = this.props;
-        // NOTE: Создается один запрос на одну карточку. Добавление расписания
-        this.state.cards.forEach(function(card) {
-            let formatPrice = convertTypeMoney(card.price_per_hour, 'RUB', 'coin');
-
-            // TODO: добавить чек-бокс playgrounds
-            // Note: Функция, которая генерирует данные по расписанию как для create так и для edit для отправки на сервер.
-            const createDataForRequest = (datesRequest, startTimeRequest, endTimeRequest) => {
-                let result = {
-                    price_per_hour: formatPrice,
-                    currency: card.currency,
-                    playgrounds: card.playgroundsCheck  
+        
+        if(!this.state.isNotValidCards) {
+            let isValidCards = this.state.cards.every((card, indexCard) => {
+                if(card.start_time && card.end_time && card.playgroundsCheck.length > 0 && card.price_per_hour) {
+                    return true
                 };
 
-                if (datesRequest) {
-                    result.dates = datesRequest;
-                };
-
-                if (startTimeRequest) {
-                    result.start_time = startTimeRequest
-                };
-
-                if (endTimeRequest) {
-                    result.end_time = endTimeRequest
-                };
-
-                return result;
-            };
-
-            // Note: Получаем даты начала расписания и окончания расписания относительно UTC
-            const dates = card.dates.map(date => {
-                return {
-                    start_time: moment.utc(moment(`${date} ${card.start_time}:00`)).format('YYYY-MM-DD HH:mm:ss'),
-                    end_time: moment.utc(moment(`${date} ${card.end_time}:00`)).format('YYYY-MM-DD HH:mm:ss')
-                }
+                this.props.alertActionsError('Не сохранено! Исправьте ошибки указанные в карточках рассписания и попробуйте ещё раз.');
+                const newCardsWithError = [...this.state.cards];
+                newCardsWithError[indexCard].errorCardText = 'Все поля должны быть заполнены.';
+                this.setState({
+                    cards: newCardsWithError
+                });
+                return false
             });
 
-            // Note: если у нас карточка с сервера, то у неё schedule_uuid не пустая строка, мы определяем какой запрос отправлять.
-            const edit = async () => {
-                if (card.schedule_uuid) {
-                    dispatch(editTrainerSchedule(
-                        card.schedule_uuid,  
-                        createDataForRequest(null, dates[0].start_time, dates[0].end_time)
-                    ));
-                }
-                await create();
-            }
+            if (isValidCards) {
+                // NOTE: Создается один запрос на одну карточку. Добавление расписания
+                this.state.cards.forEach((card, indexCard, arrayCards) => {
+                    let formatPrice = convertTypeMoney(card.price_per_hour, 'RUB', 'coin');
 
-            const create = () => {
-                if (!card.schedule_uuid) {
-                    dispatch(createScheduleTrainer(createDataForRequest(dates, null, null)));
-                };
+                    // Note: Функция, которая генерирует данные по расписанию как для create так и для edit для отправки на сервер.
+                    const createDataForRequest = (datesRequest, startTimeRequest, endTimeRequest) => {
+                        let result = {
+                            price_per_hour: formatPrice,
+                            currency: card.currency,
+                            playgrounds: card.playgroundsCheck  
+                        };
+
+                        if (datesRequest) {
+                            result.dates = datesRequest;
+                        };
+
+                        if (startTimeRequest) {
+                            result.start_time = startTimeRequest
+                        };
+
+                        if (endTimeRequest) {
+                            result.end_time = endTimeRequest
+                        };
+
+                        return result;
+                    };
+
+                    // Note: Получаем даты начала расписания и окончания расписания относительно UTC
+                    const dates = card.dates.map(date => {
+                        return {
+                            start_time: moment.utc(moment(`${date} ${card.start_time}:00`)).format('YYYY-MM-DD HH:mm:ss'),
+                            end_time: moment.utc(moment(`${date} ${card.end_time}:00`)).format('YYYY-MM-DD HH:mm:ss')
+                        }
+                    });
+
+                    // Note: если у нас карточка с сервера, то у неё schedule_uuid не пустая строка, мы определяем какой запрос отправлять.
+                    const edit = async () => {
+                        if (card.schedule_uuid) {
+                            dispatch(editTrainerSchedule(
+                                card.schedule_uuid,  
+                                createDataForRequest(null, dates[0].start_time, dates[0].end_time)
+                            ));
+                        }
+                        await create();
+                    }
+
+                    const create = () => {
+                        if (!card.schedule_uuid) {
+                            dispatch(createScheduleTrainer(createDataForRequest(dates, null, null)));
+                        };
+                    };
+
+                    edit();
+                });
+
+                this.props.alertActionsSuccess('Расписание сохранено.');
             };
-
-            edit();
-        });
+        } else {
+            this.props.alertActionsError('Не сохранено! Исправьте ошибки указанные в карточках рассписания и попробуйте ещё раз.');
+        };
     };
 
     render() {
-        const { cards, selectChooseDay } = this.state;
+        const { 
+            cards, 
+            selectChooseDay,
+            preloader 
+        } = this.state;
+
+        const {
+            preloaderSchedule
+        } = this.props;
+
+        // TODO: Сделать валидацию сабмита для периода и тогда включить опцию
+        // const optionsSelect = [{
+        //     value: 'one',
+        //     label: 'Один день'
+        // }, {
+        //     value: 'period',
+        //     label: 'Период (от - до)'
+        // }];
 
         const optionsSelect = [{
             value: 'one',
             label: 'Один день'
-        }, {
-            value: 'period',
-            label: 'Период (от - до)'
         }];
 
         return(
             <div className="b-trainer-add-schedule">
-                {/*TODO: Это лучше сделать отдельной всплывающей подсказкой или сообщением
-                <div className="b-hint-profile">Укажите дни, для которых установить время и добавьте свободные временные промежутки с ценой</div>*/}
-                
-                <div className="b-trainer-add-schedule__calendar">                
-                    <Calendar 
-                        selectRange={selectChooseDay === 'period' ? true : false}
-                        returnValue={selectChooseDay === 'period' ? 'range' : 'start'}
-                        onChange={this.onClickDateCalendar}
-                    />
-                </div>
+                <Calendar 
+                    selectRange={selectChooseDay === 'period' ? true : false}
+                    returnValue={selectChooseDay === 'period' ? 'range' : 'start'}
+                    onChange={this.onClickDateCalendar}
+                />
                 
                 <div className="b-trainer-add-schedule__schedule">
                     <h1>Добавить расписание</h1>
@@ -408,26 +511,28 @@ class TrainerAddSchedule extends Component {
                         getValueSelect={this.onSelectChooseDay}
                     />
 
-                    {cards.map((card, idx) => (
-                        <AddScheduleCard
-                            key={idx}
-                            data={card}
-                            idRender={idx}
-                            onChangeInput={this.onChangeInput(idx)}
-                            onChangeTime={this.onChangeTime(idx)}
-                            onRemoveCard={this.handleRemoveCard(idx)}
-                            playgroundsForTraining={card.playgrounds}
-                            onChangeCheckbox={this.onChangeCheckbox(idx)}
-                        />
-                    ))}
+                    <div className="b-add-schedule-card__list">
+                        {cards.map((card, idx) => (
+                            <AddScheduleCard
+                                key={idx}
+                                data={card}
+                                idRender={idx}
+                                onChangeInput={this.onChangeInput(idx)}
+                                onChangeTime={this.onChangeTime(idx)}
+                                onRemoveCard={this.handleRemoveCard(idx)}
+                                playgroundsForTraining={card.playgrounds}
+                                onChangeCheckbox={this.onChangeCheckbox(idx)}
+                            />
+                        ))}
+                    </div>
 
-                    <div className="b-trainer-add-schedule__add-more">
+                    {/* <div className="b-trainer-add-schedule__add-more">
                         <Button 
                             name={'Добавить ещё'}
                             theme={{orange: true}}
                             onClick={this.handleAddCard}
                         />
-                    </div>
+                    </div> */}
 
                     <div className="b-trainer-add-schedule__save"> 
                         <Button
@@ -435,8 +540,17 @@ class TrainerAddSchedule extends Component {
                             name={'Сохранить'}
                             onClick={() => this.onSubmitCreateSchedule()}
                         />
+
+                        <Button
+                            modif="b-button--add-more"
+                            name={'Добавить ещё'}
+                            theme={{ orange: true }}
+                            onClick={this.handleAddCard}
+                        />
                     </div>
                 </div>
+
+                {preloader || preloaderSchedule ? <Preloader /> : null}
             </div>
         )
     }
@@ -445,8 +559,17 @@ class TrainerAddSchedule extends Component {
 const mapStateToProps = ({ scheduleTrainer, identificate }) => {
     return {
         successPostResponse: scheduleTrainer.successPostResponse,
-        userId: identificate.userId
+        userId: identificate.userId,
+        preloaderSchedule: scheduleTrainer.preloader
     }
 };
 
-export default connect(mapStateToProps)(TrainerAddSchedule);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        alertActionsError: (message) => dispatch( alertActions.error(message) ),
+        alertActionsSuccess: (message) => dispatch( alertActions.success(message) ),
+        dispatch: (action) => dispatch(action)
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TrainerAddSchedule);

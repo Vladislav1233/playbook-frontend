@@ -1,1 +1,21 @@
 // 1024
+.b-schedule {
+    display: flex;
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+
+    &__content {
+        width: 100%;
+        border-radius: 0;
+        padding: 30px;
+    }
+
+    &__date {
+        // padding: 30px;
+    }
+
+    &__playground {
+        margin-bottom: 30px;
+    }
+}

@@ -1,10 +1,12 @@
 // 320++
 .b-profile-tabs {
-    background: #fff;
+    height: 100%;
+    background: #ffffff;
 
     &__header {
         height: 64px;
         border-bottom: 1px solid #02100b;
+        background: $mint;
     }
 
     &__list-wrapper {
@@ -13,12 +15,13 @@
         top: 0px;
         left: 0px;
         width: 100%;
+        min-width: 320px;
         height: 100%;
         transition-timing-function: $materialFunction;
         transition-duration: $animation-time;
         transform: translateX(-100%);
         opacity: 0;
-        background: $mint;
+        background: #e3e5e8;
 
         &.open {
             transform: translateX(0%);
@@ -30,14 +33,10 @@
         width: max-content;
         max-width: 100%;
         margin: auto;
-        padding: 15px 60px 15px 60px;
-        color: #fff;
+        padding: 15px 40px 15px 50px;
     }
 
     &__back {
-        font-size: 16px;
-        font-size: 19px;
-        line-height: 44px;
         position: fixed;
         z-index: 560;
         top: 78px;
@@ -46,9 +45,12 @@
         width: 30px;
         height: 44px;
         padding: 2px 8px 0;
+        font-size: 16px;
+        font-size: 19px;
+        line-height: 44px;
         transition: $animation-time;
         transition-timing-function: $materialFunction;
-        color: #fff;
+        color: #ffffff;
         border-radius: 0 22px 22px 0;
         background-color: rgba(0, 0, 0, .432);
 

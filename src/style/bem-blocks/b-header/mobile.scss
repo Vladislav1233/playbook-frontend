@@ -2,10 +2,9 @@
 .b-header {
     flex-shrink: 0;
     background-color: $mint;
-    font-size: 0;
-    
+
     &--light {
-        z-index: 1;
+        z-index: 10;
         background: #00000095;
     }
 
@@ -30,7 +29,7 @@
     &__left,
     &__center,
     &__right {
-        width: 100%;
+        width: auto;
     }
 
     &__left {
@@ -39,6 +38,7 @@
 
     &__center {
         text-align: center;
+        margin: auto;
     }
 
     &__right {

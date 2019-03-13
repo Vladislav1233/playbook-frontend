@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { configPathRouter } from './configPathRouter';
 
 // Note: components
@@ -19,7 +19,7 @@ import TestRequest from '../pages/TestRequest/TestRequest';
 import MyBooking from '../pages/MyBooking';
 import StyleGuide from '../pages/StyleGuide';
 
-export default () => (
+export default (isAuthorization) => (
     <Switch>
         <Route component={ProfileTrainer} path={configPathRouter.profileTrainer} />
 
@@ -28,8 +28,23 @@ export default () => (
         <Route component={ListTrainer} path={configPathRouter.listTrainer} />
         <Route component={ScheduleTrainer} path={`${configPathRouter.scheduleTrainer}/:slug`} />
         {/*<Route component={ScheduleCourt} path={configPathRouter.scheduleCourt} />*/}
-        <Route component={Registration} path={configPathRouter.registration} />
-        <Route component={Auth} path={configPathRouter.authorization} />
+        <Route render={() => {
+            console.log(isAuthorization)
+            if(isAuthorization.isAuthorization) {
+                return <Redirect to='/' />
+            } else {
+                return <Registration />
+                // eslint-disable-next-line
+            };
+        }} path={configPathRouter.registration} />
+        <Route render={() => {
+            if(isAuthorization.isAuthorization) {
+                return <Redirect to='/' />
+            } else {
+                return <Auth />
+                // eslint-disable-next-line
+            };
+        }} path={configPathRouter.authorization} />
         <Route component={MyBooking} path={configPathRouter.myBooking} />
         <Route component={ErrorPage} path="/error" />
 

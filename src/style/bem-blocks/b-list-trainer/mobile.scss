@@ -7,12 +7,7 @@
     }
 
     &__note {
-        display: block;
-        font-family: $roboto;
-        font-size: 1rem;
-        font-weight: 300;
-        line-height: 1;
-        color: $telegray;
+        @include subTitleStyle();
     }
 
     &__list {

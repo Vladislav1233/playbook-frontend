@@ -2,12 +2,15 @@ import { userConstants } from '../constants/userConstants';
 import { userService } from '../../services/userService';
 import { history } from '../../helpers/history';
 import { configPathRouter } from '../../App/configPathRouter';
+import { alertActions } from './alertAction';
+import textErrorFromServer from '../../helpers/textErrorFromServer';
 
 export const userActions = {
     login,
     logout,
     register,
     resendVerificationCode,
+    resetPasswordRequest,
     getAll,
     delete: _delete
 };
@@ -20,13 +23,12 @@ function register(user) {
             .then(
                 user => {
                     dispatch(success());
+                    dispatch(alertActions.success('Вы успешно зарегистрированы. Введите свои данные для входа на сайт.'))
                     history.push(configPathRouter.authorization);
-                    // dispatch(alertActions.success('Registration successful'));
                 },
-                // TODO: Обрабатывать ошибки от сервера при регистрации
                 error => {
-                    history.push('/error');
                     dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(textErrorFromServer(error)));
                     // dispatch(alertActions.error(error.toString()));
                 }
             );
@@ -41,7 +43,7 @@ function login(data, toMain = true, callback) {
     return dispatch => {
         dispatch(request(data));
 
-        userService.login(data)
+        return userService.login(data)
             .then(
                 user => {
                     dispatch(success(user));
@@ -52,10 +54,11 @@ function login(data, toMain = true, callback) {
 
                     if(toMain) {
                         history.push('/');
-                    }
+                    };
                 },
                 error => {
                     dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(textErrorFromServer(error)));
                     // dispatch(alertActions.error(error.toString()));
                 }
             );
@@ -157,6 +160,43 @@ function resendVerificationCode(data) {
     function failure(err) {
         return {
             type: userConstants.RESEND_VERIFICATION_CODE_FAILURE,
+            payload: err
+        }
+    }
+};
+
+function resetPasswordRequest(data) {
+    
+    return dispatch => {
+        dispatch(start());
+
+        userService.resetPasswordRequest(data).then(
+            res => {
+                dispatch(success(res));
+            }, 
+
+            err => {
+                dispatch(failure(err));
+            }
+        )
+    }
+
+    function start() {
+        return { 
+            type: userConstants.RESET_PASSWORD_REQUEST_START
+        }
+    }
+
+    function success(res) {
+        return {
+            type: userConstants.RESET_PASSWORD_REQUEST_SUCCESS,
+            payload: res
+        }
+    }
+
+    function failure(err) {
+        return {
+            type: userConstants.RESET_PASSWORD_REQUEST_FAILURE,
             payload: err
         }
     }

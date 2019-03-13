@@ -1,7 +1,7 @@
 // react, redux
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { toggleMenu } from '../../store/actions/toggleMenu';
+import { toggleMenu, closeMenu } from '../../store/actions/toggleMenu';
 import { toggleCabinet } from '../../store/actions/toggleCabinet';
 import { Link } from 'react-router-dom';
 import { configPathRouter } from '../../App/configPathRouter';
@@ -14,65 +14,20 @@ import '../../style/bem-blocks/b-hamburger/index.scss';
 
 class MenuHeader extends Component {
 
+    componentDidUpdate(prevProps) {
+        if(this.props.location.pathname !== prevProps.location.pathname 
+            && prevProps.toggleMenu !== false) {
+            
+            this.props.onCloseMenu();
+        };
+    };
+
     render() {
         console.log('render MenuHeader');
 
-        const { location } = this.props;
-        const profileClassName = cn({
-            'b-menu__item--cabinet': location === configPathRouter.profileUser || location === configPathRouter.profileTrainer || location ===  configPathRouter.profileCourt
-        });
         const hamburgerStyle = cn('b-hamburger', {
             'open': this.props.toggleMenu
         });
-
-        // const profileLink = () => {
-        //     const { userRole } = this.props;
-
-        //     // TODO_AMED: из гамбургера над выпилить всё "моё"
-        //     const nameLink = 'Личный кабинет >';
-
-        //     const onToggle = () => {
-        //         return (
-        //             <li className={`b-menu__item ${profileClassName}`}>
-        //                 <a className="b-menu__link" href="" title="Личный кабинет" onClick={e => this.props.onToggleCabinet(e)}>{nameLink}</a>
-        //             </li>
-        //         )
-        //     }
-
-        //     const onLink = (to) => {
-        //         return (
-        //             <li className={`b-menu__item ${profileClassName}`}>
-        //                 <Link className="b-menu__link" to={to} title="Личный кабинет">
-        //                     {nameLink}
-        //                 </Link>
-        //             </li>
-        //         )
-        //     }
-
-        //     if (userRole[0] === 'user') {
-        //         if (location === configPathRouter.profileUser) {
-        //             return onToggle();
-        //         } else {
-        //             return onLink(configPathRouter.profileUser);
-        //         }
-        //     }
-
-        //     if (userRole[0] === 'trainer') {
-        //         if (location === configPathRouter.profileTrainer) {
-        //             return onToggle();
-        //         } else {
-        //             return onLink(configPathRouter.profileTrainer);
-        //         }
-        //     }
-
-        //     if (userRole[0] === 'organization-admin') {
-        //         if (location === configPathRouter.profileCourt) {
-        //             return onToggle();
-        //         } else {
-        //             return onLink(configPathRouter.profileCourt);
-        //         }
-        //     }
-        // };
 
         return (
             <Fragment>
@@ -114,11 +69,11 @@ class MenuHeader extends Component {
 
                         <ul className="b-menu__list">
                             <li className="b-menu__item">
-                                <a className="b-menu__link b-menu__link--disabled" href="" title="Написать нам">Написать нам</a>
+                                <a className="b-menu__link" href="mailto:manage.playbook@gmail.com" title="Написать нам">Написать нам</a>
                             </li>
-                            <li className="b-menu__item">
+                            {/* <li className="b-menu__item">
                                 <a className="b-menu__link b-menu__link--disabled" href="" title="Позвонить нам"> +7 (999) 000-00-00</a>
-                            </li>
+                            </li> */}
                             <li className="b-menu__item">
                                 <a className="b-menu__link b-menu__link--disabled" href="" title="Помощь">Помощь</a>
                             </li>
@@ -156,6 +111,12 @@ const mapDispatchToProps = (dispatch) => {
         onToggleMenu: (e) => {
             e.preventDefault();
             dispatch(toggleMenu());
+        },
+        onCloseMenu: (e) => {
+            if(e) {
+                e.preventDefault();
+            };
+            dispatch(closeMenu());
         },
         onToggleCabinet: (e, status) => {
             e.preventDefault();

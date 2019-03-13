@@ -13,28 +13,10 @@ class BookingRequest extends Component {
 
         return(
             <div className="b-booking-request">
-                
-                {dataBookingRequest.length > 0 ? 
-                    dataBookingRequest.map(item => {
-                        return <BookingRequestItem 
-                            key={item.bookingId}
-                            booking={item.bookingId}
-                            firtsName={item.firtsName}
-                            lastName={item.lastName}
-                            nameCourt={item.nameCourt}
-                            time={item.time}
-                            bookingId={item.bookingId} 
-                            onClickConfirm={onClickConfirm}
-                            onClickDecline={onClickDecline}
-                            tel={item.tel}
-                        />
-                    }) : <p>Нет текущих заявок</p>
-                }
-                
-                {dataPastBooking.length > 0 ? 
-                    <Fragment>
-                        <h2>Прошедшие заявки</h2>
-                        {dataPastBooking.map(item => {
+                <h3>Актуальные заявки:</h3>
+                <div className="b-booking-request__list">
+                    {dataBookingRequest.length > 0 ? 
+                        dataBookingRequest.map(item => {                            
                             return <BookingRequestItem 
                                 key={item.bookingId}
                                 booking={item.bookingId}
@@ -46,8 +28,31 @@ class BookingRequest extends Component {
                                 onClickConfirm={onClickConfirm}
                                 onClickDecline={onClickDecline}
                                 tel={item.tel}
+                                price={item.price}
                             />
-                        })}
+                        }) : <p className="b-booking-request__item">Нет текущих заявок.</p>
+                    }
+                </div>
+                
+                {dataPastBooking.length > 0 ? 
+                    <Fragment>
+                        <h3>Устаревшие заявки:</h3>
+                        <div className="b-booking-request__list b-booking-request__list--old">
+                            {dataPastBooking.map(item => {
+                                return <BookingRequestItem 
+                                    key={item.bookingId}
+                                    booking={item.bookingId}
+                                    firtsName={item.firtsName}
+                                    lastName={item.lastName}
+                                    nameCourt={item.nameCourt}
+                                    time={item.time}
+                                    bookingId={item.bookingId} 
+                                    onClickConfirm={onClickConfirm}
+                                    onClickDecline={onClickDecline}
+                                    tel={item.tel}
+                                />
+                            })}
+                        </div>
                     </Fragment> : null}
             </div>
         )

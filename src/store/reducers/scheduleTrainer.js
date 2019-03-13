@@ -11,7 +11,11 @@ import {
 
     DECLINE_CONFIRM_BOOKING_START,
     DECLINE_CONFIRM_BOOKING_SUCCESS,
-    DECLINE_CONFIRM_BOOKING_FAILURE
+    DECLINE_CONFIRM_BOOKING_FAILURE,
+
+    EDIT_START_SCHEDULE_TRAINER,
+    EDIT_SUCCESS_SCHEDULE_TRAINER,
+    EDIT_FAILURE_SCHEDULE_TRAINER
 } from '../constants/schedule';
 
 import Moment from 'moment';
@@ -71,7 +75,6 @@ export default function(state = initialState, action) {
 
         case GET_SUCCESS_SCHEDULE_TRAINER:
             const responseSchedule = action.payload.data;
-            console.log(responseSchedule);
             // Note: Забронированное подтвержденное время
             let reservedTime = [];
 
@@ -190,6 +193,24 @@ export default function(state = initialState, action) {
             }
 
         case DECLINE_CONFIRM_BOOKING_FAILURE:
+            return {
+                ...state,
+                preloader: false
+            }
+
+        case EDIT_START_SCHEDULE_TRAINER:
+            return {
+                ...state,
+                preloader: true
+            }
+
+        case EDIT_SUCCESS_SCHEDULE_TRAINER:
+            return {
+                ...state,
+                preloader: false
+            }
+        
+        case EDIT_FAILURE_SCHEDULE_TRAINER:
             return {
                 ...state,
                 preloader: false

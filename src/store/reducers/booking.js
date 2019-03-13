@@ -60,7 +60,8 @@ export default function(state = initialState, action) {
     switch (action.type) {
         case GET_BOOKINGS_START:
             return {
-                ...state
+                ...state,
+                preloader: true
             }
             
         case GET_BOOKINGS_SUCCESS:
@@ -79,7 +80,8 @@ export default function(state = initialState, action) {
                     // Note: Преобразовываем UTC время в местное (с сервера приходит UTC).
                     time: `${moment(item.start_time).format('DD.MM.YYYY')} (${moment(item.start_time).format('dddd')}): ${moment(item.start_time).format('HH:mm')} - ${moment(item.end_time).format('HH:mm')}`,
                     bookingId: item.uuid,
-                    status: item.status
+                    status: item.status,
+                    price: item.price
                 }
             };
             
@@ -109,13 +111,15 @@ export default function(state = initialState, action) {
                 dataBookingRequest: newDataBookingRequest,
                 dataPastBooking: newPastBooking,
                 confirmBooking: newConfirmBooking,
-                confirmPastBooking: newConfirmPastBooking
+                confirmPastBooking: newConfirmPastBooking,
+                preloader: false
             }
 
         case GET_BOOKINGS_FAILURE:
             console.log(action.payload);
             return {
-                ...state
+                ...state,
+                preloader: false
             }
 
         case CONFIRM_BOOKINGS_START:

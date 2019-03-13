@@ -97,7 +97,6 @@ function getAllBookingsForUser(data = {
     end_time: Moment(new Date(2050, 0, 1)).utc().format('YYYY-MM-DD HH:mm:ss') // Note: дату и время преобразовываем в UTC формат
 }) {// TODO
     const valueToken = localStorage.getItem('userToken');
-    console.log(Moment(new Date()).utc().format('YYYY-MM-DD HH:mm:ss'));
 
     return axios({
         method: 'get',

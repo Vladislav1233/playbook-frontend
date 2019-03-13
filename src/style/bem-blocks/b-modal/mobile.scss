@@ -1,16 +1,18 @@
 // 320
 .b-modal {
-    
     &__title {
         margin-top: 0px;
+    }
+
+    &__sub-title {
+        @include subTitleStyle();
     }
 
     &__title-group {
         font-family: $bold;
         font-size: 18px;
-        color: $mint;
     }
-    
+
     &__button-wrapper {
         text-align: center;
     }
@@ -19,18 +21,24 @@
 .ReactModal {
     &__Content {
         top: auto !important;
-        left: 0px !important;
         right: 0px !important;
         bottom: auto !important;
-        padding: 15px !important;
-        max-width: 520px;
-        box-shadow: 0 2px 6px rgba(40, 36, 35, .1);
+        left: 0px !important;
         min-height: 100%;
+        margin: auto;
+        padding: 15px !important;
+        border: none !important;
+        border-radius: 0!important;
+        box-shadow: 0 2px 6px rgba(40, 36, 35, .1);
     }
 
     &__Overlay {
         z-index: 98;
-        background-color: rgba(0, 8, 14, 0.85) !important;
         overflow: auto;
+        background-color: rgba(0, 8, 14, .85) !important;
     }
+}
+
+.react_times_button {
+    border-radius: 0 !important;
 }

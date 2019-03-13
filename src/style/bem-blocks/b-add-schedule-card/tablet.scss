@@ -1,20 +1,24 @@
 // 768
 .b-add-schedule-card {
-    padding: 30px;
-    margin: 0px auto 30px;
-    max-width: 520px;
     overflow: hidden;
+    margin: 0px 8px 16px;
+    padding: 15px;
     border-radius: $border-radius;
-    border: 1px solid $border-color;
-    background-color: #fff;
+    width: calc(50% - 16px);
+
+    // обёртка над карточкой
+    &__list {
+        display: flex;
+        flex-flow: row wrap;
+    }
 
     &__delete {
-        right: 0px;
         top: 0px;
+        right: 0px;
         width: 38px;
         padding: 9px;
-        border-left: 1px solid transparent;
         border-bottom: 1px solid transparent;
+        border-left: 1px solid transparent;
 
         .no-touchevents &:hover,
         .touchevents &:active {

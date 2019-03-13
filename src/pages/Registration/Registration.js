@@ -18,14 +18,6 @@ import '../../style/bem-blocks/b-registration/index.scss';
 
 class Registration extends Component {
     state = {
-        // {
-        //     "first_name": "User first name.",
-        //     "last_name": "User last name.",
-        //     "phone": "User phone without '+' symbol",
-        //     "password": "User password.",
-        //     "c_password": "User password confirm.",
-        //     "is_trainer": "Boolean flag (0 or 1)"
-        // }
         user: {
             first_name: '',
             last_name: '',
@@ -42,7 +34,7 @@ class Registration extends Component {
         },
         submitted: false,
         isCheck: false
-    }
+    };
 
     handleChange = (event) => {
         const { name, value } = event.target;
@@ -140,10 +132,11 @@ class Registration extends Component {
 
     render() {
         const { user, validation, isCheck } = this.state;
-        const { preloader } = this.props;
+        const { preloader, bgImage } = this.props;
 
         return(
             <div className="b-registration">
+                <img className="b-registration__bg" alt="" src={bgImage} importance="high" />
                 <div className="container">
                     <div className="b-registration__form-wrapper">
                         <form name='register-user' onSubmit={this.handleSubmit} className="b-registration__form">
@@ -198,6 +191,7 @@ class Registration extends Component {
                                 id="is_trainer"
                                 text="Я тренер"
                                 value="1"
+                                modif="b-checkbox--hide"
                                 checked={isCheck}
                                 onChange={this.handleCheck}
                             />
@@ -209,12 +203,12 @@ class Registration extends Component {
                                     name={'Зарегистрироваться'}
                                 />
 
-                                {validation.fieldEmpty || validation.confirmPassword ?
-                                    <div className="b-registration__error">{validation.text}</div>
-                                    :
-                                    null
-                                }
                             </div>
+                            { validation.fieldEmpty || validation.confirmPassword ?
+                                <div className="b-registration__error">{validation.text}</div>
+                                :
+                                null
+                            }
                         </form>
                         <div className="b-registration__sub-navigation">
                             <span className="b-registration__sub-question"> У вас уже есть профиль? </span>
@@ -231,9 +225,9 @@ class Registration extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ registration }) => {
     return {
-        preloader: state.registration.preloader
+        preloader: registration.preloader
     }
 }
 

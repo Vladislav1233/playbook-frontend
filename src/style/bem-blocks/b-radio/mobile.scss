@@ -1,0 +1,68 @@
+// 320
+.b-radio {
+    position: relative;
+    display: block;
+    margin-bottom: 10px;
+
+    &--disable {
+        pointer-events: none;
+    }
+
+    &__input {
+        position: absolute;
+        z-index: 0;
+        top: 0px;
+        left: 0px;
+        width: 0px;
+        height: 0px;
+        opacity: 0;
+    }
+
+    &__label {
+        position: relative;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        width: auto;
+        cursor: pointer;
+
+        &--checked {
+            font-weight: 500;
+        }
+    }
+
+    &__icon {
+        // Большой кружок
+        position: relative;
+        z-index: 1;
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        transition-duration: .15s;
+        transition-property: border-color, background-color;
+        border: 1px solid $mint;
+        border-radius: 50%;
+        background-color: #ffffff;
+        margin-right: 8px;
+
+        // маленький кружочек
+        &:after {
+            position: absolute;
+            z-index: 2;
+            top: 6px;
+            left: 6px;
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            content: '';
+            transition-duration: .15s;
+            transition-property: background-color;
+            border-radius: 50%;
+            background-color: transparent;
+
+            .b-radio__label--checked & {
+                background-color: $mint;
+            }
+        }
+    }
+}

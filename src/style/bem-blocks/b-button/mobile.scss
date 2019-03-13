@@ -8,7 +8,8 @@
     color: #ffffff;
     border: none;
     border-radius: $border-radius;
-    background: #0b4e35;
+    background: $mint;
+    transition: .1s;
 
     .no-touchevents &:hover,
     .touchevents &:active {
@@ -20,24 +21,29 @@
     }
 
     &--hollow {
-        color: #121212;
+        color: #000;
         border: 1px solid $mint;
-        background: none;
+        background: hsla(0, 0%, 100%, 0.8);
 
         .no-touchevents &:hover,
         .touchevents &:active {
-            color: $mint;
-            background-color: #0d60412c;
+            color: #000;
+            background-color: rgba(234, 241, 236, 0.9);
+            border-color: rgba(186, 199, 189, 0.5);
         }
     }
 
     &--save {
-        width: 100%;
-        border-radius: 0;
+        width: 50%;
+        margin-right: 10px;
+    }
+
+    &--add-more {
+        width: 50%;
     }
 
     &--hello-page {
-        width: 290px;
+        width: 240px;
     }
 
     &--login {
@@ -51,5 +57,9 @@
             color: #ffffff;
             background-color: #0d60412c;
         }
+    }
+
+    &--alert-prima {
+        min-width: 100px;
     }
 }

@@ -1,24 +1,24 @@
 // 320
 .b-profile-tab {
-    list-style-type: none;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 10px 0;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    padding: 10px;
+    list-style-type: none;
+    cursor: pointer;
+    border: 1px solid #aaaaaa;
 
     &.active {
         .b-profile-tab__text {
-            color: $carmine-pink;
-            font-family: $bold;
+            font-weight: 500;
         }
     }
 
     &__icon {
         width: 30px;
-        flex-shrink: 0;
         margin-right: 15px;
+        flex-shrink: 0;
     }
 
     &__text {

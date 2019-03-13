@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import NumberFormat from 'react-number-format';
+import cn from 'classnames';
 
 // Note: action
 import { createBooking } from '../../../store/actions/booking';
@@ -11,8 +12,8 @@ import { userActions } from '../../../store/actions/userAction';
 import Input from '../../ui-kit/Input/Input';
 import InputMask from 'react-input-mask';
 import Button from '../../ui-kit/Button/Button';
-import Checkbox from '../../ui-kit/Checkbox/Checkbox';
 import ModalComponent from '../index';
+import Radio from '../../ui-kit/Radio';
 
 // Note: services
 import { userService } from '../../../services/userService';
@@ -43,7 +44,7 @@ class BookingModal extends Component {
         };
 
         this.initialState = this.state;
-    }
+    };
 
     onChangeInput = (e) => {
         const { name, value } = e.target;
@@ -59,9 +60,9 @@ class BookingModal extends Component {
 
         this.setState({
             ...this.state,
-            playgroundId: value
+            playgroundId: value === 'playground_other' ? null : value
         })
-    }
+    };
 
     onRegisterUser = (e) => {
         e.preventDefault();
@@ -83,7 +84,7 @@ class BookingModal extends Component {
                     localStorage.setItem('userToken', res.data.data.access_token);
                 },
                 err => {
-                    if(err.response.data.phone && err.response.data.phone[0] === "Такое значение поля phone уже существует.") {
+                    if(err.response.data.phone && err.response.data.phone[0] === "Такое значение поля мобильный номер уже существует.") {
                         this.setState({
                             registeredNewUser: false,
                             showFileldPassword: true
@@ -106,7 +107,7 @@ class BookingModal extends Component {
         if (!localStorage.getItem('userRole') && localStorage.getItem('userToken')) {
             localStorage.removeItem('userToken');
         };
-    }
+    };
 
     onSubmitBooking = (e) => {
         e.preventDefault();
@@ -139,7 +140,7 @@ class BookingModal extends Component {
             loginAction(dataLogin, false, () => {
                 createBooking(typeBooking, data); 
                 this.onCancel();
-            });
+            }).then(() => { this.onCancel(); });
         };
     };
 
@@ -176,7 +177,8 @@ class BookingModal extends Component {
             playgroundsForTraining, 
             isAuthorization, 
             dateBooking,
-            resendVerificationCode } = this.props;
+            resetPasswordRequest
+        } = this.props;
 
         const { 
             start_time, 
@@ -190,33 +192,41 @@ class BookingModal extends Component {
             costPlaygroundForPayBooking =  [ ...this.getCostPlaygroundForPayBooking() ];
         };
 
-        const templateCost = (title, cost) => {
-            
-            const textCost = function() {
-                if (cost > 0) {
-                    return <NumberFormat 
-                                value={cost} 
-                                suffix=' ₽'
-                                thousandSeparator={' '}
-                                displayType='text'
-                                decimalScale={0}
-                            />
+        const numberCost = (cost) => {
+            if (!cost) {
+                return '--'
+            }
 
-                } else if (cost === null) {
-                    return 'Стоимость не указана администраторм, уточняйте лично.';
-
-                } else if (cost <= 0) {
-                    return 'Укажите верные временные рамки бронирования услуги.';
-                };
-            };
-
-            return(
-                <div className="b-cost-information">
-                    <div className="b-cost-information__title">{title}</div>
-                    <div className="b-cost-information__cost">{textCost()}</div>
-                </div>
-            )
+            return <NumberFormat
+                value={cost}
+                suffix=' ₽'
+                thousandSeparator={' '}
+                displayType='text'
+                decimalScale={0}
+            />
         };
+
+        // Сейчас проверка цены корта
+        const validCheck = (cost) => {
+            if (cost === null) {
+                return 'Стоимость данного корта не указана администратором, уточняйте лично.';
+            }
+        };
+
+        // проверка валидности цены тренера (1 пункт)
+        const validCheckTrainer = () => {
+            if (!!start_time && !!end_time && (calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, this.props.cost) <= 0)) {
+                return 'negativeSumm';
+            }
+            return false;
+        };
+
+        const cssClassTimeWrap = cn(
+            'b-booking-form__fieldset',
+            {
+                'b-booking-form__fieldset--error': (validCheckTrainer() === 'negativeSumm')
+            }
+        );
 
         return(
             <ModalComponent
@@ -226,9 +236,10 @@ class BookingModal extends Component {
                     this.onCancel()
                 }}
                 title='Бронирование'
+                subTitle={`с ${moment(this.props.startTime).format('HH:mm')} до ${moment(this.props.endTime).format('HH:mm')}`}
             >
                 <form className="b-booking-form">
-                    <fieldset className="b-booking-form__fieldset">
+                    <fieldset className={ cssClassTimeWrap }>
                         <legend className="b-modal__title-group">Время</legend>
                         <Input 
                             labelText='С'
@@ -252,22 +263,29 @@ class BookingModal extends Component {
                             modif='b-input--time-booking'
                         />
                     </fieldset>
-                    
-                    {/* TODO: радиобаттоны для корта */}
+
                     <fieldset className="b-booking-form__fieldset">
                         <legend className="b-modal__title-group">Корт</legend>
+                        <Radio
+                            key='playground_other'
+                            name='playground'
+                            id='playground_other'
+                            text='Другое'
+                            value='playground_other'
+                            checked={playgroundId === null || playgroundId === 'playground_other'}
+                            onChange={this.onChangeRadio}
+                        />
+
                         {playgroundsForTraining ? playgroundsForTraining.map(item => {
                             return (
-                                <Checkbox 
+                                <Radio
                                     key={`playground_${item.pivot.playground_uuid}`}
-                                    type='radio'
                                     name="playground"
                                     id={`playground_${item.pivot.playground_uuid}`}
                                     text={item.name}
                                     value={item.pivot.playground_uuid}
                                     checked={this.state.playgroundId === item.pivot.playground_uuid}
                                     onChange={this.onChangeRadio}
-                                    modif={'b-checkbox--add-schedule'}
                                 />
                             )
                         }): null}
@@ -276,29 +294,50 @@ class BookingModal extends Component {
                     <fieldset className="b-booking-form__fieldset">
                         {/* TODO: валидировать поле времени и если не проходит валидацию то и не выводим стоимость. */}
                         <legend className="b-modal__title-group">Стоимость</legend>
-
+                        {/* TODO_HOT: сразу показывать общую стоимость из суммы */}
                         {start_time && end_time 
                             ? <Fragment>
-                                {templateCost(
-                                    'Оплата услуг тренера', 
-                                    calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, this.props.cost))}
+                                <div className="b-cost-information b-cost-information--total">
+                                    <div className="b-cost-information__title">Итого:</div>
+                                    
+                                    {/* TODO_AMED: добавить "более" для корта без цены */}
+                                    <div className="b-cost-information__cost">
+                                        { playgroundId ? 'Более ' : ''}
+                                        { numberCost(
+                                            +calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, this.props.cost)
+                                            +
+                                            +calcCostService(`${dateBooking} ${start_time}:00`, `${dateBooking} ${end_time}`, costPlaygroundForPayBooking)
+                                        )}
+                                    </div>
+                                </div>
+                                {/* { templateCost(
+                                        'Итого к оплате',
+                                        +calcCostService(`${dateBooking} ${start_time}`,
+                                        `${dateBooking} ${end_time}`, this.props.cost)
+                                        + +calcCostService(`${dateBooking} ${start_time}:00`,
+                                        `${dateBooking} ${end_time}`, costPlaygroundForPayBooking)
+                                )} */}
 
-                                {playgroundId 
-                                    ? templateCost( 
-                                        'Оплата услуг площадки', 
-                                        calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, costPlaygroundForPayBooking) )
-                                    : null
-                                }
+                                <div className="b-cost-information">
+                                    <div className="b-cost-information__title">Услуги тренера</div>
+                                    <div className="b-cost-information__cost">
+                                        { numberCost(
+                                            calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, this.props.cost)
+                                        )}
+                                    </div>
+                                </div>
 
-                                {playgroundId && costPlaygroundForPayBooking.length > 0
-                                    ? templateCost(
-                                        'Итого к оплате', 
-                                        +calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, this.props.cost) + +calcCostService(`${dateBooking} ${start_time}:00`, `${dateBooking} ${end_time}`, costPlaygroundForPayBooking))
-                                    : null
-                                }
+                                <div className="b-cost-information">
+                                    <div className="b-cost-information__title">Аренда корта</div>
+                                    <div className="b-cost-information__cost">
+                                        { playgroundId
+                                            ? numberCost(calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, costPlaygroundForPayBooking))
+                                            : '0 ₽'
+                                        }
+                                    </div>
+                                </div>
                             </Fragment>
-
-                            : <p style={{marginBottom: '30px'}}>Укажите параметры бронирования</p>
+                            : <p>Будет расчитана автоматически</p>
                         }
                     </fieldset>
 
@@ -310,19 +349,21 @@ class BookingModal extends Component {
                                 <Fragment>
                                     {registeredNewUser 
                                         ? <div className="b-booking-form__note">
-                                            Привет! На указанный тобой номер телефона выслан пароль. Введи его в поле ниже, затем нажми кнопку <b>"Подтвердить"</b>.
+                                            Привет!
                                             <br/>
-                                            Пароль можно использовать повторно для авторизации в системе для твоего номера телефона.
+                                            На указанный тобой номер телефона выслан пароль. Введи его в поле ниже, затем нажми кнопку <i>"Подтвердить"</i>.
+                                            <br/>
+                                            Пароль можно использовать повторно для авторизации в системе по твоему номеру телефона.
                                         </div>
 
                                         : <div className="b-booking-form__note">
                                             Ты уже зарегистрированный пользователь.
                                             <br/>
-                                            Введи свой пароль авторизации если он у тебя есть или 
-                                            <a href="" title="получи новый пароль" 
+                                            Введи свой пароль авторизации или 
+                                            <a className="link-in-text-white" href="" title="Получи новый пароль" 
                                                 onClick={(e) => {
                                                     e.preventDefault();
-                                                    resendVerificationCode({
+                                                    resetPasswordRequest({
                                                         phone: telWithoutPlus(this.state.phone)
                                                     })
                                                 }
@@ -330,8 +371,9 @@ class BookingModal extends Component {
                                         </div> 
                                     }
                                     <Input
-                                        labelText="Пароль"
+                                        // labelText="Пароль"
                                         typeInput="password"
+                                        placeholder="Введи пароль"
                                         idInput="password"
                                         nameInput="password"
                                         value={this.state.password}
@@ -380,11 +422,20 @@ class BookingModal extends Component {
                         null
                     }
 
+                    { (validCheckTrainer() === 'negativeSumm') &&
+                        <p className="b-booking-form__error"> Укажите верные временные рамки бронирования услуги. </p>
+                    }
+
+                    { !!playgroundId && 
+                        <p className="b-booking-form__error">
+                            {validCheck( calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, costPlaygroundForPayBooking) )}
+                        </p>
+                    }
+
                     <div className="b-booking-form__button-wrapper">
                         <div className="b-booking-form__button">
                             <Button
                                 name={!showFileldPassword ? "Забронировать" : "Подтвердить"}
-                                theme={{orange: true}}
                                 onClick={e => {
                                     if (!showFileldPassword && !isAuthorization) {
                                         this.onRegisterUser(e);
@@ -421,7 +472,7 @@ const mapStateToDispatch = (dispatch) => {
     return {
         createBooking: (typeBooking, data) => dispatch(createBooking(typeBooking, data)),
         loginAction: (data, toMain, callback) => dispatch(userActions.login(data, toMain, callback)),
-        resendVerificationCode: (data) => dispatch(userActions.resendVerificationCode(data))
+        resetPasswordRequest: (data) => dispatch(userActions.resetPasswordRequest(data))
     }
 }
 

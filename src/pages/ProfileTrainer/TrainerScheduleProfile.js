@@ -39,14 +39,11 @@ class TrainerScheduleProfile extends Component {
             getTrainerSchedule, 
             bookedTime, 
             playgroundsForTraining,
-            bookingPreloader
+            bookingPreloader,
+            userId // Note: userId - это uuid пользователя (тренера) расписание которого надо получить, в нашем случае мы находимся в личном кабинете и запрашиваем свой uuid тренера
         } = this.props;
-        
-        // Note: userId - это uuid пользователя (тренера) расписание которого надо получить, в нашем случае мы находимся в личном кабинете и запрашиваем свой uuid тренера
-        const { userId } = this.props;
 
         return(
-            // TODO_AMED: тут вёрстку приведи к одному виду во всех табах. чё там прыгает всё туда обратно + h1 тут добавь как в табе выше
             <div className="b-trainer-schedule-profile">
                 <Schedule 
                     schedule={scheduleTrainer}
@@ -59,6 +56,7 @@ class TrainerScheduleProfile extends Component {
                     isWhoBooked={true}
                     onClickDecline={this.onClickDecline}
                     preloader={bookingPreloader}
+                    titlePage={"Моё расписание"}
                 />
 
                 { this.props.preloader ? <Preloader /> : null }

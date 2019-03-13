@@ -1,11 +1,20 @@
 // 320++
 .b-schedule-item {
-    cursor: pointer;
     position: relative;
-    padding: 15px;
-    margin: 0 -15px;
-    border-bottom: 1px solid #ddd;
-    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 10px 15px 10px 10px;
+    cursor: pointer;
+    border-left: 5px solid transparent;
+
+    &--free {
+        border-left-color: $ok;
+    }
+
+    &--busy {
+        border-left-color: $error;
+    }
 
     &__time-wrap {
         display: flex;
@@ -13,13 +22,12 @@
     }
 
     &__time {
-        color: #222222;
-        font-family: $medium;
         font-size: 18px;
         line-height: 1.4;
+        color: #222222;
 
         &--finish {
-            color: #cccccc;
+            color: $telegray;
         }
     }
 
@@ -28,67 +36,55 @@
     }
 
     &__state {
-        font-family: $regular;
-        font-size: 18px;
-        line-height: 26px;
         position: relative;
         padding: 0 15px;
+        font-size: 18px;
+        line-height: 26px;
 
         &:before {
-            content: '';
-            display: block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
             position: absolute;
             top: 10px;
             left: 0px;
+            display: block;
+            width: 8px;
+            height: 8px;
+            content: '';
+            border-radius: 50%;
             background-color: transparent;
-        }
-
-        &--free {
-            &::before {
-                background-color: #29cb41;
-            }
-        }
-
-        &--busy {
-            &::before {
-                background-color: #ff6158;
-            }
         }
     }
 
-    &__state-name {
-        vertical-align: middle;
+    &__who-tel {
+        // color: $carmine-pink;
+        color: $mint;
+    }
+
+    &__who-name {
+        margin-bottom: 2px;
     }
 
     &__court-info {
-        font-family: $regular;
         font-size: 14px;
         line-height: 18px;
         color: $telegray;
     }
 
     &__click {
-        font-family: $regular;
+        font-weight: 300;
         font-size: 14px;
         line-height: 1.2;
-        margin-top: 10px;
-        color: $mint;
         text-align: right;
+        color: $bright-telegray;
     }
 
     &__name-court {
-        font-family: $bold;
-        font-size: 16px;
         margin: 0;
         margin-bottom: 1px;
+        font-size: 16px;
         color: $mint;
     }
 
     &__address-court {
-        font-family: $medium;
         margin: 0;
         margin-bottom: 5px;
     }
@@ -96,5 +92,13 @@
     &__additional-court {
         margin: 0;
         color: $bright-telegray;
+    }
+
+    &__cancel {
+        width: 38px;
+        padding: 10px;
+        cursor: pointer;
+        background: none;
+        border: 0;
     }
 }

@@ -1,4 +1,4 @@
-import { TOGGLE_MENU } from '../constants/toggleMenu';
+import { TOGGLE_MENU, CLOSE_MENU } from '../constants/toggleMenu';
 
 const initialState = {
     toggleMenu: false
@@ -9,6 +9,11 @@ export default function(state = initialState, action) {
         case TOGGLE_MENU:
             return {
                 toggleMenu: !state.toggleMenu
+            }
+
+        case CLOSE_MENU:
+            return {
+                toggleMenu: false
             }
         
         default:

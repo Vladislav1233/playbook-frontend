@@ -1,21 +1,21 @@
 // 320
 .b-time-field {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 
     &__label {
-        @include label();
         display: inline-block;
-        margin-bottom: 5px;
+        @include label();
     }
 
     &__input {
-        @include font-size-5();
-        border-bottom: 2px solid $mint;
-        color: $mainFontColor;
-        height: 40px;
         display: flex;
         align-items: center;
+        height: 40px;
         cursor: pointer;
+        color: $mainFontColor;
+        border-bottom: 2px solid $mint;
+
+        @include font-size-5();
     }
 
     &__keeper-wrapper {
@@ -25,32 +25,39 @@
 
 .outside_container {
     position: fixed;
+    z-index: 1000;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    touch-action: none;
-    pointer-events: none;
-    z-index: 1000;
     display: flex;
+    width: 100%;
+    min-width: 320px;
+    height: 100%;
+    pointer-events: none;
+
+    touch-action: none;
 }
 
 .modal_container {
+    position: static !important;
     top: 0 !important;
     width: 300px !important;
     margin: auto !important;
-    position: static !important;
-    touch-action: auto;
     pointer-events: all;
+
+    touch-action: auto;
 }
 
 .preview_container {
-    padding-left: 0px !important;
     left: 0px !important;
+    padding-left: 0px !important;
     transform: translateX(0) !important;
+    height: 40px!important;
+    padding-top: 5px;
+    line-height: 35px!important;
 }
 
 .time_picker_preview {
-    box-shadow: none !important;
     border-bottom: 1px solid #0b4e35;
+    box-shadow: none !important;
+    height: 40px!important;
 }
