@@ -191,7 +191,7 @@ class Registration extends Component {
                                 id="is_trainer"
                                 text="Я тренер"
                                 value="1"
-                                modif="b-checkbox--hide"
+                                modif="b-checkbox--white"
                                 checked={isCheck}
                                 onChange={this.handleCheck}
                             />
