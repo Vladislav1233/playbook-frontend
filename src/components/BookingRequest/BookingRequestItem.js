@@ -4,6 +4,8 @@ import React, { Component, Fragment } from 'react';
 import DeclineBookingModal from '../Modal/DeclineBookingModal'; 
 import Button from '../ui-kit/Button/Button';
 
+import { convertTypeMoney } from '../../helpers/convertTypeMoney';
+
 class BookingRequestItem extends Component {
 
     state = {
@@ -19,8 +21,17 @@ class BookingRequestItem extends Component {
     }
 
     render() {
-        const { bookingId, firtsName, lastName, tel, nameCourt, time, onClickConfirm, onClickDecline } = this.props;
-        console.log(this.props);
+        const { 
+            bookingId, 
+            firtsName, 
+            lastName, 
+            tel, 
+            nameCourt, 
+            time, 
+            onClickConfirm, 
+            onClickDecline,
+            price
+        } = this.props;
 
         return(
             <Fragment>
@@ -52,7 +63,7 @@ class BookingRequestItem extends Component {
 
                     <div className="info-block info-block--accent">
                         <p className="info-block__title">К оплате:</p>
-                        <p className="info-block__text"> 2 300р</p>
+                        <p className="info-block__text">{convertTypeMoney(price, 'RUB', 'banknote')} ₽</p>
                     </div>
 
                     <div className="b-booking-request__buttons">

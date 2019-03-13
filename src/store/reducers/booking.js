@@ -80,7 +80,8 @@ export default function(state = initialState, action) {
                     // Note: Преобразовываем UTC время в местное (с сервера приходит UTC).
                     time: `${moment(item.start_time).format('DD.MM.YYYY')} (${moment(item.start_time).format('dddd')}): ${moment(item.start_time).format('HH:mm')} - ${moment(item.end_time).format('HH:mm')}`,
                     bookingId: item.uuid,
-                    status: item.status
+                    status: item.status,
+                    price: item.price
                 }
             };
             

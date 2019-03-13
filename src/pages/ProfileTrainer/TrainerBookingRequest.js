@@ -48,7 +48,7 @@ class TrainerBookingRequest extends Component {
     }
 }
 
-const mapStateToProps = ({ booking, identificate }) => {
+const mapStateToProps = ({ booking, identificate }) => {    
     return {
         dataBookingRequest: booking.dataBookingRequest,
         dataPastBooking: booking.dataPastBooking,

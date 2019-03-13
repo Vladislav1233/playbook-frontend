@@ -16,7 +16,7 @@ class BookingRequest extends Component {
                 <h3>Актуальные заявки:</h3>
                 <div className="b-booking-request__list">
                     {dataBookingRequest.length > 0 ? 
-                        dataBookingRequest.map(item => {
+                        dataBookingRequest.map(item => {                            
                             return <BookingRequestItem 
                                 key={item.bookingId}
                                 booking={item.bookingId}
@@ -28,6 +28,7 @@ class BookingRequest extends Component {
                                 onClickConfirm={onClickConfirm}
                                 onClickDecline={onClickDecline}
                                 tel={item.tel}
+                                price={item.price}
                             />
                         }) : <p className="b-booking-request__item">Нет текущих заявок.</p>
                     }
