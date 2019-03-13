@@ -102,8 +102,8 @@ class HeadMenu extends Component {
                             </div>
                         </a>
                         : <div className="b-head-menu__wrapper-link">
-                            <Link to={configPathRouter.authorization}>Вход</Link>
-                            <Link to={configPathRouter.registration}>Регистрация</Link>
+                            <Link className="b-head-menu__open-button" to={configPathRouter.authorization}>Вход</Link>
+                            <Link className="b-head-menu__open-button" to={configPathRouter.registration}>Регистрация</Link>
                         </div>
                     }
                     {showContent &&

@@ -2,13 +2,38 @@
 .b-hello-page {
     margin-top: 60px;
 
+    &__head-wrap {
+        width: max-content;
+        margin: auto auto 30px;
+    }
+
     &__head {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 15px;
+        margin: 0;
+        padding: 10px 10px 5px 10px;
         font-size: 34px;
         text-align: center;
+        background-color: hsla(0, 0%, 100%, .85);
+    }
+
+    &__sub-head {
+        margin: 0 0 0 auto;
+        width: max-content;
+        padding: 0 10px 0;
+        font-family: $roboto;
+        font-size: 1rem;
+        font-weight: 400;
+        text-align: right;
+        color: #2c2c2c;
+        background-color: hsla(0, 0%, 100%, .85);
+
+        span {
+            display: block;
+            transform: translateY(-3px);
+            padding-bottom: 3px;
+        }
     }
 
     &__logo {
@@ -19,13 +44,16 @@
 
     &__heading {
         margin: auto;
-        padding: 10px;
-        margin-bottom: 15px;
+        margin-bottom: 45px;
+        padding: 10px 15px;
         font-size: 16px;
         line-height: 1.5;
         text-align: center;
         color: $mainFontColor;
-        background: hsla(0, 0%, 100%, 0.5);
+        background: hsla(0, 0%, 100%, .5);
+        border-radius: $border-radius;
+        font-family: $roboto;
+        font-weight: 400;
     }
 
     &__list {
