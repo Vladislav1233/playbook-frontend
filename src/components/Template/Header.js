@@ -67,7 +67,9 @@ class Header extends Component {
                         {/* Профиль */}
                         { !onRegistrationPages &&
                             <div className="b-header__right">
-                                <HeadMenu />
+                                <HeadMenu 
+                                    location={this.props.location}
+                                />
                             </div>
                         }
                     </div>
