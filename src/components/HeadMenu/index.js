@@ -132,7 +132,6 @@ class HeadMenu extends Component {
                                 </Fragment>
                                 : null
                             }
-
                         </div>
                     }
                 </OutsideClickHandler>
