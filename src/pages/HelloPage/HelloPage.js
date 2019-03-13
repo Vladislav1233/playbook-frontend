@@ -52,27 +52,8 @@ class HelloPage extends Component {
                             </li>
                         </ul>
 
-                        {!isAuthorization ? 
-                            <ul className="b-hello-page__list">
-                                <li className="b-hello-page__item">
-                                    <Link 
-                                        className="b-button b-button--hollow b-button--hello-page" 
-                                        to={configPathRouter.authorization}
-                                    >
-                                        Авторизация
-                                    </Link>
-                                </li>
-                                <li className="b-hello-page__item">
-                                    <Link 
-                                        className="b-button b-button--hollow b-button--hello-page" 
-                                        to={configPathRouter.registration}
-                                    >
-                                        Регистрация
-                                    </Link>
-                                </li>
-                            </ul>
-                            :
-                            <ul className="b-hello-page__list">
+                        { isAuthorization
+                            ? <ul className="b-hello-page__list">
                                 <li className="b-hello-page__item">
                                     <Link 
                                         className="b-button b-button--hollow b-button--hello-page" 
@@ -89,7 +70,8 @@ class HelloPage extends Component {
                                         Личный кабинет
                                     </Link>
                                 </li>
-                            </ul> 
+                              </ul>
+                            : null
                         }
                     </nav>
                 </div>
