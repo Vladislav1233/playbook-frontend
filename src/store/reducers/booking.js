@@ -19,6 +19,7 @@ import {
     GET_ALL_BOOKINGS_FOR_USER_SUCCESS,
     GET_ALL_BOOKINGS_FOR_USER_FAILURE
 } from '../constants/booking';
+import { ANALIZE_DATE_TIME_ZONE } from '../constants/formatDates';
 
 import moment from 'moment';
 import 'moment/locale/ru';
@@ -35,15 +36,16 @@ const initialState = {
 export default function(state = initialState, action) {
 
     const filterBooking = (confirmId, startTimeConfirm) => {
-        console.log(startTimeConfirm);
-        if (!moment().isAfter(startTimeConfirm)) { // Note: если заявка не истекла, то удаляем элемент из текущих заявок
+        const momentIsAfter = moment().isAfter(moment(startTimeConfirm, ANALIZE_DATE_TIME_ZONE));
+
+        if (!momentIsAfter) { // Note: если заявка не истекла, то удаляем элемент из текущих заявок
             return {
                 ...state,
                 dataBookingRequest: state.dataBookingRequest.filter(itemState => {
                     return confirmId !== itemState.bookingId
                 })
             }
-        } else if (moment().isAfter(startTimeConfirm)) { // Если заявка истекла, то удаляем её из прошедших заявок
+        } else if (momentIsAfter) { // Если заявка истекла, то удаляем её из прошедших заявок
             return {
                 ...state,
                 dataPastBooking: state.dataPastBooking.filter(itemState => {
@@ -72,13 +74,15 @@ export default function(state = initialState, action) {
             
             // Note: функция, которая возвращает объект c данными одного запроса на бронирование.
             const createDataBookingRequest = function(item) {
+                const startTime = moment(item.start_time, ANALIZE_DATE_TIME_ZONE);
+                const endTime = moment(item.end_time, ANALIZE_DATE_TIME_ZONE);
                 return {
                     firtsName: item.creator.first_name,
                     lastName: item.creator.last_name,
                     tel: `+${item.creator.phone}`,
                     nameCourt: item.playground ? item.playground.name : '',
                     // Note: Преобразовываем UTC время в местное (с сервера приходит UTC).
-                    time: `${moment(item.start_time).format('DD.MM.YYYY')} (${moment(item.start_time).format('dddd')}): ${moment(item.start_time).format('HH:mm')} - ${moment(item.end_time).format('HH:mm')}`,
+                    time: `${startTime.format('DD.MM.YYYY (dddd): HH:mm')} - ${endTime.format('HH:mm')}`,
                     bookingId: item.uuid,
                     status: item.status,
                     price: item.price
@@ -87,15 +91,17 @@ export default function(state = initialState, action) {
             
             // Note: сортируем все запросы на бронирование по категориям относящимся к времени и статусу(обработано/не обработано).
             action.payload.data.data.forEach(item => {
-                if (!moment().isAfter(item.start_time) && !item.status) { // Note: если заявка не истекла и не обработана
+                const momentStartTime = moment(item.start_time, ANALIZE_DATE_TIME_ZONE);
+
+                if (!moment().isAfter(momentStartTime) && !item.status) { // Note: если заявка не истекла и не обработана
 
                     newDataBookingRequest.push(createDataBookingRequest(item));
 
-                } else if (moment().isAfter(item.start_time) && !item.status) { // Note: если заявка истекла и не обработана
+                } else if (moment().isAfter(momentStartTime) && !item.status) { // Note: если заявка истекла и не обработана
                     
                     newPastBooking.push(createDataBookingRequest(item));
 
-                } else if (!moment().isAfter(item.start_time) && item.status) { // Note: если завяка не истекла и обработана
+                } else if (!moment().isAfter(momentStartTime) && item.status) { // Note: если завяка не истекла и обработана
                     
                     newConfirmBooking.push(createDataBookingRequest(item));
 

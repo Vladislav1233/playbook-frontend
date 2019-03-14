@@ -53,9 +53,9 @@ class HeadMenu extends Component {
     };
 
     render() {
+        console.log('renderHeadMenu');
         const { showContent } = this.state;
         const { isAuthorization, userInformation, userRole, location} = this.props;
-        console.log(userInformation);
 
         const classNameBlock = cn('b-head-menu', {
             'b-head-menu--open': showContent

@@ -22,7 +22,7 @@ class MyBooking extends Component {
             declineBooking,
             preloaderBooking
         } = this.props;
-        console.log(dataMyBooking);
+
         return(
             <div className="b-my-booking">
                 <div className="container">
@@ -32,7 +32,6 @@ class MyBooking extends Component {
                         <div className="b-booking-request__list">
                             { dataMyBooking.length > 0
                                 ? dataMyBooking.map(item => {
-                                    console.log(item);
                                     return (
                                         <div key={item.uuid} className="b-booking-request__item">
                                             <MyBookingCard 

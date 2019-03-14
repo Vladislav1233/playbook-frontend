@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import moment from 'moment';
 import cn from 'classnames';
+import { ANALIZE_DATE_TIME_ZONE } from "../../store/constants/formatDates";
 
 // Note: components
 import DeclineBookingModal from '../Modal/DeclineBookingModal';
@@ -96,9 +97,9 @@ class MyBookingCard extends Component {
 
                 <div className="b-my-booking-card__time">
                     <p className="b-my-booking-card__title">Дата и время</p>
-                    {moment(startTime).format('DD.MM.YYYY')} ({moment(startTime).format('dddd')})
+                    {moment(startTime, ANALIZE_DATE_TIME_ZONE).format('DD.MM.YYYY')} ({moment(startTime, ANALIZE_DATE_TIME_ZONE).format('dddd')})
                     <br/>
-                    {moment(startTime).format('HH:mm')} - {moment(endTime).format("HH:mm")}
+                    {moment(startTime, ANALIZE_DATE_TIME_ZONE).format('HH:mm')} - {moment(endTime, ANALIZE_DATE_TIME_ZONE).format("HH:mm")}
                 </div>
 
                 <div className="b-my-booking-card__playground">

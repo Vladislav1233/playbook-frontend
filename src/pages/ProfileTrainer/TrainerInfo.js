@@ -59,7 +59,6 @@ class TrainerInfo extends Component {
         trainerInfoService.getTrainerInformation(userId)
             .then(
                 response => {
-                    console.log(response.data.data);
                     this.setState({ preloader: false });
                     if (response.data.data.uuid) {
 
@@ -168,7 +167,6 @@ class TrainerInfo extends Component {
         } = this.state.trainerInfo;
 
         const { idInfo } = this.state;
-        console.log(playgrounds);
 
         const playgroundsId = playgrounds.length > 0 ? playgrounds.map(item => {
             return item.uuid;

@@ -80,7 +80,6 @@ class BookingModal extends Component {
                         registeredNewUser: true,
                         showFileldPassword: true
                     });
-                    console.log(res);
                     localStorage.setItem('userToken', res.data.data.access_token);
                 },
                 err => {
@@ -159,7 +158,11 @@ class BookingModal extends Component {
         
         if (schedulePlayground.length > 0) {
             schedulePlayground.forEach(schedulePlaygroundItem => {
-                const timeRangeCost = moment.range(schedulePlaygroundItem.start_time, schedulePlaygroundItem.end_time);
+                // TODO: проверить как будет работать дата в ios устройствах.
+                const timeRangeCost = moment.range(
+                    schedulePlaygroundItem.start_time, 
+                    schedulePlaygroundItem.end_time
+                );
                 costPlaygroundInRange.push({
                     time: timeRangeCost,
                     cost: schedulePlaygroundItem.price_per_hour
