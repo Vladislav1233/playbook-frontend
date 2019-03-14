@@ -112,11 +112,12 @@ export function createBooking(typeBooking, data) {
     return dispatch => {
         dispatch(start());
 
+        // TODO_AMED: ссылку на мои брони
         bookingService.createBooking(typeBooking, data)
             .then(
                 res => {
                     dispatch(success(res)); 
-                    dispatch(alertActions.success('Запрос на бронирование успешно отправлен! Как только ваш запрос обработают на ваш номер прийдет смс-оповещение. Статус можно смотреть в разделе "Мои бронирования".'));
+                    dispatch(alertActions.success('Запрос на бронирование успешно отправлен! Как только ваш запрос обработают на ваш номер придёт смс-оповещение. Статус можно смотреть в разделе "Мои бронирования".'));
             }, 
                 err => {
                     dispatch(failure(err));

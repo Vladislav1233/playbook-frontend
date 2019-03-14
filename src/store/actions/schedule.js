@@ -84,7 +84,6 @@ export function editTrainerSchedule(schedule_uuid, data) {
     }
 
     function success(response) {
-        console.log(response);
         return {
             type: EDIT_SUCCESS_SCHEDULE_TRAINER,
             payload: response

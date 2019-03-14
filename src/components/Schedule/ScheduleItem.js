@@ -59,7 +59,9 @@ class ScheduleItem extends Component {
             end_time,
             isStatus // true - это время свободно, false - это время занято
         } = this.props.dataScheduleItem;
+
         const bookingId = this.props.dataScheduleItem.uuid;
+        const analizeDateTimeZone = 'YYYY-MM-DD HH:mm:ss ZZ';
     
         const { 
             playgroundsForTraining, 
@@ -88,11 +90,11 @@ class ScheduleItem extends Component {
                     <div>
                         <div className="b-schedule-item__time-wrap">
                             <div className="b-schedule-item__time">
-                                {moment(start_time).format('HH:mm')}
+                                {moment(start_time, analizeDateTimeZone).format('HH:mm')}
                             </div>
                             &nbsp;—&nbsp;
                             <div className="b-schedule-item__time b-schedule-item__time--finish">
-                                {moment(end_time).format('HH:mm')}
+                                {moment(end_time, analizeDateTimeZone).format('HH:mm')}
                             </div>
                         </div>
 

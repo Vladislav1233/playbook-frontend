@@ -22,13 +22,14 @@
     }
 
     .react-calendar__month-view__weekdays__weekday {
-        font-family: $medium;
-        font-size: 14px;
-        opacity: .48;
+        font-family: $roboto;
+        font-size: 1rem;
         color: #ffffff;
+        font-weight: 100;
+        letter-spacing: -1px;
 
         @media (min-width: 768px) {
-            font-size: 20px;
+            font-size: 1rem;
         }
     }
 

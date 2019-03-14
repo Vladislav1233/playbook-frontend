@@ -13,7 +13,6 @@ class HelloPage extends Component {
 
     render() { 
         const { isAuthorization, userRole } = this.props;
-        console.log(isAuthorization);
 
         const profileTo = () => {
             const whoUser = userRole[0];
@@ -89,7 +88,6 @@ class HelloPage extends Component {
 }
 
 const mapStateToProps = ({ identificate }) => {
-    console.log(identificate);
     return {
         isAuthorization: identificate.authorization,
         userRole: identificate.userRole

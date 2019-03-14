@@ -53,9 +53,9 @@ class HeadMenu extends Component {
     };
 
     render() {
+        console.log('renderHeadMenu');
         const { showContent } = this.state;
         const { isAuthorization, userInformation, userRole, location} = this.props;
-        console.log(userInformation);
 
         const classNameBlock = cn('b-head-menu', {
             'b-head-menu--open': showContent
@@ -121,7 +121,9 @@ class HeadMenu extends Component {
 
                                     <ContentItem>
                                         <li className="b-head-menu__content-item">
-                                            <Link className="b-head-menu__content-text" to={dataAboutRole.pathProfile}>Личный кабинет</Link>
+                                            { (dataAboutRole.roleName === "Игрок") ? null :
+                                                <Link className="b-head-menu__content-text" to={dataAboutRole.pathProfile}>Личный кабинет</Link>
+                                            }
                                         </li>
                                         <li className="b-head-menu__content-item">
                                             <Link className="b-head-menu__content-text" to={configPathRouter.myBooking}>Мои бронирования</Link>

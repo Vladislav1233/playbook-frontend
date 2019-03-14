@@ -18,12 +18,16 @@ import {
     EDIT_FAILURE_SCHEDULE_TRAINER
 } from '../constants/schedule';
 
+import { ANALIZE_DATE_TIME_ZONE } from '../constants/formatDates'; 
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 import 'moment/locale/ru';
 import uniquePlaygrounds from '../../helpers/uniquePlaygrounds';
 
 const moment = extendMoment(Moment);
+
+// Note: moment просит указывать формат входящей даты, чтобы анализировать его и нормально парсить во всех браузерах
+const analizeDateTimeZone = ANALIZE_DATE_TIME_ZONE;
 
 const initialState = {
     preloader: false,
@@ -98,7 +102,6 @@ export default function(state = initialState, action) {
 
             // Note: Обходим массив ответа с расписанием тренера, чтобы собрать все данные
             responseSchedule.forEach((item, i, arr) => {
-                console.log(item);
 
                 // Note: Получаем дипазоны всего расписания
                 if(arr.length - 1 !== i) {
@@ -115,7 +118,10 @@ export default function(state = initialState, action) {
                 }
 
                 // Note: Получаем стоимость часа во всех промежутках времени для тренера. Время переводим в локальный часовой пояс (с сервера нам приходит +00:00).
-                const timeRangeCost = moment.range(moment(item.start_time), moment(item.end_time));
+                const timeRangeCost = moment.range(
+                    moment(item.start_time, analizeDateTimeZone), 
+                    moment(item.end_time, analizeDateTimeZone)
+                );
                 newCost.push({
                     time: timeRangeCost,
                     cost: item.price_per_hour
@@ -130,16 +136,20 @@ export default function(state = initialState, action) {
                 };
             });
 
-            console.log(reservedTime);
-
 
             // Note: Фильтруем диапазон, чтобы в нём не было свободного времени для "занято" (убираем занятые промежутки из свободного времени)
             const filterRange = () => {
                 reservedTime.forEach((itemBusy) => {
 
                     rangeSchedule.forEach((itemFree, iFree) => {
-                        let rangeBusy = moment.range(itemBusy.start_time, itemBusy.end_time);
-                        let rangeFree = moment.range(itemFree.start_time, itemFree.end_time);
+                        let rangeBusy = moment.range(
+                            moment(itemBusy.start_time, analizeDateTimeZone), 
+                            moment(itemBusy.end_time, analizeDateTimeZone)
+                        );
+                        let rangeFree = moment.range(
+                            moment(itemFree.start_time, analizeDateTimeZone), 
+                            moment(itemFree.end_time, analizeDateTimeZone)
+                        );
 
                         if(rangeBusy.overlaps(rangeFree)) { // Note: если занятое время перекрывает свободное
                             // Note: удаляем занятый диапазон из всего расписания
@@ -161,6 +171,8 @@ export default function(state = initialState, action) {
 
             const newPlaygroundsForTraining = uniquePlaygrounds(arrayPlaygrounds);
 
+            const momentTimeFromAction = moment(`${action.date} +00:00`, analizeDateTimeZone);
+
             return {
                 ...state,
                 preloader: false,
@@ -168,8 +180,8 @@ export default function(state = initialState, action) {
                 playgroundsForTraining: newPlaygroundsForTraining,
                 scheduleTrainer: {
                     ...state.scheduleTrainer,
-                    date: moment(`${action.date} +00:00`),
-                    nameDay: moment(`${action.date} +00:00`).format('dddd'),
+                    date: momentTimeFromAction,
+                    nameDay: momentTimeFromAction.format('dddd'),
                     schedule: rangeSchedule,
                     cost: newCost
                 }

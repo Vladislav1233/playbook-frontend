@@ -12,7 +12,6 @@ import ScheduleTrainer from '../pages/ScheduleTrainer/ScheduleTrainer';
 import HelloPage from '../pages/HelloPage/HelloPage';
 import Registration from '../pages/Registration/Registration';
 import Auth from '../pages/Auth/Auth';
-import ErrorPage from '../pages/ErrorPage/ErrorPage';
 import ListCourt from '../pages/ListCourt';
 import ListTrainer from '../pages/ListTrainer';
 import TestRequest from '../pages/TestRequest/TestRequest';
@@ -30,7 +29,6 @@ export default (isAuthorization) => (
         <Route component={ScheduleTrainer} path={`${configPathRouter.scheduleTrainer}/:slug`} />
         {/*<Route component={ScheduleCourt} path={configPathRouter.scheduleCourt} />*/}
         <Route render={() => {
-            console.log(isAuthorization)
             if(isAuthorization.isAuthorization) {
                 return <Redirect to='/' />
             } else {
@@ -47,7 +45,6 @@ export default (isAuthorization) => (
             };
         }} path={configPathRouter.authorization} />
         <Route component={MyBooking} path={configPathRouter.myBooking} />
-        <Route component={ErrorPage} path="/error" />
 
         <Route component={StyleGuide} path={"/style-guide"} />
 
