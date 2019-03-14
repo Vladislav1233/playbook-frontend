@@ -60,7 +60,6 @@ class Schedule extends Component {
             titlePage,
             noteTitle
         } = this.props;
-        console.log(this.props);
 
         const notScheduleTemplate = () => (
             <div className="b-schedule__not">Нет свободного времени</div>
@@ -85,7 +84,7 @@ class Schedule extends Component {
                         <section className="b-schedule__card">
                             <div className="b-schedule__date">
                                 <div className="b-schedule__date-top">{schedule.nameDay}</div>
-                                <div className="b-schedule__date-bottom">{Moment(schedule.date).format('DD.MM.YYYY')}</div>
+                                <div className="b-schedule__date-bottom">{schedule.date.format('DD.MM.YYYY')}</div>
                                 {schedule.timeWork ? <div className="b-schedule__timetable">Время работы: {schedule.timeWork}</div> : null}
                             </div>
                             

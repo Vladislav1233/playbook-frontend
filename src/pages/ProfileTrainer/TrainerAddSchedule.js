@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import moment from 'moment';
 import 'moment/locale/ru';
 import { extendMoment } from 'moment-range';
+import { ANALIZE_DATE_TIME_ZONE } from '../../store/constants/formatDates';
 
 // Note: actions
 import { createScheduleTrainer, editTrainerSchedule, toggleResponse } from '../../store/actions/schedule';
@@ -96,7 +97,7 @@ class TrainerAddSchedule extends Component {
 
         const getScheduleRequest = () => { 
             if (this.state.preloader !== true) {
-                this.setState({preloader: true});
+                this.setState({ preloader: true });
             };
 
             scheduleService.getSchedule('trainer', userId, data)
@@ -108,8 +109,8 @@ class TrainerAddSchedule extends Component {
                         const newCards = answerData.map(item => {
                             return {
                                 dates: [date],
-                                start_time: moment(item.start_time).format("HH:mm"),
-                                end_time: moment(item.end_time).format("HH:mm"),
+                                start_time: moment(item.start_time, ANALIZE_DATE_TIME_ZONE).format("HH:mm"),
+                                end_time: moment(item.end_time, ANALIZE_DATE_TIME_ZONE).format("HH:mm"),
                                 price_per_hour: convertTypeMoney(item.price_per_hour, 'RUB', 'banknote'),
                                 currency: 'RUB',
                                 schedule_uuid: item.uuid,

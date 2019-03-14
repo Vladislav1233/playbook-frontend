@@ -46,7 +46,6 @@ class App extends Component {
             alertType,
             isAuthorization
         } = this.props;
-        console.log(alertMessage);
         console.log('renderApp');
         
         const howLocation = location.pathname.split('/');

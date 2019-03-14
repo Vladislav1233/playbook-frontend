@@ -19,7 +19,6 @@ export default function(state = initialState, action) {
             };
         
         case GET_SUCCESS_SEARCH_PLAYGROUND:
-            console.log(action.payload.data);
             return {
                 ...state,
                 preloader: false,
