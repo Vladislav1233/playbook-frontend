@@ -25,6 +25,8 @@
     }
 
     &__name-group {
+        display: block;
+        color: $mainFontColor;
         margin-bottom: 10px;
         padding-bottom: 10px;
         font-size: (16em/15);

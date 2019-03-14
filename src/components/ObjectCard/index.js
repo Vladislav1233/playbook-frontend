@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { configPathRouter } from '../../App/configPathRouter';
+import { Link } from "react-router-dom";
 
 // Note: components
 import Button from '../ui-kit/Button/Button';
@@ -49,10 +50,10 @@ class ObjectCard extends Component {
                 </div>
 
                 <div className="b-object-card__info">
-                    <div className="b-object-card__name-group">
+                    <Link className="b-object-card__name-group" to={linkTo}>
                         <span className="b-object-card__first-name">{trainerInfo.first_name} </span>
                         <span className="b-object-card__last-name">{trainerInfo.last_name}</span>
-                    </div>
+                    </Link>
 
                     {/* Обо мне */}
                     { trainerInfo.trainer_info && 

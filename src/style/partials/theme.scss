@@ -89,6 +89,10 @@ p {
     margin: 0px;
 }
 
+abbr[title] {
+    border-bottom: none;
+    text-decoration: none;
+}
 
 // Общий стиль: заголовок - описание
 /**
