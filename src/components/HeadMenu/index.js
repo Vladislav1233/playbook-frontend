@@ -83,8 +83,6 @@ class HeadMenu extends Component {
             dataAboutRole = getDataAboutRole(userRole[0]); 
         };
 
-        console.log('amed', dataAboutRole.roleName);
-        
         return(
             <div className={classNameBlock}>
                 <OutsideClickHandler 
