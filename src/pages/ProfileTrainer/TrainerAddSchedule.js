@@ -228,7 +228,7 @@ class TrainerAddSchedule extends Component {
                     };
 
                 } else {
-                    newCards[idx].errorCardText = 'Время начала тренировки должно быть перед окончанием.';
+                    newCards[idx].errorCardText = 'Проверьте временные границы. Время окончания должно быть больше.';
                     this.setState({
                         isNotValidCards: true
                     });
@@ -399,7 +399,7 @@ class TrainerAddSchedule extends Component {
                     return true
                 };
 
-                this.props.alertActionsError('Не сохранено! Исправьте ошибки указанные в карточках рассписания и попробуйте ещё раз.');
+                this.props.alertActionsError('Не сохранено! Исправьте ошибки, указанные в карточках расписания, и попробуйте ещё раз.');
                 const newCardsWithError = [...this.state.cards];
                 newCardsWithError[indexCard].errorCardText = 'Все поля должны быть заполнены.';
                 this.setState({
@@ -467,7 +467,7 @@ class TrainerAddSchedule extends Component {
                 this.props.alertActionsSuccess('Расписание сохранено.');
             };
         } else {
-            this.props.alertActionsError('Не сохранено! Исправьте ошибки указанные в карточках рассписания и попробуйте ещё раз.');
+            this.props.alertActionsError('Не сохранено! Исправьте ошибки, указанные в карточках расписания, и попробуйте ещё раз.');
         };
     };
 

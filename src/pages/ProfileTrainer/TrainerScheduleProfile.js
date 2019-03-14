@@ -81,7 +81,7 @@ const mapStateToDispatch = (dispatch) => {
         /*
         * getTrainerSchedule - Запрос на получение расписания тренера
         * userId - uuid пользователя (тренера) расписание которого запрашиваем
-        * data - принимает объект с ключами start_time и end_time - период на который прийдет расписание.
+        * data - принимает объект с ключами start_time и end_time - период на который придёт расписание.
         * isCabinet - если true, то присылаем данные забронированного времени тренера со всей конфиденциальной информацией, которую модет знать и читать только тренер.
         */
         getTrainerSchedule: (userId, data, isCabinet) => dispatch(getTrainerSchedule(userId, data, isCabinet)),
