@@ -337,7 +337,7 @@ class BookingModal extends Component {
                                     </div>
                                 </div>
                             </Fragment>
-                            : <p>Будет расчитана автоматически</p>
+                            : <p>Будет расчитанна автоматически</p>
                         }
                     </fieldset>
 
@@ -349,31 +349,29 @@ class BookingModal extends Component {
                                 <Fragment>
                                     {registeredNewUser 
                                         ? <div className="b-booking-form__note">
-                                            Привет!
+                                            На ваш номер телефона выслан пароль. Введите его в поле ниже, а затем нажми кнопку <i>"Подтвердить"</i>.
                                             <br/>
-                                            На указанный тобой номер телефона выслан пароль. Введи его в поле ниже, затем нажми кнопку <i>"Подтвердить"</i>.
-                                            <br/>
-                                            Пароль можно использовать повторно для авторизации в системе по твоему номеру телефона.
+                                            Пароль можно использовать повторно для авторизации в системе по вашему номеру телефона.
                                         </div>
 
                                         : <div className="b-booking-form__note">
-                                            Ты уже зарегистрированный пользователь.
+                                            Вы уже зарегистрированный пользователь.
                                             <br/>
-                                            Введи свой пароль авторизации или 
-                                            <a className="link-in-text-white" href="" title="Получи новый пароль" 
+                                            Введите свой пароль авторизации или 
+                                            <a className="link-in-text-white" href="" title="" 
                                                 onClick={(e) => {
                                                     e.preventDefault();
                                                     resetPasswordRequest({
                                                         phone: telWithoutPlus(this.state.phone)
                                                     })
                                                 }
-                                            }> получи новый пароль</a>.
+                                            }> запросите новый пароль</a>.
                                         </div> 
                                     }
                                     <Input
                                         // labelText="Пароль"
                                         typeInput="password"
-                                        placeholder="Введи пароль"
+                                        placeholder="Введите пароль"
                                         idInput="password"
                                         nameInput="password"
                                         value={this.state.password}

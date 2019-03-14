@@ -105,7 +105,7 @@ const mapStateToDispatch = (dispatch) => {
         /*
         * getTrainerSchedule - Запрос на получение расписания тренера
         * userId - uuid пользователя (тренера) расписание которого запрашиваем
-        * data - принимает объект с ключами start_time и end_time - период на который прийдет расписание.
+        * data - принимает объект с ключами start_time и end_time - период на который придёт расписание.
         */
         getTrainerSchedule: (userId, data) => dispatch(getTrainerSchedule(userId, data))
     }
