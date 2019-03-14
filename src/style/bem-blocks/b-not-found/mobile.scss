@@ -1,1 +1,24 @@
 // 320
+.b-not-found {
+    padding-top: 50px;
+
+    h1 {
+        margin: 0;
+        margin-bottom: 30px;
+        font-size: 9rem;
+        line-height: 1;
+        text-align: center;
+    }
+
+    h2 {
+        max-width: max-content;
+        margin: auto;
+        margin-bottom: 10px;
+        font-size: 1.4rem;
+    }
+
+    &__description {
+        max-width: max-content;
+        margin: auto;
+    }
+}
