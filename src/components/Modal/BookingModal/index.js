@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import NumberFormat from 'react-number-format';
 import cn from 'classnames';
+import { ANALIZE_DATE_TIME_ZONE } from '../../../store/constants/formatDates';
 
 // Note: action
 import { createBooking } from '../../../store/actions/booking';
@@ -218,6 +219,8 @@ class BookingModal extends Component {
 
         // проверка валидности цены тренера (1 пункт)
         const validCheckTrainer = () => {
+            console.log(start_time, end_time);
+            console.log(dateBooking);
             if (!!start_time && !!end_time && (calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, this.props.cost) <= 0)) {
                 return 'negativeSumm';
             }
@@ -239,7 +242,7 @@ class BookingModal extends Component {
                     this.onCancel()
                 }}
                 title='Бронирование'
-                subTitle={`с ${moment(this.props.startTime).format('HH:mm')} до ${moment(this.props.endTime).format('HH:mm')}`}
+                subTitle={`с ${moment(this.props.startTime, ANALIZE_DATE_TIME_ZONE).format('HH:mm')} до ${moment(this.props.endTime, ANALIZE_DATE_TIME_ZONE).format('HH:mm')}`}
             >
                 <form className="b-booking-form">
                     <fieldset className={ cssClassTimeWrap }>
