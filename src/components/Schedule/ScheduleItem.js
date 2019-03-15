@@ -84,8 +84,6 @@ class ScheduleItem extends Component {
             }
         );
 
-        console.log(start_time);
-
         return (
             <Fragment>
                 <div className={classNameStateRoot} onClick={() => {if(isStatus) { this.openModal(); } }}>
