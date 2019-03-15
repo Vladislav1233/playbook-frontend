@@ -50,7 +50,9 @@ class MyBooking extends Component {
                                         </div>
                                     )
                                 })
-                                : <p>У вас нет текущих броней</p>
+                                : <div key="solo_id" className="b-booking-request__item">
+                                    У вас нет текущих броней
+                                </div>
                             }
                         </div>
                     </div>
