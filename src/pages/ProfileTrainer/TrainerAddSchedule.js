@@ -19,7 +19,8 @@ import getArrayDateRange from '../../helpers/getArrayDateRange';
 import { convertTypeMoney } from '../../helpers/convertTypeMoney';
 
 // Note: components
-import SettingChooseDay from '../../components/SettingChooseDay/SettingChooseDay';
+// TODO_AMED: временно скрыли функционал отвалившийся
+// import SettingChooseDay from '../../components/SettingChooseDay/SettingChooseDay';
 import Calendar from '../../components/Calendar';
 import AddScheduleCard from '../../components/AddScheduleCard';
 import Button from '../../components/ui-kit/Button/Button';
@@ -491,11 +492,6 @@ class TrainerAddSchedule extends Component {
         //     label: 'Период (от - до)'
         // }];
 
-        const optionsSelect = [{
-            value: 'one',
-            label: 'Один день'
-        }];
-
         return(
             <div className="b-trainer-add-schedule">
                 <Calendar 
@@ -506,11 +502,12 @@ class TrainerAddSchedule extends Component {
                 
                 <div className="b-trainer-add-schedule__schedule">
                     <h1>Добавить расписание</h1>
-
-                    <SettingChooseDay 
+                    
+                    {/* TODO_AMED: временно скрыли функционал отвалившийся */}
+                    {/* <SettingChooseDay 
                         optionsSelect={optionsSelect}
                         getValueSelect={this.onSelectChooseDay}
-                    />
+                    /> */}
 
                     <div className="b-add-schedule-card__list">
                         {cards.map((card, idx) => (
