@@ -183,6 +183,7 @@ class BookingModal extends Component {
             dateBooking,
             resetPasswordRequest
         } = this.props;
+        console.log(dateBooking);
 
         const { 
             start_time, 
@@ -219,8 +220,8 @@ class BookingModal extends Component {
 
         // проверка валидности цены тренера (1 пункт)
         const validCheckTrainer = () => {
-            console.log(start_time, end_time);
-            console.log(dateBooking);
+            // console.log(start_time, end_time);
+            // console.log(dateBooking);
             if (!!start_time && !!end_time && (calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, this.props.cost) <= 0)) {
                 return 'negativeSumm';
             }
