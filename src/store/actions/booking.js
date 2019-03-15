@@ -201,7 +201,6 @@ export function getAllBookingsForUser() {
         bookingService.getAllBookingsForUser()
             .then(
                 res => {
-                    console.log(res);
                     dispatch(success(res));
                 },
                 error => {
