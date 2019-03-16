@@ -23,6 +23,7 @@ import {
 import { bookingService } from '../../services/booking';
 import { alertActions } from './alertAction';
 import textErrorFromServer from '../../helpers/textErrorFromServer';
+import { handleErrorServer } from '../../helpers/handleErrorServer';
 
 /*
 * Получить входящие запросы на бронирование времени тренера или площадки
@@ -40,6 +41,7 @@ export function getBookings(type, uuid) {
                 },
                 error => {
                     dispatch(failure(error));
+                    handleErrorServer(error.response.status);
                 }
             );
     }
@@ -78,6 +80,7 @@ export function confirmBooking(bookingId) {
                 error => {
                     dispatch(failure(error));
                     dispatch(alertActions.error(`Ошибка! ${textErrorFromServer(error)}`));
+                    handleErrorServer(error.response.status);
                 }
             );
     }
@@ -122,7 +125,7 @@ export function createBooking(typeBooking, data) {
                 err => {
                     dispatch(failure(err));
                     dispatch(alertActions.error( `Ошибка! ${textErrorFromServer(err)}` ));
-                    console.log(err.response.data[Object.keys(err.response.data)[0]][0]);
+                    handleErrorServer(err.response.status);
             });
     }
 
@@ -169,6 +172,7 @@ export function declineBooking(bookingId, data) {
                     console.log(err);
                     dispatch(failure(err));
                     dispatch(alertActions.error(`Ошибка! ${textErrorFromServer(err)}`));
+                    handleErrorServer(err.response.status);
                 }
             )
     };
@@ -205,6 +209,7 @@ export function getAllBookingsForUser() {
                 },
                 error => {
                     dispatch(failure(error));
+                    handleErrorServer(error.response.status);
                 }
             );
     }

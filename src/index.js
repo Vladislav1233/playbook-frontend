@@ -8,7 +8,7 @@ import configureStore from './store/reducers/configureStore';
 import { Router, Switch, Route } from 'react-router-dom';
 import { history } from './helpers/history';
 
-const store = configureStore();
+export const store = configureStore();
 
 ReactDOM.render(
     <Provider store={store}>

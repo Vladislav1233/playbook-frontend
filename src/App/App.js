@@ -65,8 +65,7 @@ class App extends Component {
             'b-main--hello-page': location.pathname === '/',
         });
 
-        const renderRoutePage = () => {            
-            // TODO: Ещё 404 страницу сделать
+        const renderRoutePage = () => {
             switch (userRole ? userRole[0] : '') {
                 case 'user':
                     return <AppUserTemplate isAuthorization={isAuthorization} />
