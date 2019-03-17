@@ -10,7 +10,7 @@ const initialState = {
     listTrainer: [],
     preloader: false,
     pagination: {
-        limit: 4,
+        limit: 12,
         offset: 0
     },
     total_count: 0
