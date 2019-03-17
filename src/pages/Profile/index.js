@@ -21,11 +21,11 @@ import '../../style/bem-blocks/b-profile-tab/index.scss';
 
 const navigationLink = [{
     to: '/profile/create-schedule',
-    image: addInfoIcon,
+    image: addScheduleIcon,
     label: 'Создать расписание'
 }, {
     to: '/profile/my-schedule',
-    image: addScheduleIcon,
+    image: myScheduleIcon,
     label: 'Моё расписание'
 }, {
     to: '/profile/booking-request',
@@ -33,7 +33,7 @@ const navigationLink = [{
     label: 'Запросы на бронирование'
 }, {
     to: '/profile/trainer-info',
-    image: myScheduleIcon,
+    image: addInfoIcon,
     label: 'Информация'
 }];
 
