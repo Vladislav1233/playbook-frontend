@@ -11,6 +11,12 @@ import Button from '../../components/ui-kit/Button/Button';
 import InputMask from 'react-input-mask';
 import Preloader from '../../components/Preloader/Preloader';
 
+import '../../style/bem-blocks/b-registration/index.scss';
+import bgSrcs from '../../style/images/login-bg/images.js';
+
+const randomIndexBg = Math.round(Math.random() * (bgSrcs.length - 1));
+const randomBg = bgSrcs[randomIndexBg];
+
 class Auth extends Component {
     state = {
         user: {
@@ -84,11 +90,11 @@ class Auth extends Component {
 
     render() {
         const { user, validation} = this.state;
-        const { preloader, bgImage } = this.props;
+        const { preloader } = this.props;
 
         return (
             <div className="b-registration">
-                <img className="b-registration__bg" alt="" src={bgImage} importance="high" />
+                <img className="b-registration__bg" alt="" src={randomBg} importance="high" />
                 <div className="container">
                     <div className="b-registration__form-wrapper">
                         <form className="b-registration__form" name="authorization" onSubmit={this.handleSubmit}>

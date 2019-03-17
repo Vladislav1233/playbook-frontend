@@ -3,31 +3,32 @@ import { connect } from "react-redux";
 import moment from 'moment';
 import 'moment/locale/ru';
 import { extendMoment } from 'moment-range';
-import { ANALIZE_DATE_TIME_ZONE } from '../../store/constants/formatDates';
+import { ANALIZE_DATE_TIME_ZONE } from '../../../store/constants/formatDates';
 
 // Note: actions
-import { createScheduleTrainer, editTrainerSchedule, toggleResponse } from '../../store/actions/schedule';
-import { alertActions } from '../../store/actions/alertAction';
+import { createScheduleTrainer, editTrainerSchedule, toggleResponse } from '../../../store/actions/schedule';
+import { alertActions } from '../../../store/actions/alertAction';
 
 // Note: services
-import { scheduleService } from '../../services/scheduleService';
-import { trainerInfoService } from '../../services/trainerInfoService';
+import { scheduleService } from '../../../services/scheduleService';
+import { trainerInfoService } from '../../../services/trainerInfoService';
 
 // Note: helpers
-import { dataTime } from '../../helpers/dataTime';
-import getArrayDateRange from '../../helpers/getArrayDateRange';
-import { convertTypeMoney } from '../../helpers/convertTypeMoney';
+import { dataTime } from '../../../helpers/dataTime';
+import getArrayDateRange from '../../../helpers/getArrayDateRange';
+import { convertTypeMoney } from '../../../helpers/convertTypeMoney';
 
 // Note: components
-import SettingChooseDay from '../../components/SettingChooseDay/SettingChooseDay';
-import Calendar from '../../components/Calendar';
-import AddScheduleCard from '../../components/AddScheduleCard';
-import Button from '../../components/ui-kit/Button/Button';
-import Preloader from '../../components/Preloader/Preloader';
+// TODO_AMED: временно скрыли функционал отвалившийся
+// import SettingChooseDay from '../../components/SettingChooseDay/SettingChooseDay';
+import Calendar from '../../../components/Calendar';
+import AddScheduleCard from '../../../components/AddScheduleCard';
+import Button from '../../../components/ui-kit/Button/Button';
+import Preloader from '../../../components/Preloader/Preloader';
 
 // Note: style
 // import '../../style/bem-blocks/b-hint-profile/index.scss';
-import '../../style/bem-blocks/b-trainer-add-schedule/index.scss';
+import '../../../style/bem-blocks/b-trainer-add-schedule/index.scss';
 
 const Moment = extendMoment(moment);
 
@@ -491,11 +492,6 @@ class TrainerAddSchedule extends Component {
         //     label: 'Период (от - до)'
         // }];
 
-        const optionsSelect = [{
-            value: 'one',
-            label: 'Один день'
-        }];
-
         return(
             <div className="b-trainer-add-schedule">
                 <Calendar 
@@ -506,11 +502,12 @@ class TrainerAddSchedule extends Component {
                 
                 <div className="b-trainer-add-schedule__schedule">
                     <h1>Добавить расписание</h1>
-
-                    <SettingChooseDay 
+                    
+                    {/* TODO_AMED: временно скрыли функционал отвалившийся */}
+                    {/* <SettingChooseDay 
                         optionsSelect={optionsSelect}
                         getValueSelect={this.onSelectChooseDay}
-                    />
+                    /> */}
 
                     <div className="b-add-schedule-card__list">
                         {cards.map((card, idx) => (

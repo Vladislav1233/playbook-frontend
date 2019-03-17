@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { getTrainerSchedule } from '../../store/actions/schedule';
-import { dataTime } from '../../helpers/dataTime';
-import { declineConfirmBooking } from '../../store/actions/schedule';
+import { getTrainerSchedule } from '../../../store/actions/schedule';
+import { dataTime } from '../../../helpers/dataTime';
+import { declineConfirmBooking } from '../../../store/actions/schedule';
 
 // Note: component
-import Schedule from '../../components/Schedule';
-import Preloader from '../../components/Preloader/Preloader';
+import Schedule from '../../../components/Schedule';
+import Preloader from '../../../components/Preloader/Preloader';
 
 // Note: style
-import '../../style/bem-blocks/b-trainer-schedule-profile/index.scss';
+import '../../../style/bem-blocks/b-trainer-schedule-profile/index.scss';
 
 class TrainerScheduleProfile extends Component {
 

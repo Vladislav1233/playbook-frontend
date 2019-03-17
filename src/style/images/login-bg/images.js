@@ -1,7 +1,7 @@
 import pic_0 from './0.jpg'
 // import pic_1 from './1.jpg'
 // import pic_2 from './2.jpg'
-import pic_3 from './3.jpg'
+// import pic_3 from './3.jpg'
 import pic_4 from './4.jpg'
 import pic_5 from './5.jpg'
 // import pic_6 from './6.jpg'
@@ -23,7 +23,7 @@ const picArr = [];
 picArr.push(pic_0);
 // picArr.push(pic_1);
 // picArr.push(pic_2);
-picArr.push(pic_3);
+// picArr.push(pic_3);
 picArr.push(pic_4);
 picArr.push(pic_5);
 // picArr.push(pic_6);

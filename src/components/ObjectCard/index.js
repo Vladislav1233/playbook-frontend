@@ -46,7 +46,10 @@ class ObjectCard extends Component {
             <div className="b-object-card">
                 <div className="b-object-card__photo-wrapper">
                     {/* TODO: сделать добавление фото в ЛК */}
-                    <img className="b-object-card__photo" src="https://dumskaya.net/pics/b6/picturepicture_150754124582004038201142_41715.jpg" alt="Фото тренера" />
+                    {trainerInfo.image 
+                        ? <img className="b-object-card__photo" src={trainerInfo.image} alt="Фото тренера" />
+                        : null
+                    }
                 </div>
 
                 <div className="b-object-card__info">

@@ -15,6 +15,10 @@ import Preloader from '../../components/Preloader/Preloader';
 
 // style
 import '../../style/bem-blocks/b-registration/index.scss';
+import bgSrcs from '../../style/images/login-bg/images.js';
+
+const randomIndexBg = Math.round(Math.random() * (bgSrcs.length - 1));
+const randomBg = bgSrcs[randomIndexBg];
 
 class Registration extends Component {
     state = {
@@ -132,11 +136,11 @@ class Registration extends Component {
 
     render() {
         const { user, validation, isCheck } = this.state;
-        const { preloader, bgImage } = this.props;
+        const { preloader } = this.props;
 
         return(
             <div className="b-registration">
-                <img className="b-registration__bg" alt="" src={bgImage} importance="high" />
+                <img className="b-registration__bg" alt="" src={randomBg} importance="high" />
                 <div className="container">
                     <div className="b-registration__form-wrapper">
                         <form name='register-user' onSubmit={this.handleSubmit} className="b-registration__form">

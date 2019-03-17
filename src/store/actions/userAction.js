@@ -4,6 +4,7 @@ import { history } from '../../helpers/history';
 import { configPathRouter } from '../../App/configPathRouter';
 import { alertActions } from './alertAction';
 import textErrorFromServer from '../../helpers/textErrorFromServer';
+import { handleErrorServer } from '../../helpers/handleErrorServer';
 
 export const userActions = {
     login,
@@ -29,7 +30,7 @@ function register(user) {
                 error => {
                     dispatch(failure(error.toString()));
                     dispatch(alertActions.error(textErrorFromServer(error)));
-                    // dispatch(alertActions.error(error.toString()));
+                    handleErrorServer(error.response.status);
                 }
             );
     };
@@ -59,7 +60,6 @@ function login(data, toMain = true, callback) {
                 error => {
                     dispatch(failure(error.toString()));
                     dispatch(alertActions.error(textErrorFromServer(error)));
-                    // dispatch(alertActions.error(error.toString()));
                 }
             );
     };

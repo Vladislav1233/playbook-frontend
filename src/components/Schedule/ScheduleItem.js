@@ -162,7 +162,7 @@ class ScheduleItem extends Component {
                         isOpenModal={this.state.showModal}
                         closeModal={this.closeModal}
                         typeBooking='trainer'
-                        dateBooking={moment(start_time).format('YYYY-MM-DD')}
+                        dateBooking={moment(start_time, analizeDateTimeZone).format('YYYY-MM-DD')}
                         playgroundsForTraining={playgroundsForTraining}
                         userId={userId}
                         cost={cost}

@@ -69,14 +69,18 @@ class HelloPage extends Component {
                                         Мои бронирования
                                     </Link>
                                 </li>
-                                <li className="b-hello-page__item">
-                                    <Link 
-                                        className="b-button b-button--hollow b-button--hello-page" 
-                                        to={profileTo()}
-                                    >
-                                        Личный кабинет
-                                    </Link>
-                                </li>
+                                {userRole[0] !== 'user' 
+                                    ? <li className="b-hello-page__item">
+                                        <Link 
+                                            className="b-button b-button--hollow b-button--hello-page" 
+                                            to={profileTo()}
+                                        >
+                                            Личный кабинет
+                                        </Link>
+                                    </li> 
+                                    : null   
+                                }
+                                
                               </ul>
                             : null
                         }

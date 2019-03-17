@@ -1,19 +1,21 @@
 // react, redux, routing
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import cn from 'classnames';
 import { configPathRouter } from './configPathRouter';
 
+import {
+    AppUserTemplate,
+    AppTrainerTemplate
+} from './routeConfig';
+
 // Note: actions
 import { alertActions } from '../store/actions/alertAction'
 
 // component
-// import ScheduleTrainer from '../pages/ScheduleTrainer/ScheduleTrainer';
 import Header from '../components/Template/Header';
 import CoverPage from '../components/CoverPage/CoverPage';
-import AppUserTemplate from './AppUserTemplate';
-import AppTrainerTemplate from './AppTrainerTemplate';
 import Alert from '../components/ui-kit/Alert';
 
 // style
@@ -21,20 +23,6 @@ import '../style/bem-blocks/b-page-wrapper/index.scss';
 import '../style/bem-blocks/b-main/index.scss';
 
 class App extends Component {
-    // constructor(props) {
-    //     super(props);
-
-    //     // const { dispatch } = this.props;
-    //     // history.listen((location, action) => {
-    //     //     // clear alert on location change
-    //     //     // dispatch(alertActions.clear());
-    //     // });
-        
-
-    //     this.state = {
-    //         roleUser: roleUser
-    //     }
-    // }
 
     render() {
         const { 
@@ -65,15 +53,14 @@ class App extends Component {
             'b-main--hello-page': location.pathname === '/',
         });
 
-        const renderRoutePage = () => {            
-            // TODO: Ещё 404 страницу сделать
+        const renderRoutePage = () => {
             switch (userRole ? userRole[0] : '') {
                 case 'user':
                     return <AppUserTemplate isAuthorization={isAuthorization} />
 
                 case 'trainer':
                     return <AppTrainerTemplate isAuthorization={isAuthorization} />
-
+                
                 case 'organization-admin':
                     break;
 
@@ -81,7 +68,7 @@ class App extends Component {
                     break;
 
                 default: 
-                    return <AppUserTemplate isAuthorization={isAuthorization} />
+                    return <AppUserTemplate />
             }
         }
 
@@ -89,7 +76,11 @@ class App extends Component {
             <div className={pageWrapperClass}>
                 <Header location={location.pathname} />
                 <main className={mainClass}>
-                    {renderRoutePage()}
+
+                    <Suspense fallback={<p style={{margin:'30px 0', textAlign:'center', fontSize:'1.2em'}}> loading ... </p>} >
+                        {renderRoutePage()}
+                    </Suspense>
+
                 </main>
                 {/* TODO: сделать анимацию через react transition */}
                 <CoverPage />
