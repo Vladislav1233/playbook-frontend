@@ -272,6 +272,7 @@ class TrainerInfo extends Component {
                                 onChange={e => this.handleChangeInput(e)}
                                 theme={{ blackColor: true }}
                                 modif="b-input--time-booking"
+                                typeInput="number"
                             />
                             <Input
                                 idInput="profile_maxPrice"
@@ -281,6 +282,7 @@ class TrainerInfo extends Component {
                                 onChange={e => this.handleChangeInput(e)}
                                 theme={{ blackColor: true }}
                                 modif="b-input--time-booking"
+                                typeInput="number"
                             />
                         </div>
 
