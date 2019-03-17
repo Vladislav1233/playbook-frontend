@@ -12,7 +12,7 @@ const ListTrainer = lazy(() => import('../pages/ListTrainer'));
 const ScheduleTrainer = lazy(() => import('../pages/ScheduleTrainer/ScheduleTrainer'));
 const MyBooking = lazy(() => import('../pages/MyBooking'));
 const StyleGuide = lazy(() => import('../pages/StyleGuide'));
-// const NotFound = lazy(() => import('../pages/NotFound'));
+const NotFound = lazy(() => import('../pages/NotFound'));
 
 // Note: components. routesTrainer.
 const Profile = lazy(() => import('../pages/Profile'));
@@ -23,7 +23,7 @@ const TrainerInfo = lazy(() => import('../pages/Profile/Trainer/TrainerInfo'));
 
 
 // Note: Компонеты для всех типов пользователей, включая незарегистрированного пользователя.
-export const routesAllUser = [{
+const defaultRoutes = [{
     path: '/',
     name: 'HelloPage',
     component: HelloPage,
@@ -62,9 +62,17 @@ export const routesAllUser = [{
     component: StyleGuide
 }];
 
+export const routesAllUser = [
+    ...defaultRoutes, {
+    
+    path: '*',
+    name: 'NotFound',
+    component: NotFound
+}]
+
 // Note: Компоненты для тренера + стандартные компоненты.
 export const routesTrainer = [
-    ...routesAllUser, {
+    ...defaultRoutes, {
     
     path: '/profile',
     name: 'Profile',
@@ -109,6 +117,7 @@ export function AppUserTemplate() {
             {routesAllUser.map((route, i) => {
                 return <RouteWithSubRoutes key={i} {...route} />
             })}
+            <Route component={NotFound} />
             {/* <Redirect from='/profile' to='/profile/create-schedule'/> */}
         </Switch>
     );
@@ -120,6 +129,7 @@ export function AppTrainerTemplate() {
             {routesTrainer.map((route, i) => {
                 return <RouteWithSubRoutes key={i} {...route} />
             })}
+            <Route component={NotFound} />
         </Switch>
     );
 };
