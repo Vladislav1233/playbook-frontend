@@ -30,7 +30,7 @@ const navigationLink = [{
 }, {
     to: '/profile/booking-request',
     image: invitationReserveIcon,
-    label: 'Запросы на бронирование'
+    label: 'Заявки на бронирование'
 }, {
     to: '/profile/trainer-info',
     image: addInfoIcon,
@@ -64,7 +64,7 @@ class ProfileTrainer extends Component {
                     </div>
 
                     <nav className={classNameList}>
-                        {/* <div className="b-profile-tabs__header"></div> */}
+                        <div className="b-profile-tabs__header"></div>
                         <div className="b-profile-tabs__list">
                             {navigationLink.map((item, index) => {
                                 return (

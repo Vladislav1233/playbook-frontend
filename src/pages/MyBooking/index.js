@@ -10,6 +10,7 @@ import Preloader from '../../components/Preloader/Preloader';
 
 // Note: styles
 import '../../style/bem-blocks/b-my-booking/index.scss';
+import '../../style/bem-blocks/b-booking-request/index.scss';
 
 class MyBooking extends Component {
     componentDidMount() {
