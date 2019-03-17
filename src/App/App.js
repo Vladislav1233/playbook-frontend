@@ -76,11 +76,11 @@ class App extends Component {
             <div className={pageWrapperClass}>
                 <Header location={location.pathname} />
                 <main className={mainClass}>
-                    
-                    <Suspense fallback={<div>Loading...</div>} >
-                        
+
+                    <Suspense fallback={<p style={{margin:'30px 0', textAlign:'center', fontSize:'1.2em'}}> loading ... </p>} >
                         {renderRoutePage()}
                     </Suspense>
+
                 </main>
                 {/* TODO: сделать анимацию через react transition */}
                 <CoverPage />
