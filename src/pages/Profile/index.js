@@ -3,8 +3,11 @@ import { connect } from "react-redux";
 import cn from 'classnames';
 
 import { toggleCabinet } from '../../store/actions/toggleCabinet';
-import { NavLink } from "react-router-dom";
+import { NavLink, Route, Switch, Redirect } from "react-router-dom";
 import { RouteWithSubRoutes } from '../../App/routeConfig';
+
+// Note: components
+import NotFound from '../NotFound';
 
 // Note: images
 import addInfoIcon from '../../style/images/icon/add-info.svg';
@@ -75,11 +78,15 @@ class ProfileTrainer extends Component {
                     </nav>
 
                     <div className="b-profile-tabs__content">
-                        {routes.map((route, i) => {
-                            return(
-                                <RouteWithSubRoutes key={i} {...route} />
-                            )
-                        })}
+                        <Switch>
+                            {routes.map((route, i) => {
+                                return(
+                                    <RouteWithSubRoutes key={i} {...route} />
+                                )
+                            })}
+                            <Redirect from="/profile" to="/profile/create-schedule" />
+                            <Route path="*" component={NotFound}/>
+                        </Switch>
                     </div>
                 </div>
             </div>

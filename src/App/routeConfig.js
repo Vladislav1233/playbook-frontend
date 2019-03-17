@@ -1,5 +1,5 @@
 import React, { lazy } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 
 // Note: components. routesAllUser.
@@ -63,12 +63,8 @@ const defaultRoutes = [{
 }];
 
 export const routesAllUser = [
-    ...defaultRoutes, {
-    
-    path: '*',
-    name: 'NotFound',
-    component: NotFound
-}]
+    ...defaultRoutes
+]
 
 // Note: Компоненты для тренера + стандартные компоненты.
 export const routesTrainer = [
@@ -118,7 +114,6 @@ export function AppUserTemplate() {
                 return <RouteWithSubRoutes key={i} {...route} />
             })}
             <Route component={NotFound} />
-            {/* <Redirect from='/profile' to='/profile/create-schedule'/> */}
         </Switch>
     );
 };
@@ -129,7 +124,7 @@ export function AppTrainerTemplate() {
             {routesTrainer.map((route, i) => {
                 return <RouteWithSubRoutes key={i} {...route} />
             })}
-            <Route component={NotFound} />
+            <Route render={() => NotFound} />
         </Switch>
     );
 };
