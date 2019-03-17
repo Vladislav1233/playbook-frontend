@@ -1,5 +1,5 @@
-import React, { lazy, Fragment } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import React, { lazy } from 'react';
+import { Switch, Route } from 'react-router-dom';
 
 
 // Note: components. routesAllUser.
@@ -103,37 +103,23 @@ export function RouteWithSubRoutes(route) {
     )
 };
 
-export function AppUserTemplate(props) {
+export function AppUserTemplate() {
     return (
         <Switch>
             {routesAllUser.map((route, i) => {
                 return <RouteWithSubRoutes key={i} {...route} />
             })}
-
-            {props.isAuthorization ? 
-                <Fragment>
-                    <Redirect from='/authorization' to='/'/>
-                    <Redirect from='/registration' to='/'/>
-                </Fragment>
-            : null}
             {/* <Redirect from='/profile' to='/profile/create-schedule'/> */}
         </Switch>
     );
 };
 
-export function AppTrainerTemplate(props) {
+export function AppTrainerTemplate() {
     return (
         <Switch>
             {routesTrainer.map((route, i) => {
                 return <RouteWithSubRoutes key={i} {...route} />
             })}
-            {props.isAuthorization ? 
-                <Fragment>
-                    <Redirect from='/authorization' to='/'/>
-                    <Redirect from='/registration' to='/'/>
-                    {/* <Redirect from='/profile' to='/profile/create-schedule'/> */}
-                </Fragment>
-            : null}
         </Switch>
     );
 };
