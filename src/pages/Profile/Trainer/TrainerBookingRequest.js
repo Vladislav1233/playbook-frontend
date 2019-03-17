@@ -2,14 +2,14 @@
 
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { getBookings, confirmBooking, declineBooking } from '../../store/actions/booking';
+import { getBookings, confirmBooking, declineBooking } from '../../../store/actions/booking';
 
 // Note: Components
-import BookingRequest from '../../components/BookingRequest';
-import Preloader from '../../components/Preloader/Preloader';
+import BookingRequest from '../../../components/BookingRequest';
+import Preloader from '../../../components/Preloader/Preloader';
 
 // Note: styles
-import '../../style/bem-blocks/b-trainer-booking-request/index.scss';
+import '../../../style/bem-blocks/b-trainer-booking-request/index.scss';
 
 class TrainerBookingRequest extends Component {
     componentDidMount() {

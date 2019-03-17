@@ -1,24 +1,24 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from "react-redux";
-import { trainerInfoService } from '../../services/trainerInfoService';
+import { trainerInfoService } from '../../../services/trainerInfoService';
 
 // actions
-import { searchPlayground, clearSearchPlayground } from '../../store/actions/searchPlayground';
-import { alertActions } from '../../store/actions/alertAction';
+import { searchPlayground, clearSearchPlayground } from '../../../store/actions/searchPlayground';
+import { alertActions } from '../../../store/actions/alertAction';
 
 // Note: helpers
-import { convertTypeMoney } from '../../helpers/convertTypeMoney';
-import textErrorFromServer from '../../helpers/textErrorFromServer';
+import { convertTypeMoney } from '../../../helpers/convertTypeMoney';
+import textErrorFromServer from '../../../helpers/textErrorFromServer';
 
 // Note: components
-import Input from '../../components/ui-kit/Input/Input';
-import Textarea from '../../components/ui-kit/Textarea';
-import SearchListPlayground from '../../components/SearchListPlayground';
-import Button from '../../components/ui-kit/Button/Button';
-import Preloader from '../../components/Preloader/Preloader';
+import Input from '../../../components/ui-kit/Input/Input';
+import Textarea from '../../../components/ui-kit/Textarea';
+import SearchListPlayground from '../../../components/SearchListPlayground';
+import Button from '../../../components/ui-kit/Button/Button';
+import Preloader from '../../../components/Preloader/Preloader';
 
 // Note: styles
-import '../../style/bem-blocks/b-trainer-info/index.scss';
+import '../../../style/bem-blocks/b-trainer-info/index.scss';
 
 class TrainerInfo extends Component {
 
