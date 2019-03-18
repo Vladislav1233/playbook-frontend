@@ -21,14 +21,17 @@ class AddScheduleCard extends Component {
             onRemoveCard, 
             playgroundsForTraining, 
             onChangeInput, 
-            onChangeCheckbox
+            onChangeCheckbox,
+            canDelete,
         } = this.props;
 
         return(
             <div className="b-add-schedule-card">
-                <div onClick={onRemoveCard} className="b-add-schedule-card__delete" title="Удалить">
-                    <img className="b-add-schedule-card__delete-icon" src={deleteIcon} alt="Корзина" />
-                </div>
+                { !!canDelete &&
+                    <div onClick={onRemoveCard} className="b-add-schedule-card__delete" title="Удалить">
+                        <img className="b-add-schedule-card__delete-icon" src={deleteIcon} alt="Корзина" />
+                    </div>
+                }
                 <div className="b-add-schedule-card__field b-add-schedule-card__field--left">
                     <TimeField
                         time={data.start_time}

@@ -520,6 +520,7 @@ class TrainerAddSchedule extends Component {
                                 onRemoveCard={this.handleRemoveCard(idx)}
                                 playgroundsForTraining={card.playgrounds}
                                 onChangeCheckbox={this.onChangeCheckbox(idx)}
+                                canDelete={ (cards.length === 1 && !cards[idx].schedule_uuid) ? false : true }
                             />
                         ))}
                     </div>
