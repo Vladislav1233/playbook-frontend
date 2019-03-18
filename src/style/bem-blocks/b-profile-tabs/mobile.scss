@@ -3,25 +3,7 @@
     height: 100%;
     background: #ffffff;
 
-    &__header {
-        height: 64px;
-        border-bottom: 1px solid #02100b;
-        background: $mint;
-    }
-
     &__list-wrapper {
-        background: #e3e5e8;
-
-        &.open {
-            transform: translateX(0%);
-            opacity: 1;
-        }
-    }
-
-    &__list {
-        width: max-content;
-        max-width: 100%;
-        margin: auto;
-        padding: 15px 40px 15px 50px;
+        display: none;
     }
 }

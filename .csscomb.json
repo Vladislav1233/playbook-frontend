@@ -56,6 +56,8 @@
             "flex-pack",
             "flex-align",
             "flex",
+            "flex-shrink",
+            "flex-grow",
 
             "-webkit-box-sizing",
             "-moz-box-sizing",

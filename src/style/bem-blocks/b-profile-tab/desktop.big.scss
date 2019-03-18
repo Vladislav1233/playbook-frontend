@@ -1,1 +1,15 @@
-// 1680
+// 1680 (min-width: 1440px)
+.b-profile-tab {
+    padding-left: 9px;
+
+    &.active {
+        border-left: 1px solid $mint;
+    }
+
+    &__icon {
+        display: inline-block;
+        width: 25px;
+        margin-right: 10px;
+        flex-shrink: 0;
+    }
+}
