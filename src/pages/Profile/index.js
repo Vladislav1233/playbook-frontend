@@ -14,7 +14,6 @@ import addInfoIcon from '../../style/images/icon/add-info.svg';
 import addScheduleIcon from '../../style/images/icon/add-schedule.svg';
 import invitationReserveIcon from '../../style/images/icon/invitation-reserve.svg';
 import myScheduleIcon from '../../style/images/icon/my-schedule.svg';
-import myBookingIcon from '../../style/images/icon/myCalendarPlus.png';
 
 // Note: styles
 import '../../style/bem-blocks/b-profile-tabs/index.scss';
