@@ -64,7 +64,10 @@ class HeadMenu extends Component {
         const getDataAboutRole = (userRole) => {
             if (userRole === 'trainer') {
                 return {
-                    pathProfile: configPathRouter.profileTrainer,
+                    pathToCreateSchedule: configPathRouter.profileCreateSchedule,
+                    pathToMySchedule: configPathRouter.profileMySchedule,
+                    pathToRequest: "/profile/booking-request",
+                    pathToInfo: "/profile/trainer-info",
                     roleName: 'Тренер'
                 }
             } else if (userRole === 'user') {
@@ -119,12 +122,25 @@ class HeadMenu extends Component {
                                         <div className="b-head-menu__content-additional">{dataAboutRole.roleName}</div>
                                     </div> 
 
+                                    {/* Блок личного кабинета */}
+                                    { (dataAboutRole.roleName === "Игрок") ? null :
+                                        <ContentItem>
+                                            <li className="b-head-menu__content-item">
+                                                <Link className="b-head-menu__content-text" to={dataAboutRole.pathToCreateSchedule}>Добавить расписание</Link>
+                                            </li>
+                                            <li className="b-head-menu__content-item">
+                                                <Link className="b-head-menu__content-text" to={dataAboutRole.pathToMySchedule}>Моё расписание</Link>
+                                            </li>
+                                            <li className="b-head-menu__content-item">
+                                                <Link className="b-head-menu__content-text" to={dataAboutRole.pathToRequest}>Входящие запросы</Link>
+                                            </li>
+                                            <li className="b-head-menu__content-item">
+                                                <Link className="b-head-menu__content-text" to={dataAboutRole.pathToInfo}>Обо мне</Link>
+                                            </li>
+                                        </ContentItem>
+                                    }
+
                                     <ContentItem>
-                                        <li className="b-head-menu__content-item">
-                                            { (dataAboutRole.roleName === "Игрок") ? null :
-                                                <Link className="b-head-menu__content-text" to={dataAboutRole.pathProfile}>Личный кабинет</Link>
-                                            }
-                                        </li>
                                         <li className="b-head-menu__content-item">
                                             <Link className="b-head-menu__content-text" to={configPathRouter.myBooking}>Мои бронирования</Link>
                                         </li>
