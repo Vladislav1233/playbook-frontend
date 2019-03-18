@@ -14,6 +14,7 @@ import addInfoIcon from '../../style/images/icon/add-info.svg';
 import addScheduleIcon from '../../style/images/icon/add-schedule.svg';
 import invitationReserveIcon from '../../style/images/icon/invitation-reserve.svg';
 import myScheduleIcon from '../../style/images/icon/my-schedule.svg';
+import myBookingIcon from '../../style/images/icon/myCalendarPlus.png';
 
 // Note: styles
 import '../../style/bem-blocks/b-profile-tabs/index.scss';
@@ -35,19 +36,16 @@ const navigationLink = [{
     to: '/profile/trainer-info',
     image: addInfoIcon,
     label: 'Информация'
-}];
+}, {
+    to: '/my-booking',
+    image: myBookingIcon,
+    label: 'Мои бронирования',
+},];
 
 class ProfileTrainer extends Component {
 
     render() {
-        const { toggleCabinet, onToggleCabinet, routes } = this.props;
-
-        const classNameButton = cn(
-            'b-profile-tabs__back',
-            {
-                open: toggleCabinet
-            }
-        );
+        const { toggleCabinet, routes } = this.props;
 
         const classNameList = cn(
             'b-profile-tabs__list-wrapper',
@@ -59,10 +57,6 @@ class ProfileTrainer extends Component {
         return (
             <div className="container container--cabinet">
                 <div className="b-profile-tabs">
-                    <div className={ classNameButton } onClick={(e) => onToggleCabinet(e)}>
-                        <i className="fas fa-angle-right icon"></i>
-                    </div>
-
                     <nav className={classNameList}>
                         <div className="b-profile-tabs__header"></div>
                         <div className="b-profile-tabs__list">
