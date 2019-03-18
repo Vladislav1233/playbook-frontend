@@ -23,7 +23,7 @@ import '../../style/bem-blocks/b-profile-tab/index.scss';
 const navigationLink = [{
     to: '/profile/create-schedule',
     image: addScheduleIcon,
-    label: 'Создать расписание'
+    label: 'Добавить расписание'
 }, {
     to: '/profile/my-schedule',
     image: myScheduleIcon,
@@ -31,16 +31,12 @@ const navigationLink = [{
 }, {
     to: '/profile/booking-request',
     image: invitationReserveIcon,
-    label: 'Заявки на бронирование'
+    label: 'Входящие запросы'
 }, {
     to: '/profile/trainer-info',
     image: addInfoIcon,
-    label: 'Информация'
-}, {
-    to: '/my-booking',
-    image: myBookingIcon,
-    label: 'Мои бронирования',
-},];
+    label: 'Обо мне'
+}];
 
 class ProfileTrainer extends Component {
 
@@ -58,7 +54,6 @@ class ProfileTrainer extends Component {
             <div className="container container--cabinet">
                 <div className="b-profile-tabs">
                     <nav className={classNameList}>
-                        <div className="b-profile-tabs__header"></div>
                         <div className="b-profile-tabs__list">
                             {navigationLink.map((item, index) => {
                                 return (

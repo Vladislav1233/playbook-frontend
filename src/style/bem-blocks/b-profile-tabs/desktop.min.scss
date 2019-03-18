@@ -11,18 +11,17 @@
         position: sticky;
         z-index: 1;
         top: 0px;
-        width: 85px;
+        width: 130px;
         min-width: 0;
         height: calc(100vh - 67px);
         margin: 0;
         margin-bottom: 0px;
         padding-top: 60px;
         transform: translateX(0%);
-        text-align: center;
         opacity: 1;
         border-right: 1px solid $mint;
-        border-left: 1px solid $mint;
         flex-shrink: 0;
+        background: #e3e5e8;
     }
 
     &__list {
