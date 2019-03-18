@@ -11,6 +11,7 @@ import { userActions } from '../../../store/actions/userAction';
 
 // Note: components
 import Input from '../../ui-kit/Input/Input';
+import TimeField from '../../ui-kit/TimeField';
 import InputMask from 'react-input-mask';
 import Button from '../../ui-kit/Button/Button';
 import ModalComponent from '../index';
@@ -41,19 +42,28 @@ class BookingModal extends Component {
             password: '',
             playgroundId: null,
             registeredNewUser: false,
-            showFileldPassword: false
+            showFileldPassword: false,
+            
+            errorHandler: {
+                start_time: '',
+                end_time: ''
+            }
         };
 
         this.initialState = this.state;
     };
 
-    onChangeInput = (e) => {
+    onChangeInput = (e, valueCallBack, errorObject) => {
         const { name, value } = e.target;
 
         this.setState({
             ...this.state,
-            [name]: value
-        })
+            [name]: value,
+            errorHandler: {
+                ...this.state.errorHandler,
+                [name]: errorObject ? errorObject.errorText : ''
+            }
+        });
     };
 
     onChangeRadio = e => {
@@ -112,7 +122,16 @@ class BookingModal extends Component {
     onSubmitBooking = (e) => {
         e.preventDefault();
         const { typeBooking, dateBooking, createBooking, isAuthorization, loginAction } = this.props;
-        const { start_time, end_time, playgroundId } = this.state;
+        const { start_time, end_time, playgroundId, errorHandler } = this.state;
+
+        const isValidTime = Object.keys(errorHandler).some(errorItem => {
+            if(errorHandler[errorItem]) {
+                return true
+            };
+            return false
+        });
+        if(isValidTime) return;
+ 
         const { userId } = this.props;
         const formatDate = 'YYYY-MM-DD HH:mm:ss';
 
@@ -183,18 +202,27 @@ class BookingModal extends Component {
             dateBooking,
             resetPasswordRequest
         } = this.props;
-        console.log(dateBooking);
 
         const { 
             start_time, 
             end_time, 
             playgroundId, 
             showFileldPassword, 
-            registeredNewUser } = this.state;
+            registeredNewUser,
+            errorHandler
+        } = this.state;
 
         let costPlaygroundForPayBooking = [];
         if (playgroundId) {
             costPlaygroundForPayBooking =  [ ...this.getCostPlaygroundForPayBooking() ];
+        };
+
+        const textErrorForTime = () => {
+            if(errorHandler.start_time) {
+                return errorHandler.start_time
+            } else if(errorHandler.end_time) {
+                return errorHandler.end_time
+            };
         };
 
         const numberCost = (cost) => {
@@ -248,27 +276,33 @@ class BookingModal extends Component {
                 <form className="b-booking-form">
                     <fieldset className={ cssClassTimeWrap }>
                         <legend className="b-modal__title-group">Время</legend>
-                        <Input 
+
+                        <TimeField 
                             labelText='С'
                             typeInput='time'
                             idInput='startBooking'
-                            value={start_time}
                             nameInput='start_time'
                             theme={{blackColor: true}}
-                            onChange={this.onChangeInput}
+                            onChangeTimeField={this.onChangeInput}
                             modif='b-input--time-booking'
                         />
 
-                        <Input 
-                            labelText='По'
+                        <TimeField 
+                            labelText='С'
                             typeInput='time'
                             idInput='endBooking'
-                            value={end_time}
                             nameInput='end_time'
                             theme={{blackColor: true}}
-                            onChange={this.onChangeInput}
+                            onChangeTimeField={this.onChangeInput}
                             modif='b-input--time-booking'
                         />
+                        
+                        {textErrorForTime 
+                            ? <p className="b-booking-form__error">
+                                {textErrorForTime()}
+                            </p> 
+                            : null
+                        }
                     </fieldset>
 
                     <fieldset className="b-booking-form__fieldset">

@@ -16,7 +16,7 @@ class Input extends Component {
     render() {
         const {
             labelText, typeInput, idInput, placeholder, value, nameInput, modif,
-            theme, onChange, autoComplete, maxValue, minValue, disabled
+            theme, onChange, autoComplete, maxValue, minValue, disabled, error
         } = this.props;
 
         const classInput = cn('b-input', modif, {
@@ -42,6 +42,8 @@ class Input extends Component {
                     min={minValue}
                     disabled={disabled ? disabled : null}
                 />
+
+                {error ? <div className="b-input__error">{error}</div> : null}
             </div>
         )
     }
