@@ -10,12 +10,8 @@
     }
 
     &__list-wrapper {
+        display: none;
         background: #e3e5e8;
-
-        &.open {
-            transform: translateX(0%);
-            opacity: 1;
-        }
     }
 
     &__list {

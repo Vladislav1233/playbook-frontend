@@ -314,7 +314,7 @@ class TrainerAddSchedule extends Component {
                 cards: this.initialDataCards
             })
         } else if(cards.length === 1) {
-            alert("Нельзя удалять последнюю карточку");
+            alert("Нельзя удалять последнюю пустую карточку");
             return false;
         } else {
             this.setState({
