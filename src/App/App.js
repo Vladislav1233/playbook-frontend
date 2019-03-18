@@ -77,7 +77,8 @@ class App extends Component {
                 <Header location={location.pathname} />
                 <main className={mainClass}>
 
-                    <Suspense fallback={<p style={{margin:'30px 0', textAlign:'center', fontSize:'1.2em'}}> loading ... </p>} >
+                    {/* style={{ display: 'block', margin: '50px', textAlign: 'center', fontSize: '1em' }} */}
+                    <Suspense fallback={<span> </span>} >
                         {renderRoutePage()}
                     </Suspense>
 
