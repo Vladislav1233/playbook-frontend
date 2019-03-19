@@ -113,7 +113,7 @@ export function AppUserTemplate() {
             {routesAllUser.map((route, i) => {
                 return <RouteWithSubRoutes key={i} {...route} />
             })}
-            <Route component={NotFound} />
+            <Route render={() => NotFound} />
         </Switch>
     );
 };

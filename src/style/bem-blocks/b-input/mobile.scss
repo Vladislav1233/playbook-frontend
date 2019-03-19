@@ -1,6 +1,7 @@
 // 320++
 .b-input {
     margin-bottom: 20px;
+    position: relative;
 
     &--inline {
         display: inline-block;
@@ -37,6 +38,20 @@
     &__label {
         @include label();
         display: inline-block;
+    }
+
+    &__error {
+        position: absolute;
+        top: 100%;
+        padding-top: 2px;
+        font-size: 0.8rem;
+        color: $error;
+    }
+
+    &.error & {
+        &__input {
+            border-bottom-color: $error;
+        }
     }
 
     &--textarea & {

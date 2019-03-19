@@ -4,6 +4,7 @@ import moment from 'moment';
 import NumberFormat from 'react-number-format';
 import cn from 'classnames';
 import { Form, Field } from 'react-final-form';
+import { OnChange } from 'react-final-form-listeners';
 import { ANALIZE_DATE_TIME_ZONE } from '../../../store/constants/formatDates';
 
 // Note: action
@@ -36,54 +37,20 @@ class BookingModal extends Component {
         super(props);
 
         this.state = {
-            start_time: '',
-            end_time: '',
-            first_name: '',
-            last_name: '',
-            phone: '',
-            password: '',
             playgroundId: null,
             registeredNewUser: false,
-            showFileldPassword: false,
-            
-            errorHandler: {
-                start_time: '',
-                end_time: ''
-            }
+            showFileldPassword: false
         };
 
         this.initialState = this.state;
     };
 
-    onChangeInput = (e, valueCallBack, errorObject) => {
-        const { name, value } = e.target;
-
-        this.setState({
-            ...this.state,
-            [name]: value,
-            errorHandler: {
-                ...this.state.errorHandler,
-                [name]: errorObject ? errorObject.errorText : ''
-            }
-        });
-    };
-
-    onChangeRadio = e => {
-        const { value } = e.target;
-
-        this.setState({
-            ...this.state,
-            playgroundId: value === 'playground_other' ? null : value
-        })
-    };
-
-    onRegisterUser = () => {
-        // e ? e.preventDefault() : ()=>{};
+    onRegisterUser = ({ first_name, last_name, phone }) => {
 
         const dataRegister = {
-            first_name: this.state.first_name,
-            last_name: this.state.last_name,
-            phone: telWithoutPlus(this.state.phone),
+            first_name,
+            last_name,
+            phone: telWithoutPlus(phone),
             is_trainer: 0
         };
         userService.register(dataRegister)
@@ -114,8 +81,6 @@ class BookingModal extends Component {
 
         this.props.closeModal();
 
-        this.setState(this.initialState);
-
         if (!localStorage.getItem('userRole') && localStorage.getItem('userToken')) {
             localStorage.removeItem('userToken');
         };
@@ -124,17 +89,8 @@ class BookingModal extends Component {
     onSubmitBooking = (values) => {
         console.log(values);
         const { typeBooking, dateBooking, createBooking, isAuthorization, loginAction } = this.props;
-        const { errorHandler } = this.state;
         const { start_time, end_time, playground } = values;
         const playgroundId = playground === 'playground_other' ? null : playground;
-
-        const isValidTime = Object.keys(errorHandler).some(errorItem => {
-            if(errorHandler[errorItem]) {
-                return true
-            };
-            return false
-        });
-        if(isValidTime) return;
  
         const { userId } = this.props;
         const formatDate = 'YYYY-MM-DD HH:mm:ss';
@@ -157,8 +113,8 @@ class BookingModal extends Component {
             this.onCancel();
         } else {
             const dataLogin = {
-                phone: telWithoutPlus(this.state.phone),
-                password: this.state.password
+                phone: telWithoutPlus(values.phone),
+                password: values.password
             };
             loginAction(dataLogin, false, () => {
                 createBooking(typeBooking, data); 
@@ -208,25 +164,14 @@ class BookingModal extends Component {
         } = this.props;
 
         const { 
-            start_time, 
-            end_time, 
-            playgroundId, 
+            playgroundId,
             showFileldPassword, 
-            registeredNewUser,
-            errorHandler
+            registeredNewUser
         } = this.state;
 
         let costPlaygroundForPayBooking = [];
         if (playgroundId) {
             costPlaygroundForPayBooking =  [ ...this.getCostPlaygroundForPayBooking() ];
-        };
-
-        const textErrorForTime = () => {
-            if(errorHandler.start_time) {
-                return errorHandler.start_time
-            } else if(errorHandler.end_time) {
-                return errorHandler.end_time
-            };
         };
 
         const numberCost = (cost) => {
@@ -251,23 +196,14 @@ class BookingModal extends Component {
         };
 
         // проверка валидности цены тренера (1 пункт)
-        const validCheckTrainer = () => {
-            // console.log(start_time, end_time);
-            // console.log(dateBooking);
-            if (!!start_time && !!end_time && (calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, this.props.cost) <= 0)) {
-                return 'negativeSumm';
-            }
-            return false;
-        };
-
-        const cssClassTimeWrap = cn(
-            'b-booking-form__fieldset',
-            {
-                'b-booking-form__fieldset--error': (validCheckTrainer() === 'negativeSumm')
-            }
-        );
-
-        let validText = '';
+        // const validCheckTrainer = () => {
+        //     // console.log(start_time, end_time);
+        //     // console.log(dateBooking);
+        //     if (!!start_time && !!end_time && (calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, this.props.cost) <= 0)) {
+        //         return 'negativeSumm';
+        //     }
+        //     return false;
+        // };
 
         return(
             <ModalComponent
@@ -290,27 +226,18 @@ class BookingModal extends Component {
                     initialValues={{
                         playground: 'playground_other'
                     }}
-                    validate={values => {
-                        if(!values.start_time) {
-                            validText = 'Обязательно для заполнения';
-                        } else if(!values.end_time) {
-                            validText = 'Обязательно для заполнения'
-                        } else {
-                            validText = ''
-                        };
-                    }}
-                    render={({ handleSubmit }) => {
+                    render={({ handleSubmit, values, errors, touched }) => {
+                        console.log(values);
                         return (
                             <form onSubmit={handleSubmit} className="b-booking-form">
-                                <fieldset className={ cssClassTimeWrap }>
+                                <fieldset className={ cn('b-booking-form__fieldset', {
+                                    'b-booking-form__fieldset--error': (errors.start_time && touched.start_time) || (errors.end_time && touched.end_time)
+                                })}>
                                     <legend className="b-modal__title-group">Время</legend>
                                     <Field 
                                         name='start_time'
                                         validate={(value) => required(value)}
-                                        validateOnBlur
-                                        render={({ input, meta }) => {
-                                            console.log(validText);
-                                            console.log(meta);
+                                        render={({ input }) => {
                                             return <TimeField 
                                                 {...input}
                                                 labelText='С'
@@ -318,7 +245,6 @@ class BookingModal extends Component {
                                                 idInput='startBooking'
                                                 nameInput={input.name}
                                                 theme={{blackColor: true}}
-                                                onChangeTimeField={this.onChangeInput}
                                                 modif='b-input--time-booking'
                                             />
                                         }}
@@ -327,9 +253,7 @@ class BookingModal extends Component {
                                     <Field 
                                         name='end_time'
                                         validate={(value) => required(value)}
-                                        render={({ input, meta }) => {
-                                            console.log(input);
-                                            console.log(meta);
+                                        render={({ input }) => {
                                             return <TimeField 
                                                 { ...input }
                                                 labelText='По'
@@ -341,17 +265,17 @@ class BookingModal extends Component {
                                             />
                                         }}
                                     />
-                                    {validText 
+                                    {errors.start_time && touched.start_time  
                                         ? <p className="b-booking-form__error">
-                                        {validText}
-                                    </p> : null }
-
-                                    {textErrorForTime 
-                                        ? <p className="b-booking-form__error">
-                                            {textErrorForTime()}
+                                            {errors.start_time}
                                         </p> 
-                                        : null
+                                        : errors.end_time && touched.end_time
+                                        ? <p className="b-booking-form__error">
+                                            {errors.end_time}
+                                        </p> 
+                                        : null  
                                     }
+
                                 </fieldset>
 
                                 <fieldset className="b-booking-form__fieldset">
@@ -360,12 +284,10 @@ class BookingModal extends Component {
                                         name='playground'
                                         value='playground_other'
                                         type='radio'
-                                        render={({ input, meta }) => {
+                                        render={({ input }) => {
                                             return <Radio
                                                 id='playground_other'
                                                 text='Другое'
-                                                checked={playgroundId === null || playgroundId === 'playground_other'}
-                                                onChange={this.onChangeRadio}
                                                 {...input}
                                             />
                                         }}
@@ -377,24 +299,30 @@ class BookingModal extends Component {
                                                 name='playground'
                                                 value={item.pivot.playground_uuid}
                                                 type='radio'
-                                                render={({ input, meta }) => {
+                                                render={({ input }) => {
                                                     return <Radio
                                                         id={`playground_${item.pivot.playground_uuid}`}
                                                         text={item.name}
-                                                        checked={this.state.playgroundId === item.pivot.playground_uuid}
-                                                        onChange={this.onChangeRadio}
                                                         {...input}
                                                     />
                                                 }}
                                             />
                                     }): null}
+                                    <OnChange 
+                                        name="playground"
+                                        children={value => {
+                                            this.setState({
+                                                playgroundId: value === 'playground_other' ? null : value
+                                            });
+                                        }} 
+                                    />
                                 </fieldset>
                                 
                                 <fieldset className="b-booking-form__fieldset">
                                     {/* TODO: валидировать поле времени и если не проходит валидацию то и не выводим стоимость. */}
                                     <legend className="b-modal__title-group">Стоимость</legend>
                                     {/* TODO_HOT: сразу показывать общую стоимость из суммы */}
-                                    {start_time && end_time 
+                                    {values.start_time && values.end_time 
                                         ? <Fragment>
                                             <div className="b-cost-information b-cost-information--total">
                                                 <div className="b-cost-information__title">Итого:</div>
@@ -403,25 +331,18 @@ class BookingModal extends Component {
                                                 <div className="b-cost-information__cost">
                                                     { playgroundId ? 'Более ' : ''}
                                                     { numberCost(
-                                                        +calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, this.props.cost)
+                                                        +calcCostService(`${dateBooking} ${values.start_time}`, `${dateBooking} ${values.end_time}`, this.props.cost)
                                                         +
-                                                        +calcCostService(`${dateBooking} ${start_time}:00`, `${dateBooking} ${end_time}`, costPlaygroundForPayBooking)
+                                                        +calcCostService(`${dateBooking} ${values.start_time}:00`, `${dateBooking} ${values.end_time}`, costPlaygroundForPayBooking)
                                                     )}
                                                 </div>
                                             </div>
-                                            {/* { templateCost(
-                                                    'Итого к оплате',
-                                                    +calcCostService(`${dateBooking} ${start_time}`,
-                                                    `${dateBooking} ${end_time}`, this.props.cost)
-                                                    + +calcCostService(`${dateBooking} ${start_time}:00`,
-                                                    `${dateBooking} ${end_time}`, costPlaygroundForPayBooking)
-                                            )} */}
 
                                             <div className="b-cost-information">
                                                 <div className="b-cost-information__title">Услуги тренера</div>
                                                 <div className="b-cost-information__cost">
                                                     { numberCost(
-                                                        calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, this.props.cost)
+                                                        calcCostService(`${dateBooking} ${values.start_time}`, `${dateBooking} ${values.end_time}`, this.props.cost)
                                                     )}
                                                 </div>
                                             </div>
@@ -430,7 +351,7 @@ class BookingModal extends Component {
                                                 <div className="b-cost-information__title">Аренда корта</div>
                                                 <div className="b-cost-information__cost">
                                                     { playgroundId
-                                                        ? numberCost(calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, costPlaygroundForPayBooking))
+                                                        ? numberCost(calcCostService(`${dateBooking} ${values.start_time}`, `${dateBooking} ${values.end_time}`, costPlaygroundForPayBooking))
                                                         : '0 ₽'
                                                     }
                                                 </div>
@@ -461,55 +382,87 @@ class BookingModal extends Component {
                                                             onClick={(e) => {
                                                                 e.preventDefault();
                                                                 resetPasswordRequest({
-                                                                    phone: telWithoutPlus(this.state.phone)
+                                                                    phone: telWithoutPlus(values.phone)
                                                                 })
                                                             }
                                                         }> запросите новый пароль</a>.
                                                     </div> 
                                                 }
-                                                <Input
-                                                    // labelText="Пароль"
-                                                    typeInput="password"
-                                                    placeholder="Введите пароль"
-                                                    idInput="password"
-                                                    nameInput="password"
-                                                    value={this.state.password}
-                                                    theme={{blackColor: true}}
-                                                    onChange={this.onChangeInput}
+
+                                                <Field 
+                                                    name='password'
+                                                    validate={(value) => required(value)}
+                                                    render={({ input, meta }) => {
+                                                        return <Input
+                                                            // labelText="Пароль"
+                                                            typeInput="password"
+                                                            placeholder="Введите пароль"
+                                                            idInput="password"
+                                                            nameInput={input.name}
+                                                            theme={{blackColor: true}}
+                                                            error={meta.error}
+                                                            { ...input }
+                                                        />      
+                                                    }}
                                                 />
                                             </Fragment>
                                         : 
                                             <Fragment>
-                                                <Input 
-                                                    labelText='Имя'
-                                                    typeInput='text'
-                                                    idInput='first_name'
-                                                    value={this.state.first_name}
-                                                    nameInput='first_name'
-                                                    theme={{blackColor: true}}
-                                                    onChange={this.onChangeInput}
+                                                <Field 
+                                                    name='first_name'
+                                                    validate={(value) => required(value)}
+                                                    render={({ input, meta }) => {
+                                                        return <Input 
+                                                            labelText='Имя'
+                                                            typeInput='text'
+                                                            idInput='first_name'
+                                                            nameInput={input.name}
+                                                            theme={{blackColor: true}}
+                                                            error={meta.error && meta.touched && meta.error}
+                                                            {...input}
+                                                        />
+                                                    }}
                                                 />
 
-                                                <Input 
-                                                    labelText='Фамилия'
-                                                    typeInput='text'
-                                                    idInput='last_name'
-                                                    value={this.state.last_name}
-                                                    nameInput='last_name'
-                                                    theme={{blackColor: true}}
-                                                    onChange={this.onChangeInput}
+                                                <Field 
+                                                    name='last_name'
+                                                    validate={(value) => required(value)}
+                                                    render={({ input, meta }) => {
+                                                        return <Input 
+                                                            labelText='Фамилия'
+                                                            typeInput='text'
+                                                            idInput='last_name'
+                                                            nameInput='last_name'
+                                                            theme={{blackColor: true}}
+                                                            error={meta.error && meta.touched && meta.error}
+                                                            { ...input }
+                                                        />
+                                                    }}
                                                 />
 
-                                                <div className="b-input b-input--black-color">
+                                                <div className={cn("b-input b-input--black-color", {
+                                                    'error': errors.phone && touched.phone
+                                                })}>
                                                     <label className="b-input__label" htmlFor="phone">Телефон</label>
-                                                    <InputMask 
-                                                        className="b-input__input" 
-                                                        id="phone" 
-                                                        name="phone" 
-                                                        mask="+7 (999) 999-99-99" 
-                                                        maskChar={null} 
-                                                        value={this.state.phone} 
-                                                        onChange={this.onChangeInput} 
+                                                    <Field 
+                                                        name='phone'
+                                                        validate={(value) => required(value)}
+                                                        render={({ input, meta }) => {
+                                                            return <Fragment>
+                                                                <InputMask 
+                                                                    className='b-input__input'
+                                                                    id="phone" 
+                                                                    mask="+7 (999) 999-99-99" 
+                                                                    maskChar={null} 
+                                                                    { ...input } 
+                                                                />
+                                                                {meta.error && meta.touched &&
+                                                                    <p className="b-input__error">
+                                                                        {meta.error}
+                                                                    </p>
+                                                                }
+                                                            </Fragment>
+                                                        }}
                                                     />
                                                 </div>
                                             </Fragment>
@@ -519,13 +472,13 @@ class BookingModal extends Component {
                                     null
                                 }
 
-                                { (validCheckTrainer() === 'negativeSumm') &&
+                                {/* { (validCheckTrainer() === 'negativeSumm') &&
                                     <p className="b-booking-form__error"> Укажите верные временные рамки бронирования услуги. </p>
-                                }
+                                } */}
 
                                 { !!playgroundId && 
                                     <p className="b-booking-form__error">
-                                        {validCheck( calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, costPlaygroundForPayBooking) )}
+                                        {validCheck( calcCostService(`${dateBooking} ${values.start_time}`, `${dateBooking} ${values.end_time}`, costPlaygroundForPayBooking) )}
                                     </p>
                                 }
 

@@ -17,9 +17,9 @@ class TestRequest extends Component {
                 'Authorization': `Bearer ${valueToken}`
             },
             data: {
-                "name": "Ulgu",
-                "description": "Playground description Ulgu",
-                "address": "Отрадная, 12",
+                "name": "Lawn Tennis",
+                "description": "Playground description Lawn Tennis",
+                "address": 'ул. Первомайская, д. 59, "Винновская роща"',
                 "opening_time": "09:00:00",
                 "closing_time": "23:20:00"
               }

@@ -60,7 +60,7 @@ class TimeField extends Component {
     };
 
     render() {
-        const { value } = this.state;
+        // const { value } = this.state;
 
         return(
             <Input

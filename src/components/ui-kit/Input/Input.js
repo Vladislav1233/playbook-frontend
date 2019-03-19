@@ -20,7 +20,8 @@ class Input extends Component {
         } = this.props;
 
         const classInput = cn('b-input', modif, {
-            'b-input--black-color': theme ? theme.blackColor : false
+            'b-input--black-color': theme ? theme.blackColor : false,
+            'error': error
         });
 
         return(
