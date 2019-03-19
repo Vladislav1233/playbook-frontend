@@ -23,7 +23,13 @@
         width: calc(50% - 16px);
     }
 
+    &__playground-list {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
     &__playground-item {
         width: calc(100% / 2);
+        margin-bottom: 10px;
     }
 }

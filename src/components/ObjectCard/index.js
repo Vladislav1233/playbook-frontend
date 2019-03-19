@@ -12,7 +12,6 @@ import { convertTypeMoney } from '../../helpers/convertTypeMoney';
 import '../../style/bem-blocks/b-object-card/index.scss';
 import '../../style/bem-blocks/b-object-services/index.scss';
 
-
 class ObjectCard extends Component {
 
     render() {
@@ -31,6 +30,20 @@ class ObjectCard extends Component {
             return `${trainerInfo.playgrounds[0].organization ? `Организация: ${trainerInfo.playgrounds[0].organization},` : ''} Корт: ${trainerInfo.playgrounds[0].name}`;
         };
 
+        const nameCourtString = () => {
+            if (trainerInfo.playgrounds.length > 1) {
+                const courtsSting = [];
+                trainerInfo.playgrounds.forEach((e, i) => {
+                    (i === 0)
+                    ? courtsSting.push(`${e.name}`)
+                    : courtsSting.push(`, ${e.name}`)
+                });
+                return courtsSting;
+            } else {
+                return `${trainerInfo.playgrounds[0].name}`;
+            }
+        };
+
         const addressCourt = () => {
             return `${trainerInfo.playgrounds[0].address} ${trainerInfo.playgrounds.length > 1 ? `и ещё ${trainerInfo.playgrounds.length - 1} корт(а)`: ''}`
         }
@@ -42,6 +55,8 @@ class ObjectCard extends Component {
             }
         };
 
+        // console.log(trainerInfo);
+        
         return(
             <div className="b-object-card">
                 <div className="b-object-card__photo-wrapper">
@@ -56,6 +71,8 @@ class ObjectCard extends Component {
                     <Link className="b-object-card__name-group" to={linkTo}>
                         <span className="b-object-card__first-name">{trainerInfo.first_name} </span>
                         <span className="b-object-card__last-name">{trainerInfo.last_name}</span>
+                        {/* TODO_VLAD: если есть рассписание на сегодня от текущего времени до конца дня, пока так */}
+                        <i className="b-object-card__online-status" title="Тренер доступен сегодня"></i>
                     </Link>
 
                     {/* Обо мне */}
@@ -69,19 +86,24 @@ class ObjectCard extends Component {
                     }
 
                     {/* TODO: интегрировать */}
+                    {/* <li className="b-object-card__item-place">{nameCourt()} ({addressCourt()})</li> */}
+                    {/* TODO: добавить в ЛК поля для описания вида предоставляемых услуг по тренировкам */}
+                    {/* <div className="b-object-service__info">
+                    <p>Детские, групповые, взрослые</p>
+                    </div> */}
                     {trainerInfo.playgrounds.length > 0 &&
                         <div className="b-object-card__info-block">
-                            <p className="b-object-card__title">Тренерую:</p>
+                            <p className="b-object-card__title">
+                                {(trainerInfo.playgrounds.length > 1)
+                                 ? "Корты:"
+                                 : "Корт:"
+                                }
+                            </p>
                             <ul className="b-object-card__list-place">
-                                    <li className="b-object-card__item-place">{nameCourt()} ({addressCourt()})</li>
-                                {/* TODO: добавить в ЛК поля для описания вида предоставляемых услуг по тренировкам */}
-                                {/* <div className="b-object-service__info">
-                                        <p>Детские, групповые, взрослые</p>
-                                    </div> */}
+                                <li className="b-object-card__item-place">{nameCourtString()}</li>
                             </ul>
                         </div>
                     }
-
 
                     <div className="b-object-card__button">
                         {/* Цена */}

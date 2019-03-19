@@ -297,6 +297,7 @@ class TrainerInfo extends Component {
                                 this.onSearchCourt(e);
                             }}
                             theme={{ blackColor: true }}
+                            autoComplete={false}
                         />
 
                         {foundPlagrounds.length > 0 ?
