@@ -227,7 +227,6 @@ class BookingModal extends Component {
                         playground: 'playground_other'
                     }}
                     render={({ handleSubmit, values, errors, touched }) => {
-                        console.log(values);
                         return (
                             <form onSubmit={handleSubmit} className="b-booking-form">
                                 <fieldset className={ cn('b-booking-form__fieldset', {
