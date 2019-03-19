@@ -4,8 +4,8 @@
     height: 100%;
 
     &__playground-list {
-        margin-top: 0px;
-        margin-bottom: 30px;
+        margin-top: 12px;
+        margin-bottom: 25px;
         padding-left: 0px;
     }
 
@@ -15,7 +15,7 @@
         list-style-type: none;
 
         &:not(:last-child) {
-            margin-bottom: 15px;
+            margin-bottom: 8px;
         }
     }
 

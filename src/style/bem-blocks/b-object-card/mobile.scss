@@ -1,7 +1,7 @@
 // 320
 .b-object-card {
-    font-family: $roboto;
     list-style-type: none;
+    font-family: $roboto;
     background-color: #ffffff;
     box-shadow: $cardShadow;
 
@@ -14,7 +14,6 @@
     &__photo {
         width: 100%;
         height: 100%;
-
         object-fit: cover;
     }
 
@@ -26,12 +25,12 @@
 
     &__name-group {
         display: block;
-        color: $mainFontColor;
         margin-bottom: 10px;
         padding-bottom: 10px;
         font-size: (16em/15);
         font-weight: 700;
         line-height: 25px;
+        color: $mainFontColor;
         border-bottom: 1px solid #eeeeee;
     }
 
@@ -59,12 +58,18 @@
         list-style: none;
     }
 
-    &__button {
-    }
-
     &__button-item {
         &:not(:last-child) {
             margin-bottom: 10px;
         }
+    }
+
+    &__online-status {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background-color: $ok;
+        border-radius: 50%;
+        margin-left: 8px;
     }
 }

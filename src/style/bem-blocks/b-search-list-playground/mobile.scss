@@ -1,8 +1,8 @@
 // 320
 .b-search-list-playground {
     position: relative;
-    display: block;
-    padding: 10px;
+    display: flex;
+    padding: 10px 30px 10px 10px;
     transition: border-color $animation-time;
     border: 1px solid $border-color;
     border-radius: $border-radius;
@@ -22,8 +22,10 @@
 
     &__label {
         display: inline-block;
+        flex: 0 0 auto;
         width: 20px;
         height: 20px;
+        margin-right: 10px;
         padding: 3px;
         transition-duration: $animation-time;
         transition-property: background-color;
@@ -41,17 +43,15 @@
 
     &__input:checked + &__label {
         border-color: $hover-link-on-dark;
-        background-color: #fff;
+        background-color: #ffffff;
 
         .b-search-list-playground__icon-check {
             opacity: 1;
         }
     }
 
-
     &__content {
         display: inline-block;
-        padding-left: 15px;
         vertical-align: text-top;
     }
 
