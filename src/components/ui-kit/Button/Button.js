@@ -8,7 +8,7 @@ import '../../../style/bem-blocks/b-button/index.scss';
 class Button extends Component {
 
     render() {
-        const { name, theme, onClick, modif, to } = this.props;
+        const { name, children, theme, onClick, modif, to } = this.props;
         const classButton = cn('b-button', modif, {
             'b-button--hollow': theme ? theme.orange : false
         });
@@ -20,8 +20,9 @@ class Button extends Component {
                 className={classButton} 
                 onClick={onClick ? onClick : null}
                 to={to}
+                {...this.props}
             >
-                {name}
+                {name ? name : children ? children : ''}
             </TagName>
         )
     }

@@ -65,8 +65,6 @@ class TimeField extends Component {
         return(
             <Input
                 {...this.props}
-                onChange={this.onChange}
-                value={value}
             />
         )
     }
