@@ -89,7 +89,6 @@ class BookingModal extends Component {
     };
 
     onSubmitBooking = (values) => {
-        console.log(values);
         const { typeBooking, dateBooking, createBooking, isAuthorization, loginAction } = this.props;
         const { start_time, end_time, playground } = values;
         const playgroundId = playground === 'playground_other' ? null : playground;
@@ -178,7 +177,6 @@ class BookingModal extends Component {
             startTime: moment(startTime, ANALIZE_DATE_TIME_ZONE).format('HH:mm'),
             endTime: moment(endTime, ANALIZE_DATE_TIME_ZONE).format('HH:mm')
         };
-        console.log(availableRange)
 
         let costPlaygroundForPayBooking = [];
         if (playgroundId) {
@@ -186,10 +184,6 @@ class BookingModal extends Component {
         };
 
         const numberCost = (cost) => {
-            if (!cost) {
-                return '--'
-            }
-
             return <NumberFormat
                 value={cost}
                 suffix=' ₽'
@@ -358,43 +352,49 @@ class BookingModal extends Component {
                                 </fieldset>
                                 
                                 <fieldset className="b-booking-form__fieldset">
-                                    {/* TODO: валидировать поле времени и если не проходит валидацию то и не выводим стоимость. */}
                                     <legend className="b-modal__title-group">Стоимость</legend>
                                     {/* TODO_HOT: сразу показывать общую стоимость из суммы */}
-                                    {values.start_time && values.end_time 
+                                    {!errors.start_time && !errors.end_time 
                                         ? <Fragment>
-                                            <div className="b-cost-information b-cost-information--total">
-                                                <div className="b-cost-information__title">Итого:</div>
-                                                
+                                            <CostInformation 
+                                                modif="b-cost-information--total" title="Итого:">
                                                 {/* TODO_AMED: добавить "более" для корта без цены */}
-                                                <div className="b-cost-information__cost">
-                                                    { playgroundId ? 'Более ' : ''}
-                                                    { numberCost(
-                                                        +calcCostService(`${dateBooking} ${values.start_time}`, `${dateBooking} ${values.end_time}`, this.props.cost)
-                                                        +
-                                                        +calcCostService(`${dateBooking} ${values.start_time}:00`, `${dateBooking} ${values.end_time}`, costPlaygroundForPayBooking)
-                                                    )}
-                                                </div>
-                                            </div>
+                                                { playgroundId ? 'Более ' : ''}
+                                                { numberCost(
+                                                    +calcCostService(
+                                                        `${dateBooking} ${values.start_time}`, 
+                                                        `${dateBooking} ${values.end_time}`, 
+                                                        this.props.cost
+                                                    )
+                                                    +
+                                                    +calcCostService(
+                                                        `${dateBooking} ${values.start_time}:00`, 
+                                                        `${dateBooking} ${values.end_time}`, 
+                                                        costPlaygroundForPayBooking
+                                                    )
+                                                )}
+                                            </CostInformation>
+                                            
+                                            <CostInformation title="Услуги тренера">
+                                                {numberCost(
+                                                    calcCostService(
+                                                        `${dateBooking} ${values.start_time}`, 
+                                                        `${dateBooking} ${values.end_time}`, 
+                                                        this.props.cost
+                                                    )
+                                                )}
+                                            </CostInformation>
 
-                                            <div className="b-cost-information">
-                                                <div className="b-cost-information__title">Услуги тренера</div>
-                                                <div className="b-cost-information__cost">
-                                                    { numberCost(
-                                                        calcCostService(`${dateBooking} ${values.start_time}`, `${dateBooking} ${values.end_time}`, this.props.cost)
-                                                    )}
-                                                </div>
-                                            </div>
-
-                                            <div className="b-cost-information">
-                                                <div className="b-cost-information__title">Аренда корта</div>
-                                                <div className="b-cost-information__cost">
-                                                    { playgroundId
-                                                        ? numberCost(calcCostService(`${dateBooking} ${values.start_time}`, `${dateBooking} ${values.end_time}`, costPlaygroundForPayBooking))
-                                                        : '0 ₽'
-                                                    }
-                                                </div>
-                                            </div>
+                                            <CostInformation title="Аренда корта">
+                                                {playgroundId
+                                                    ? numberCost(calcCostService(
+                                                        `${dateBooking} ${values.start_time}`, 
+                                                        `${dateBooking} ${values.end_time}`, 
+                                                        costPlaygroundForPayBooking
+                                                    ))
+                                                    : '0 ₽'
+                                                }
+                                            </CostInformation>
                                         </Fragment>
                                         : <p>Будет расчитанна автоматически</p>
                                     }
@@ -513,7 +513,11 @@ class BookingModal extends Component {
 
                                 { !!playgroundId && 
                                     <p className="b-booking-form__error">
-                                        {validCheck( calcCostService(`${dateBooking} ${values.start_time}`, `${dateBooking} ${values.end_time}`, costPlaygroundForPayBooking) )}
+                                        {validCheck( calcCostService(
+                                            `${dateBooking} ${values.start_time}`, 
+                                            `${dateBooking} ${values.end_time}`, 
+                                            costPlaygroundForPayBooking) 
+                                        )}
                                     </p>
                                 }
 
@@ -522,7 +526,9 @@ class BookingModal extends Component {
                                         <Button
                                             type="submit"
                                             modif="b-button--full"
-                                        >{!showFileldPassword ? "Забронировать" : "Подтвердить"}</Button>
+                                        >
+                                            {!showFileldPassword ? "Забронировать" : "Подтвердить"}
+                                        </Button>
                                     </div>
 
                                     <div className="b-booking-form__button">
@@ -541,6 +547,26 @@ class BookingModal extends Component {
         )
     }
 }
+
+class CostInformation extends Component {
+
+    render() {
+        const { title, children, modif } = this.props;
+        const classNameBlock = cn(
+            'b-cost-information',
+            modif
+        );
+
+        return (
+            <div className={classNameBlock}>
+                <div className="b-cost-information__title">{title}</div>
+                <div className="b-cost-information__cost">
+                    {children}
+                </div>
+            </div>
+        )
+    }
+};
 
 const mapStateToProps = ({ identificate }) => {
     return {

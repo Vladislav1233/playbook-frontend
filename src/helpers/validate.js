@@ -27,9 +27,5 @@ export const startTimeBeforeEndTime = (valueStart, valueEnd, text = 'Время 
 * date - дата. moment object.
 */
 export const rangeContainsDate = (availableRange, date, text) => value => {
-    console.log(availableRange);
-    console.log(date);
-    console.log(availableRange.contains(date))
-
     return availableRange.contains(date) ? undefined : text
 }
