@@ -1,26 +1,45 @@
-import React, { lazy } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 
 // Note: components. routesAllUser.
-const TestRequest = lazy(() => import('../pages/TestRequest/TestRequest'));
-const HelloPage = lazy(() => import('../pages/HelloPage/HelloPage'));
-const Auth = lazy(() => import('../pages/Auth'));
-const Registration = lazy(() => import('../pages/Registration/Registration'));
-const ListCourt = lazy(() => import('../pages/ListCourt'));
-const ListTrainer = lazy(() => import('../pages/ListTrainer'));
-const ScheduleTrainer = lazy(() => import('../pages/ScheduleTrainer/ScheduleTrainer'));
-const MyBooking = lazy(() => import('../pages/MyBooking'));
-const StyleGuide = lazy(() => import('../pages/StyleGuide'));
-const NotFound = lazy(() => import('../pages/NotFound'));
+// const TestRequest = lazy(() => import('../pages/TestRequest/TestRequest'));
+// const HelloPage = lazy(() => import('../pages/HelloPage/HelloPage'));
+// const Auth = lazy(() => import('../pages/Auth'));
+// const Registration = lazy(() => import('../pages/Registration/Registration'));
+// const ListCourt = lazy(() => import('../pages/ListCourt'));
+// const ListTrainer = lazy(() => import('../pages/ListTrainer'));
+// const ScheduleTrainer = lazy(() => import('../pages/ScheduleTrainer/ScheduleTrainer'));
+// const MyBooking = lazy(() => import('../pages/MyBooking'));
+// const StyleGuide = lazy(() => import('../pages/StyleGuide'));
+// const NotFound = lazy(() => import('../pages/NotFound'));
+
+// // Note: components. routesTrainer.
+// const Profile = lazy(() => import('../pages/Profile'));
+// const TrainerAddSchedule = lazy(() => import('../pages/Profile/Trainer/TrainerAddSchedule'));
+// const TrainerScheduleProfile = lazy(() => import('../pages/Profile/Trainer/TrainerScheduleProfile'));
+// const TrainerBookingRequest = lazy(() => import('../pages/Profile/Trainer/TrainerBookingRequest'));
+// const TrainerInfo = lazy(() => import('../pages/Profile/Trainer/TrainerInfo'));
+
+
+// Note: components. routesAllUser.
+import TestRequest from '../pages/TestRequest/TestRequest';
+import HelloPage from '../pages/HelloPage/HelloPage';
+import Auth from '../pages/Auth';
+import Registration from '../pages/Registration/Registration';
+import ListCourt from '../pages/ListCourt';
+import ListTrainer from '../pages/ListTrainer';
+import ScheduleTrainer from '../pages/ScheduleTrainer/ScheduleTrainer';
+import MyBooking from '../pages/MyBooking';
+import StyleGuide from '../pages/StyleGuide';
+import NotFound from '../pages/NotFound';
 
 // Note: components. routesTrainer.
-const Profile = lazy(() => import('../pages/Profile'));
-const TrainerAddSchedule = lazy(() => import('../pages/Profile/Trainer/TrainerAddSchedule'));
-const TrainerScheduleProfile = lazy(() => import('../pages/Profile/Trainer/TrainerScheduleProfile'));
-const TrainerBookingRequest = lazy(() => import('../pages/Profile/Trainer/TrainerBookingRequest'));
-const TrainerInfo = lazy(() => import('../pages/Profile/Trainer/TrainerInfo'));
-
+import Profile from '../pages/Profile';
+import TrainerAddSchedule from '../pages/Profile/Trainer/TrainerAddSchedule';
+import TrainerScheduleProfile from '../pages/Profile/Trainer/TrainerScheduleProfile';
+import TrainerBookingRequest from '../pages/Profile/Trainer/TrainerBookingRequest';
+import TrainerInfo from '../pages/Profile/Trainer/TrainerInfo';
 
 // Note: Компонеты для всех типов пользователей, включая незарегистрированного пользователя.
 const defaultRoutes = [{

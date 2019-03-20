@@ -1,5 +1,5 @@
 // react, redux, routing
-import React, { Component, Suspense } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import cn from 'classnames';
@@ -75,13 +75,8 @@ class App extends Component {
         return (
             <div className={pageWrapperClass}>
                 <Header location={location.pathname} />
-                <main className={mainClass}>
-
-                    {/* style={{ display: 'block', margin: '50px', textAlign: 'center', fontSize: '1em' }} */}
-                    <Suspense fallback={<span> </span>} >
-                        {renderRoutePage()}
-                    </Suspense>
-
+                <main className={mainClass}>                
+                    {renderRoutePage()}
                 </main>
                 {/* TODO: сделать анимацию через react transition */}
                 <CoverPage />
