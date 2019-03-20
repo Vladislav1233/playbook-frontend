@@ -26,7 +26,7 @@ import { userService } from '../../../services/userService';
 // Note: helpers
 import telWithoutPlus from '../../../helpers/telWithoutPlus';
 import calcCostService from '../../../helpers/calcCostService';
-import { required, startTimeBeforeEndTime, rangeContainsDate, composeValidators } from '../../../helpers/validate';
+import { required, startTimeBeforeEndTime, rangeContainsDate, composeValidators, validFormatTime } from '../../../helpers/validate';
 import { stepTime } from '../../../helpers/stepTime';
 
 // Note: styles
@@ -252,7 +252,8 @@ class BookingModal extends Component {
                                         name='start_time'
                                         validate={value => {
                                             return composeValidators(
-                                                required(), 
+                                                required(),
+                                                validFormatTime('Поле времени начала бронирования указано не полностью'), 
                                                 rangeContainsDate(
                                                     Moment.range(
                                                         moment(availableRange.startTime, 'HH:mm'), 
@@ -283,6 +284,7 @@ class BookingModal extends Component {
                                         validate={value => {
                                             return composeValidators(
                                                 required(), 
+                                                validFormatTime('Поле времени окончания бронирования указано не полностью'), 
                                                 rangeContainsDate(
                                                     Moment.range(
                                                         moment(availableRange.startTime, 'HH:mm'), 
