@@ -26,9 +26,9 @@ class ObjectCard extends Component {
             }
         };
 
-        const nameCourt = () => {
-            return `${trainerInfo.playgrounds[0].organization ? `Организация: ${trainerInfo.playgrounds[0].organization},` : ''} Корт: ${trainerInfo.playgrounds[0].name}`;
-        };
+        // const nameCourt = () => {
+        //     return `${trainerInfo.playgrounds[0].organization ? `Организация: ${trainerInfo.playgrounds[0].organization},` : ''} Корт: ${trainerInfo.playgrounds[0].name}`;
+        // };
 
         const nameCourtString = () => {
             if (trainerInfo.playgrounds.length > 1) {
@@ -44,9 +44,9 @@ class ObjectCard extends Component {
             }
         };
 
-        const addressCourt = () => {
-            return `${trainerInfo.playgrounds[0].address} ${trainerInfo.playgrounds.length > 1 ? `и ещё ${trainerInfo.playgrounds.length - 1} корт(а)`: ''}`
-        }
+        // const addressCourt = () => {
+        //     return `${trainerInfo.playgrounds[0].address} ${trainerInfo.playgrounds.length > 1 ? `и ещё ${trainerInfo.playgrounds.length - 1} корт(а)`: ''}`
+        // }
 
         const linkTo = {
             pathname: `${configPathRouter.scheduleTrainer}/${trainerInfo.uuid}`,
