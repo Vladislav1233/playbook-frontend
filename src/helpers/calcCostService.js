@@ -14,8 +14,6 @@ const calcCostService = (startTimeBooking, endTimeBooking, rangeCostArray) => {
     const formatForTime = 'YYYY-MM-DD HH:mm:ss';
     const dividerForCostTime = 3600;
     let resultCost = 0;
-    console.log(startTimeBooking);
-    console.log(endTimeBooking);
 
     const timeFromBooking = moment(startTimeBooking, formatForTime);
     const timeToBooking = moment(endTimeBooking, formatForTime);

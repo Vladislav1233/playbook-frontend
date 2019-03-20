@@ -27,6 +27,7 @@ import { userService } from '../../../services/userService';
 import telWithoutPlus from '../../../helpers/telWithoutPlus';
 import calcCostService from '../../../helpers/calcCostService';
 import { required, startTimeBeforeEndTime, rangeContainsDate, composeValidators } from '../../../helpers/validate';
+import { stepTime } from '../../../helpers/stepTime';
 
 // Note: styles
 import '../../../style/bem-blocks/b-booking-form/index.scss';
@@ -34,6 +35,9 @@ import '../../../style/bem-blocks/b-cost-information/index.scss';
 
 const Moment = extendMoment(moment);
 class BookingModal extends Component {
+    static defaultProps = {
+        stepMinIncrement: 5
+    };
 
     constructor(props) {
         super(props);
@@ -163,7 +167,8 @@ class BookingModal extends Component {
             dateBooking,
             resetPasswordRequest,
             startTime,
-            endTime
+            endTime,
+            stepMinIncrement
         } = this.props;
 
         const { 
@@ -259,10 +264,12 @@ class BookingModal extends Component {
                                             )(value)
                                         }}
                                         render={({ input }) => {
+                                            if(input.value.length === 5) {
+                                                input.onChange(stepTime(input.value, stepMinIncrement))
+                                            };
                                             return <TimeField 
                                                 {...input}
                                                 labelText='С'
-                                                typeInput='time'
                                                 idInput='startBooking'
                                                 nameInput={input.name}
                                                 theme={{blackColor: true}}
@@ -287,10 +294,12 @@ class BookingModal extends Component {
                                             )(value)
                                         }}
                                         render={({ input }) => {
+                                            if(input.value.length === 5) {
+                                                input.onChange(stepTime(input.value, stepMinIncrement))
+                                            };
                                             return <TimeField 
                                                 { ...input }
                                                 labelText='По'
-                                                typeInput='time'
                                                 idInput='endBooking'
                                                 nameInput={input.name}
                                                 theme={{blackColor: true}}

@@ -29,3 +29,10 @@ export const startTimeBeforeEndTime = (valueStart, valueEnd, text = 'Время 
 export const rangeContainsDate = (availableRange, date, text) => value => {
     return availableRange.contains(date) ? undefined : text
 }
+
+/*
+* Проверка что поле времени заполнено полностью.
+*/
+export const validFormatTime = (text = 'Поле времени заполнено не полностью') => value => {
+    return value.length === 5 ? undefined : text;
+};
