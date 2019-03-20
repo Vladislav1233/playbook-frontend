@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { extendMoment } from 'moment-range';
 import NumberFormat from 'react-number-format';
 import cn from 'classnames';
 import { Form, Field } from 'react-final-form';
@@ -25,12 +26,13 @@ import { userService } from '../../../services/userService';
 // Note: helpers
 import telWithoutPlus from '../../../helpers/telWithoutPlus';
 import calcCostService from '../../../helpers/calcCostService';
-import { required } from '../../../helpers/validate';
+import { required, startTimeBeforeEndTime, rangeContainsDate, composeValidators } from '../../../helpers/validate';
 
 // Note: styles
 import '../../../style/bem-blocks/b-booking-form/index.scss';
 import '../../../style/bem-blocks/b-cost-information/index.scss';
 
+const Moment = extendMoment(moment);
 class BookingModal extends Component {
 
     constructor(props) {
@@ -160,7 +162,9 @@ class BookingModal extends Component {
             playgroundsForTraining, 
             isAuthorization, 
             dateBooking,
-            resetPasswordRequest
+            resetPasswordRequest,
+            startTime,
+            endTime
         } = this.props;
 
         const { 
@@ -168,6 +172,13 @@ class BookingModal extends Component {
             showFileldPassword, 
             registeredNewUser
         } = this.state;
+
+        // Note: Доступный диапазон бронирования времени в данной карточке.
+        const availableRange = {
+            startTime: moment(startTime, ANALIZE_DATE_TIME_ZONE).format('HH:mm'),
+            endTime: moment(endTime, ANALIZE_DATE_TIME_ZONE).format('HH:mm')
+        };
+        console.log(availableRange)
 
         let costPlaygroundForPayBooking = [];
         if (playgroundId) {
@@ -195,16 +206,6 @@ class BookingModal extends Component {
             }
         };
 
-        // проверка валидности цены тренера (1 пункт)
-        // const validCheckTrainer = () => {
-        //     // console.log(start_time, end_time);
-        //     // console.log(dateBooking);
-        //     if (!!start_time && !!end_time && (calcCostService(`${dateBooking} ${start_time}`, `${dateBooking} ${end_time}`, this.props.cost) <= 0)) {
-        //         return 'negativeSumm';
-        //     }
-        //     return false;
-        // };
-
         return(
             <ModalComponent
                 isOpenModal={isOpenModal}
@@ -213,7 +214,7 @@ class BookingModal extends Component {
                     this.onCancel()
                 }}
                 title='Бронирование'
-                subTitle={`с ${moment(this.props.startTime, ANALIZE_DATE_TIME_ZONE).format('HH:mm')} до ${moment(this.props.endTime, ANALIZE_DATE_TIME_ZONE).format('HH:mm')}`}
+                subTitle={`с ${availableRange.startTime} до ${availableRange.endTime}`}
             >
                 <Form 
                     onSubmit={(values) => {
@@ -226,6 +227,21 @@ class BookingModal extends Component {
                     initialValues={{
                         playground: 'playground_other'
                     }}
+                    validate={values => {
+                        const errors = {};
+                        if(values.start_time && values.end_time) {
+                            const isTimeRequired = startTimeBeforeEndTime(
+                                moment(values.start_time, 'HH:mm'),
+                                moment(values.end_time, 'HH:mm')
+                            )();
+
+                            if (isTimeRequired) {
+                                errors.start_time = isTimeRequired
+                                errors.end_time = isTimeRequired
+                            }
+                        };
+                        return errors;
+                    }}
                     render={({ handleSubmit, values, errors, touched }) => {
                         return (
                             <form onSubmit={handleSubmit} className="b-booking-form">
@@ -235,7 +251,19 @@ class BookingModal extends Component {
                                     <legend className="b-modal__title-group">Время</legend>
                                     <Field 
                                         name='start_time'
-                                        validate={(value) => required(value)}
+                                        validate={value => {
+                                            return composeValidators(
+                                                required(), 
+                                                rangeContainsDate(
+                                                    Moment.range(
+                                                        moment(availableRange.startTime, 'HH:mm'), 
+                                                        moment(availableRange.endTime, 'HH:mm')
+                                                    ), 
+                                                    moment(value, 'HH:mm'),
+                                                    'Время начала бронирования не входит в допустимый диапазон'
+                                                )
+                                            )(value)
+                                        }}
                                         render={({ input }) => {
                                             return <TimeField 
                                                 {...input}
@@ -251,7 +279,19 @@ class BookingModal extends Component {
 
                                     <Field 
                                         name='end_time'
-                                        validate={(value) => required(value)}
+                                        validate={value => {
+                                            return composeValidators(
+                                                required(), 
+                                                rangeContainsDate(
+                                                    Moment.range(
+                                                        moment(availableRange.startTime, 'HH:mm'), 
+                                                        moment(availableRange.endTime, 'HH:mm')
+                                                    ), 
+                                                    moment(value, 'HH:mm'),
+                                                    'Время окончания бронирования не входит в допустимый диапазон'
+                                                )
+                                            )(value)
+                                        }}
                                         render={({ input }) => {
                                             return <TimeField 
                                                 { ...input }
@@ -390,7 +430,7 @@ class BookingModal extends Component {
 
                                                 <Field 
                                                     name='password'
-                                                    validate={(value) => required(value)}
+                                                    validate={required()}
                                                     render={({ input, meta }) => {
                                                         return <Input
                                                             // labelText="Пароль"
@@ -409,7 +449,7 @@ class BookingModal extends Component {
                                             <Fragment>
                                                 <Field 
                                                     name='first_name'
-                                                    validate={(value) => required(value)}
+                                                    validate={required()}
                                                     render={({ input, meta }) => {
                                                         return <Input 
                                                             labelText='Имя'
@@ -425,7 +465,7 @@ class BookingModal extends Component {
 
                                                 <Field 
                                                     name='last_name'
-                                                    validate={(value) => required(value)}
+                                                    validate={required()}
                                                     render={({ input, meta }) => {
                                                         return <Input 
                                                             labelText='Фамилия'
@@ -445,7 +485,7 @@ class BookingModal extends Component {
                                                     <label className="b-input__label" htmlFor="phone">Телефон</label>
                                                     <Field 
                                                         name='phone'
-                                                        validate={(value) => required(value)}
+                                                        validate={required()}
                                                         render={({ input, meta }) => {
                                                             return <Fragment>
                                                                 <InputMask 
@@ -470,10 +510,6 @@ class BookingModal extends Component {
                                 : 
                                     null
                                 }
-
-                                {/* { (validCheckTrainer() === 'negativeSumm') &&
-                                    <p className="b-booking-form__error"> Укажите верные временные рамки бронирования услуги. </p>
-                                } */}
 
                                 { !!playgroundId && 
                                     <p className="b-booking-form__error">
