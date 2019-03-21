@@ -11,7 +11,7 @@
         cursor: pointer;
 
         @include hover {
-            border-color: $orange-diamond-yellow;
+            border-color: $secondary;
         }
     }
 
@@ -63,7 +63,7 @@
     &__address {
         font-size: 14px;
         line-height: 17px;
-        color: $carmine-pink;
+        color: $secondary
     }
 
     &__delete {

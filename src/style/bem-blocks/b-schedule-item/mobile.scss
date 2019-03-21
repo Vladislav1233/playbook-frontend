@@ -21,7 +21,6 @@
     @include hover {
         color: $mainFontColor;
         .b-schedule-item__click {
-
             color: $mainFontColor;
         }
     }
@@ -72,7 +71,7 @@
     }
 
     &__who-tel {
-        // color: $carmine-pink;
+        // color: $secondary
         color: $mint;
     }
 
