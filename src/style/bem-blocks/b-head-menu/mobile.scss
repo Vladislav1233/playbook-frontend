@@ -16,6 +16,10 @@
         @include hover {
             color: #ffffff;
             background: $header-hover;
+            
+            svg path {
+                fill: #fff;
+            }
         }
     }
 
@@ -26,8 +30,8 @@
 
     &__account-name {
         display: none;
-        margin-top: 8px;
-        margin-right: 5px;
+        margin-top: 4px;
+        margin-right: 8px;
         font-family: $regular;
         font-size: .9rem;
         color: #e8e8e8;
@@ -35,18 +39,12 @@
 
     &__image-wrapper {
         overflow: hidden;
-        width: 30px;
-        height: 30px;
+        width: 40px;
+        height: 40px;
         transition-duration: $animation-time;
         transition-property: border-color;
         text-align: center;
         border-radius: 100%;
-
-        &--blank {
-            width: 40px;
-            height: 40px;
-            border-radius: 0;
-        }
     }
 
     &__image {
@@ -116,8 +114,13 @@
     }
 
     &--open & {
+        
         &__image-wrapper {
-            border-color: $secondary
+            border-color: $secondary;
+
+            svg path {
+                fill: #fff;
+            }
         }
     }
 }
