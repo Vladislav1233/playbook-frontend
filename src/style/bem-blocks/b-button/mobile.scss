@@ -6,14 +6,18 @@
     font-weight: 500;
     text-align: center;
     color: #ffffff;
-    border: none;
+    border: 1px solid $mint;
     border-radius: $border-radius;
     background: $mint;
     transition: .1s;
+    outline: none;
 
-    .no-touchevents &:hover,
-    .touchevents &:active {
+    @include hover {
         background-color: lighten($mint, 4);
+    }
+    @include focus {
+        border: 1px solid $focus;
+        background-color: #053b3d;
     }
 
     &--full {
@@ -22,14 +26,15 @@
 
     &--hollow {
         color: #000;
-        border: 1px solid $mint;
-        background: hsla(0, 0%, 100%, 0.8);
+        background-color: hsla(0, 0%, 100%, 0.8);
 
-        .no-touchevents &:hover,
-        .touchevents &:active {
+        @include hover {
             color: #000;
             background-color: rgba(234, 241, 236, 0.9);
-            border-color: rgba(186, 199, 189, 0.5);
+        }
+        @include focus {
+            background-color: $focusTrans;
+            border-color: $focus;
         }
     }
 
@@ -53,8 +58,7 @@
         border: 1px solid $mint;
         background: none;
 
-        .no-touchevents &:hover,
-        .touchevents &:active {
+        @include hover {
             color: #ffffff;
             background-color: rgba($mint, .5);
         }

@@ -135,8 +135,7 @@ a {
     text-decoration: none;
     color: #ffffff;
 
-    .no-touchevents &:hover,
-    .touchevents &:active {
+    @include hover {
         color: $hover-link-on-dark;
     }
 

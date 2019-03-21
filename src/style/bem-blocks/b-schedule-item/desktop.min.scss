@@ -1,11 +1,5 @@
 // 1024
 .b-schedule-item {
-    &:hover {
-        .b-schedule-item__click {
-            color: #999;
-        }
-    }
-
     &__cancel {
         width: 42px;
     }

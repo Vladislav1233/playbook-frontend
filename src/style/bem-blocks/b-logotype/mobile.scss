@@ -9,8 +9,7 @@
     text-align: center;
     color: #ffffff;
 
-    .no-touchevents &:hover,
-    .touchevents &:active {
+    @include hover {
         color: #ffffff;
         background: $header-hover;
     }

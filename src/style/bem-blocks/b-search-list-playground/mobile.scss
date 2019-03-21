@@ -10,8 +10,7 @@
     &--hover {
         cursor: pointer;
 
-        .no-touchevents &:hover,
-        .touchevents &:active {
+        @include hover {
             border-color: $orange-diamond-yellow;
         }
     }

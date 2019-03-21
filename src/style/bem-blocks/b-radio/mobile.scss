@@ -8,6 +8,10 @@
         pointer-events: none;
     }
 
+    &:focus-within {
+        color: $focus;
+    }
+
     &__input {
         position: absolute;
         z-index: 0;

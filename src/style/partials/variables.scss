@@ -39,6 +39,22 @@ $border-radius: 5px;
 $cardShadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.145);
 $error: #ff0b0b;
 $ok: #03ad2d;
+$focus: rgb(68, 137, 255);
+$focusTrans: rgba(226, 237, 255, 0.8);
+
+/** ----- Mixins class ----- */
+@mixin hover {
+    .touchevents &:active,
+    .no-touchevents &:hover {
+        @content;
+    }
+}
+
+@mixin focus {
+    .no-touchevents &:focus:not(:hover) {
+        @content;
+    }
+}
 
 // ----- typography -----
 @mixin  h1() {
