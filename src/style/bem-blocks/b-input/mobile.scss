@@ -27,6 +27,7 @@
 
         &:focus {
             outline: none;
+            border-bottom-color: $focus;
         }
 
         &:disabled {
