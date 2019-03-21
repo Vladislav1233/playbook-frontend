@@ -1,8 +1,5 @@
 // 320+
 .b-checkbox {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
     margin-bottom: 10px;
 
     &--hide {
@@ -16,6 +13,12 @@
 
     &:focus-within {
         color: $focus;
+    }
+
+    &__content {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
     }
 
     &__input {
@@ -34,6 +37,7 @@
     }
 
     &__check {
+        flex-shrink: 0;
         position: relative;
         display: inline-block;
         width: 24px;
@@ -84,6 +88,18 @@
                     stroke-dashoffset: 42;
                 }
             }
+        }
+    }
+
+    &__error {
+        padding-top: 2px;
+        font-size: 1rem;
+        color: $error;
+    }
+
+    &--align-top & {
+        &__content {
+            align-items: flex-start;
         }
     }
 }

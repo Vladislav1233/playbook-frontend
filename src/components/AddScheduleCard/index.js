@@ -84,12 +84,13 @@ class AddScheduleCard extends Component {
                                         <Checkbox 
                                             name={`${item.uuid}`}
                                             id={`court-${item.id}${idRender}`}
-                                            text={item.name}
                                             value={item.uuid}
                                             checked={checkIs}
                                             onChange={onChangeCheckbox}
                                             modif='b-checkbox--add-schedule'
-                                        />
+                                        >
+                                            <span>{item.name}</span>
+                                        </Checkbox>
                                     </li>
                                 )
                             })

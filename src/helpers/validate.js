@@ -22,7 +22,7 @@ export const startTimeBeforeEndTime = (valueStart, valueEnd, text = 'Время 
 };
 
 /*
-* Диапазон содержит входящую дату
+* Диапазон содержит входящую дату?
 * availableRange - доступный диапазон даты. moment range object.
 * date - дата. moment object.
 */
@@ -35,4 +35,15 @@ export const rangeContainsDate = (availableRange, date, text) => value => {
 */
 export const validFormatTime = (text = 'Поле времени заполнено не полностью') => value => {
     return value.length === 5 ? undefined : text;
+};
+
+/*
+* Подтверждение пароля.
+*/
+export const confirmPassword = (password, text = 'Пароли не совпадают') => value => {
+    return password === value ? undefined : text;
+};
+
+export const fullTelNumber = (countNumber, text="Телефон должен содержать 10 цифр не включая код.") => value => {
+    return value.length === countNumber ? undefined : text
 };

@@ -75,21 +75,23 @@ class StyleGuide extends Component {
             <h2 className="b-guide__heading"> Checkbox: </h2>
             <Checkbox
               name='name'
-              id={`court-1`}
-              text="name 1"
+              id='court-1'
               value={4}
               checked={true}
               onChange={e => { console.log(e) }}
               modif='b-checkbox--add-schedule'
-            />
+            >
+              <span>name 1</span>
+            </Checkbox>
             <Checkbox
               name="name2"
-              id={`court-2`}
-              text="name 1"
+              id='court-2'
               value={4}
               onChange={e => { console.log(e) }}
               modif='b-checkbox--add-schedule'
-            />
+            >
+              <span>name2</span>
+            </Checkbox>
           </section>
         </div>
       </div>

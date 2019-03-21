@@ -1,9 +1,9 @@
 // react, redux, helpers
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import telWithoutPlus from '../../helpers/telWithoutPlus';
 import { configPathRouter } from '../../App/configPathRouter';
 import { Link } from 'react-router-dom';
+import { Form, Field } from 'react-final-form';
 
 // components
 import Input from '../../components/ui-kit/Input/Input';
@@ -13,6 +13,10 @@ import Button from '../../components/ui-kit/Button/Button';
 import InputMask from 'react-input-mask';
 import Preloader from '../../components/Preloader/Preloader';
 
+// helpers
+import { composeValidators, required, confirmPassword, fullTelNumber } from '../../helpers/validate';
+import telWithoutPlus from '../../helpers/telWithoutPlus';
+
 // style
 import '../../style/bem-blocks/b-registration/index.scss';
 import bgSrcs from '../../style/images/login-bg/images.js';
@@ -21,121 +25,19 @@ const randomIndexBg = Math.round(Math.random() * (bgSrcs.length - 1));
 const randomBg = bgSrcs[randomIndexBg];
 
 class Registration extends Component {
-    state = {
-        user: {
-            first_name: '',
-            last_name: '',
-            phone: '', // "User phone without '+' symbol"
-            password: '',
-            c_password: '',
-            is_trainer: '0' // "Boolean flag (0 or 1)"
-        },
-        validation: {
-            text: '',
-            fieldEmpty: false,
-            confirmPassword: false,
-            numberTel: 18 // Note: необходимое количество символов в номере телефона
-        },
-        submitted: false,
-        isCheck: false
-    };
 
-    handleChange = (event) => {
-        const { name, value } = event.target;
-        const { user, validation } = this.state;
-        
-        // Note: Если была ошибка валидации и пользователь начинает изменять поля, то скрываем ошибку
-        if (validation.text !== '') {
-            this.setState({
-                validation: {
-                    ...validation,
-                    text: ''
-                }
-            })
-        }
-
-        this.setState({
-            user: {
-                ...user,
-                [name]: value
-            }
-        })
-    }
-
-    handleCheck = () => {
-        const { user, isCheck } = this.state;
-        const isTrainer = !isCheck ? '1' : '0';
-
-        this.setState({
-            user: {
-                ...user,
-                is_trainer: isTrainer
-            },
-            isCheck: !isCheck
-        })
-    }
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-
-        const { user, validation } = this.state;
+    handleSubmit = (values) => {
         const { dispatch } = this.props;
 
-        // Note: Проверяем все ли поля заполнены
-        for (let key in user) {
-            if (!Boolean(user[key])) {
-                this.setState({
-                    validation: {
-                        ...validation,
-                        text: 'Все поля должны быть заполнены',
-                        fieldEmpty: true
-                    }
-                })
-                
-                return false;
-            }
-        }
-
-        // Note: Проверяем ввел ли пользователь достаточное количество символов для номера телефона
-        // TODO: сделать такую проверку для всех стран
-        if (user.phone.length !== 18) {
-            this.setState({
-                validation: {
-                    ...validation,
-                    text: 'Недостаточное количество цифр номера телефона',
-                    numberTel: true
-                }
-            })
-
-            return false;
-        }
-
-        // Note: Проверяем совпадают ли введённые пароли
-        if (user.password !== user.c_password) {
-            this.setState({
-                validation: {
-                    ...validation,
-                    text: 'Пароли не совпадают',
-                    confirmPassword: true
-                }
-            })
-
-            return false;
-        }
-
         const userRequestData = {
-            ...this.state.user
-        }
-        // Note: Убираем символ + у номера телефона
-        userRequestData.phone = telWithoutPlus(userRequestData.phone);
-
-        // Note: Показываем, что уходит сабмит и диспатчим запрос
-        this.setState({submitted: true});
+            ...values,
+            is_trainer: values.is_trainer ? 1 : 0,
+            phone: telWithoutPlus(values.phone)
+        };
         dispatch(userActions.register(userRequestData));
     }
 
     render() {
-        const { user, validation, isCheck } = this.state;
         const { preloader } = this.props;
 
         return(
@@ -143,77 +45,144 @@ class Registration extends Component {
                 <img className="b-registration__bg" alt="" src={randomBg} importance="high" />
                 <div className="container">
                     <div className="b-registration__form-wrapper">
-                        <form name='register-user' onSubmit={this.handleSubmit} className="b-registration__form">
+                        <Form 
+                            onSubmit={this.handleSubmit}
+                            render={({ handleSubmit }) => {
+                                return <form name='register-user' onSubmit={handleSubmit} className="b-registration__form">
+                                    <h1 className="b-registration__heading">Регистрация</h1>
 
-                            <h1 className="b-registration__heading">Регистрация</h1>
+                                    <Field 
+                                        name="first_name"
+                                        validate={required()}
+                                        render={({ input, meta }) => {
+                                            return <Input
+                                                {...input}
+                                                nameInput={input.name}
+                                                placeholder="Ваше имя"
+                                                typeInput="text"
+                                                idInput="first_name"
+                                                error={meta.error && meta.touched ? meta.error : null}
+                                            />
+                                        }}
+                                    />
 
-                            {/*props { labelText?, typeInput, idInput, placeholder, value } */}
-                            <Input
-                                placeholder="Ваше имя"
-                                typeInput="text"
-                                idInput="first_name"
-                                value={user.first_name}
-                                onChange={this.handleChange}
-                            />
+                                    <Field 
+                                        name="last_name"
+                                        validate={required()}
+                                        render={({ input, meta }) => {
+                                            return <Input
+                                                {...input}
+                                                placeholder="Ваша фамилия"
+                                                typeInput="text"
+                                                idInput="last_name"
+                                                nameInput={input.name}
+                                                error={meta.error && meta.touched ? meta.error : null}
+                                            />
+                                        }}
+                                    />
+        
+                                    {/*TODO: Сделать маску для номера телефона (для разных стран) */}
+                                    <Field 
+                                        name="phone"
+                                        validate={composeValidators(
+                                            required(),
+                                            fullTelNumber(18) 
+                                        )}
+                                        render={({ input, meta }) => {
+                                            return <div className="b-input">
+                                                <InputMask 
+                                                    className="b-input__input" 
+                                                    id="phone" 
+                                                    mask="+7 (999) 999-99-99" 
+                                                    maskChar={null} 
+                                                    placeholder="Ваш номер телефона"
+                                                    {...input} 
+                                                />
+                                                {meta.error && meta.touched 
+                                                    ? <div className='b-input__error'>{meta.error}</div>
+                                                    :null
+                                                }
+                                        </div> 
+                                        }}
+                                    />
 
-                            <Input
-                                placeholder="Ваша фамилия"
-                                typeInput="text"
-                                idInput="last_name"
-                                value={user.last_name}
-                                onChange={this.handleChange}
-                            />
+                                    <Field 
+                                        name="password"
+                                        validate={required()}
+                                        render={({ input, meta }) => {
+                                            return <Input
+                                                {...input}
+                                                placeholder="Пароль"
+                                                typeInput="password"
+                                                idInput="password"
+                                                nameInput={input.name}
+                                                error={meta.error && meta.touched ? meta.error : null}
+                                            /> 
+                                        }}
+                                    /> 
 
-                            {/*TODO: Сделать маску для номера телефона (для разных стран) */}
-                            {/* <InputMask mask="+7 (999) 999-99-99" value={user.numberTelephone} onChange={this.handleChange}>
-                                {(inputProps) => <Input {...inputProps} type="tel"/>}
-                            </InputMask> */}
+                                    <Field 
+                                        name="c_password"
+                                        validate={(value, allValues) => composeValidators(
+                                            required(),
+                                            confirmPassword(allValues.password)
+                                        )(value)
+                                        }
+                                        render={({ input, meta }) => {
+                                            return <Input
+                                                {...input}
+                                                placeholder="Повторите пароль"
+                                                typeInput="password"
+                                                idInput="c_password"
+                                                nameInput={input.name}
+                                                error={meta.error && meta.touched ? meta.error : null}
+                                            /> 
+                                        }}
+                                    />
+                                    
+                                    {/* { name, id, text, value, checked, modif } */}
+                                    <Field 
+                                        name="is_trainer"
+                                        type='checkbox'
+                                        render={({ input }) => {
+                                            return <Checkbox 
+                                                {...input}
+                                                id="is_trainer"
+                                                value="1"
+                                                modif="b-checkbox--white"
+                                            >
+                                                <span>Я тренер</span>
+                                            </Checkbox>
+                                        }}
+                                    />
 
-                            <div className="b-input">
-                                <InputMask className="b-input__input" id="phone" name="phone" mask="+7 (999) 999-99-99" maskChar={null} value={user.phone} onChange={this.handleChange} placeholder="Ваш номер телефона" />
-                            </div>
-
-                            <Input
-                                placeholder="Пароль"
-                                typeInput="password"
-                                idInput="password"
-                                value={user.password}
-                                onChange={this.handleChange}
-                            />  
-
-                            <Input
-                                placeholder="Повторите пароль"
-                                typeInput="password"
-                                idInput="c_password"
-                                value={user.c_password}
-                                onChange={this.handleChange}
-                            />
-                            
-                            {/* { name, id, text, value, checked, modif } */}
-                            <Checkbox 
-                                name="is_trainer"
-                                id="is_trainer"
-                                text="Я тренер"
-                                value="1"
-                                modif="b-checkbox--white"
-                                checked={isCheck}
-                                onChange={this.handleCheck}
-                            />
-                            
-                            <div className="b-registration__button-wrapper">
-                                {/* { name } */}
-                                <Button
-                                    modif="b-button--login"
-                                    name={'Зарегистрироваться'}
-                                />
-
-                            </div>
-                            { validation.fieldEmpty || validation.confirmPassword ?
-                                <div className="b-registration__error">{validation.text}</div>
-                                :
-                                null
-                            }
-                        </form>
+                                    <Field 
+                                        name="is_confirm-personal"
+                                        type='checkbox'
+                                        validate={required('Поле обязательно для заполнения. Без вашего согласия мы не вправе вас регистрировать в системе.')}
+                                        render={({ input, meta }) => {
+                                            return <Checkbox
+                                                {...input}
+                                                id="is_confirm-personal"
+                                                modif="b-checkbox--white b-checkbox--align-top"
+                                                error={meta.error && meta.touched ? meta.error : null}
+                                            >
+                                                <span>Я принимаю <a href="/personal-data.html" title="Пользовательское соглашение на обработку персональных данных" target="blank">пользовательское соглашение на обработку персональных данных</a> и даю согласие на обработку моих персональных данных.</span>
+                                            </Checkbox>
+                                        }}
+                                    />
+                                    
+                                    <div className="b-registration__button-wrapper">
+                                        <Button
+                                            type='submit'
+                                            modif="b-button--login"
+                                            name='Зарегистрироваться'
+                                        />
+                                    </div>
+                                </form>
+                            }}
+                        />
+                        
                         <div className="b-registration__sub-navigation">
                             <span className="b-registration__sub-question"> У вас уже есть профиль? </span>
                             <Link to={configPathRouter.authorization}>Войти</Link>
