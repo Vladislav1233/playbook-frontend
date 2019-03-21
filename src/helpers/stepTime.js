@@ -20,5 +20,5 @@ export function stepTime(time, minIncrementProp = 5) {
         return `${hour}:${timeVal.substring(2, 4)}`
     } else {
         return time
-    };
-};
+    }
+}

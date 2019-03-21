@@ -2,13 +2,29 @@
 .b-schedule-item {
     position: relative;
     display: flex;
-    justify-content: space-between; 
     align-items: center;
+    justify-content: space-between;
+    width: 100%;
     padding: 10px 15px 10px 10px;
     cursor: pointer;
+    color: $mainFontColor;
     border-left: 5px solid transparent;
     outline: none;
-    color: $mainFontColor;
+
+@include hover {
+        color: $mainFontColor;
+        .b-schedule-item__click {
+            color: $mainFontColor;
+        }
+    }
+
+@include focus {
+        outline: $focus solid 1px;
+
+        .b-schedule-item__click {
+            color: $focus;
+        }
+    }
 
     &--free {
         border-left-color: $ok;
@@ -17,21 +33,6 @@
     &--busy {
         border-left-color: $error;
     }
-
-    @include hover {
-        color: $mainFontColor;
-        .b-schedule-item__click {
-            color: $mainFontColor;
-        }
-    }
-    @include focus {
-        outline: $focus solid 1px;
-
-        .b-schedule-item__click {
-            color: $focus;
-        }
-    }
-
     &__time-wrap {
         display: flex;
         align-items: center;
@@ -86,8 +87,8 @@
     }
 
     &__click {
-        font-weight: 300;
         font-size: 14px;
+        font-weight: 300;
         line-height: 1.2;
         text-align: right;
         color: $bright-telegray;
@@ -114,7 +115,7 @@
         width: 38px;
         padding: 10px;
         cursor: pointer;
-        background: none;
         border: 0;
+        background: none;
     }
 }

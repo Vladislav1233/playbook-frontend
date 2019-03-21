@@ -86,7 +86,7 @@ class ScheduleItem extends Component {
 
         return (
             <Fragment>
-                <a href="#" className={classNameStateRoot} tabIndex={ isStatus?0:null } onClick={() => {if(isStatus) { this.openModal(); } }}>
+                <button type="button" className={classNameStateRoot} tabIndex={ isStatus?0:null } onClick={() => {if(isStatus) { this.openModal(); } }}>
                     <div>
                         <div className="b-schedule-item__time-wrap">
                             <div className="b-schedule-item__time">
@@ -155,7 +155,7 @@ class ScheduleItem extends Component {
                         )
                         : null
                     }
-                </a>
+                </button>
                         
                 {isStatus && 
                     <BookingModal 

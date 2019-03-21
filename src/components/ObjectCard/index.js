@@ -72,7 +72,7 @@ class ObjectCard extends Component {
                         <span className="b-object-card__first-name">{trainerInfo.first_name} </span>
                         <span className="b-object-card__last-name">{trainerInfo.last_name}</span>
                         {/* TODO_VLAD: если есть рассписание на сегодня от текущего времени до конца дня, пока так */}
-                        <i className="b-object-card__online-status" title="Тренер доступен сегодня"></i>
+                        {/* <i className="b-object-card__online-status" title="Тренер доступен сегодня"></i> */}
                     </Link>
 
                     {/* Обо мне */}
