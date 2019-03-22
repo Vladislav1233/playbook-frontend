@@ -24,7 +24,7 @@
     .react-calendar__month-view__weekdays__weekday {
         font-family: $roboto;
         font-size: 1rem;
-        color: #ffffff;
+        color: $whiteFontColor;
         font-weight: 100;
         letter-spacing: -1px;
 
@@ -34,7 +34,7 @@
     }
 
     .react-calendar__month-view__days__day {
-        color: #ffffff;
+        color: $whiteFontColor;
 
         &--neighboringMonth {
             opacity: 1;
@@ -67,7 +67,7 @@
 
         &--now {
             font-family: $bold;
-            color: #ffffff;
+            color: $whiteFontColor;
             border-color: $secondary;
 
             &.react-calendar__tile--active:enabled:hover,
@@ -97,14 +97,14 @@
         padding-bottom: 0px;
         font-family: $regular;
         font-size: 20px;
-        color: #ffffff;
+        color: $whiteFontColor;
     }
 
     .react-calendar__navigation__arrow {
         font-size: 30px;
         transition-duration: $animation-time;
         transition-property: background-color, color;
-        color: #ffffff;
+        color: $whiteFontColor;
         border-radius: 6px;
 
         .no-touchevents &:enabled:hover,
@@ -114,7 +114,7 @@
         }
 
         &:enabled:focus {
-            color: #ffffff;
+            color: $whiteFontColor;
             background: transparent;
         }
 

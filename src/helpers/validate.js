@@ -44,6 +44,6 @@ export const confirmPassword = (password, text = 'Пароли не совпад
     return password === value ? undefined : text;
 };
 
-export const fullTelNumber = (countNumber, text="Телефон должен содержать 10 цифр не включая код.") => value => {
+export const fullTelNumber = (countNumber, text="Телефон введён не полностью") => value => {
     return value.length === countNumber ? undefined : text
 };

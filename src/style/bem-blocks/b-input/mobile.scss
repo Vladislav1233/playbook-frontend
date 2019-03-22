@@ -1,6 +1,6 @@
 // 320++
 .b-input {
-    margin-bottom: 20px;
+    margin-bottom: 1.6rem;
     position: relative;
 
     &--inline {
@@ -42,9 +42,10 @@
     }
 
     &__error {
+        top: 100%;
+        position: absolute;
         padding-top: 2px;
-        font-size: 1rem;
-        color: $error;
+        @include error();
     }
 
     &.error & {

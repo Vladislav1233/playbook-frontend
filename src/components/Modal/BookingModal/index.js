@@ -523,7 +523,7 @@ class BookingModal extends Component {
                                                 <Field 
                                                     name="is_confirm-personal"
                                                     type='checkbox'
-                                                    validate={required('Поле обязательно для заполнения. Без вашего согласия мы не вправе вас регистрировать в системе.')}
+                                                    validate={required('Ваше согласие обязательно')}
                                                     render={({ input, meta }) => {
                                                         return <Checkbox
                                                             {...input}
@@ -531,7 +531,7 @@ class BookingModal extends Component {
                                                             modif="b-checkbox--align-top"
                                                             error={meta.error && meta.touched ? meta.error : null}
                                                         >
-                                                            <span>Я принимаю <a href="/agreement" title="Пользовательское соглашение на обработку персональных данных" target="blank">пользовательское соглашение на обработку персональных данных</a> и даю согласие на обработку моих персональных данных.</span>
+                                                            <span>Я принимаю <a href="/agreement" title="Пользовательское соглашение" target="blank">пользовательское соглашение</a></span>
                                                         </Checkbox>
                                                     }}
                                                 />

@@ -29,7 +29,8 @@ class Checkbox extends Component {
             'b-checkbox',
             modif,
             {
-                'b-checkbox--check': checked
+                'b-checkbox--check': checked,
+                'error': error,
             }
         );
 

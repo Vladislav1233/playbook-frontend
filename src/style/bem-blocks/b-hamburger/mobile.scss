@@ -11,7 +11,7 @@
     border-left: 1px solid transparent;
 
     @include hover {
-        color: #ffffff;
+        color: $whiteFontColor;
         background: $header-hover;
 
         path {

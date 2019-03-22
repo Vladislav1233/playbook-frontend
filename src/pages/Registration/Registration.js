@@ -89,7 +89,11 @@ class Registration extends Component {
                                             fullTelNumber(18) 
                                         )}
                                         render={({ input, meta }) => {
-                                            return <div className="b-input">
+                                            return <div className={
+                                                meta.error && meta.touched
+                                                ? "b-input error"
+                                                : "b-input"}
+                                            >
                                                 <InputMask 
                                                     className="b-input__input" 
                                                     id="phone" 
@@ -159,7 +163,7 @@ class Registration extends Component {
                                     <Field 
                                         name="is_confirm-personal"
                                         type='checkbox'
-                                        validate={required('Поле обязательно для заполнения. Без вашего согласия мы не вправе вас регистрировать в системе.')}
+                                        validate={required('Ваше согласие обязательно')}
                                         render={({ input, meta }) => {
                                             return <Checkbox
                                                 {...input}
@@ -167,7 +171,7 @@ class Registration extends Component {
                                                 modif="b-checkbox--white b-checkbox--align-top"
                                                 error={meta.error && meta.touched ? meta.error : null}
                                             >
-                                                <span>Я принимаю <a href="/agreement" title="Пользовательское соглашение на обработку персональных данных" target="blank">пользовательское соглашение на обработку персональных данных</a> и даю согласие на обработку моих персональных данных.</span>
+                                                <span>Я принимаю <a href="/agreement" title="Пользовательское соглашение" target="blank">пользовательское соглашение</a></span>
                                             </Checkbox>
                                         }}
                                     />

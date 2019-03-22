@@ -28,6 +28,7 @@ $bright-telegray: #cccccc;
 
 // Сущности:
 $mainFontColor: #2c2c2c;
+$whiteFontColor: #eee;
 $main-background: hsl(220, 9%, 90%);
 $background-schedule: hsl(220, 9%, 90%);
 $hover-link-on-dark: $secondary;
@@ -101,4 +102,11 @@ $focusTrans: rgba(226, 237, 255, 0.8);
     font-size: .8em;
     font-weight: 300;
     letter-spacing: normal;
+}
+
+@mixin error() {
+    font-weight: 300;
+    font-size: 0.8rem;
+    color: $error;
+    letter-spacing: 0.6px;
 }

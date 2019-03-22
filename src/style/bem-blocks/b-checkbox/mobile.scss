@@ -1,14 +1,14 @@
 // 320+
 .b-checkbox {
-    margin-bottom: 10px;
+    position: relative;
+    margin-bottom: 1.6rem;
 
     &--hide {
         display: none;
     }
 
     &--white {
-        color: #fff;
-        margin-bottom: 30px;
+        color: $whiteFontColor;
     }
 
     &:focus-within {
@@ -22,7 +22,13 @@
     }
 
     &__input {
-        display: none;
+        position: absolute;
+        z-index: 0;
+        top: 0px;
+        left: 0px;
+        width: 0px;
+        height: 0px;
+        opacity: 0;
     }
 
     &__label {
@@ -36,15 +42,15 @@
         }
 
         a {
-            color: #2c2c2c;
             text-decoration: underline;
+            color: #2c2c2c;
         }
     }
 
     &__check {
-        flex-shrink: 0;
         position: relative;
         display: inline-block;
+        flex-shrink: 0;
         width: 24px;
         height: 24px;
         margin: 0;
@@ -53,6 +59,7 @@
         transition-duration: $animation-time;
         transition-property: background-color;
         transform: translate3d(0, 0, 0);
+
         -webkit-tap-highlight-color: transparent;
 
         svg {
@@ -64,8 +71,11 @@
             stroke: $mint;
             stroke-linecap: round;
             stroke-width: 1;
-
             stroke-linejoin: round;
+
+            .b-checkbox.error & {
+                stroke: $error;
+            }
 
             path {
                 transition: all .3s linear;
@@ -97,17 +107,18 @@
     }
 
     &__error {
+        position: absolute;
+        top: 100%;
         padding-top: 2px;
-        font-size: 1rem;
-        color: $error;
+        @include error();
     }
 
     &--white & {
         &__label a {
-            color: #fff;
+            color: $whiteFontColor;
         }
 
-        .touchevents &__label a:active, 
+        .touchevents &__label a:active,
         .no-touchevents &__label a:hover {
             color: #4489ff;
         }

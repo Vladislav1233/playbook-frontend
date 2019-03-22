@@ -11,10 +11,10 @@
         height: 64px;
         padding: 0 10px;
         text-align: center;
-        color: #ffffff;
+        color: $whiteFontColor;
 
         @include hover {
-            color: #ffffff;
+            color: $whiteFontColor;
             background: $header-hover;
             
             svg path {

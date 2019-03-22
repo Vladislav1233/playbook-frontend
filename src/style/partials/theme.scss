@@ -76,9 +76,14 @@ abbr[title] {
 a {
     transition: .15s;
     text-decoration: none;
-    color: #ffffff;
+    color: $whiteFontColor;
 
     @include hover {
+        color: $hover-link-on-dark;
+    }
+
+    @include focus {
+        outline: none;
         color: $hover-link-on-dark;
     }
 
