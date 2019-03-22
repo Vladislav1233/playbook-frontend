@@ -19,6 +19,7 @@ import InputMask from 'react-input-mask';
 import Button from '../../ui-kit/Button/Button';
 import ModalComponent from '../index';
 import Radio from '../../ui-kit/Radio';
+import Checkbox from '../../ui-kit/Checkbox/Checkbox';
 
 // Note: services
 import { userService } from '../../../services/userService';
@@ -26,7 +27,7 @@ import { userService } from '../../../services/userService';
 // Note: helpers
 import telWithoutPlus from '../../../helpers/telWithoutPlus';
 import calcCostService from '../../../helpers/calcCostService';
-import { required, startTimeBeforeEndTime, rangeContainsDate, composeValidators, validFormatTime } from '../../../helpers/validate';
+import { required, startTimeBeforeEndTime, rangeContainsDate, composeValidators, validFormatTime, fullTelNumber } from '../../../helpers/validate';
 import { stepTime } from '../../../helpers/stepTime';
 
 // Note: styles
@@ -496,7 +497,10 @@ class BookingModal extends Component {
                                                     <label className="b-input__label" htmlFor="phone">Телефон</label>
                                                     <Field 
                                                         name='phone'
-                                                        validate={required()}
+                                                        validate={composeValidators(
+                                                            required(),
+                                                            fullTelNumber(18) 
+                                                        )}
                                                         render={({ input, meta }) => {
                                                             return <Fragment>
                                                                 <InputMask 
@@ -515,6 +519,22 @@ class BookingModal extends Component {
                                                         }}
                                                     />
                                                 </div>
+
+                                                <Field 
+                                                    name="is_confirm-personal"
+                                                    type='checkbox'
+                                                    validate={required('Поле обязательно для заполнения. Без вашего согласия мы не вправе вас регистрировать в системе.')}
+                                                    render={({ input, meta }) => {
+                                                        return <Checkbox
+                                                            {...input}
+                                                            id="is_confirm-personal"
+                                                            modif="b-checkbox--align-top"
+                                                            error={meta.error && meta.touched ? meta.error : null}
+                                                        >
+                                                            <span>Я принимаю <a href="/agreement" title="Пользовательское соглашение на обработку персональных данных" target="blank">пользовательское соглашение на обработку персональных данных</a> и даю согласие на обработку моих персональных данных.</span>
+                                                        </Checkbox>
+                                                    }}
+                                                />
                                             </Fragment>
                                         }
                                     </fieldset>
