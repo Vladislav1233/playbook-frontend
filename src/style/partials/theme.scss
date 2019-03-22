@@ -26,27 +26,6 @@ body {
     background: #ffffff;
 }
 
-.container {
-    width: 100%;
-    min-width: 320px;
-    max-width: 1440px;
-    margin: 0px auto;
-    padding: 0px 15px;
-
-    @media (min-width: 768px) {
-        padding: 0px 30px;
-    }
-
-    &--cabinet {
-        height: 100%;
-        padding: 0px;
-    }
-
-    &--schedule-trainer {
-        padding: 0px;
-    }
-}
-
 h1 {
     margin-top: 35px;
     margin-bottom: 30px;
@@ -94,6 +73,53 @@ abbr[title] {
     text-decoration: none;
 }
 
+a {
+    transition: .15s;
+    text-decoration: none;
+    color: #ffffff;
+
+    @include hover {
+        color: $hover-link-on-dark;
+    }
+
+    &.link-in-text-white {
+        text-decoration: underline;
+        color: $secondary
+    }
+}
+
+button {
+    appearance: none;
+    background: none;
+    border: none;
+}
+
+.container {
+    width: 100%;
+    min-width: 320px;
+    max-width: 1440px;
+    margin: 0px auto;
+    padding: 0px 15px;
+
+    @media (min-width: 768px) {
+        padding: 0px 30px;
+    }
+
+    &--cabinet {
+        height: 100%;
+        padding: 0px;
+    }
+
+    &--schedule-trainer {
+        padding: 0px;
+    }
+}
+
+.text-container {
+    margin: auto;
+    max-width: 1024px;
+}
+
 // Общий стиль: заголовок - описание
 /**
 * <div className="info-block">
@@ -128,25 +154,4 @@ abbr[title] {
         padding: 0;
         font-weight: 300;
     }
-}
-
-a {
-    transition: .15s;
-    text-decoration: none;
-    color: #ffffff;
-
-    @include hover {
-        color: $hover-link-on-dark;
-    }
-
-    &.link-in-text-white {
-        text-decoration: underline;
-        color: $secondary
-    }
-}
-
-button {
-    appearance: none;
-    background: none;
-    border: none;
 }

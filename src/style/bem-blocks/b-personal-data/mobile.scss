@@ -1,0 +1,43 @@
+// 320
+.b-personal-data {
+    text-align: justify;
+    hyphens: auto;
+    font-size: 1.2rem;
+
+    h1 {
+        margin-top: 35px;
+        margin-bottom: 30px;
+
+        @include h1();
+    }
+
+    h2 {
+        margin: 30px 0 25px;
+
+        @include h2;
+    }
+
+    h3 {
+        margin: 25px 0 20px;
+    }
+
+    h4 {
+        margin: 20px 0 15px;
+    }
+
+    h5 {
+        margin: 15px 0 10px;
+    }
+
+    h6 {
+        margin: 10px 0 5px;
+    }
+
+    ol {
+        padding-left: 25px;
+    }
+
+    li {
+        margin: 15px 0;
+    }
+}

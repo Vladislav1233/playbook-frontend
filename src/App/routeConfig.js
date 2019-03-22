@@ -32,6 +32,7 @@ import ListTrainer from '../pages/ListTrainer';
 import ScheduleTrainer from '../pages/ScheduleTrainer/ScheduleTrainer';
 import MyBooking from '../pages/MyBooking';
 import StyleGuide from '../pages/StyleGuide';
+import PersonalData from '../pages/PersonalData';
 import NotFound from '../pages/NotFound';
 
 // Note: components. routesTrainer.
@@ -79,6 +80,10 @@ const defaultRoutes = [{
     path: '/style-guide',
     name: 'StyleGuide',
     component: StyleGuide
+}, {
+    path: '/personal-data',
+    name: 'PersonalData',
+    component: PersonalData
 }];
 
 export const routesAllUser = [
