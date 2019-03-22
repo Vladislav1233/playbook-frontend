@@ -34,6 +34,11 @@
         .b-checkbox--check & {
             font-weight: 500;
         }
+
+        a {
+            color: #2c2c2c;
+            text-decoration: underline;
+        }
     }
 
     &__check {
@@ -95,6 +100,17 @@
         padding-top: 2px;
         font-size: 1rem;
         color: $error;
+    }
+
+    &--white & {
+        &__label a {
+            color: #fff;
+        }
+
+        .touchevents &__label a:active, 
+        .no-touchevents &__label a:hover {
+            color: #4489ff;
+        }
     }
 
     &--align-top & {
