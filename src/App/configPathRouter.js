@@ -10,7 +10,7 @@ export const configPathRouter = {
   listTrainer: '/list-trainer', // список тренеров
   listCourt: '/list-court', // список кортов (организаций)
   styleGuide: '/style-guide', // страница гайда
-  PersonalData: '/personal-data', // Обработка персональных данных
+  userAgreement: '/agreement', // Обработка персональных данных
   myBooking: '/my-booking', // страница бронирований пользователя
   profileMySchedule: '/profile/my-schedule'
-}
+};

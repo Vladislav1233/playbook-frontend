@@ -88,7 +88,7 @@ const defaultRoutes = [{
 
 export const routesAllUser = [
     ...defaultRoutes
-]
+];
 
 // Note: Компоненты для тренера + стандартные компоненты.
 export const routesTrainer = [
