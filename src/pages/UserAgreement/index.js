@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 // Note: styles
 import '../../style/bem-blocks/b-personal-data/index.scss';
 
-class PersonalData extends Component {
+class UserAgreement extends Component {
   render() {
     return (
       <div className="container">
@@ -79,4 +79,4 @@ class PersonalData extends Component {
   }
 }
 
-export default PersonalData;
+export default UserAgreement;

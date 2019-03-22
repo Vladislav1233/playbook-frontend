@@ -167,7 +167,7 @@ class Registration extends Component {
                                                 modif="b-checkbox--white b-checkbox--align-top"
                                                 error={meta.error && meta.touched ? meta.error : null}
                                             >
-                                                <span>Я принимаю <a href="/personal-data.html" title="Пользовательское соглашение на обработку персональных данных" target="blank">пользовательское соглашение на обработку персональных данных</a> и даю согласие на обработку моих персональных данных.</span>
+                                                <span>Я принимаю <a href="/agreement" title="Пользовательское соглашение на обработку персональных данных" target="blank">пользовательское соглашение на обработку персональных данных</a> и даю согласие на обработку моих персональных данных.</span>
                                             </Checkbox>
                                         }}
                                     />
