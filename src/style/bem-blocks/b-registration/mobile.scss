@@ -72,4 +72,9 @@
     &__sub-question {
         margin-right: 10px;
     }
+
+    &__error {
+        @include error();
+        margin-top: 10px;
+    }
 }

@@ -121,10 +121,9 @@ class Auth extends Component {
                                 />
 
                             </div>
-                            { validation.fieldEmpty || validation.confirmPassword ?
-                                <div className="b-registration__error">{validation.text}</div>
-                                :
-                                null
+                            { validation.fieldEmpty || validation.confirmPassword
+                                ? <div className="b-registration__error">{validation.text}</div>
+                                : null
                             }
                         </form>
 
