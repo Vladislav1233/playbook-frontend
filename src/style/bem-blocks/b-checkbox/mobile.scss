@@ -11,6 +11,13 @@
         color: $whiteFontColor;
     }
 
+    &--agreement {
+        margin-top: 10px;
+        margin-bottom: 5px;
+        // font-size: 90%;
+        font-weight: 300;
+    }
+
     &:focus-within {
         color: $focus;
     }
