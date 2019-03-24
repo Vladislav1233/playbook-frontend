@@ -186,7 +186,7 @@ class BookingModal extends Component {
 
         let costPlaygroundForPayBooking = [];
         if (playgroundId) {
-            costPlaygroundForPayBooking =  [ ...this.getCostPlaygroundForPayBooking() ];
+            costPlaygroundForPayBooking = [ ...this.getCostPlaygroundForPayBooking() ];
         }
 
         const numberCost = (cost) => {

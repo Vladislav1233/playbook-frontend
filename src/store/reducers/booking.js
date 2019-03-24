@@ -52,11 +52,11 @@ export default function(state = initialState, action) {
                     return confirmId !== itemState.bookingId
                 })
             }
-        } else {
+        } 
             return {
                 ...state
             }
-        }
+        
     }
 
     switch (action.type) {
@@ -186,10 +186,10 @@ export default function(state = initialState, action) {
                     item.status = action.payload.data.data.status;
                     item.note = action.payload.data.data.note;
                     return item;
-                } else {
+                } 
                     return item;
                 // eslint-disable-next-line
-                };
+                ;
             });
 
             return {

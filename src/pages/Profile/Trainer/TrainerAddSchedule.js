@@ -66,12 +66,12 @@ class TrainerAddSchedule extends Component {
                 ...state,
                 successPostResponse: true
             }
-        } else {
+        } 
             return {
                 ...state,
                 successPostResponse: false
             }
-        }
+        
     }
 
     componentDidMount() {

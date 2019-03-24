@@ -18,7 +18,7 @@ export function stepTime(time, minIncrementProp = 5) {
                         ("0" + roundedTime % 60).slice(-2);
         
         return `${hour}:${timeVal.substring(2, 4)}`
-    } else {
+    } 
         return time
-    }
+    
 }

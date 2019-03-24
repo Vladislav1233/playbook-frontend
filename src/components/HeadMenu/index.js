@@ -76,9 +76,9 @@ class HeadMenu extends Component {
                     roleName: 'Игрок'
                 } 
             } else if (userRole === 'organization-admin') {
-                return // TODO
+                 // TODO
             } else if (userRole === 'admin') {
-                return // TODO
+                 // TODO
             }
         };
         let dataAboutRole = {};
