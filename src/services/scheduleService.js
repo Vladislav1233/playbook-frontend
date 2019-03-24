@@ -19,7 +19,7 @@ function createSchedule (type, data) {
         },
         data: data
     });
-};
+}
 
 function editSchedule (schedule_uuid, data) {
     let valueToken = localStorage.getItem('userToken');
@@ -32,7 +32,7 @@ function editSchedule (schedule_uuid, data) {
         },
         data: data
     });
-};
+}
 
 function deleteSchedule (schedule_uuid) {
     let valueToken = localStorage.getItem('userToken');
@@ -56,4 +56,4 @@ function getSchedule (type, userId, data) {
         url: `${API_URL}/api/schedule/${type}/${userId}`,
         params: data
     })
-};
+}

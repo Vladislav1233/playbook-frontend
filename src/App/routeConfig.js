@@ -129,7 +129,7 @@ export function RouteWithSubRoutes(route) {
             }}
         />
     )
-};
+}
 
 export function AppUserTemplate() {
     return (
@@ -140,7 +140,7 @@ export function AppUserTemplate() {
             <Route render={() => NotFound} />
         </Switch>
     );
-};
+}
 
 export function AppTrainerTemplate() {
     return (
@@ -151,4 +151,4 @@ export function AppTrainerTemplate() {
             <Route render={() => NotFound} />
         </Switch>
     );
-};
+}

@@ -26,12 +26,12 @@ const calcCostService = (startTimeBooking, endTimeBooking, rangeCostArray) => {
             
             if (intersectRange) {
                 resultCost = resultCost + convertTypeMoney( intersectRange.diff('seconds') / dividerForCostTime * itemRangeCostArray.cost, 'RUB', 'banknote' );
-            };
+            }
         });
 
     } else {
         return null
-    };
+    }
 
     return resultCost;
 };

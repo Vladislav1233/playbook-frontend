@@ -5,7 +5,7 @@ export const composeValidators = (...validators) => value =>
     validators.reduce((error, validator) => error || validator(value), undefined);
 
 export const required = (text = 'Обязательное поле') => value => {
-	return !!value ? undefined : text
+	return value ? undefined : text
 };
 
 export const startTimeBeforeEndTime = (valueStart, valueEnd, text = 'Время начала бронированя должно быть раньше времени окончания.') => () => {

@@ -64,10 +64,10 @@ function logout() {
             localStorage.removeItem('userRole');
             localStorage.removeItem('userId');
             localStorage.removeItem('userInformation');
-        };
+        }
         return res.data.data
     });
-};
+}
 
 /*
 * resendVerificationCode - функция получения кода для регистрации в системе (сброс своего пароля)
@@ -82,7 +82,7 @@ function resendVerificationCode(data) {
         url: `${API_URL}/api/resend_verification_code`,
         data: data
     });
-};
+}
 
 function resetPasswordRequest(data) {
     return axios({
@@ -90,7 +90,7 @@ function resetPasswordRequest(data) {
         url: `${API_URL}/api/reset_password`,
         data: data
     });
-};
+}
 
 
 // Код ниже не закончен

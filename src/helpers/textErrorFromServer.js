@@ -6,6 +6,6 @@ function textErrorFromServer(responseServer) {
     } else {
         return responseServer.response.data[Object.keys(responseServer.response.data)[0]][0]
     }
-};
+}
 
 export default textErrorFromServer;

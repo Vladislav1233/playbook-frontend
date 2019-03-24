@@ -13,4 +13,4 @@ export function dataTime({
         start_time: moment.utc( moment(valueStart).startOf(startOf) ).format(format),
         end_time: moment.utc( moment(valueEnd).endOf(endOf) ).format(format)
     }
-};
+}

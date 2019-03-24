@@ -43,18 +43,18 @@ class TrainerInfo extends Component {
 
     componentDidMount() {
         this.getTrainerInfo();
-    };
+    }
 
     componentWillUnmount() {
         this.props.onClearSearchPlayground();
-    };
+    }
 
     getTrainerInfo = () => {
         const { userId } = this.props;
 
         if (this.state.preloader === false) {
             this.setState({ preloader: true });
-        };
+        }
 
         trainerInfoService.getTrainerInformation(userId)
             .then(
@@ -150,13 +150,13 @@ class TrainerInfo extends Component {
                     playgrounds: getUnCheckPlayground
                 }
             })
-        };
+        }
     }
 
     onSaveInformation = () => {
         if (this.state.preloader === false) {
             this.setState({ preloader: true });
-        };
+        }
 
         // TODO: здесь надо будет обсудить и доделать так, чтобы найденные новые площадки не пересекались с уже добавленными себе, чтобы лишнего не выводилось тренеру. + Надо придумать как удалять площадку на которой тренируешь.
         const {

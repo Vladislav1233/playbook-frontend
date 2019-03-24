@@ -79,12 +79,12 @@ class HeadMenu extends Component {
                 return // TODO
             } else if (userRole === 'admin') {
                 return // TODO
-            };
+            }
         };
         let dataAboutRole = {};
         if (isAuthorization) {
             dataAboutRole = getDataAboutRole(userRole[0]); 
-        };
+        }
 
         return(
             <div className={classNameBlock}>

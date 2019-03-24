@@ -109,7 +109,7 @@ export default function(state = initialState, action) {
                     
                     newConfirmPastBooking.push(createDataBookingRequest(item));
 
-                };
+                }
             });
 
             return {

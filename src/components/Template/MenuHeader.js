@@ -19,8 +19,8 @@ class MenuHeader extends Component {
             && prevProps.toggleMenu !== false) {
             
             this.props.onCloseMenu();
-        };
-    };
+        }
+    }
 
     render() {
         console.log('render MenuHeader');
@@ -115,7 +115,7 @@ const mapDispatchToProps = (dispatch) => {
         onCloseMenu: (e) => {
             if(e) {
                 e.preventDefault();
-            };
+            }
             dispatch(closeMenu());
         },
         onToggleCabinet: (e, status) => {

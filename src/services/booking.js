@@ -108,4 +108,4 @@ function getAllBookingsForUser(data = {
         },
         params: data
     });
-};
+}

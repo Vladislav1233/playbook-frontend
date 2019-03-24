@@ -79,7 +79,7 @@ export default function identificate(state = initialState, action) {
         case userConstants.RESEND_VERIFICATION_CODE_SUCCESS:
             if (action.payload.data.success) {
                 alert('На ваш номер отправлен код. Введите его в поле "Пароль" и нажмите "Подтвердить"');
-            };
+            }
 
             return {
                 ...state,
@@ -116,4 +116,4 @@ export default function identificate(state = initialState, action) {
                 ...state
             }
   }
-};
+}

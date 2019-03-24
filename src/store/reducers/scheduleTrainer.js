@@ -86,7 +86,7 @@ export default function(state = initialState, action) {
                 reservedTime = action.reservedResponse.data.data.filter(reservedResponseItem => {
                     return reservedResponseItem.status === 1;
                 });
-            };
+            }
             // Note: Cтоимость часа во всех промежутках времени
             let newCost = [];
             // Note: Площадки на которых в этот день тренирует тренер
@@ -114,7 +114,7 @@ export default function(state = initialState, action) {
                             end_time: arr[i + 1].end_time,
                             isStatus: true
                         });
-                    };
+                    }
                 }
 
                 // Note: Получаем стоимость часа во всех промежутках времени для тренера. Время переводим в локальный часовой пояс (с сервера нам приходит +00:00).
@@ -133,7 +133,7 @@ export default function(state = initialState, action) {
                 // Note: получаем занятое время из расписания тренера
                 if(!action.isCabinet) {
                     reservedTime = reservedTime.concat(item.confirmed_bookings);
-                };
+                }
             });
 
 
