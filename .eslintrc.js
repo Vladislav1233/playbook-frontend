@@ -12,10 +12,6 @@ module.exports = {
         // enforces getter/setter pairs in objects
         'accessor-pairs': 'off',
 
-        // enforces return statements in callbacks of array's methods
-        // https://eslint.org/docs/rules/array-callback-return
-        'array-callback-return': ['error', { allowImplicit: true }],
-
         // treat var statements as if they were block scoped
         'block-scoped-var': 'error',
 
