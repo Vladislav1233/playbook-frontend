@@ -65,6 +65,9 @@ class MenuHeader extends Component {
                             <li className="b-menu__item">
                                 <Link className="b-menu__link b-menu__link--disabled" to={configPathRouter.listTrainer}>Мне нужен корт</Link>
                             </li>
+                            <li className="b-menu__item">
+                                <Link className="b-menu__link b-menu__link--disabled" to={configPathRouter.listTrainer}>Турниры</Link>
+                            </li>
                         </ul>
 
                         <ul className="b-menu__list">
