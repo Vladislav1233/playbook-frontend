@@ -40,6 +40,6 @@ class Radio extends Component {
             </div>
         )
     }
-};
+}
 
 export default Radio;

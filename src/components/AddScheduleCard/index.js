@@ -77,7 +77,7 @@ class AddScheduleCard extends Component {
 
                                 if (data.playgroundsCheck.length > 0) {
                                     checkIs = data.playgroundsCheck.some(isCheck);
-                                };
+                                }
 
                                 return (
                                     <li key={item.uuid} className="b-add-schedule-card__check-item">

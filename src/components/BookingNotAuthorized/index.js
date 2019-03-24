@@ -35,6 +35,6 @@ class BookingNotAuthorized extends Component {
             </Modal>
         )
     }
-};
+}
 
 export default BookingNotAuthorized;

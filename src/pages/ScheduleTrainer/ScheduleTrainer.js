@@ -37,7 +37,7 @@ class ScheduleTrainer extends Component {
                         alert('Ошибка!');
                     }
                 );
-        };
+        }
     }
 
     render() {
@@ -62,7 +62,7 @@ class ScheduleTrainer extends Component {
                 return `${location.state.trainerInfo.first_name} ${location.state.trainerInfo.last_name}`
             } else if(trainerInformation) {
                 return `${trainerInformation.first_name} ${trainerInformation.last_name}`
-            };
+            }
         };
 
         // Note: userId достаем из url'a с помощью withRouter

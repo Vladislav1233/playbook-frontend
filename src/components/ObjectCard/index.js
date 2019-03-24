@@ -20,9 +20,9 @@ class ObjectCard extends Component {
             if (trainerInfo.trainer_info) {
                 if (trainerInfo.trainer_info.min_price === trainerInfo.trainer_info.max_price) {
                     return convertTypeMoney(trainerInfo.trainer_info.min_price, 'RUB', 'banknote');
-                } else {
+                } 
                     return `${convertTypeMoney(trainerInfo.trainer_info.min_price, 'RUB', 'banknote')} - ${convertTypeMoney(trainerInfo.trainer_info.max_price, 'RUB', 'banknote')}`
-                }
+                
             }
         };
 
@@ -39,9 +39,9 @@ class ObjectCard extends Component {
                     : courtsSting.push(`, ${e.name}`)
                 });
                 return courtsSting;
-            } else {
+            } 
                 return `${trainerInfo.playgrounds[0].name}`;
-            }
+            
         };
 
         // const addressCourt = () => {

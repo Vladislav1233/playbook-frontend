@@ -51,11 +51,11 @@ function login(data, toMain = true, callback) {
 
                     if (callback) {
                         callback();
-                    };
+                    }
 
                     if(toMain) {
                         history.push('/');
-                    };
+                    }
                 },
                 error => {
                     dispatch(failure(error.toString()));
@@ -120,7 +120,7 @@ function logout() {
             payload: err
         }
     }
-};
+}
 
 /*
 * resendVerificationCode - функция получения кода для регистрации в системе (сброс своего пароля)
@@ -163,7 +163,7 @@ function resendVerificationCode(data) {
             payload: err
         }
     }
-};
+}
 
 function resetPasswordRequest(data) {
     

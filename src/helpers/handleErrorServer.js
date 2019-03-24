@@ -11,4 +11,4 @@ export function handleErrorServer(codeError) {
         });
         store.dispatch(alertActions.error('Вы неавторизованный пользователь. Чтобы выполнить данное действие вам нужно авторизоваться'));
     }
-};
+}

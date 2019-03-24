@@ -76,15 +76,15 @@ class HeadMenu extends Component {
                     roleName: 'Игрок'
                 } 
             } else if (userRole === 'organization-admin') {
-                return // TODO
+                 // TODO
             } else if (userRole === 'admin') {
-                return // TODO
-            };
+                 // TODO
+            }
         };
         let dataAboutRole = {};
         if (isAuthorization) {
             dataAboutRole = getDataAboutRole(userRole[0]); 
-        };
+        }
 
         return(
             <div className={classNameBlock}>

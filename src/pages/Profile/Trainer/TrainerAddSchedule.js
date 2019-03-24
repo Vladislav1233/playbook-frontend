@@ -58,7 +58,7 @@ class TrainerAddSchedule extends Component {
         }
 
         this.initialDataCards = this.state.cards; 
-    };
+    }
 
     static getDerivedStateFromProps(props, state) {
         if(props.successPostResponse === true) {
@@ -66,12 +66,12 @@ class TrainerAddSchedule extends Component {
                 ...state,
                 successPostResponse: true
             }
-        } else {
+        } 
             return {
                 ...state,
                 successPostResponse: false
             }
-        }
+        
     }
 
     componentDidMount() {
@@ -89,7 +89,7 @@ class TrainerAddSchedule extends Component {
             const dateForGet = moment(this.state.dateCalendar).format('YYYY-MM-DD');
 
             this.getTrainerScheduleRequest(dateForGet, dataForGet);
-        };
+        }
     }
 
     getTrainerScheduleRequest = (date, data) => {
@@ -99,7 +99,7 @@ class TrainerAddSchedule extends Component {
         const getScheduleRequest = () => { 
             if (this.state.preloader !== true) {
                 this.setState({ preloader: true });
-            };
+            }
 
             scheduleService.getSchedule('trainer', userId, data)
             .then(
@@ -168,7 +168,7 @@ class TrainerAddSchedule extends Component {
                 );
         } else {
             getScheduleRequest();
-        };
+        }
     }
 
     createDataCard = (idx, name, value) => {
@@ -210,7 +210,7 @@ class TrainerAddSchedule extends Component {
                             numberCardWithError = indexValidationCard;
 
                             return currentCardRange.overlaps(validationCardRange);
-                        };
+                        }
 
                         return false;
                     });
@@ -226,7 +226,7 @@ class TrainerAddSchedule extends Component {
                         this.setState({
                             isNotValidCards: false
                         });
-                    };
+                    }
 
                 } else {
                     newCards[idx].errorCardText = 'Проверьте временные границы. Время окончания должно быть больше.';
@@ -239,7 +239,7 @@ class TrainerAddSchedule extends Component {
                 this.setState({
                     isNotValidCards: true
                 });
-            };
+            }
         };
 
         
@@ -271,7 +271,7 @@ class TrainerAddSchedule extends Component {
             newPlaygroundsCheck = newPlaygroundsCheck.filter(item => {
                 return item !== name;
             })
-        };
+        }
 
         const newCards = this.createDataCard(idx, 'playgroundsCheck', newPlaygroundsCheck);
 
@@ -305,7 +305,7 @@ class TrainerAddSchedule extends Component {
         //  Note: если карточка с сервера то удаляем её совсем
         if (cards[idx].schedule_uuid) {
             scheduleService.deleteSchedule(cards[idx].schedule_uuid);
-        };
+        }
 
         // Note: если последняя карточка с сервера, то очищаем её.
         if (cards.length === 1 && cards[idx].schedule_uuid) {
@@ -321,7 +321,7 @@ class TrainerAddSchedule extends Component {
                 ...this.state,
                 cards: cards.filter((s, sidx) => idx !== sidx)
             });
-        };
+        }
     };
 
     onClickDateCalendar = (value) => {
@@ -388,7 +388,7 @@ class TrainerAddSchedule extends Component {
                 }],
                 selectChooseDay: value.value
             });
-        };
+        }
     };
 
     onSubmitCreateSchedule = () => {
@@ -398,7 +398,7 @@ class TrainerAddSchedule extends Component {
             let isValidCards = this.state.cards.every((card, indexCard) => {
                 if(card.start_time && card.end_time && card.playgroundsCheck.length > 0 && card.price_per_hour) {
                     return true
-                };
+                }
 
                 this.props.alertActionsError('Не сохранено! Исправьте ошибки, указанные в карточках расписания, и попробуйте ещё раз.');
                 const newCardsWithError = [...this.state.cards];
@@ -424,15 +424,15 @@ class TrainerAddSchedule extends Component {
 
                         if (datesRequest) {
                             result.dates = datesRequest;
-                        };
+                        }
 
                         if (startTimeRequest) {
                             result.start_time = startTimeRequest
-                        };
+                        }
 
                         if (endTimeRequest) {
                             result.end_time = endTimeRequest
-                        };
+                        }
 
                         return result;
                     };
@@ -459,17 +459,17 @@ class TrainerAddSchedule extends Component {
                     const create = () => {
                         if (!card.schedule_uuid) {
                             dispatch(createScheduleTrainer(createDataForRequest(dates, null, null)));
-                        };
+                        }
                     };
 
                     edit();
                 });
 
                 this.props.alertActionsSuccess('Расписание сохранено.');
-            };
+            }
         } else {
             this.props.alertActionsError('Не сохранено! Исправьте ошибки, указанные в карточках расписания, и попробуйте ещё раз.');
-        };
+        }
     };
 
     render() {

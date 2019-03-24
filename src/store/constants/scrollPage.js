@@ -1,1 +1,1 @@
-export const    SCROLL_PAGE = 'SCROLL_PAGE';
+export const SCROLL_PAGE = 'SCROLL_PAGE';

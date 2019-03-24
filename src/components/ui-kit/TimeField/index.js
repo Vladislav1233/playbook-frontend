@@ -53,6 +53,6 @@ class TimeField extends Component {
             </div>
         )
     }
-};
+}
 
 export default TimeField;

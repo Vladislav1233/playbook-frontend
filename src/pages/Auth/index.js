@@ -62,7 +62,7 @@ class Auth extends Component {
 
         // Note: Проверяем все ли поля заполнены
         for (let key in this.state.user) {
-            if (!Boolean(this.state.user[key])) {
+            if (!this.state.user[key]) {
                 this.setState({
                     validation: {
                         ...this.state.validation,
@@ -73,7 +73,7 @@ class Auth extends Component {
                 
                 return false;
             }
-        };
+        }
 
         if (phone && password) {
             const dataRequest = {
@@ -85,7 +85,7 @@ class Auth extends Component {
             dataRequest.phone = telWithoutPlus(dataRequest.phone);
             // Note: Диспатчим запрос
             dispatch(userActions.login(dataRequest));
-        };
+        }
     }
 
     render() {

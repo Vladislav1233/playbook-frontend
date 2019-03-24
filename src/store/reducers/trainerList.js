@@ -41,11 +41,11 @@ export default function(state = initialState, action) {
                     listTrainer: newListTrainer,
                     total_count: total_count
                 }
-            } else {
+            } 
                 return {
                     ...initialState
                 }
-            }
+            
 
         case GET_TRAINER_LIST_FAILURE:
             alert('ошибка'); // TODO
@@ -64,4 +64,4 @@ export default function(state = initialState, action) {
                 ...state
             }
     }
-};
+}

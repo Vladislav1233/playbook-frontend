@@ -24,5 +24,5 @@ export function convertTypeMoney(number, codeCurrency, convertTo) {
 
         default:
             break;
-    };
-};
+    }
+}

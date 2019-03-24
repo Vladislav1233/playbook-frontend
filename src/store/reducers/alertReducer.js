@@ -27,4 +27,4 @@ export default function alertReducer(state = initialState, action) {
         default:
             return state
     }
-};
+}

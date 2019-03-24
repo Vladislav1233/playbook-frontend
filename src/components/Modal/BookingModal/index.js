@@ -50,7 +50,7 @@ class BookingModal extends Component {
         };
 
         this.initialState = this.state;
-    };
+    }
 
     onRegisterUser = ({ first_name, last_name, phone }) => {
 
@@ -75,7 +75,7 @@ class BookingModal extends Component {
                             registeredNewUser: false,
                             showFileldPassword: true
                         });
-                    };
+                    }
                     console.log(err.response.data);
                 }
             ); 
@@ -90,7 +90,7 @@ class BookingModal extends Component {
 
         if (!localStorage.getItem('userRole') && localStorage.getItem('userToken')) {
             localStorage.removeItem('userToken');
-        };
+        }
     };
 
     onSubmitBooking = (values) => {
@@ -112,7 +112,7 @@ class BookingModal extends Component {
 
         if (playgroundId) {
             data.playground_uuid = playgroundId
-        };
+        }
 
         if(isAuthorization) {
             createBooking(typeBooking, data);
@@ -126,7 +126,7 @@ class BookingModal extends Component {
                 createBooking(typeBooking, data); 
                 this.onCancel();
             }).then(() => { this.onCancel(); });
-        };
+        }
     };
 
     getCostPlaygroundForPayBooking = () => {
@@ -139,7 +139,7 @@ class BookingModal extends Component {
             // eslint-disable-next-line
             if (playgroundForTraining.pivot.playground_uuid = playgroundId) {
                 schedulePlayground = [ ...playgroundForTraining.schedules ]
-            };
+            }
         });
         
         if (schedulePlayground.length > 0) {
@@ -186,8 +186,8 @@ class BookingModal extends Component {
 
         let costPlaygroundForPayBooking = [];
         if (playgroundId) {
-            costPlaygroundForPayBooking =  [ ...this.getCostPlaygroundForPayBooking() ];
-        };
+            costPlaygroundForPayBooking = [ ...this.getCostPlaygroundForPayBooking() ];
+        }
 
         const numberCost = (cost) => {
             return <NumberFormat
@@ -239,7 +239,7 @@ class BookingModal extends Component {
                                 errors.start_time = isTimeRequired
                                 errors.end_time = isTimeRequired
                             }
-                        };
+                        }
                         return errors;
                     }}
                     render={({ handleSubmit, values, errors, touched }) => {
@@ -268,7 +268,7 @@ class BookingModal extends Component {
                                         render={({ input }) => {
                                             if(input.value.length === 5) {
                                                 input.onChange(stepTime(input.value, stepMinIncrement))
-                                            };
+                                            }
                                             return <TimeField 
                                                 {...input}
                                                 labelText='С'
@@ -299,7 +299,7 @@ class BookingModal extends Component {
                                         render={({ input }) => {
                                             if(input.value.length === 5) {
                                                 input.onChange(stepTime(input.value, stepMinIncrement))
-                                            };
+                                            }
                                             return <TimeField 
                                                 { ...input }
                                                 labelText='По'
@@ -597,7 +597,7 @@ class CostInformation extends Component {
             </div>
         )
     }
-};
+}
 
 const mapStateToProps = ({ identificate }) => {
     return {

@@ -53,6 +53,6 @@ class Alert extends Component {
             </aside>
         )
     }
-};
+}
 
 export default Alert;

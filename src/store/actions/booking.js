@@ -233,4 +233,4 @@ export function getAllBookingsForUser() {
             payload: error
         }
     }
-};
+}
