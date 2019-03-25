@@ -84,7 +84,7 @@ class AddScheduleCard extends Component {
                                     <li key={item.uuid} className="b-add-schedule-card__check-item">
                                         <Checkbox 
                                             name={`${item.uuid}`}
-                                            id={`court-${item.id}${idRender}`}
+                                            id={`court-${item.uuid}${idRender}`}
                                             value={item.uuid}
                                             checked={checkIs}
                                             onChange={onChangeCheckbox}
