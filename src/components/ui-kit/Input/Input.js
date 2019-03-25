@@ -26,19 +26,19 @@ class Input extends Component {
 
         return(
             <div className={classInput}>
-                {labelText ? 
-                    <label htmlFor={idInput} className="b-input__label">{labelText}</label> 
+                {labelText ?
+                    <label htmlFor={idInput} className="b-input__label">{labelText}</label>
                 : null}
-                
-                <input 
+
+                <input
                     className="b-input__input"
                     id={idInput}
                     name={nameInput ? nameInput : idInput}
                     type={typeInput}
-                    placeholder={placeholder} 
+                    placeholder={placeholder}
                     value={value}
                     onChange={onChange}
-                    autoComplete={autoComplete}
+                    autoComplete={autoComplete ? 'on' : 'off'}
                     max={maxValue}
                     min={minValue}
                     disabled={disabled ? disabled : null}

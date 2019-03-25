@@ -11,7 +11,7 @@ import tennisBallIcon from '../../style/images/icon/logo.svg';
 
 class HelloPage extends Component {
 
-    render() { 
+    render() {
         const { isAuthorization, userRole } = this.props;
 
         const profileTo = () => {
@@ -25,7 +25,7 @@ class HelloPage extends Component {
                 return configPathRouter.profileUser;
             }
         };
-        
+
         return(
             <div className="container">
                 <div className="b-hello-page">
@@ -50,8 +50,8 @@ class HelloPage extends Component {
                                 <Link className="b-button b-button--hollow b-button--hello-page" to={configPathRouter.listCourt}>Мне нужен корт</Link>
                             </li> */}
                             <li className="b-hello-page__item">
-                                <Link 
-                                    className="b-button b-button--hollow b-button--hello-page" 
+                                <Link
+                                    className="b-button b-button--hollow b-button--hello-page"
                                     to={configPathRouter.listTrainer}
                                 >
                                     Мне нужен тренер
@@ -62,25 +62,25 @@ class HelloPage extends Component {
                         { isAuthorization
                             ? <ul className="b-hello-page__list">
                                 <li className="b-hello-page__item">
-                                    <Link 
-                                        className="b-button b-button--hollow b-button--hello-page" 
+                                    <Link
+                                        className="b-button b-button--hollow b-button--hello-page"
                                         to={configPathRouter.myBooking}
-                                    > 
+                                    >
                                         Мои бронирования
                                     </Link>
                                 </li>
-                                {userRole[0] !== 'user' 
+                                {userRole[0] !== 'user'
                                     ? <li className="b-hello-page__item">
-                                        <Link 
-                                            className="b-button b-button--hollow b-button--hello-page" 
+                                        <Link
+                                            className="b-button b-button--hollow b-button--hello-page"
                                             to={profileTo()}
                                         >
                                             Личный кабинет
                                         </Link>
-                                    </li> 
-                                    : null   
+                                    </li>
+                                    : null
                                 }
-                                
+
                               </ul>
                             : null
                         }

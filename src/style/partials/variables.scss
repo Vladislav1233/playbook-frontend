@@ -1,6 +1,6 @@
 // ----- fonts -----
 $light: 'montserratlight'; // 300
-$regular: 'montserratregular'; // 400 
+$regular: 'montserratregular'; // 400
 $medium: 'montserratmedium'; // 500
 $bold: 'montserratbold' ; // 700
 
@@ -22,7 +22,7 @@ $materialFunction: cubic-bezier(.4, .0, .2, 1);
 /** ----- colors ----- */
 // Просто цвета:
 $mint: #053D32; // Альпийский зелёный цвет - основной
-$secondary: #4489ff; // Синий фокусный - вторичный 
+$secondary: #4489ff; // Синий фокусный - вторичный
 $telegray: #8c8c8c;
 $bright-telegray: #cccccc;
 
@@ -109,4 +109,29 @@ $focusTrans: rgba(226, 237, 255, 0.8);
     font-size: 0.8rem;
     color: $error;
     letter-spacing: 0.6px;
+}
+
+@mixin linkInTextWhite() {
+    text-decoration: underline;
+
+    @include hover {
+        color: $secondary
+    }
+
+    @include focus {
+        color: $secondary
+    }
+}
+
+@mixin linkInTextBlack() {
+    text-decoration: underline;
+    color: $mainFontColor;
+
+    @include hover {
+        color: $secondary
+    }
+
+    @include focus {
+        color: $secondary
+    }
 }

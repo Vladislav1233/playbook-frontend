@@ -88,8 +88,7 @@ a {
     }
 
     &.link-in-text-white {
-        text-decoration: underline;
-        color: $secondary
+        @include linkInTextWhite();
     }
 }
 

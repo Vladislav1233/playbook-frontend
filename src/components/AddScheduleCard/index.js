@@ -15,13 +15,13 @@ import deleteIcon from '../../style/images/icon/delete.svg';
 class AddScheduleCard extends Component {
 
     render() {
-        const { 
-            idRender, 
-            data, 
-            onChangeTime, 
-            onRemoveCard, 
-            playgroundsForTraining, 
-            onChangeInput, 
+        const {
+            idRender,
+            data,
+            onChangeTime,
+            onRemoveCard,
+            playgroundsForTraining,
+            onChangeInput,
             onChangeCheckbox,
             canDelete,
         } = this.props;
@@ -52,7 +52,7 @@ class AddScheduleCard extends Component {
                 </div>
 
                 <div className="b-add-schedule-card__field">
-                    <Input 
+                    <Input
                         labelText={'Цена за час, ₽'}
                         idInput={`price-${idRender}`}
                         placeholder='Цена за час'
@@ -68,9 +68,9 @@ class AddScheduleCard extends Component {
                     <div className="b-add-schedule-card__title-section">Корт</div>
 
                     <ul className="b-add-schedule-card__check-list">
-                        {playgroundsForTraining.length > 0 ? 
+                        {playgroundsForTraining.length > 0 ?
                             playgroundsForTraining.map(item => {
-                                
+
                                 const isCheck = (num) => {
                                     return num === item.uuid
                                 }
@@ -82,7 +82,7 @@ class AddScheduleCard extends Component {
 
                                 return (
                                     <li key={item.uuid} className="b-add-schedule-card__check-item">
-                                        <Checkbox 
+                                        <Checkbox
                                             name={`${item.uuid}`}
                                             id={`court-${item.uuid}${idRender}`}
                                             value={item.uuid}
@@ -96,7 +96,10 @@ class AddScheduleCard extends Component {
                                 )
                             })
                             : <li className="b-add-schedule-card__check-item">
-                                <p>Добавьте информацию о кортах, на которых работаете в разделе <Link className="b-add-schedule-card__link" to="/profile/trainer-info">"Обо мне"</Link>.</p>
+                                <p>Добавьте информацию о кортах, на которых работаете в разделе <Link className="b-add-schedule-card__link" to="/profile/trainer-info">
+                                    «обо мне»
+                                    </Link>
+                                </p>
                             </li>
                         }
                     </ul>
