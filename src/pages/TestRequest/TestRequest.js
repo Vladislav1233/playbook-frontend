@@ -6,9 +6,9 @@ class TestRequest extends Component {
     request = (event) => {
         event.preventDefault();
         let valueToken = localStorage.getItem('userToken');
-        let valueRole = localStorage.getItem('userRole');
-        console.log(valueToken);
-        console.log(valueRole);
+        // let valueRole = localStorage.getItem('userRole');
+        // console.log(valueToken);
+        // console.log(valueRole);
 
         axios({
             method: 'post',
@@ -47,7 +47,7 @@ class TestRequest extends Component {
             console.log(response);
         });
     }
-    
+
     render() {
         return(
             <div>

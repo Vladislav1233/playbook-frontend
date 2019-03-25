@@ -25,20 +25,19 @@ import '../style/bem-blocks/b-main/index.scss';
 class App extends Component {
 
     render() {
-        const { 
-            location, 
-            toggleMenu, 
-            userRole, 
-            scrollPage, 
+        const {
+            location,
+            toggleMenu,
+            userRole,
+            scrollPage,
             alertMessage,
             alertType,
             isAuthorization
         } = this.props;
-        console.log('renderApp');
-        
+
         const howLocation = location.pathname.split('/');
         const howRouterConfig = (value) => {
-            const newValue = value.split('/'); 
+            const newValue = value.split('/');
             return newValue[1];
         };
 
@@ -60,14 +59,14 @@ class App extends Component {
 
                 case 'trainer':
                     return <AppTrainerTemplate isAuthorization={isAuthorization} />
-                
+
                 case 'organization-admin':
                     break;
 
                 case 'admin':
                     break;
 
-                default: 
+                default:
                     return <AppUserTemplate />
             }
         }
@@ -75,7 +74,7 @@ class App extends Component {
         return (
             <div className={pageWrapperClass}>
                 <Header location={location.pathname} />
-                <main className={mainClass}>                
+                <main className={mainClass}>
                     {renderRoutePage()}
                 </main>
                 {/* TODO: сделать анимацию через react transition */}

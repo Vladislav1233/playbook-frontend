@@ -15,16 +15,14 @@ import '../../style/bem-blocks/b-hamburger/index.scss';
 class MenuHeader extends Component {
 
     componentDidUpdate(prevProps) {
-        if(this.props.location.pathname !== prevProps.location.pathname 
+        if(this.props.location.pathname !== prevProps.location.pathname
             && prevProps.toggleMenu !== false) {
-            
+
             this.props.onCloseMenu();
         }
     }
 
     render() {
-        console.log('render MenuHeader');
-
         const hamburgerStyle = cn('b-hamburger', {
             'open': this.props.toggleMenu
         });
