@@ -41,6 +41,17 @@ class TrainerAddSchedule extends Component {
         super(props);
 
         this.state = {
+            initialValuesCards: [{
+                start_time: '',
+                end_time: '',
+                price_per_hour: '',
+                playgrounds: [],
+                uuid: ''
+            }],
+            selectChooseDay: 'one', // Note: это для настроек календаря: one - выбрать можно 1 день, period - выбрать можно период от / до
+            dateCalendar: `${moment(new Date()).format('YYYY-MM-DD')}`,
+            dateForRequest: [`${moment(new Date()).format('YYYY-MM-DD')}`],
+
             cards: [{
                 dates: [],
                 start_time: null,
@@ -52,15 +63,13 @@ class TrainerAddSchedule extends Component {
                 playgroundsCheck: [],
                 errorCardText: ''
             }],
-            selectChooseDay: 'one', // Note: это для настроек календаря: one - выбрать можно 1 день, period - выбрать можно период от / до
-            dateCalendar: `${moment(new Date()).format('YYYY-MM-DD')}`,
             successPostResponse: false,
             playgroundsForTraining: [],
             preloader: false,
             isNotValidCards: false
         }
 
-        this.initialDataCards = this.state.cards; 
+        this.initialDataCards = this.state.initialValuesCards; 
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -110,37 +119,23 @@ class TrainerAddSchedule extends Component {
                     this.props.dispatch(toggleResponse());
                     if(response.data.data.length > 0) {
                         const answerData = response.data.data;
-                        const newCards = answerData.map(item => {
+                        const newInitialValuesCards = answerData.map(item => {
                             return {
-                                dates: [date],
                                 start_time: moment(item.start_time, ANALIZE_DATE_TIME_ZONE).format("HH:mm"),
                                 end_time: moment(item.end_time, ANALIZE_DATE_TIME_ZONE).format("HH:mm"),
                                 price_per_hour: convertTypeMoney(item.price_per_hour, 'RUB', 'banknote'),
-                                currency: 'RUB',
-                                schedule_uuid: item.uuid,
-                                playgrounds: this.state.playgroundsForTraining,
-                                playgroundsCheck: item.playgrounds.map(item => item.uuid),
-                                errorCardText: ''
+                                playgrounds: item.playgrounds.map(responsePlayground => responsePlayground.uuid),
+                                uuid: item.uuid
                             }
                         });
 
                         this.setState({
                             ...this.state,
-                            cards: newCards,
+                            initialValuesCards: newInitialValuesCards,
                             preloader: false
                         });
                     } else {
-                        const newCards = [{
-                                dates: [date],
-                                start_time: null,
-                                end_time: null,
-                                price_per_hour: '',
-                                currency: 'RUB',
-                                schedule_uuid: '',
-                                playgrounds: this.state.playgroundsForTraining,
-                                playgroundsCheck: [],
-                                errorCardText: ''
-                            }];
+                        const newCards = [ ...this.initialDataCards ];
 
                         this.setState({
                             ...this.state,
@@ -254,77 +249,10 @@ class TrainerAddSchedule extends Component {
         });
     };
 
-    onChangeInput = (idx) => (event) => {
-        const { name, value } = event.target;
-        const newCards = this.createDataCard(idx, name, value);
-
-        this.setState({
-            ...this.state,
-            cards: newCards
-        });
-    };
-
-    onChangeCheckbox = (idx) => (event) => {
-        const { name, checked } = event.target;
-        let newPlaygroundsCheck = this.state.cards[idx].playgroundsCheck;
-
-        if (checked) {
-            newPlaygroundsCheck = [...newPlaygroundsCheck, name];
-        } else {
-            newPlaygroundsCheck = newPlaygroundsCheck.filter(item => {
-                return item !== name;
-            })
-        }
-
-        const newCards = this.createDataCard(idx, 'playgroundsCheck', newPlaygroundsCheck);
-
-        this.setState({
-            ...this.state,
-            cards: newCards
-        });
-    };
-
-    // Note: Добавляем ещё одну карточку для заполения расписания
-    handleAddCard = () => {
-        this.setState({
-            ...this.state,
-            cards: this.state.cards.concat([{
-                dates: this.state.cards[0].dates,
-                start_time: null,
-                end_time: null,
-                price_per_hour: '',
-                currency: 'RUB',
-                schedule_uuid: '',
-                playgrounds: this.state.playgroundsForTraining,
-                playgroundsCheck: [],
-                errorCardText: ''
-            }])
-        })
-    };
-
-    handleRemoveCard = (idx) => () => {
-        const { cards } = this.state;
-
-        //  Note: если карточка с сервера то удаляем её совсем
-        if (cards[idx].schedule_uuid) {
-            scheduleService.deleteSchedule(cards[idx].schedule_uuid);
-        }
-
-        // Note: если последняя карточка с сервера, то очищаем её.
-        if (cards.length === 1 && cards[idx].schedule_uuid) {
-            this.setState({
-                ...this.state,
-                cards: this.initialDataCards
-            })
-        } else if(cards.length === 1) {
-            alert("Нельзя удалять последнюю пустую карточку");
-            return false;
-        } else {
-            this.setState({
-                ...this.state,
-                cards: cards.filter((s, sidx) => idx !== sidx)
-            });
-        }
+    handleRemoveCard = (scheduleUuid) => {
+        if(scheduleUuid) {
+            scheduleService.deleteSchedule(scheduleUuid);
+        };
     };
 
     onClickDateCalendar = (value) => {
@@ -394,99 +322,158 @@ class TrainerAddSchedule extends Component {
         }
     };
 
-    onSubmitCreateSchedule = () => {
+    onSubmitCreateSchedule = (values) => {
         const { dispatch } = this.props;
-        
-        if(!this.state.isNotValidCards) {
-            let isValidCards = this.state.cards.every((card, indexCard) => {
-                if(card.start_time && card.end_time && card.playgroundsCheck.length > 0 && card.price_per_hour) {
-                    return true
+
+        values.scheduleCard.forEach(value => {
+            let formatPrice = convertTypeMoney(value.price_per_hour, 'RUB', 'coin');
+
+            // Note: Функция, которая генерирует данные по расписанию как для create так и для edit для отправки на сервер.
+            const createDataForRequest = (datesRequest, startTimeRequest, endTimeRequest) => {
+                let result = {
+                    price_per_hour: formatPrice,
+                    currency: 'RUB',
+                    playgrounds: value.playgrounds 
+                };
+
+                if (datesRequest) {
+                    result.dates = datesRequest;
                 }
 
-                this.props.alertActionsError('Не сохранено! Исправьте ошибки, указанные в карточках расписания, и попробуйте ещё раз.');
-                const newCardsWithError = [...this.state.cards];
-                newCardsWithError[indexCard].errorCardText = 'Все поля должны быть заполнены.';
-                this.setState({
-                    cards: newCardsWithError
-                });
-                return false
+                if (startTimeRequest) {
+                    result.start_time = startTimeRequest
+                }
+
+                if (endTimeRequest) {
+                    result.end_time = endTimeRequest
+                }
+
+                return result;
+            };
+
+            // Note: Получаем даты начала расписания и окончания расписания относительно UTC
+            const dates = this.state.dateForRequest.map(date => {
+                return {
+                    start_time: moment.utc(moment(`${date} ${value.start_time}:00`)).format('YYYY-MM-DD HH:mm:ss'),
+                    end_time: moment.utc(moment(`${date} ${value.end_time}:00`)).format('YYYY-MM-DD HH:mm:ss')
+                }
             });
 
-            if (isValidCards) {
-                // NOTE: Создается один запрос на одну карточку. Добавление расписания
-                this.state.cards.forEach((card, indexCard, arrayCards) => {
-                    let formatPrice = convertTypeMoney(card.price_per_hour, 'RUB', 'coin');
-
-                    // Note: Функция, которая генерирует данные по расписанию как для create так и для edit для отправки на сервер.
-                    const createDataForRequest = (datesRequest, startTimeRequest, endTimeRequest) => {
-                        let result = {
-                            price_per_hour: formatPrice,
-                            currency: card.currency,
-                            playgrounds: card.playgroundsCheck  
-                        };
-
-                        if (datesRequest) {
-                            result.dates = datesRequest;
-                        }
-
-                        if (startTimeRequest) {
-                            result.start_time = startTimeRequest
-                        }
-
-                        if (endTimeRequest) {
-                            result.end_time = endTimeRequest
-                        }
-
-                        return result;
-                    };
-
-                    // Note: Получаем даты начала расписания и окончания расписания относительно UTC
-                    const dates = card.dates.map(date => {
-                        return {
-                            start_time: moment.utc(moment(`${date} ${card.start_time}:00`)).format('YYYY-MM-DD HH:mm:ss'),
-                            end_time: moment.utc(moment(`${date} ${card.end_time}:00`)).format('YYYY-MM-DD HH:mm:ss')
-                        }
-                    });
-
-                    // Note: если у нас карточка с сервера, то у неё schedule_uuid не пустая строка, мы определяем какой запрос отправлять.
-                    const edit = async () => {
-                        if (card.schedule_uuid) {
-                            dispatch(editTrainerSchedule(
-                                card.schedule_uuid,  
-                                createDataForRequest(null, dates[0].start_time, dates[0].end_time)
-                            ));
-                        }
-                        await create();
-                    }
-
-                    const create = () => {
-                        if (!card.schedule_uuid) {
-                            dispatch(createScheduleTrainer(createDataForRequest(dates, null, null)));
-                        }
-                    };
-
-                    edit();
-                });
-
-                this.props.alertActionsSuccess('Расписание сохранено.');
+            // Note: если у нас карточка с сервера, то у неё schedule_uuid не пустая строка, мы определяем какой запрос отправлять.
+            const edit = async () => {
+                if (value.uuid) {
+                    dispatch(editTrainerSchedule(
+                        value.uuid,  
+                        createDataForRequest(null, dates[0].start_time, dates[0].end_time)
+                    ));
+                }
+                await create();
             }
-        } else {
-            this.props.alertActionsError('Не сохранено! Исправьте ошибки, указанные в карточках расписания, и попробуйте ещё раз.');
-        }
+
+            const create = () => {
+                if (!value.uuid) {
+                    dispatch(createScheduleTrainer(createDataForRequest(dates, null, null)));
+                }
+            };
+
+            edit();
+        })
+
+
+        // -------------------
+        // if(!this.state.isNotValidCards) {
+        //     let isValidCards = this.state.cards.every((card, indexCard) => {
+        //         if(card.start_time && card.end_time && card.playgroundsCheck.length > 0 && card.price_per_hour) {
+        //             return true
+        //         }
+
+        //         this.props.alertActionsError('Не сохранено! Исправьте ошибки, указанные в карточках расписания, и попробуйте ещё раз.');
+        //         const newCardsWithError = [...this.state.cards];
+        //         newCardsWithError[indexCard].errorCardText = 'Все поля должны быть заполнены.';
+        //         this.setState({
+        //             cards: newCardsWithError
+        //         });
+        //         return false
+        //     });
+
+        //     if (isValidCards) {
+        //         // NOTE: Создается один запрос на одну карточку. Добавление расписания
+        //         this.state.cards.forEach((card, indexCard, arrayCards) => {
+        //             let formatPrice = convertTypeMoney(card.price_per_hour, 'RUB', 'coin');
+
+        //             // Note: Функция, которая генерирует данные по расписанию как для create так и для edit для отправки на сервер.
+        //             const createDataForRequest = (datesRequest, startTimeRequest, endTimeRequest) => {
+        //                 let result = {
+        //                     price_per_hour: formatPrice,
+        //                     currency: card.currency,
+        //                     playgrounds: card.playgroundsCheck  
+        //                 };
+
+        //                 if (datesRequest) {
+        //                     result.dates = datesRequest;
+        //                 }
+
+        //                 if (startTimeRequest) {
+        //                     result.start_time = startTimeRequest
+        //                 }
+
+        //                 if (endTimeRequest) {
+        //                     result.end_time = endTimeRequest
+        //                 }
+
+        //                 return result;
+        //             };
+
+        //             // Note: Получаем даты начала расписания и окончания расписания относительно UTC
+        //             const dates = card.dates.map(date => {
+        //                 return {
+        //                     start_time: moment.utc(moment(`${date} ${card.start_time}:00`)).format('YYYY-MM-DD HH:mm:ss'),
+        //                     end_time: moment.utc(moment(`${date} ${card.end_time}:00`)).format('YYYY-MM-DD HH:mm:ss')
+        //                 }
+        //             });
+
+        //             // Note: если у нас карточка с сервера, то у неё schedule_uuid не пустая строка, мы определяем какой запрос отправлять.
+        //             const edit = async () => {
+        //                 if (card.schedule_uuid) {
+        //                     dispatch(editTrainerSchedule(
+        //                         card.schedule_uuid,  
+        //                         createDataForRequest(null, dates[0].start_time, dates[0].end_time)
+        //                     ));
+        //                 }
+        //                 await create();
+        //             }
+
+        //             const create = () => {
+        //                 if (!card.schedule_uuid) {
+        //                     dispatch(createScheduleTrainer(createDataForRequest(dates, null, null)));
+        //                 }
+        //             };
+
+        //             edit();
+        //         });
+
+        //         this.props.alertActionsSuccess('Расписание сохранено.');
+        //     }
+        // } else {
+        //     this.props.alertActionsError('Не сохранено! Исправьте ошибки, указанные в карточках расписания, и попробуйте ещё раз.');
+        // }
     };
 
     render() {
         const { 
-            cards, 
+            initialValuesCards,
             selectChooseDay,
-            preloader 
+            preloader,
+            playgroundsForTraining
         } = this.state;
 
         const {
             preloaderSchedule
         } = this.props;
 
+
         let pushForm;
+        let submitSchedule;
 
         // TODO: Сделать валидацию сабмита для периода и тогда включить опцию
         // const optionsSelect = [{
@@ -514,60 +501,75 @@ class TrainerAddSchedule extends Component {
                         getValueSelect={this.onSelectChooseDay}
                     /> */}
 
-                    <div className="b-add-schedule-card__list">
-                        <Form 
-                            onSubmit={() => {}}
-                            mutators={{
-                                ...arrayMutators
-                            }}
-                            render={({ handleSubmit, values, errors, touched, form: {
-                                mutators: { push, pop }
-                              }, }) => {
-                                pushForm = push;
-                                return (
-                                    <form onSubmit={handleSubmit}>
-                                        <FieldArray name="scheduleCard">
-                                            {({ fields }) => 
-                                                fields.map((name, index) => {
-                                                    return <AddScheduleCard
-                                                        key={name}
-                                                        name={name}
-                                                        remove={() => fields.remove(index)}
-                                                    />
-                                                }) 
-                                            }
-                                        </FieldArray>
-                                    </form>
-                                )
-                                // return cards.map((card, idx) => (
-                                //     <AddScheduleCard
-                                //         key={idx}
-                                //         data={card}
-                                //         idRender={idx}
-                                //         onChangeInput={this.onChangeInput(idx)}
-                                //         onChangeTime={this.onChangeTime(idx)}
-                                //         onRemoveCard={this.handleRemoveCard(idx)}
-                                //         playgroundsForTraining={card.playgrounds}
-                                //         onChangeCheckbox={this.onChangeCheckbox(idx)}
-                                //         canDelete={ (cards.length === 1 && !cards[idx].schedule_uuid) ? false : true }
-                                //     />
-                                // ));
-                            }}
-                        />
-                    </div>
+                    
+                    <Form 
+                        onSubmit={this.onSubmitCreateSchedule}
+                        mutators={{
+                            ...arrayMutators
+                        }}
+                        initialValues={{
+                            scheduleCard: [ ...initialValuesCards ]
+                        }}
+                        render={({ 
+                            handleSubmit, 
+                            values, 
+                            errors, 
+                            touched, 
+                            form: {
+                                mutators: { push }
+                            }
+                        }) => {
+                            console.log(values)
+                            pushForm = push;
+                            submitSchedule = handleSubmit;
+                            return (
+                                <form className="b-add-schedule-card__list" onSubmit={handleSubmit}>
+                                    <FieldArray name="scheduleCard">
+                                        {({ fields }) => {
+                                            return fields.map((name, index) => {
+                                                return <AddScheduleCard
+                                                    key={name}
+                                                    name={name}
+                                                    idRender={index}
+                                                    remove={() => {
+                                                        this.handleRemoveCard(initialValuesCards[index].uuid)
+                                                        fields.remove(index)
+                                                    }}
+                                                    playgroundsForTraining={playgroundsForTraining}
+                                                />
+                                            }) 
+                                        }}
+                                    </FieldArray>
+                                </form>
+                            )
+                            // return cards.map((card, idx) => (
+                            //     <AddScheduleCard
+                            //         key={idx}
+                            //         data={card}
+                            //         idRender={idx}
+                            //         onChangeInput={this.onChangeInput(idx)}
+                            //         onChangeTime={this.onChangeTime(idx)}
+                            //         onRemoveCard={this.handleRemoveCard(idx)}
+                            //         playgroundsForTraining={card.playgrounds}
+                            //         onChangeCheckbox={this.onChangeCheckbox(idx)}
+                            //         canDelete={ (cards.length === 1 && !cards[idx].schedule_uuid) ? false : true }
+                            //     />
+                            // ));
+                        }}
+                    />
+
 
                     <div className="b-trainer-add-schedule__save"> 
                         <Button
                             modif="b-button--save"
-                            name={'Сохранить'}
-                            onClick={() => this.onSubmitCreateSchedule()}
+                            name='Сохранить'
+                            onClick={(event) => submitSchedule(event)}
                         />
 
                         <Button
                             modif="b-button--add-more"
                             name={'Добавить ещё'}
                             theme={{ orange: true }}
-                            // onClick={this.handleAddCard}
                             onClick={() => pushForm('scheduleCard', undefined)}
                         />
                     </div>

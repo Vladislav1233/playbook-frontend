@@ -23,10 +23,7 @@ class AddScheduleCard extends Component {
             idRender, 
             data, 
             onChangeTime, 
-            onRemoveCard, 
             playgroundsForTraining, 
-            onChangeInput, 
-            onChangeCheckbox,
             canDelete,
 
             remove,
@@ -45,87 +42,98 @@ class AddScheduleCard extends Component {
                         validate={value => {
                             return composeValidators(
                                 required(),
-                                validFormatTime('Поле времени начала бронирования указано не полностью')
+                                validFormatTime('Время начала периода указано не полностью')
                             )(value)
                         }}
-                        render={({ input }) => {
+                        render={({ input, meta }) => {
                             return <TimeField 
                                 {...input}
                                 labelText='С'
-                                // idInput='startBooking'
+                                idInput='startBooking'
                                 nameInput={input.name}
-                                theme={{blackColor: true}}
-                                modif='b-input--time-booking'
+                                theme={{ blackColor: true }}
+                                error={meta.error && meta.touched && meta.error}
                             />
                         }}
                     />
-                    {/* <TimeField
-                        time={data.start_time}
-                        name={'start_time'}
-                        onChangeTime={onChangeTime}
-                        label={"С"}
-                    /> */}
                 </div>
 
-                {/* <div className="b-add-schedule-card__field b-add-schedule-card__field--right">
-                    <TimeField
-                        time={data.end_time}
-                        name={'end_time'}
-                        onChangeTime={onChangeTime}
-                        label={"До"}
+                <div className="b-add-schedule-card__field b-add-schedule-card__field--right">
+                    <Field 
+                        name={`${name}.end_time`}
+                        validate={value => {
+                            return composeValidators(
+                                required(),
+                                validFormatTime('Время окончания периода указано не полностью')
+                            )(value)
+                        }}
+                        render={({ input, meta }) => {
+                            return <TimeField 
+                                {...input}
+                                labelText='До'
+                                idInput='endBooking'
+                                nameInput={input.name}
+                                theme={{ blackColor: true }}
+                                error={meta.error && meta.touched && meta.error}
+                            />
+                        }}
                     />
-                </div> */}
+                </div>
 
-                {/* <div className="b-add-schedule-card__field">
-                    <Input 
-                        labelText={'Цена за час, ₽'}
-                        idInput={`price-${idRender}`}
-                        placeholder='Цена за час'
-                        value={data.price_per_hour}
-                        onChange={onChangeInput}
-                        nameInput={'price_per_hour'}
-                        theme={{blackColor: true}}
-                        typeInput="number"
-                    />
-                </div> */}
+                <Field 
+                    name={`${name}.price_per_hour`}
+                    type='number'
+                    validate={required()}
+                    render={({ input, meta }) => {
+                        return <div className="b-add-schedule-card__field">
+                            <Input 
+                                { ...input }
+                                labelText='Цена за час, ₽'
+                                idInput={`price-${idRender}`}
+                                placeholder='Цена за час'
+                                nameInput={input.name}
+                                theme={{ blackColor: true }}
+                                typeInput={input.type}
+                                error={meta.error && meta.touched && meta.error}
+                            />
+                        </div>
+                    }}
+                />
 
-                {/* <div className="b-add-schedule-card__check">
+                <div className="b-add-schedule-card__check">
                     <div className="b-add-schedule-card__title-section">Корт</div>
 
                     <ul className="b-add-schedule-card__check-list">
-                        {playgroundsForTraining.length > 0 ? 
-                            playgroundsForTraining.map(item => {
-                                
-                                const isCheck = (num) => {
-                                    return num === item.uuid
-                                }
-                                let checkIs = false;
 
-                                if (data.playgroundsCheck.length > 0) {
-                                    checkIs = data.playgroundsCheck.some(isCheck);
-                                }
-
-                                return (
-                                    <li key={item.uuid} className="b-add-schedule-card__check-item">
-                                        <Checkbox 
-                                            name={`${item.uuid}`}
-                                            id={`court-${item.uuid}${idRender}`}
-                                            value={item.uuid}
-                                            checked={checkIs}
-                                            onChange={onChangeCheckbox}
-                                            modif='b-checkbox--add-schedule'
-                                        >
-                                            <span>{item.name}</span>
-                                        </Checkbox>
-                                    </li>
-                                )
+                        {playgroundsForTraining.length > 0
+                            ? playgroundsForTraining.map(item => {
+                                return <li key={item.uuid} className="b-add-schedule-card__check-item">
+                                    <Field 
+                                        name={`${name}.playgrounds`}
+                                        type="checkbox"
+                                        value={item.uuid}
+                                        validate={value => value.length === 0 ? 'Выберите как минимум один корт' : undefined}
+                                        render={({ input, meta }) => {
+                                            return <Checkbox 
+                                                { ...input }
+                                                name={input.name}
+                                                id={`court-${item.uuid}${idRender}`}
+                                                modif='b-checkbox--add-schedule'
+                                                error={meta.error && meta.touched && meta.error}
+                                            >
+                                                <span>{item.name}</span>
+                                            </Checkbox>
+                                        }}
+                                    />
+                                </li>
                             })
+
                             : <li className="b-add-schedule-card__check-item">
                                 <p>Добавьте информацию о кортах, на которых работаете в разделе <Link className="b-add-schedule-card__link" to="/profile/trainer-info">"Обо мне"</Link>.</p>
                             </li>
                         }
                     </ul>
-                </div> */}
+                </div>
 
                 {/* { data.errorCardText ?
                     <div className="b-add-schedule-card__error">{data.errorCardText}</div>
