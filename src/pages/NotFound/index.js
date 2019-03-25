@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
 
 // style
 import '../../style/bem-blocks/b-not-found/index.scss';
 
-class NotFound extends Component {
-  render() {
+const NotFound = () => {
     return (
       <div className="b-not-found">
         <div className="container">
@@ -21,7 +20,6 @@ class NotFound extends Component {
         </div>
       </div>
     )
-  }
-}
+};
 
 export default NotFound;

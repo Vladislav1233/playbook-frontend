@@ -59,4 +59,9 @@
         margin-top: 15px;
         color: $error;
     }
+
+    &__link {
+        color: $mainFontColor;
+        text-decoration: underline;
+    }
 }

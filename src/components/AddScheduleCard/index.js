@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 // Note: components
 import Input from '../ui-kit/Input/Input';
@@ -94,7 +95,9 @@ class AddScheduleCard extends Component {
                                     </li>
                                 )
                             })
-                            : <li className="b-add-schedule-card__check-item"><p>Добавьте информацию о кортах, на которых работаете.</p></li>
+                            : <li className="b-add-schedule-card__check-item">
+                                <p>Добавьте информацию о кортах, на которых работаете в разделе <Link className="b-add-schedule-card__link" to="/profile/trainer-info">"Обо мне"</Link>.</p>
+                            </li>
                         }
                     </ul>
                 </div>

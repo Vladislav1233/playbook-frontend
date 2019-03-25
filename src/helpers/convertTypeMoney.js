@@ -13,6 +13,8 @@ export function convertTypeMoney(number, codeCurrency, convertTo) {
         } else if (convertOperation === 'banknote') {
             return +number / divider
         }
+
+        return undefined;
     };
 
     switch (codeCurrency) {
@@ -23,6 +25,6 @@ export function convertTypeMoney(number, codeCurrency, convertTo) {
             return operation(convertTo, 100);
 
         default:
-            break;
+            return undefined;
     }
 }
