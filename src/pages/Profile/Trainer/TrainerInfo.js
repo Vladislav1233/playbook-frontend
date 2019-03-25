@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { trainerInfoService } from '../../../services/trainerInfoService';
 
 // actions
-import { searchPlayground, clearSearchPlayground } from '../../../store/actions/searchPlayground';
+import { searchPlaygroundAction, clearSearchPlayground } from '../../../store/actions/searchPlayground';
 import { alertActions } from '../../../store/actions/alertAction';
 
 // Note: helpers
@@ -87,7 +87,6 @@ class TrainerInfo extends Component {
                 },
                 error => {
                     this.setState({ preloader: false });
-                    alert(error);
                 }
             )
     }
@@ -373,7 +372,7 @@ const mapStateToProps = ({ searchPlayground, identificate }) => {
 
 const mapStateToDispatch = dispatch => {
     return {
-        searchPlayground: (data) => dispatch(searchPlayground(data)),
+        searchPlayground: (data) => dispatch(searchPlaygroundAction(data)),
         onClearSearchPlayground: () => dispatch(clearSearchPlayground()),
         dispatch: (action) => dispatch(action)
     }

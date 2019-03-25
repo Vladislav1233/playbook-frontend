@@ -4,7 +4,7 @@ function textErrorFromServer(responseServer) {
     } else if (responseServer.response.data.message) {
         return responseServer.response.data.message
     } 
-        return responseServer.response.data[Object.keys(responseServer.response.data)[0]][0]
+        return responseServer.response.data.data[Object.keys(responseServer.response.data)[0]][0]
     
 }
 

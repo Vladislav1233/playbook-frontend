@@ -9,7 +9,7 @@ import { handleErrorServer } from '../../helpers/handleErrorServer';
 import { playgroundService } from '../../services/playgroundService';
 
 // Note: Отправляем запрос на поиск площадки
-export function searchPlayground(data) {
+export function searchPlaygroundAction(data) {
     return dispatch => {
         dispatch(start());
         
