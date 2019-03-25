@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Field } from 'react-final-form';
+
+// Note: helpers
+import { required, startTimeBeforeEndTime, composeValidators, validFormatTime } from '../../helpers/validate';
 
 // Note: components
 import Input from '../ui-kit/Input/Input';
 import Checkbox from '../ui-kit/Checkbox/Checkbox';
-import TimeField from '../TimeField';
+import TimeField from '../ui-kit/TimeField';
 
 // Note: style
 import '../../style/bem-blocks/b-add-schedule-card/index.scss';
@@ -24,34 +28,55 @@ class AddScheduleCard extends Component {
             onChangeInput, 
             onChangeCheckbox,
             canDelete,
+
+            remove,
+            name
         } = this.props;
 
         return(
             <div className="b-add-schedule-card">
-                { !!canDelete &&
-                    <div onClick={onRemoveCard} className="b-add-schedule-card__delete" title="Удалить">
-                        <img className="b-add-schedule-card__delete-icon" src={deleteIcon} alt="Корзина" />
-                    </div>
-                }
+                <div onClick={remove} className="b-add-schedule-card__delete" title="Удалить">
+                    <img className="b-add-schedule-card__delete-icon" src={deleteIcon} alt="Корзина" />
+                </div>
                 <div className="b-add-schedule-card__field b-add-schedule-card__field--left">
-                    <TimeField
+
+                    <Field 
+                        name={`${name}.start_time`}
+                        validate={value => {
+                            return composeValidators(
+                                required(),
+                                validFormatTime('Поле времени начала бронирования указано не полностью')
+                            )(value)
+                        }}
+                        render={({ input }) => {
+                            return <TimeField 
+                                {...input}
+                                labelText='С'
+                                // idInput='startBooking'
+                                nameInput={input.name}
+                                theme={{blackColor: true}}
+                                modif='b-input--time-booking'
+                            />
+                        }}
+                    />
+                    {/* <TimeField
                         time={data.start_time}
                         name={'start_time'}
                         onChangeTime={onChangeTime}
                         label={"С"}
-                    />
+                    /> */}
                 </div>
 
-                <div className="b-add-schedule-card__field b-add-schedule-card__field--right">
+                {/* <div className="b-add-schedule-card__field b-add-schedule-card__field--right">
                     <TimeField
                         time={data.end_time}
                         name={'end_time'}
                         onChangeTime={onChangeTime}
                         label={"До"}
                     />
-                </div>
+                </div> */}
 
-                <div className="b-add-schedule-card__field">
+                {/* <div className="b-add-schedule-card__field">
                     <Input 
                         labelText={'Цена за час, ₽'}
                         idInput={`price-${idRender}`}
@@ -62,9 +87,9 @@ class AddScheduleCard extends Component {
                         theme={{blackColor: true}}
                         typeInput="number"
                     />
-                </div>
+                </div> */}
 
-                <div className="b-add-schedule-card__check">
+                {/* <div className="b-add-schedule-card__check">
                     <div className="b-add-schedule-card__title-section">Корт</div>
 
                     <ul className="b-add-schedule-card__check-list">
@@ -100,12 +125,12 @@ class AddScheduleCard extends Component {
                             </li>
                         }
                     </ul>
-                </div>
+                </div> */}
 
-                { data.errorCardText ?
+                {/* { data.errorCardText ?
                     <div className="b-add-schedule-card__error">{data.errorCardText}</div>
                     : null
-                }
+                } */}
             </div>
         )
     }

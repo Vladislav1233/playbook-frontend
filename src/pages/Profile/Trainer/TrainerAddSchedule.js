@@ -4,6 +4,9 @@ import moment from 'moment';
 import 'moment/locale/ru';
 import { extendMoment } from 'moment-range';
 import { ANALIZE_DATE_TIME_ZONE } from '../../../store/constants/formatDates';
+import { Form } from 'react-final-form';
+import arrayMutators from 'final-form-arrays';
+import { FieldArray } from 'react-final-form-arrays';
 
 // Note: actions
 import { createScheduleTrainer, editTrainerSchedule, toggleResponse } from '../../../store/actions/schedule';
@@ -483,6 +486,8 @@ class TrainerAddSchedule extends Component {
             preloaderSchedule
         } = this.props;
 
+        let pushForm;
+
         // TODO: Сделать валидацию сабмита для периода и тогда включить опцию
         // const optionsSelect = [{
         //     value: 'one',
@@ -510,28 +515,46 @@ class TrainerAddSchedule extends Component {
                     /> */}
 
                     <div className="b-add-schedule-card__list">
-                        {cards.map((card, idx) => (
-                            <AddScheduleCard
-                                key={idx}
-                                data={card}
-                                idRender={idx}
-                                onChangeInput={this.onChangeInput(idx)}
-                                onChangeTime={this.onChangeTime(idx)}
-                                onRemoveCard={this.handleRemoveCard(idx)}
-                                playgroundsForTraining={card.playgrounds}
-                                onChangeCheckbox={this.onChangeCheckbox(idx)}
-                                canDelete={ (cards.length === 1 && !cards[idx].schedule_uuid) ? false : true }
-                            />
-                        ))}
-                    </div>
-
-                    {/* <div className="b-trainer-add-schedule__add-more">
-                        <Button 
-                            name={'Добавить ещё'}
-                            theme={{orange: true}}
-                            onClick={this.handleAddCard}
+                        <Form 
+                            onSubmit={() => {}}
+                            mutators={{
+                                ...arrayMutators
+                            }}
+                            render={({ handleSubmit, values, errors, touched, form: {
+                                mutators: { push, pop }
+                              }, }) => {
+                                pushForm = push;
+                                return (
+                                    <form onSubmit={handleSubmit}>
+                                        <FieldArray name="scheduleCard">
+                                            {({ fields }) => 
+                                                fields.map((name, index) => {
+                                                    return <AddScheduleCard
+                                                        key={name}
+                                                        name={name}
+                                                        remove={() => fields.remove(index)}
+                                                    />
+                                                }) 
+                                            }
+                                        </FieldArray>
+                                    </form>
+                                )
+                                // return cards.map((card, idx) => (
+                                //     <AddScheduleCard
+                                //         key={idx}
+                                //         data={card}
+                                //         idRender={idx}
+                                //         onChangeInput={this.onChangeInput(idx)}
+                                //         onChangeTime={this.onChangeTime(idx)}
+                                //         onRemoveCard={this.handleRemoveCard(idx)}
+                                //         playgroundsForTraining={card.playgrounds}
+                                //         onChangeCheckbox={this.onChangeCheckbox(idx)}
+                                //         canDelete={ (cards.length === 1 && !cards[idx].schedule_uuid) ? false : true }
+                                //     />
+                                // ));
+                            }}
                         />
-                    </div> */}
+                    </div>
 
                     <div className="b-trainer-add-schedule__save"> 
                         <Button
@@ -544,7 +567,8 @@ class TrainerAddSchedule extends Component {
                             modif="b-button--add-more"
                             name={'Добавить ещё'}
                             theme={{ orange: true }}
-                            onClick={this.handleAddCard}
+                            // onClick={this.handleAddCard}
+                            onClick={() => pushForm('scheduleCard', undefined)}
                         />
                     </div>
                 </div>
