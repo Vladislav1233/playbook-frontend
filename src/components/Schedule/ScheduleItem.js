@@ -72,6 +72,7 @@ class ScheduleItem extends Component {
             cost,
             bookedCost
         } = this.props;
+        console.log(playgroundsForTraining);
 
         const textBooking = 'Нажми, чтобы забронировать';
 

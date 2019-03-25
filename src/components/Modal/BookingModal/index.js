@@ -136,10 +136,12 @@ class BookingModal extends Component {
         let costPlaygroundInRange = [];
 
         playgroundsForTraining.forEach(playgroundForTraining => {
+            console.log(playgroundForTraining)
             // eslint-disable-next-line
-            if (playgroundForTraining.pivot.playground_uuid = playgroundId) {
-                schedulePlayground = [ ...playgroundForTraining.schedules ]
-            }
+            // TODO: Бэк удалил расписание, теперь не посчитать сумму. Бэк верни мне расписание! =)
+            // if (playgroundForTraining.uuid === playgroundId) {
+            //     schedulePlayground = [ ...playgroundForTraining.schedules ]
+            // }
         });
         
         if (schedulePlayground.length > 0) {
@@ -340,13 +342,13 @@ class BookingModal extends Component {
 
                                     {playgroundsForTraining ? playgroundsForTraining.map(item => {
                                         return <Field 
-                                                key={`playground_${item.pivot.playground_uuid}`}
+                                                key={`playground_${item.uuid}`}
                                                 name='playground'
-                                                value={item.pivot.playground_uuid}
+                                                value={item.uuid}
                                                 type='radio'
                                                 render={({ input }) => {
                                                     return <Radio
-                                                        id={`playground_${item.pivot.playground_uuid}`}
+                                                        id={`playground_${item.uuid}`}
                                                         text={item.name}
                                                         {...input}
                                                     />
