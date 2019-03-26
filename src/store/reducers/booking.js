@@ -66,7 +66,7 @@ export default function(state = initialState, action) {
                 preloader: true
             }
             
-        case GET_BOOKINGS_SUCCESS:
+        case GET_BOOKINGS_SUCCESS: {
             let newDataBookingRequest = [];
             let newPastBooking = [];
             let newConfirmBooking = [];
@@ -120,9 +120,9 @@ export default function(state = initialState, action) {
                 confirmPastBooking: newConfirmPastBooking,
                 preloader: false
             }
+        }
 
         case GET_BOOKINGS_FAILURE:
-            console.log(action.payload);
             return {
                 ...state,
                 preloader: false
@@ -134,7 +134,7 @@ export default function(state = initialState, action) {
                 preloader: true
             }
         
-        case CONFIRM_BOOKINGS_SUCCESS:
+        case CONFIRM_BOOKINGS_SUCCESS: {
             const confirmId = action.payload.data.data.uuid;
             const startTimeConfirm = action.payload.data.data.start_time;
 
@@ -144,9 +144,9 @@ export default function(state = initialState, action) {
                 ...newStateConfirm,
                 preloader: false
             }
+        }
         
         case CONFIRM_BOOKINGS_FAILURE:
-            console.log(action.payload);
             return {
                 ...state,
                 preloader: false
@@ -176,7 +176,7 @@ export default function(state = initialState, action) {
                 preloader: true
             }
 
-        case DECLINE_BOOKING_SUCCESS:
+        case DECLINE_BOOKING_SUCCESS: {
             const confirmIdDecline = action.payload.data.data.uuid;
             const startTimeConfirmDecline = action.payload.data.data.start_time;
             
@@ -197,9 +197,9 @@ export default function(state = initialState, action) {
                 dataMyBooking: newDataMyBooking,
                 preloader: false
             }
+        }
 
         case DECLINE_BOOKING_FAILURE:
-            console.log(action.payload);
             return {
                 ...state,
                 preloader: false
@@ -219,7 +219,6 @@ export default function(state = initialState, action) {
             }
 
         case GET_ALL_BOOKINGS_FOR_USER_FAILURE:
-            console.log(action.payload);
             return {
                 ...state,
                 preloader: false

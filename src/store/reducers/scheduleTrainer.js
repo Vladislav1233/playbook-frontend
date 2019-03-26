@@ -77,7 +77,7 @@ export default function(state = initialState, action) {
                 preloader: true
             }
 
-        case GET_SUCCESS_SCHEDULE_TRAINER:
+        case GET_SUCCESS_SCHEDULE_TRAINER: {
             const responseSchedule = action.payload.data;
             // Note: Забронированное подтвержденное время
             let reservedTime = [];
@@ -186,6 +186,7 @@ export default function(state = initialState, action) {
                     cost: newCost
                 }
             }
+        }
 
         case GET_FAILURE_SCHEDULE_TRAINER:
             return {
