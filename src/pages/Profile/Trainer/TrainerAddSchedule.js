@@ -402,7 +402,10 @@ class TrainerAddSchedule extends Component {
                                                     name={name}
                                                     idRender={index}
                                                     remove={() => {
-                                                        this.handleRemoveCard(initialValuesCards[index].uuid)
+                                                        initialValuesCards[index] 
+                                                            ? this.handleRemoveCard(initialValuesCards[index].uuid)
+                                                            : undefined;
+
                                                         fields.remove(index)
                                                     }}
                                                     playgroundsForTraining={playgroundsForTraining}
