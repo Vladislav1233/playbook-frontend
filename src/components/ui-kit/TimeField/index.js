@@ -22,12 +22,14 @@ class TimeField extends Component {
             onChange,
             name,
             onBlur,
-            onFocus
+            onFocus,
+            invalidRanges
         } = this.props;
+        console.log(error)
 
         const classInput = cn('b-input', modif, {
             'b-input--black-color': theme ? theme.blackColor : false,
-            'error': error
+            'error': error || invalidRanges
         });
 
         return(

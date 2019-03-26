@@ -186,24 +186,32 @@ class TrainerAddSchedule extends Component {
         });
     };
 
-    validateRangeCards = (currCard, values) => {
-        const { dateForRequest } = this.state;
+    // TODO: Вынести в отдельный обработчик валидации
+    validateRangeCards = (arr) => {
+        console.log(arr);
+        if(arr.length > 0) {
+            const { dateForRequest } = this.state;
 
-        const startRange = `${dateForRequest.dates[0]} ${currCard.start_time}`;
-        const endRange = `${dateForRequest.dates[0]} ${currCard.end_time}`;
-        const currentCardRange = Moment.range(startRange, endRange);
+            let result = [];
+            let isNotValid = false;
 
-        let result = values.some((value) => {
-            if(currCard.idx !== value.idx) {
-                const startValue = `${dateForRequest.dates[0]} ${value.start_time}`;
-                const endValue = `${dateForRequest.dates[0]} ${value.end_time}`;
-                const valueRange = Moment.range(startValue, endValue);
+            for (let i = 0; i < arr.length; i++) {
+                if(arr[i] && arr[i].start_time && arr[i].end_time) {
+                    const startRange = `${dateForRequest[0]} ${arr[i].start_time}`;
+                    const endRange = `${dateForRequest[0]} ${arr[i].end_time}`;
+                    const currentCardRange = Moment.range(startRange, endRange); // для каждого элемента находим диапазон
 
-                return currentCardRange.overlaps(valueRange);
+                    for (let j = 0; j < result.length; j++) { 
+                        isNotValid = currentCardRange.overlaps(result[j]);
+                        if(isNotValid) {
+                            return {curr: i, validate: j}
+                        }
+                    }
+                    result.push(currentCardRange);
+                }
             }
-        });
-
-        console.log(result);
+            return undefined;
+        }
     };
 
     onChangeTime = (idx) => (value, name) => {
@@ -399,85 +407,6 @@ class TrainerAddSchedule extends Component {
 
             edit();
         })
-
-
-        // -------------------
-        // if(!this.state.isNotValidCards) {
-        //     let isValidCards = this.state.cards.every((card, indexCard) => {
-        //         if(card.start_time && card.end_time && card.playgroundsCheck.length > 0 && card.price_per_hour) {
-        //             return true
-        //         }
-
-        //         this.props.alertActionsError('Не сохранено! Исправьте ошибки, указанные в карточках расписания, и попробуйте ещё раз.');
-        //         const newCardsWithError = [...this.state.cards];
-        //         newCardsWithError[indexCard].errorCardText = 'Все поля должны быть заполнены.';
-        //         this.setState({
-        //             cards: newCardsWithError
-        //         });
-        //         return false
-        //     });
-
-        //     if (isValidCards) {
-        //         // NOTE: Создается один запрос на одну карточку. Добавление расписания
-        //         this.state.cards.forEach((card, indexCard, arrayCards) => {
-        //             let formatPrice = convertTypeMoney(card.price_per_hour, 'RUB', 'coin');
-
-        //             // Note: Функция, которая генерирует данные по расписанию как для create так и для edit для отправки на сервер.
-        //             const createDataForRequest = (datesRequest, startTimeRequest, endTimeRequest) => {
-        //                 let result = {
-        //                     price_per_hour: formatPrice,
-        //                     currency: card.currency,
-        //                     playgrounds: card.playgroundsCheck  
-        //                 };
-
-        //                 if (datesRequest) {
-        //                     result.dates = datesRequest;
-        //                 }
-
-        //                 if (startTimeRequest) {
-        //                     result.start_time = startTimeRequest
-        //                 }
-
-        //                 if (endTimeRequest) {
-        //                     result.end_time = endTimeRequest
-        //                 }
-
-        //                 return result;
-        //             };
-
-        //             // Note: Получаем даты начала расписания и окончания расписания относительно UTC
-        //             const dates = card.dates.map(date => {
-        //                 return {
-        //                     start_time: moment.utc(moment(`${date} ${card.start_time}:00`)).format('YYYY-MM-DD HH:mm:ss'),
-        //                     end_time: moment.utc(moment(`${date} ${card.end_time}:00`)).format('YYYY-MM-DD HH:mm:ss')
-        //                 }
-        //             });
-
-        //             // Note: если у нас карточка с сервера, то у неё schedule_uuid не пустая строка, мы определяем какой запрос отправлять.
-        //             const edit = async () => {
-        //                 if (card.schedule_uuid) {
-        //                     dispatch(editTrainerSchedule(
-        //                         card.schedule_uuid,  
-        //                         createDataForRequest(null, dates[0].start_time, dates[0].end_time)
-        //                     ));
-        //                 }
-        //                 await create();
-        //             }
-
-        //             const create = () => {
-        //                 if (!card.schedule_uuid) {
-        //                     dispatch(createScheduleTrainer(createDataForRequest(dates, null, null)));
-        //                 }
-        //             };
-
-        //             edit();
-        //         });
-
-        //         this.props.alertActionsSuccess('Расписание сохранено.');
-        //     }
-        // } else {
-        //     this.props.alertActionsError('Не сохранено! Исправьте ошибки, указанные в карточках расписания, и попробуйте ещё раз.');
-        // }
     };
 
     render() {
@@ -532,7 +461,28 @@ class TrainerAddSchedule extends Component {
                             scheduleCard: [ ...initialValuesCards ]
                         }}
                         validate={values => {
-                            
+                            const textErrorRange = (numCard) => 
+                                `В карточках №${numCard.curr + 1} и №${numCard.validate + 1} диапазон времени пересекается`;
+                            console.log(values)
+                            const errors = {
+                                scheduleCard: []
+                            };
+                            let howOverlaps = this.validateRangeCards(values.scheduleCard);
+                            console.log(howOverlaps)
+                            if (howOverlaps !== undefined) {
+                                errors.scheduleCard[howOverlaps.curr] = { 
+                                    start_time: textErrorRange(howOverlaps),
+                                    end_time: textErrorRange(howOverlaps),
+                                    invalidRanges: true
+                                }
+                                errors.scheduleCard[howOverlaps.validate] = { 
+                                    start_time: textErrorRange(howOverlaps),
+                                    end_time: textErrorRange(howOverlaps),
+                                    invalidRanges: true
+                                }
+                            }
+                            console.log(errors);
+                            return errors;
                         }}
                         render={({ 
                             handleSubmit, 
@@ -543,21 +493,16 @@ class TrainerAddSchedule extends Component {
                                 mutators: { push }
                             }
                         }) => {
+                            console.log(errors)
                             pushForm = push;
                             submitSchedule = handleSubmit;
                             return (
                                 <form className="b-add-schedule-card__list" onSubmit={handleSubmit}>
-                                    <FieldArray 
-                                        name="scheduleCard"
-                                        validate={(value, allValues) => {
-                                            // TODO: валидировать по типу как id-шник одинаковый искал
-                                            console.log(value)
-                                            console.log(allValues)
-                                        }}
-                                    >
-                                        {({ fields }) => {
+                                    <FieldArray name="scheduleCard">
+                                        {({ fields, meta }) => {
                                             return fields.map((name, index) => {
                                                 return <AddScheduleCard
+                                                    metaForm={meta.error[index]}
                                                     key={name}
                                                     name={name}
                                                     idRender={index}

@@ -27,8 +27,10 @@ class AddScheduleCard extends Component {
             canDelete,
 
             remove,
-            name
+            name,
+            metaForm
         } = this.props;
+        console.log(metaForm)
 
         return(
             <div className="b-add-schedule-card">
@@ -52,7 +54,8 @@ class AddScheduleCard extends Component {
                                 idInput='startBooking'
                                 nameInput={input.name}
                                 theme={{ blackColor: true }}
-                                error={meta.error && meta.touched && meta.error}
+                                error={meta.error && (metaForm ? !metaForm.invalidRanges : true) && meta.touched && meta.error}
+                                invalidRanges={metaForm ? metaForm.invalidRanges : false}
                             />
                         }}
                     />
@@ -74,11 +77,18 @@ class AddScheduleCard extends Component {
                                 idInput='endBooking'
                                 nameInput={input.name}
                                 theme={{ blackColor: true }}
-                                error={meta.error && meta.touched && meta.error}
+                                error={meta.error && (metaForm ? !metaForm.invalidRanges : true) && meta.touched && meta.error}
+                                invalidRanges={metaForm ? metaForm.invalidRanges : false}
                             />
                         }}
                     />
                 </div>
+
+                { metaForm ? metaForm.invalidRanges ?
+                    <div className="b-add-schedule-card__error">{metaForm.start_time}</div>
+                    : null
+                    : null
+                }
 
                 <Field 
                     name={`${name}.price_per_hour`}
@@ -137,11 +147,6 @@ class AddScheduleCard extends Component {
                         }
                     </ul>
                 </div>
-
-                {/* { data.errorCardText ?
-                    <div className="b-add-schedule-card__error">{data.errorCardText}</div>
-                    : null
-                } */}
             </div>
         )
     }
