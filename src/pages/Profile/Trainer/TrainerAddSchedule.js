@@ -4,6 +4,8 @@ import moment from 'moment';
 import 'moment/locale/ru';
 import { extendMoment } from 'moment-range';
 import { ANALIZE_DATE_TIME_ZONE } from '../../../store/constants/formatDates';
+
+// Note: react-final-form
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import { FieldArray } from 'react-final-form-arrays';
@@ -18,8 +20,9 @@ import { trainerInfoService } from '../../../services/trainerInfoService';
 
 // Note: helpers
 import { dataTime } from '../../../helpers/dataTime';
-import getArrayDateRange from '../../../helpers/getArrayDateRange';
+// import getArrayDateRange from '../../../helpers/getArrayDateRange'; TODO (поиском ищи где используется)
 import { convertTypeMoney } from '../../../helpers/convertTypeMoney';
+import textErrorFromServer from '../../../helpers/textErrorFromServer';
 
 // Note: components
 // TODO_AMED: временно скрыли функционал отвалившийся
@@ -30,7 +33,6 @@ import Button from '../../../components/ui-kit/Button/Button';
 import Preloader from '../../../components/Preloader/Preloader';
 
 // Note: style
-// import '../../style/bem-blocks/b-hint-profile/index.scss';
 import '../../../style/bem-blocks/b-trainer-add-schedule/index.scss';
 
 const Moment = extendMoment(moment);
@@ -51,57 +53,17 @@ class TrainerAddSchedule extends Component {
             selectChooseDay: 'one', // Note: это для настроек календаря: one - выбрать можно 1 день, period - выбрать можно период от / до
             dateCalendar: `${moment(new Date()).format('YYYY-MM-DD')}`,
             dateForRequest: [`${moment(new Date()).format('YYYY-MM-DD')}`],
-
-            cards: [{
-                dates: [],
-                start_time: null,
-                end_time: null,
-                price_per_hour: '',
-                currency: 'RUB',
-                schedule_uuid: '',
-                playgrounds: [],
-                playgroundsCheck: [],
-                errorCardText: ''
-            }],
-            successPostResponse: false,
             playgroundsForTraining: [],
-            preloader: false,
-            isNotValidCards: false
-        }
+            preloader: false
+        };
 
         this.initialDataCards = this.state.initialValuesCards; 
     }
 
-    static getDerivedStateFromProps(props, state) {
-        if(props.successPostResponse === true) {
-            return {
-                ...state,
-                successPostResponse: true
-            }
-        } 
-            return {
-                ...state,
-                successPostResponse: false
-            }
-        
-    }
-
     componentDidMount() {
         this.setState({preloader: true});
-        // const data = dataTime();
-        // this.getTrainerScheduleRequest(this.state.dateCalendar, data);
-    }
-
-    componentDidUpdate() {
-        if(this.state.successPostResponse === true) {
-            const dataForGet = dataTime({
-                valueStart: this.state.dateCalendar,
-                valueEnd: this.state.dateCalendar
-            });
-            const dateForGet = moment(this.state.dateCalendar).format('YYYY-MM-DD');
-
-            this.getTrainerScheduleRequest(dateForGet, dataForGet);
-        }
+        const data = dataTime();
+        this.getTrainerScheduleRequest(this.state.dateCalendar, data);
     }
 
     getTrainerScheduleRequest = (date, data) => {
@@ -144,7 +106,7 @@ class TrainerAddSchedule extends Component {
                     }
                 },
                 error => {
-                    console.log(error);
+                    this.props.alertActionsError(textErrorFromServer(error));
                 }
             )
         }
@@ -160,7 +122,7 @@ class TrainerAddSchedule extends Component {
                         }, getScheduleRequest())
                     },
                     error => {
-                        console.log(error);
+                        this.props.alertActionsError(textErrorFromServer(error));
                     }
                 );
         } else {
@@ -168,27 +130,8 @@ class TrainerAddSchedule extends Component {
         }
     }
 
-    createDataCard = (idx, name, value) => {
-        /*
-        * idx - индекс в массиве карточки, которую правят.
-        */
-        const { cards } = this.state;
-
-        return cards.map((card, sidx) => {
-            // Note: Если карточки нет ещё то создается новая
-            if (idx !== sidx) return card;
-
-            // Note: Если карточка есть то она редактируется
-            return {
-                ...card,
-                [name]: value
-            }
-        });
-    };
-
     // TODO: Вынести в отдельный обработчик валидации
     validateRangeCards = (arr) => {
-        console.log(arr);
         if(arr.length > 0) {
             const { dateForRequest } = this.state;
 
@@ -210,70 +153,8 @@ class TrainerAddSchedule extends Component {
                     result.push(currentCardRange);
                 }
             }
-            return undefined;
         }
-    };
-
-    onChangeTime = (idx) => (value, name) => {
-        const newCards = this.createDataCard(idx, name, value);
-
-        const validationRange = (currCard) => {
-            
-            if(currCard.start_time && currCard.end_time) {
-                const startRange = `${currCard.dates[0]} ${currCard.start_time}`;
-                const endRange = `${currCard.dates[0]} ${currCard.end_time}`;
-                const currentCardRange = Moment.range(startRange, endRange);
-
-                if(moment(startRange).isBefore(endRange)) {
-                    let numberCardWithError = null;
-                    let isNotValidRange = newCards.some((validationCard, indexValidationCard) => {
-                        if (idx !== indexValidationCard) {
-                            const startRangeValidation = `${validationCard.dates[0]} ${validationCard.start_time}`;
-                            const endRangeValidation = `${validationCard.dates[0]} ${validationCard.end_time}`;
-                            const validationCardRange = Moment.range(startRangeValidation, endRangeValidation);
-                            
-                            numberCardWithError = indexValidationCard;
-
-                            return currentCardRange.overlaps(validationCardRange);
-                        }
-
-                        return false;
-                    });
-
-                    if(isNotValidRange) {
-                        newCards[idx].errorCardText = `Диапазон этой карточки пересекается с карточкой №${numberCardWithError + 1}`;
-
-                        this.setState({
-                            isNotValidCards: true
-                        });
-                    } else {
-                        newCards[idx].errorCardText = '';
-                        this.setState({
-                            isNotValidCards: false
-                        });
-                    }
-
-                } else {
-                    newCards[idx].errorCardText = 'Проверьте временные границы. Время окончания должно быть больше.';
-                    this.setState({
-                        isNotValidCards: true
-                    });
-                }
-            } else {
-                newCards[idx].errorCardText = 'Укажите время начала и окончания тренировки.';
-                this.setState({
-                    isNotValidCards: true
-                });
-            }
-        };
-
-        
-        this.setState(() => {
-            validationRange(newCards[idx]);
-            return {
-                cards: newCards
-            };
-        });
+        return undefined;
     };
 
     handleRemoveCard = (scheduleUuid) => {
@@ -335,17 +216,7 @@ class TrainerAddSchedule extends Component {
         } else {
             this.setState({
                 ...this.state,
-                cards: [{
-                    dates: [],
-                    start_time: null,
-                    end_time: null,
-                    price_per_hour: '',
-                    currency: 'RUB',
-                    schedule_uuid: '',
-                    playgrounds: this.state.playgroundsForTraining,
-                    playgroundsCheck: [],
-                    errorCardText: ''
-                }],
+                initialDataCards: this.initialDataCards,
                 selectChooseDay: value.value
             });
         }
@@ -354,7 +225,19 @@ class TrainerAddSchedule extends Component {
     onSubmitCreateSchedule = (values) => {
         const { dispatch } = this.props;
 
-        values.scheduleCard.forEach(value => {
+        const getSchedule = (index, array) => {
+            if(index === array.length - 1) {
+                const dataForGet = dataTime({
+                    valueStart: this.state.dateCalendar,
+                    valueEnd: this.state.dateCalendar
+                });
+                const dateForGet = moment(this.state.dateCalendar).format('YYYY-MM-DD');
+    
+                this.getTrainerScheduleRequest(dateForGet, dataForGet);
+            }
+        };
+
+        values.scheduleCard.some((value, index, array) => {
             let formatPrice = convertTypeMoney(value.price_per_hour, 'RUB', 'coin');
 
             // Note: Функция, которая генерирует данные по расписанию как для create так и для edit для отправки на сервер.
@@ -394,17 +277,34 @@ class TrainerAddSchedule extends Component {
                     dispatch(editTrainerSchedule(
                         value.uuid,  
                         createDataForRequest(null, dates[0].start_time, dates[0].end_time)
-                    ));
+                    ))
+                    .then(
+                        response => {
+                            if(response.response) {
+                                this.props.alertActionsError(textErrorFromServer(response));
+                            } else if(response.status === 200) {
+                                this.props.alertActionsSuccess('Успешно сохранено');
+                                getSchedule(index, array);
+                            }
+                        });
                 }
                 await create();
             }
 
             const create = () => {
                 if (!value.uuid) {
-                    dispatch(createScheduleTrainer(createDataForRequest(dates, null, null)));
+                    dispatch(createScheduleTrainer(createDataForRequest(dates, null, null))).then(
+                        response => {
+                            if(response.response) {
+                                this.props.alertActionsError(textErrorFromServer(response));
+                            } else if(response.status === 200) {
+                                this.props.alertActionsSuccess('Успешно сохранено');
+                                getSchedule();
+                            }
+                        }
+                    );
                 }
             };
-
             edit();
         })
     };
@@ -420,7 +320,6 @@ class TrainerAddSchedule extends Component {
         const {
             preloaderSchedule
         } = this.props;
-
 
         let pushForm;
         let submitSchedule;
@@ -463,12 +362,10 @@ class TrainerAddSchedule extends Component {
                         validate={values => {
                             const textErrorRange = (numCard) => 
                                 `В карточках №${numCard.curr + 1} и №${numCard.validate + 1} диапазон времени пересекается`;
-                            console.log(values)
                             const errors = {
                                 scheduleCard: []
                             };
                             let howOverlaps = this.validateRangeCards(values.scheduleCard);
-                            console.log(howOverlaps)
                             if (howOverlaps !== undefined) {
                                 errors.scheduleCard[howOverlaps.curr] = { 
                                     start_time: textErrorRange(howOverlaps),
@@ -481,7 +378,6 @@ class TrainerAddSchedule extends Component {
                                     invalidRanges: true
                                 }
                             }
-                            console.log(errors);
                             return errors;
                         }}
                         render={({ 
@@ -493,7 +389,6 @@ class TrainerAddSchedule extends Component {
                                 mutators: { push }
                             }
                         }) => {
-                            console.log(errors)
                             pushForm = push;
                             submitSchedule = handleSubmit;
                             return (
@@ -517,22 +412,8 @@ class TrainerAddSchedule extends Component {
                                     </FieldArray>
                                 </form>
                             )
-                            // return cards.map((card, idx) => (
-                            //     <AddScheduleCard
-                            //         key={idx}
-                            //         data={card}
-                            //         idRender={idx}
-                            //         onChangeInput={this.onChangeInput(idx)}
-                            //         onChangeTime={this.onChangeTime(idx)}
-                            //         onRemoveCard={this.handleRemoveCard(idx)}
-                            //         playgroundsForTraining={card.playgrounds}
-                            //         onChangeCheckbox={this.onChangeCheckbox(idx)}
-                            //         canDelete={ (cards.length === 1 && !cards[idx].schedule_uuid) ? false : true }
-                            //     />
-                            // ));
                         }}
                     />
-
 
                     <div className="b-trainer-add-schedule__save"> 
                         <Button
@@ -558,7 +439,6 @@ class TrainerAddSchedule extends Component {
 
 const mapStateToProps = ({ scheduleTrainer, identificate }) => {
     return {
-        successPostResponse: scheduleTrainer.successPostResponse,
         userId: identificate.userId,
         preloaderSchedule: scheduleTrainer.preloader
     }

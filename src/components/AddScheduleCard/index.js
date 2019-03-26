@@ -21,16 +21,11 @@ class AddScheduleCard extends Component {
     render() {
         const { 
             idRender, 
-            data, 
-            onChangeTime, 
-            playgroundsForTraining, 
-            canDelete,
-
+            playgroundsForTraining,
             remove,
             name,
             metaForm
         } = this.props;
-        console.log(metaForm)
 
         return(
             <div className="b-add-schedule-card">

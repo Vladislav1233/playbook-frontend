@@ -30,14 +30,16 @@ export function createScheduleTrainer(data) {
 
         dispatch(start());
 
-        scheduleService.createSchedule('trainer', data)
+        return scheduleService.createSchedule('trainer', data)
             .then(
                 response => {
                     dispatch(success(response));
+                    return response;
                 },
                 error => {
                     dispatch(failure(error));
                     handleErrorServer(error.response.status);
+                    return error;
                 }
             );
     }
@@ -76,6 +78,7 @@ export function editTrainerSchedule(schedule_uuid, data) {
                 error => {
                     dispatch(failure(error));
                     handleErrorServer(error.response.status);
+                    return error;
                 }
             );
     }
