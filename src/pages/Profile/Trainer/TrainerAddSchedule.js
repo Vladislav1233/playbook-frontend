@@ -112,7 +112,6 @@ class TrainerAddSchedule extends Component {
             if (this.state.preloader !== true) {
                 this.setState({ preloader: true });
             }
-
             scheduleService.getSchedule('trainer', userId, data)
             .then(
                 response => {
@@ -139,7 +138,7 @@ class TrainerAddSchedule extends Component {
 
                         this.setState({
                             ...this.state,
-                            cards: newCards,
+                            initialValuesCards: newCards,
                             preloader: false
                         });
                     }
@@ -185,6 +184,10 @@ class TrainerAddSchedule extends Component {
                 [name]: value
             }
         });
+    };
+
+    validateRangeCards = () => {
+
     };
 
     onChangeTime = (idx) => (value, name) => {
@@ -267,27 +270,29 @@ class TrainerAddSchedule extends Component {
             });
             this.setState({
                 ...this.state,
-                dateCalendar: value
+                dateCalendar: value,
+                dateForRequest: [`${date}`]
             })
             this.getTrainerScheduleRequest(date, data);
         }
 
-        if (selectChooseDay === 'period') {
-            // Note: собираем данные по дате для post запроса create schedule
-            const dateData = (dateData) => {
-                const newCards = cards.map((card) => {
-                    return {
-                        ...card,
-                        dates: dateData
-                    }
-                });
+        // TODO: Запрос переделать как выше, а то менялась логика
+        // if (selectChooseDay === 'period') {
+        //     // Note: собираем данные по дате для post запроса create schedule
+        //     const dateData = (dateData) => {
+        //         const newCards = cards.map((card) => {
+        //             return {
+        //                 ...card,
+        //                 dates: dateData
+        //             }
+        //         });
 
-                this.setState({
-                    cards: newCards
-                })
-            }
-            dateData(getArrayDateRange(value[0], value[1]));
-        }
+        //         this.setState({
+        //             cards: newCards
+        //         })
+        //     }
+        //     dateData(getArrayDateRange(value[0], value[1]));
+        // }
     };
 
     // Note: настраиваем выбор даты на календаре с помощью селекта
@@ -510,6 +515,7 @@ class TrainerAddSchedule extends Component {
                         initialValues={{
                             scheduleCard: [ ...initialValuesCards ]
                         }}
+                        validate={values => {}}
                         render={({ 
                             handleSubmit, 
                             values, 
@@ -519,7 +525,6 @@ class TrainerAddSchedule extends Component {
                                 mutators: { push }
                             }
                         }) => {
-                            console.log(values)
                             pushForm = push;
                             submitSchedule = handleSubmit;
                             return (

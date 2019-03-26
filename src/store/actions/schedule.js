@@ -67,13 +67,13 @@ export function editTrainerSchedule(schedule_uuid, data) {
     return dispatch => {
         dispatch(start());
 
-        scheduleService.editSchedule(schedule_uuid, data)
+        return scheduleService.editSchedule(schedule_uuid, data)
             .then(
                 response => {
                     dispatch(success(response));
+                    return response;
                 },
                 error => {
-                    console.log(error);
                     dispatch(failure(error));
                     handleErrorServer(error.response.status);
                 }

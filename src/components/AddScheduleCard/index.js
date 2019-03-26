@@ -112,7 +112,7 @@ class AddScheduleCard extends Component {
                                         name={`${name}.playgrounds`}
                                         type="checkbox"
                                         value={item.uuid}
-                                        validate={value => value.length === 0 ? 'Выберите как минимум один корт' : undefined}
+                                        validate={value => value ? value.length === 0 ? 'Выберите как минимум один корт' : undefined : undefined}
                                         render={({ input, meta }) => {
                                             return <Checkbox 
                                                 { ...input }

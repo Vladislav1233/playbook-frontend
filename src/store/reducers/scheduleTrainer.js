@@ -219,7 +219,8 @@ export default function(state = initialState, action) {
         case EDIT_SUCCESS_SCHEDULE_TRAINER:
             return {
                 ...state,
-                preloader: false
+                preloader: false,
+                successPostResponse: action.payload.data.success
             }
         
         case EDIT_FAILURE_SCHEDULE_TRAINER:
