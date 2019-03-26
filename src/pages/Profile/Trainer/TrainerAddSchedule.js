@@ -186,8 +186,24 @@ class TrainerAddSchedule extends Component {
         });
     };
 
-    validateRangeCards = () => {
+    validateRangeCards = (currCard, values) => {
+        const { dateForRequest } = this.state;
 
+        const startRange = `${dateForRequest.dates[0]} ${currCard.start_time}`;
+        const endRange = `${dateForRequest.dates[0]} ${currCard.end_time}`;
+        const currentCardRange = Moment.range(startRange, endRange);
+
+        let result = values.some((value) => {
+            if(currCard.idx !== value.idx) {
+                const startValue = `${dateForRequest.dates[0]} ${value.start_time}`;
+                const endValue = `${dateForRequest.dates[0]} ${value.end_time}`;
+                const valueRange = Moment.range(startValue, endValue);
+
+                return currentCardRange.overlaps(valueRange);
+            }
+        });
+
+        console.log(result);
     };
 
     onChangeTime = (idx) => (value, name) => {
@@ -515,7 +531,9 @@ class TrainerAddSchedule extends Component {
                         initialValues={{
                             scheduleCard: [ ...initialValuesCards ]
                         }}
-                        validate={values => {}}
+                        validate={values => {
+                            
+                        }}
                         render={({ 
                             handleSubmit, 
                             values, 
@@ -529,7 +547,14 @@ class TrainerAddSchedule extends Component {
                             submitSchedule = handleSubmit;
                             return (
                                 <form className="b-add-schedule-card__list" onSubmit={handleSubmit}>
-                                    <FieldArray name="scheduleCard">
+                                    <FieldArray 
+                                        name="scheduleCard"
+                                        validate={(value, allValues) => {
+                                            // TODO: валидировать по типу как id-шник одинаковый искал
+                                            console.log(value)
+                                            console.log(allValues)
+                                        }}
+                                    >
                                         {({ fields }) => {
                                             return fields.map((name, index) => {
                                                 return <AddScheduleCard
