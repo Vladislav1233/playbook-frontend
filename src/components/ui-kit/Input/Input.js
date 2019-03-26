@@ -16,12 +16,12 @@ class Input extends Component {
     render() {
         const {
             labelText, typeInput, idInput, placeholder, value, nameInput, modif,
-            theme, onChange, autoComplete, maxValue, minValue, disabled, error
+            theme, onChange, autoComplete, maxValue, minValue, disabled, error, invalidRanges
         } = this.props;
 
         const classInput = cn('b-input', modif, {
             'b-input--black-color': theme ? theme.blackColor : false,
-            'error': error
+            'error': error || invalidRanges
         });
 
         return(

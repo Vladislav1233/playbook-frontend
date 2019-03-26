@@ -3,12 +3,11 @@ import { Link } from 'react-router-dom';
 import { Field } from 'react-final-form';
 
 // Note: helpers
-import { required, startTimeBeforeEndTime, composeValidators, validFormatTime } from '../../helpers/validate';
+import { required } from '../../helpers/validate';
 
 // Note: components
 import Input from '../ui-kit/Input/Input';
 import Checkbox from '../ui-kit/Checkbox/Checkbox';
-import TimeField from '../ui-kit/TimeField';
 
 // Note: style
 import '../../style/bem-blocks/b-add-schedule-card/index.scss';
@@ -36,17 +35,13 @@ class AddScheduleCard extends Component {
 
                     <Field 
                         name={`${name}.start_time`}
-                        validate={value => {
-                            return composeValidators(
-                                required(),
-                                validFormatTime('Время начала периода указано не полностью')
-                            )(value)
-                        }}
+                        validate={required()}
                         render={({ input, meta }) => {
-                            return <TimeField 
-                                {...input}
+                            return <Input 
+                                { ...input }
                                 labelText='С'
-                                idInput='startBooking'
+                                typeInput="time"
+                                idInput={`startBooking${idRender}`}
                                 nameInput={input.name}
                                 theme={{ blackColor: true }}
                                 error={meta.error && (metaForm ? !metaForm.invalidRanges : true) && meta.touched && meta.error}
@@ -59,19 +54,15 @@ class AddScheduleCard extends Component {
                 <div className="b-add-schedule-card__field b-add-schedule-card__field--right">
                     <Field 
                         name={`${name}.end_time`}
-                        validate={value => {
-                            return composeValidators(
-                                required(),
-                                validFormatTime('Время окончания периода указано не полностью')
-                            )(value)
-                        }}
+                        validate={required()}
                         render={({ input, meta }) => {
-                            return <TimeField 
-                                {...input}
-                                labelText='До'
-                                idInput='endBooking'
+                            return <Input 
+                                { ...input }
                                 nameInput={input.name}
+                                labelText='До'
+                                idInput={`endBooking${idRender}`}
                                 theme={{ blackColor: true }}
+                                typeInput='time'
                                 error={meta.error && (metaForm ? !metaForm.invalidRanges : true) && meta.touched && meta.error}
                                 invalidRanges={metaForm ? metaForm.invalidRanges : false}
                             />
@@ -117,7 +108,7 @@ class AddScheduleCard extends Component {
                                         name={`${name}.playgrounds`}
                                         type="checkbox"
                                         value={item.uuid}
-                                        validate={value => value ? value.length === 0 ? 'Выберите как минимум один корт' : undefined : undefined}
+                                        validate={value => value ? value.length === 0 ? 'Выберите как минимум один корт' : undefined : 'Выберите как минимум один корт'}
                                         render={({ input, meta }) => {
                                             return <Checkbox 
                                                 { ...input }

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import moment from 'moment';
 import 'moment/locale/ru';
 import { extendMoment } from 'moment-range';
-import { ANALIZE_DATE_TIME_ZONE } from '../../../store/constants/formatDates';
+import { ANALIZE_DATE_TIME_ZONE, ANALIZE_DATE_TIME } from '../../../store/constants/formatDates';
 
 // Note: react-final-form
 import { Form } from 'react-final-form';
@@ -139,7 +139,13 @@ class TrainerAddSchedule extends Component {
             let isNotValid = false;
 
             for (let i = 0; i < arr.length; i++) {
+
                 if(arr[i] && arr[i].start_time && arr[i].end_time) {
+                    let startIsBefore = moment(arr[i].start_time, 'HH:mm').isBefore(moment(arr[i].end_time, 'HH:mm'));
+                    if (!startIsBefore) {
+                        return {curr: i, validate: i, startBeforeIsNotValid: true}
+                    }
+
                     const startRange = `${dateForRequest[0]} ${arr[i].start_time}`;
                     const endRange = `${dateForRequest[0]} ${arr[i].end_time}`;
                     const currentCardRange = Moment.range(startRange, endRange); // для каждого элемента находим диапазон
@@ -266,8 +272,12 @@ class TrainerAddSchedule extends Component {
             // Note: Получаем даты начала расписания и окончания расписания относительно UTC
             const dates = this.state.dateForRequest.map(date => {
                 return {
-                    start_time: moment.utc(moment(`${date} ${value.start_time}:00`)).format('YYYY-MM-DD HH:mm:ss'),
-                    end_time: moment.utc(moment(`${date} ${value.end_time}:00`)).format('YYYY-MM-DD HH:mm:ss')
+                    start_time: moment.utc(
+                                moment(`${date} ${value.start_time}:00`, ANALIZE_DATE_TIME)
+                            ).format('YYYY-MM-DD HH:mm:ss'),
+                    end_time: moment.utc(
+                                moment(`${date} ${value.end_time}:00`, ANALIZE_DATE_TIME)
+                            ).format('YYYY-MM-DD HH:mm:ss')
                 }
             });
 
@@ -299,7 +309,7 @@ class TrainerAddSchedule extends Component {
                                 this.props.alertActionsError(textErrorFromServer(response));
                             } else if(response.status === 200) {
                                 this.props.alertActionsSuccess('Успешно сохранено');
-                                getSchedule();
+                                getSchedule(index, array);
                             }
                         }
                     );
@@ -360,24 +370,32 @@ class TrainerAddSchedule extends Component {
                             scheduleCard: [ ...initialValuesCards ]
                         }}
                         validate={values => {
-                            const textErrorRange = (numCard) => 
-                                `В карточках №${numCard.curr + 1} и №${numCard.validate + 1} диапазон времени пересекается`;
                             const errors = {
                                 scheduleCard: []
                             };
+
+                            const textErrorRange = (numCard) => 
+                                `В карточках №${numCard.validate + 1} и №${numCard.curr + 1} диапазон времени пересекается`;
+                            const textErrorForIsStartNotBefor = 'Время начала бронированя должно быть раньше времени окончания.';
+
                             let howOverlaps = this.validateRangeCards(values.scheduleCard);
+
+                            const errorFieldForRange = () => {
+                                return { 
+                                    start_time: howOverlaps.startBeforeIsNotValid 
+                                        ? textErrorForIsStartNotBefor : textErrorRange(howOverlaps),
+
+                                    end_time: howOverlaps.startBeforeIsNotValid 
+                                        ? textErrorForIsStartNotBefor : textErrorRange(howOverlaps),
+
+                                    invalidRanges: true
+                                }
+                            };
                             if (howOverlaps !== undefined) {
-                                errors.scheduleCard[howOverlaps.curr] = { 
-                                    start_time: textErrorRange(howOverlaps),
-                                    end_time: textErrorRange(howOverlaps),
-                                    invalidRanges: true
-                                }
-                                errors.scheduleCard[howOverlaps.validate] = { 
-                                    start_time: textErrorRange(howOverlaps),
-                                    end_time: textErrorRange(howOverlaps),
-                                    invalidRanges: true
-                                }
+                                errors.scheduleCard[howOverlaps.curr] = errorFieldForRange()
+                                errors.scheduleCard[howOverlaps.validate] = errorFieldForRange()
                             }
+
                             return errors;
                         }}
                         render={({ 

@@ -15,9 +15,9 @@ export const startTimeBeforeEndTime = (valueStart, valueEnd, text = 'Время 
     if (valueStart && valueEnd) {
         if(valueStart.isBefore(valueEnd)) {
             return undefined
-        } 
-            return text
-        
+        }
+ 
+        return text        
     }
 };
 
