@@ -212,7 +212,7 @@ class TrainerInfo extends Component {
 
         return (
             <div className="b-trainer-info">
-                <h1>Информация о себе</h1>
+                <h1>Информация обо мне</h1>
                 <div className="b-trainer-info__info-wrap">
                     <div className="b-trainer-info__form">
                         <Input
@@ -226,7 +226,7 @@ class TrainerInfo extends Component {
                             disabled
                         />
 
-                        {/* <Input 
+                        {/* <Input
                             labelText="Отчество"
                             idInput="profile_patronymic"
                             nameInput="patronymic"
@@ -252,7 +252,7 @@ class TrainerInfo extends Component {
                             labelText="О себе"
                             idInput="profile_about"
                             nameInput="about"
-                            placeholder="О себе"
+                            placeholder="Поле для дополнительной информации"
                             value={trainerInfo.about}
                             onChange={e => this.handleChangeInput(e)}
                             theme={{ blackColor: true }}
@@ -356,7 +356,7 @@ class TrainerInfo extends Component {
                         onClick={this.onSaveInformation}
                     />
                 </div>
-                
+
                 {preloader ? <Preloader /> : null}
             </div>
         )

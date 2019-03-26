@@ -20,7 +20,7 @@ const ContentItem = ({ children }) => {
     return(
         <ul className="b-head-menu__content-list">
             {children}
-        </ul> 
+        </ul>
     )
 };
 
@@ -53,7 +53,6 @@ class HeadMenu extends Component {
     };
 
     render() {
-        console.log('renderHeadMenu');
         const { showContent } = this.state;
         const { isAuthorization, userInformation, userRole, location} = this.props;
 
@@ -74,7 +73,7 @@ class HeadMenu extends Component {
                 return {
                     pathProfile: configPathRouter.profileUser,
                     roleName: 'Игрок'
-                } 
+                }
             } else if (userRole === 'organization-admin') {
                  // TODO
             } else if (userRole === 'admin') {
@@ -83,19 +82,18 @@ class HeadMenu extends Component {
         };
         let dataAboutRole = {};
         if (isAuthorization) {
-            dataAboutRole = getDataAboutRole(userRole[0]); 
+            dataAboutRole = getDataAboutRole(userRole[0]);
         }
 
         return(
             <div className={classNameBlock}>
-                <OutsideClickHandler 
+                <OutsideClickHandler
                     onOutsideClick={() => {
-                        console.log('onOutsideClick');
                         this.closeContent();
                     }}
                     display="inline-block"
-                >   
-                    {isAuthorization 
+                >
+                    {isAuthorization
                         ? <a onClick={this.toggleContent} className="b-head-menu__open-button" href="/">
                             <div className="b-head-menu__account-wrapper">
                                 <span className="b-head-menu__account-name">{ userInformation.firstName }</span>
@@ -120,12 +118,12 @@ class HeadMenu extends Component {
                     }
                     {showContent &&
                         <div className="b-head-menu__content">
-                            {isAuthorization 
+                            {isAuthorization
                                 ? <Fragment>
                                     <div className="b-head-menu__content-header">
                                         <span className="b-head-menu__content-text b-head-menu__content-text--name">{`${userInformation.firstName} ${userInformation.lastName}`}</span>
                                         <div className="b-head-menu__content-additional">{dataAboutRole.roleName}</div>
-                                    </div> 
+                                    </div>
 
                                     {/* Блок личного кабинета */}
                                     { (dataAboutRole.roleName === "Игрок") ? null :

@@ -7,6 +7,7 @@
     }
 
     &__list-wrapper {
+        background: linear-gradient(90deg, rgb(227, 229, 232) 0%, rgb(236, 236, 236) 100%);
         display: block;
         position: sticky;
         z-index: 1;
@@ -19,9 +20,8 @@
         padding-top: 60px;
         transform: translateX(0%);
         opacity: 1;
-        border-right: 1px solid $mint;
+        border-right: 1px solid $telegray;
         flex-shrink: 0;
-        background: #e3e5e8;
     }
 
     &__list {

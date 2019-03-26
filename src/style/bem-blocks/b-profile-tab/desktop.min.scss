@@ -7,18 +7,18 @@
     padding: 10px 15px;
     list-style-type: none;
     cursor: pointer;
-    border: 1px solid transparent;
+    border: none;
+    transition: none;
 
-    .no-touchevents &:hover {
-        background: #0b4e3536;
+    @include hover {
+        background: hsla(0, 0%, 100%, 0.5);
     }
 
     &.active {
-        margin-right: -1px;
+        background: hsla(0, 0%, 100%, 0.5);
         border-color: transparent;
-        border-top: 1px solid $mint;
-        border-right: 1px solid hsla(216, 10%, 90%, .80);
-        border-bottom: 1px solid $mint;
+        border-left: 4px solid $ok;
+        padding-left: 11px;
     }
 
     &__icon {

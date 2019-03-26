@@ -28,8 +28,6 @@ class Header extends Component {
     }
 
     render() {
-        console.log('render Header');
-
         const { location } = this.props;
         const onRegistrationPages = (location.pathname === '/registration') || (location.pathname === '/authorization');
 
@@ -47,7 +45,7 @@ class Header extends Component {
                         {/* Гамбургер */}
                         { !onRegistrationPages &&
                             <div className="b-header__left">
-                                <MenuHeader 
+                                <MenuHeader
                                     isAuthorization={this.state.isAuthorization}
                                     location={this.props.location}
                                 />
@@ -67,7 +65,7 @@ class Header extends Component {
                         {/* Профиль */}
                         { !onRegistrationPages &&
                             <div className="b-header__right">
-                                <HeadMenu 
+                                <HeadMenu
                                     location={this.props.location}
                                 />
                             </div>

@@ -49,8 +49,7 @@
         }
 
         a {
-            text-decoration: underline;
-            color: #2c2c2c;
+            @include linkInTextBlack();
         }
     }
 
