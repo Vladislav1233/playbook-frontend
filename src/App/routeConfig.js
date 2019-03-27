@@ -41,6 +41,8 @@ import TrainerAddSchedule from '../pages/Profile/Trainer/TrainerAddSchedule';
 import TrainerScheduleProfile from '../pages/Profile/Trainer/TrainerScheduleProfile';
 import TrainerBookingRequest from '../pages/Profile/Trainer/TrainerBookingRequest';
 import TrainerInfo from '../pages/Profile/Trainer/TrainerInfo';
+import ManagePlaygroundsList from '../pages/Profile/Trainer/ManagePlaygroundsList';
+import ManagePlayground from '../pages/Profile/Trainer/ManagePlayground';
 
 // Note: Компонеты для всех типов пользователей, включая незарегистрированного пользователя.
 const defaultRoutes = [{
@@ -114,6 +116,14 @@ export const routesTrainer = [
         path: '/profile/trainer-info',
         name: 'TrainerInfo',
         component: TrainerInfo
+    }, {
+        path: '/profile/manage-playground-list',
+        name: 'ManagePlaygroundsList',
+        component: ManagePlaygroundsList
+    }, {
+        path: '/profile/manage-playground/:slug',
+        name: 'ManagePlayground',
+        component: ManagePlayground
     }]
 }];
 

@@ -4,6 +4,7 @@ import moment from 'moment';
 import 'moment/locale/ru';
 import { extendMoment } from 'moment-range';
 import { ANALIZE_DATE_TIME_ZONE, ANALIZE_DATE_TIME } from '../../../store/constants/formatDates';
+import { withRouter } from 'react-router-dom';
 
 // Note: react-final-form
 import { Form } from 'react-final-form';
@@ -47,13 +48,11 @@ class TrainerAddSchedule extends Component {
                 start_time: '',
                 end_time: '',
                 price_per_hour: '',
-                playgrounds: [],
                 uuid: ''
             }],
             selectChooseDay: 'one', // Note: это для настроек календаря: one - выбрать можно 1 день, period - выбрать можно период от / до
             dateCalendar: `${moment(new Date()).format('YYYY-MM-DD')}`,
             dateForRequest: [`${moment(new Date()).format('YYYY-MM-DD')}`],
-            playgroundsForTraining: [],
             preloader: false
         };
 
@@ -68,13 +67,13 @@ class TrainerAddSchedule extends Component {
 
     getTrainerScheduleRequest = (date, data) => {
         // Note: собираем данные для get запроса расписания при инициализации страницы. Берём текущий день
-        const { userId } = this.props;
+        const { userId, match } = this.props;
 
         const getScheduleRequest = () => { 
             if (this.state.preloader !== true) {
                 this.setState({ preloader: true });
             }
-            scheduleService.getSchedule('trainer', userId, data)
+            scheduleService.getSchedule('playground', match.params.slug, data)
             .then(
                 response => {
                     if(response.data.data.length > 0) {
@@ -84,7 +83,6 @@ class TrainerAddSchedule extends Component {
                                 start_time: moment(item.start_time, ANALIZE_DATE_TIME_ZONE).format("HH:mm"),
                                 end_time: moment(item.end_time, ANALIZE_DATE_TIME_ZONE).format("HH:mm"),
                                 price_per_hour: convertTypeMoney(item.price_per_hour, 'RUB', 'banknote'),
-                                playgrounds: item.playgrounds.map(responsePlayground => responsePlayground.uuid),
                                 uuid: item.uuid
                             }
                         });
@@ -109,24 +107,7 @@ class TrainerAddSchedule extends Component {
                 }
             )
         }
-
-        if (this.state.playgroundsForTraining.length === 0) {
-
-            trainerInfoService.getTrainerInformation(userId)
-                .then(
-                    res => {
-                        this.setState({
-                            ...this.state,
-                            playgroundsForTraining: res.data.data.playgrounds
-                        }, getScheduleRequest())
-                    },
-                    error => {
-                        this.props.alertActionsError(textErrorFromServer(error));
-                    }
-                );
-        } else {
-            getScheduleRequest();
-        }
+        getScheduleRequest();
     }
 
     // TODO: Вынести в отдельный обработчик валидации
@@ -185,24 +166,6 @@ class TrainerAddSchedule extends Component {
             })
             this.getTrainerScheduleRequest(date, data);
         }
-
-        // TODO: Запрос переделать как выше, а то менялась логика
-        // if (selectChooseDay === 'period') {
-        //     // Note: собираем данные по дате для post запроса create schedule
-        //     const dateData = (dateData) => {
-        //         const newCards = cards.map((card) => {
-        //             return {
-        //                 ...card,
-        //                 dates: dateData
-        //             }
-        //         });
-
-        //         this.setState({
-        //             cards: newCards
-        //         })
-        //     }
-        //     dateData(getArrayDateRange(value[0], value[1]));
-        // }
     };
 
     // Note: настраиваем выбор даты на календаре с помощью селекта
@@ -250,7 +213,7 @@ class TrainerAddSchedule extends Component {
                 let result = {
                     price_per_hour: formatPrice,
                     currency: 'RUB',
-                    playgrounds: value.playgrounds 
+                    playgrounds: [`${this.props.match.params.slug}`]
                 };
 
                 if (datesRequest) {
@@ -302,7 +265,7 @@ class TrainerAddSchedule extends Component {
 
             const create = () => {
                 if (!value.uuid) {
-                    dispatch(createScheduleTrainer(createDataForRequest(dates, null, null))).then(
+                    dispatch(createScheduleTrainer(createDataForRequest(dates, null, null), 'playground')).then(
                         response => {
                             if(response.response) {
                                 this.props.alertActionsError(textErrorFromServer(response));
@@ -322,8 +285,7 @@ class TrainerAddSchedule extends Component {
         const { 
             initialValuesCards,
             selectChooseDay,
-            preloader,
-            playgroundsForTraining
+            preloader
         } = this.state;
 
         const {
@@ -332,6 +294,7 @@ class TrainerAddSchedule extends Component {
 
         let pushForm;
         let submitSchedule;
+        console.log(this.props)
 
         // TODO: Сделать валидацию сабмита для периода и тогда включить опцию
         // const optionsSelect = [{
@@ -351,7 +314,7 @@ class TrainerAddSchedule extends Component {
                 />
                 
                 <div className="b-trainer-add-schedule__schedule">
-                    <h1>Добавить расписание</h1>
+                    <h1>Управление площадкой</h1>
                     
                     {/* TODO_AMED: временно скрыли функционал отвалившийся */}
                     {/* <SettingChooseDay 
@@ -425,7 +388,6 @@ class TrainerAddSchedule extends Component {
 
                                                         fields.remove(index)
                                                     }}
-                                                    playgroundsForTraining={playgroundsForTraining}
                                                 />
                                             }) 
                                         }}
@@ -472,4 +434,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TrainerAddSchedule);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TrainerAddSchedule));

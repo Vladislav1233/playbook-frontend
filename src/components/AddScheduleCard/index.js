@@ -95,8 +95,9 @@ class AddScheduleCard extends Component {
                         </div>
                     }}
                 />
-
-                <div className="b-add-schedule-card__check">
+                
+                {playgroundsForTraining
+                 ? <div className="b-add-schedule-card__check">
                     <div className="b-add-schedule-card__title-section">Корт</div>
 
                     <ul className="b-add-schedule-card__check-list">
@@ -132,7 +133,9 @@ class AddScheduleCard extends Component {
                             </li>
                         }
                     </ul>
-                </div>
+                </div> 
+                : null
+                }
             </div>
         )
     }

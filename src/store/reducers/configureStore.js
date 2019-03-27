@@ -13,6 +13,7 @@ import booking from './booking';
 import trainerList from './trainerList';
 import scrollPage from './scrollPage';
 import alertReducer from './alertReducer';
+import trainerInfo from './trainerInfo';
 
 export default function(initialState = {}) {
     const rootReducer = combineReducers({
@@ -27,7 +28,8 @@ export default function(initialState = {}) {
         booking,
         trainerList,
         scrollPage,
-        alertReducer
+        alertReducer,
+        trainerInfo
     });
 
     return createStore(rootReducer, initialState, applyMiddleware(thunkMiddleware));
