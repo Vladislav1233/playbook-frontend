@@ -1,5 +1,8 @@
 // 1024
 .b-list-trainer {
+    height: 100%;
+    background-color: $background-schedule;
+
     &__list {
         margin: 0 -8px;
     }
