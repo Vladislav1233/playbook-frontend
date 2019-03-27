@@ -147,7 +147,7 @@ class ScheduleItem extends Component {
                             </div>
                         }
 
-                        {!isStatus && 
+                        {!isStatus && isWhoBooked && 
                             <div className="info-block info-block--compact">
                                 <p className="info-block__title">Площадка:</p>
                                 <p className="info-block__text">
