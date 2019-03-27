@@ -3,7 +3,7 @@ import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 const moment = extendMoment(Moment);
 
-const calcCostService = (startTimeBooking, endTimeBooking, rangeCostArray) => {
+const calcCostService = (startTimeBooking, endTimeBooking, rangeCostArray, formatForTime = 'YYYY-MM-DD HH:mm:ss') => {
     /*
     * calcCost - функция подсчета стоимости услуги бронирования.
     * startTimeBooking (string. example: '12:00') - время начала букинга.
@@ -11,7 +11,6 @@ const calcCostService = (startTimeBooking, endTimeBooking, rangeCostArray) => {
     * rangeCostArray (array. example: [{time: object moment range, cost: 10000 (cent)}]) - массив со стоимостью часа в диапазоне времени.
     */
 
-    const formatForTime = 'YYYY-MM-DD HH:mm:ss';
     const dividerForCostTime = 3600;
     let resultCost = 0;
 

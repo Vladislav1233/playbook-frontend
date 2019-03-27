@@ -8,6 +8,7 @@ import DeclineBookingModal from '../Modal/DeclineBookingModal';
 
 // Note: helpers
 import { convertTypeMoney } from '../../helpers/convertTypeMoney';
+import calcCostService from '../../helpers/calcCostService';
 
 // Note: styles
 import '../../style/bem-blocks/b-my-booking-card/index.scss';
@@ -40,6 +41,27 @@ class MyBookingCard extends Component {
         this.props.declineBooking(bookingId, data);
     };
 
+    getCostPlaygroundForPayBooking = () => {
+        const { playgroundSchedule } = this.props;
+        let costPlaygroundInRange = [];
+        
+        if (playgroundSchedule.length > 0) {
+            playgroundSchedule.forEach(schedulePlaygroundItem => {
+                // TODO: проверить как будет работать дата в ios устройствах.
+                const timeRangeCost = moment.range(
+                    schedulePlaygroundItem.start_time, 
+                    schedulePlaygroundItem.end_time
+                );
+                costPlaygroundInRange.push({
+                    time: timeRangeCost,
+                    cost: schedulePlaygroundItem.price_per_hour
+                });
+            })
+        }
+    
+        return costPlaygroundInRange;
+    };
+
     render() {
         const { 
             bookableFirstName,
@@ -53,6 +75,13 @@ class MyBookingCard extends Component {
             note, // Note: заметка с причиной отмены бронирования
             bookingId
         } = this.props;
+
+        const pricePlayground = +calcCostService(
+            startTime, 
+            endTime, 
+            this.getCostPlaygroundForPayBooking(),
+            'YYYY-MM-DD HH:mm:ss ZZ'
+        );
 
         const typeBookable = bookableFirstName ? 'Тренер' : 'Площадка';
 
@@ -113,8 +142,18 @@ class MyBookingCard extends Component {
                 </div>
 
                 <div className="info-block info-block--accent">
-                    <p className="info-block__title">Цена</p>
+                    <p className="info-block__title">Оплата тренера</p>
                     <div className="info-block__text">{convertTypeMoney(price, 'RUB', 'banknote')} ₽</div>
+                </div>
+
+                <div className="info-block info-block--accent">
+                    <p className="info-block__title">Оплата корта</p>
+                    <div className="info-block__text">
+                        {pricePlayground > 0 
+                            ? `${pricePlayground} ₽` 
+                            : 'Не указана администратором. Уточняйте у тренера или у администратора корта.'
+                        }
+                    </div>
                 </div>
 
                 { status !== 2 &&

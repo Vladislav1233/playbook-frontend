@@ -43,7 +43,7 @@ class Schedule extends Component {
             valueStart: value,
             valueEnd: value
         });
-        this.props.getTrainerSchedule(this.props.userId, data);
+        this.props.getTrainerSchedule(this.props.userId, data, this.props.isWhoBooked);
     };
 
     render() {

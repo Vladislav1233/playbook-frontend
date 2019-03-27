@@ -151,11 +151,13 @@ button {
     &--accent {
         .info-block__text {
             @include costStyle();
+            text-align: left;
         }
     }
 
     &__title {
         padding: 0;
         font-weight: 300;
+        flex-shrink: 0;
     }
 }

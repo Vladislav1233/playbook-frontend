@@ -77,6 +77,8 @@ export default function(state = initialState, action) {
                     return reservedResponseItem.status === 1;
                 });
             }
+            console.log(action.isCabinet)
+            // console.log(action.reservedResponse.data)
             // Note: Cтоимость часа во всех промежутках времени
             let newCost = [];
             // Note: Площадки на которых в этот день тренирует тренер
@@ -156,8 +158,10 @@ export default function(state = initialState, action) {
                     });
                 });
             };
-            // eslint-disable-next-line
-            reservedTime.length > 0 ? filterRange() : false;
+            if(reservedTime.length > 0) {
+                filterRange();
+            }
+            console.log(reservedTime)
 
             const newPlaygroundsForTraining = uniquePlaygrounds(arrayPlaygrounds);
 

@@ -83,9 +83,12 @@ export default function(state = initialState, action) {
                     nameCourt: item.playground ? item.playground.name : '',
                     // Note: Преобразовываем UTC время в местное (с сервера приходит UTC).
                     time: `${startTime.format('DD.MM.YYYY (dddd): HH:mm')} - ${endTime.format('HH:mm')}`,
+                    startTime: startTime,
+                    endTime: endTime,
                     bookingId: item.uuid,
                     status: item.status,
-                    price: item.price
+                    price: item.price,
+                    playgroundSchedule: item.playground ? item.playground.schedules : []
                 }
             };
             

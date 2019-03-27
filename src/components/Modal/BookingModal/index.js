@@ -138,10 +138,9 @@ class BookingModal extends Component {
         playgroundsForTraining.forEach(playgroundForTraining => {
             console.log(playgroundForTraining)
             // eslint-disable-next-line
-            // TODO: Бэк удалил расписание, теперь не посчитать сумму. Бэк верни мне расписание! =)
-            // if (playgroundForTraining.uuid === playgroundId) {
-            //     schedulePlayground = [ ...playgroundForTraining.schedules ]
-            // }
+            if (playgroundForTraining.uuid === playgroundId) {
+                schedulePlayground = [ ...playgroundForTraining.schedules ]
+            }
         });
         
         if (schedulePlayground.length > 0) {
@@ -179,6 +178,8 @@ class BookingModal extends Component {
             showFileldPassword, 
             registeredNewUser
         } = this.state;
+        console.log(this.state);
+        console.log(this.props);
 
         // Note: Доступный диапазон бронирования времени в данной карточке.
         const availableRange = {
@@ -190,6 +191,7 @@ class BookingModal extends Component {
         if (playgroundId) {
             costPlaygroundForPayBooking = [ ...this.getCostPlaygroundForPayBooking() ];
         }
+        console.log(costPlaygroundForPayBooking)
 
         const numberCost = (cost) => {
             return <NumberFormat
@@ -204,7 +206,7 @@ class BookingModal extends Component {
         // Сейчас проверка цены корта
         const validCheck = (cost) => {
             if (cost === null) {
-                return 'Стоимость данного корта не указана администратором, уточняйте лично.';
+                return 'Стоимость данного корта не указана администратором, уточняйте лично. Итоговая цена будет посчитана без учёта аренды корта.';
             }
         };
 
