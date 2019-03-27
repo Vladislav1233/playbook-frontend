@@ -5,6 +5,7 @@ import NumberFormat from 'react-number-format';
 
 // Note: helpers
 import { convertTypeMoney } from '../../helpers/convertTypeMoney';
+import calcCostService from '../../helpers/calcCostService';
 
 // Note: components
 import BookingModal from '../Modal/BookingModal';
@@ -52,14 +53,37 @@ class ScheduleItem extends Component {
             declineModal: false
         })
     }
+
+    getCostPlaygroundForPayBooking = () => {
+        const { playground } = this.props.dataScheduleItem;
+        console.log(playground)
+        const playgroundSchedule = playground.schedules;
+        let costPlaygroundInRange = [];
+        
+        if (playgroundSchedule.length > 0) {
+            playgroundSchedule.forEach(schedulePlaygroundItem => {
+                // TODO: проверить как будет работать дата в ios устройствах.
+                const timeRangeCost = moment.range(
+                    schedulePlaygroundItem.start_time, 
+                    schedulePlaygroundItem.end_time
+                );
+                costPlaygroundInRange.push({
+                    time: timeRangeCost,
+                    cost: schedulePlaygroundItem.price_per_hour
+                });
+            })
+        }
+    
+        return costPlaygroundInRange;
+    };
   
     render() {
         const { 
             start_time, 
             end_time,
-            isStatus // true - это время свободно, false - это время занято
+            isStatus, // true - это время свободно, false - это время занято
+            playground
         } = this.props.dataScheduleItem;
-
         const bookingId = this.props.dataScheduleItem.uuid;
         const analizeDateTimeZone = 'YYYY-MM-DD HH:mm:ss ZZ';
     
@@ -72,9 +96,15 @@ class ScheduleItem extends Component {
             cost,
             bookedCost
         } = this.props;
-        console.log(playgroundsForTraining);
 
         const textBooking = 'Нажми, чтобы забронировать';
+
+        let costPlayground = playground 
+            ? +calcCostService(
+                moment(start_time).format('YYYY-MM-DD HH:mm:ss'), 
+                moment(end_time).format('YYYY-MM-DD HH:mm:ss'), 
+                this.getCostPlaygroundForPayBooking()
+            ) : 0;
 
         // Note: Классы css
         const classNameStateRoot = cn(
@@ -116,11 +146,20 @@ class ScheduleItem extends Component {
                                 </p>
                             </div>
                         }
+
+                        {!isStatus && 
+                            <div className="info-block info-block--compact">
+                                <p className="info-block__title">Площадка:</p>
+                                <p className="info-block__text">
+                                    {playground ? playground.name : 'Другое'}
+                                </p>
+                            </div>
+                        }
                         
 
                         {bookedCost && isWhoBooked
                             ? <div className="info-block info-block--accent info-block--compact">
-                                <p className="info-block__title">К оплате:</p>
+                                <p className="info-block__title">К оплате тренеру:</p>
                                 <p className="info-block__text">
                                     {<NumberFormat 
                                         value={convertTypeMoney(bookedCost, 'RUB', 'banknote')}
@@ -132,6 +171,24 @@ class ScheduleItem extends Component {
                                 </p>
                             </div>
                             :null
+                        }
+
+                        {playground &&
+                            <div className="info-block info-block--accent info-block--compact">
+                                <p className="info-block__title">К оплате за корт:</p>
+                                <p className="info-block__text">
+                                    {costPlayground > 0 
+                                        ? <NumberFormat 
+                                            value={costPlayground}
+                                            suffix=' ₽'
+                                            thousandSeparator={' '}
+                                            displayType='text'
+                                            decimalScale={0}
+                                        />
+                                        : 'Не указана администратором.'
+                                    }
+                                </p>
+                            </div>
                         }
                     </div>
                     

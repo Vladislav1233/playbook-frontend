@@ -28,6 +28,10 @@ const navigationLink = [{
     image: myScheduleIcon,
     label: 'Моё расписание'
 }, {
+    to: '/profile/manage-playground-list',
+    image: addScheduleIcon,
+    label: 'Управление площадками'
+}, {
     to: '/profile/booking-request',
     image: invitationReserveIcon,
     label: 'Входящие запросы'
@@ -40,7 +44,7 @@ const navigationLink = [{
 class ProfileTrainer extends Component {
 
     render() {
-        const { toggleCabinet, routes } = this.props;
+        const { toggleCabinet, routes, location } = this.props;
 
         const classNameList = cn(
             'b-profile-tabs__list-wrapper',
@@ -49,14 +53,23 @@ class ProfileTrainer extends Component {
             }
         );
 
+        const howLocation = location.pathname.split('/');
+
         return (
             <div className="container container--cabinet">
                 <div className="b-profile-tabs">
                     <nav className={classNameList}>
                         <div className="b-profile-tabs__list">
                             {navigationLink.map((item, index) => {
+                                const classNameProfileTab = cn(
+                                    'b-profile-tab',
+                                    {
+                                        'active': howLocation[2] === 'manage-playground' 
+                                        && item.label === 'Управление площадками'
+                                    }
+                                );
                                 return (
-                                    <NavLink key={index} className="b-profile-tab" to={item.to} title={item.label}>
+                                    <NavLink key={index} className={classNameProfileTab} to={item.to} title={item.label}>
                                         <img className="b-profile-tab__icon" src={item.image} alt={item.label}/>
                                         <p className="b-profile-tab__text">{item.label}</p>
                                     </NavLink>

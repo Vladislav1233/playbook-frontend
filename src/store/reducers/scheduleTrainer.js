@@ -7,8 +7,6 @@ import {
     GET_SUCCESS_SCHEDULE_TRAINER,
     GET_FAILURE_SCHEDULE_TRAINER,
 
-    TOGGLE_RESPONSE,
-
     DECLINE_CONFIRM_BOOKING_START,
     DECLINE_CONFIRM_BOOKING_SUCCESS,
     DECLINE_CONFIRM_BOOKING_FAILURE,
@@ -39,18 +37,11 @@ const initialState = {
         schedule: [],
         cost: [],
         message: [] // TODO, месседж на каких кортах могу с какого времени, его же и выводить в форме букинга
-    },
-    successPostResponse: false
+    }
 }
 
 export default function(state = initialState, action) {
     switch (action.type) {
-
-        case TOGGLE_RESPONSE: 
-            return {
-                ...state,
-                successPostResponse: false
-            }
 
         case POST_START_SCHEDULE_TRAINER:
             return {
@@ -61,8 +52,7 @@ export default function(state = initialState, action) {
         case POST_SUCCESS_SCHEDULE_TRAINER:
             return {
                 ...state,
-                preloader: false,
-                successPostResponse: action.payload.data.success
+                preloader: false
             }
         
         case POST_FAILURE_SCHEDULE_TRAINER:
@@ -87,6 +77,8 @@ export default function(state = initialState, action) {
                     return reservedResponseItem.status === 1;
                 });
             }
+            console.log(action.isCabinet)
+            // console.log(action.reservedResponse.data)
             // Note: Cтоимость часа во всех промежутках времени
             let newCost = [];
             // Note: Площадки на которых в этот день тренирует тренер
@@ -166,8 +158,10 @@ export default function(state = initialState, action) {
                     });
                 });
             };
-            // eslint-disable-next-line
-            reservedTime.length > 0 ? filterRange() : false;
+            if(reservedTime.length > 0) {
+                filterRange();
+            }
+            console.log(reservedTime)
 
             const newPlaygroundsForTraining = uniquePlaygrounds(arrayPlaygrounds);
 
@@ -220,8 +214,7 @@ export default function(state = initialState, action) {
         case EDIT_SUCCESS_SCHEDULE_TRAINER:
             return {
                 ...state,
-                preloader: false,
-                successPostResponse: action.payload.data.success
+                preloader: false
             }
         
         case EDIT_FAILURE_SCHEDULE_TRAINER:

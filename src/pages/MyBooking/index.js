@@ -47,6 +47,7 @@ class MyBooking extends Component {
                                                 note={item.note}
                                                 declineBooking={declineBooking}
                                                 bookingId={item.uuid}
+                                                playgroundSchedule={item.playground ? item.playground.schedules : []}
                                             />
                                         </div>
                                     )

@@ -11,8 +11,6 @@ import {
     GET_SUCCESS_SCHEDULE_TRAINER,
     GET_FAILURE_SCHEDULE_TRAINER,
 
-    TOGGLE_RESPONSE,
-
     DECLINE_CONFIRM_BOOKING_START,
     // DECLINE_CONFIRM_BOOKING_SUCCESS,
     DECLINE_CONFIRM_BOOKING_FAILURE
@@ -25,12 +23,12 @@ import textErrorFromServer from '../../helpers/textErrorFromServer';
 import { handleErrorServer } from '../../helpers/handleErrorServer';
 
 // Note: Отправляем запрос на создание расписания тренера
-export function createScheduleTrainer(data) {
+export function createScheduleTrainer(data, type = 'trainer') {
     return dispatch => {
 
         dispatch(start());
 
-        return scheduleService.createSchedule('trainer', data)
+        return scheduleService.createSchedule(type, data)
             .then(
                 response => {
                     dispatch(success(response));
@@ -161,12 +159,6 @@ export function getTrainerSchedule(userId, data, isCabinet = false) {
             type: GET_FAILURE_SCHEDULE_TRAINER,
             payload: response
         }
-    }
-}
-
-export function toggleResponse() {
-    return {
-        type: TOGGLE_RESPONSE
     }
 }
 

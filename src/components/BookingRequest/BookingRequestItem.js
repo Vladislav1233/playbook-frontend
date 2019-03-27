@@ -1,10 +1,15 @@
 import React, { Component, Fragment } from 'react';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
 
 // Note: components
 import DeclineBookingModal from '../Modal/DeclineBookingModal'; 
 import Button from '../ui-kit/Button/Button';
 
 import { convertTypeMoney } from '../../helpers/convertTypeMoney';
+import calcCostService from '../../helpers/calcCostService';
+
+const moment = extendMoment(Moment);
 
 class BookingRequestItem extends Component {
 
@@ -20,6 +25,27 @@ class BookingRequestItem extends Component {
         this.setState({ showModal: false });
     }
 
+    getCostPlaygroundForPayBooking = () => {
+        const { playgroundSchedule } = this.props;
+        let costPlaygroundInRange = [];
+        
+        if (playgroundSchedule.length > 0) {
+            playgroundSchedule.forEach(schedulePlaygroundItem => {
+                // TODO: проверить как будет работать дата в ios устройствах.
+                const timeRangeCost = moment.range(
+                    schedulePlaygroundItem.start_time, 
+                    schedulePlaygroundItem.end_time
+                );
+                costPlaygroundInRange.push({
+                    time: timeRangeCost,
+                    cost: schedulePlaygroundItem.price_per_hour
+                });
+            })
+        }
+    
+        return costPlaygroundInRange;
+    };
+
     render() {
         const { 
             bookingId, 
@@ -28,10 +54,18 @@ class BookingRequestItem extends Component {
             tel, 
             nameCourt, 
             time, 
+            startTime,
+            endTime,
             onClickConfirm, 
             onClickDecline,
             price
         } = this.props;
+
+        const pricePlayground = +calcCostService(
+            startTime.format('YYYY-MM-DD HH:mm:ss'), 
+            endTime.format('YYYY-MM-DD HH:mm:ss'), 
+            this.getCostPlaygroundForPayBooking()
+        );
 
         return(
             <Fragment>
@@ -62,10 +96,20 @@ class BookingRequestItem extends Component {
                     </div>
 
                     <div className="info-block info-block--accent">
-                        <p className="info-block__title">К оплате:</p>
+                        <p className="info-block__title">К оплате тренеру:</p>
                         <p className="info-block__text">{convertTypeMoney(price, 'RUB', 'banknote')} ₽</p>
                     </div>
-
+                    
+                    <div className="info-block info-block--accent">
+                        <p className="info-block__title">К оплате за корт:</p>
+                        <p className="info-block__text">
+                            {pricePlayground > 0 
+                                ? `${pricePlayground} ₽` 
+                                : 'Не указана администратором. Уточняйте у администратора корта.'
+                            }
+                        </p>
+                    </div>
+                    
                     <div className="b-booking-request__buttons">
                         <Button 
                             name="Принять"
