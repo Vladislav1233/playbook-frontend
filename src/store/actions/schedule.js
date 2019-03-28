@@ -20,7 +20,6 @@ import { scheduleService } from '../../services/scheduleService';
 import { bookingService } from '../../services/booking';
 import { alertActions } from './alertAction';
 import textErrorFromServer from '../../helpers/textErrorFromServer';
-import { handleErrorServer } from '../../helpers/handleErrorServer';
 
 // Note: Отправляем запрос на создание расписания тренера
 export function createScheduleTrainer(data, type = 'trainer') {
@@ -36,7 +35,6 @@ export function createScheduleTrainer(data, type = 'trainer') {
                 },
                 error => {
                     dispatch(failure(error));
-                    handleErrorServer(error.response.status);
                     return error;
                 }
             );
@@ -75,7 +73,6 @@ export function editTrainerSchedule(schedule_uuid, data) {
                 },
                 error => {
                     dispatch(failure(error));
-                    handleErrorServer(error.response.status);
                     return error;
                 }
             );
@@ -131,9 +128,7 @@ export function getTrainerSchedule(userId, data, isCabinet = false) {
                     }
                 },
                 error => {
-                    console.log(error);
                     dispatch(failure(error));
-                    handleErrorServer(error.response.status);
                 }
             );
     }
@@ -182,7 +177,6 @@ export function declineConfirmBooking(bookingId, data, userId, dataForGetSchedul
                 err => {
                     dispatch(failure(err));
                     dispatch(alertActions.error(`Ошибка! ${textErrorFromServer(err)}`));
-                    handleErrorServer(err.response.status);
                 }
             )
     };

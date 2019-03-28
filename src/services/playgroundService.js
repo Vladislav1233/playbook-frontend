@@ -1,5 +1,6 @@
 import { API_URL } from '../store/constants/restAPI';
 import axios from 'axios';
+import { handleErrorServer } from '../helpers/handleErrorServer'; 
 
 export const playgroundService = {
     searchPlayground
@@ -15,5 +16,8 @@ function searchPlayground(data) {
             'Authorization': `Bearer ${valueToken}`
         },
         params: data
+    }).catch(error => {
+        handleErrorServer(error.response.status);
+        throw error;
     })
 }

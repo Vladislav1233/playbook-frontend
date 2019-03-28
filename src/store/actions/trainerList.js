@@ -7,7 +7,6 @@ import {
 } from '../constants/trainerList';
 
 import { trainerInfoService } from '../../services/trainerInfoService';
-import { handleErrorServer } from '../../helpers/handleErrorServer';
 
 export function getTrainerList(data) {
     return dispatch => {
@@ -18,9 +17,7 @@ export function getTrainerList(data) {
                 dispatch(success(res));
             },
             error => {
-                console.log(error);
                 dispatch(failure(error));
-                handleErrorServer(error.response.status);
             }
         )
     }
