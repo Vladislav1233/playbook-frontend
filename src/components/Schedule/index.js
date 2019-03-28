@@ -66,7 +66,7 @@ class Schedule extends Component {
         <li className="b-schedule-list__item b-schedule-list__item--empty">
           <div className="b-schedule-item b-schedule-item--empty">
             <div className="b-schedule-item__time b-schedule-item__time--finish">
-              Всё время уже забронированно
+              Нет доступного для бронирования времени
             </div>
           </div>
         </li>
