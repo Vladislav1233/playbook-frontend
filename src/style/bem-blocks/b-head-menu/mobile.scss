@@ -67,22 +67,22 @@
         border: 1px solid $border-color;
         border-radius: $border-radius;
         background: white;
-        box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        box-shadow: 0 2px 4px rgba(0,0,0,.4);
     }
 
     &__content-header {
-        margin-bottom: 10px;
+        margin-bottom: 5px;
         padding: 0 15px 10px;
         border-bottom: 1px solid $border-color;
     }
 
     &__content-list {
         margin-top: 0px;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
         padding-left: 0;
 
         &:not(:last-child) {
-            padding-bottom: 10px;
+            padding-bottom: 5px;
             border-bottom: 1px solid $border-color;
         }
     }
@@ -91,13 +91,13 @@
         list-style-type: none;
 
         a:hover {
-            background: hsl(0, 0%, 99%);
+            background: hsl(0, 0%, 97%);
         }
     }
 
     &__content-text {
         display: block;
-        padding: 7px 0px;
+        padding: 8px 0px;
         padding-right: 15px;
         padding-left: 15px;
         color: $mainFontColor;
