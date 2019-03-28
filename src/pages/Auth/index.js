@@ -34,7 +34,7 @@ class Auth extends Component {
     handleChange = (event) => {
         const { name, value } = event.target;
         const { user, validation } = this.state;
-        
+
         // Note: Если была ошибка валидации и пользователь начинает изменять поля, то скрываем ошибку
         if (validation.text !== '') {
             this.setState({
@@ -70,7 +70,7 @@ class Auth extends Component {
                         fieldEmpty: true
                     }
                 })
-                
+
                 return false;
             }
         }
@@ -102,7 +102,7 @@ class Auth extends Component {
                             <h1 className="b-registration__heading">Авторизация</h1>
 
                             <div className="b-input">
-                                <InputMask className="b-input__input" id="phone" name="phone" mask="+7 (999) 999-99-99" maskChar={null} value={user.phone} onChange={this.handleChange} placeholder="Ваш номер телефона" />
+                                <InputMask className="b-input__input" id="phone" name="phone" mask="+7 (999) 999-99-99" maskChar={ null } value={ user.phone } onChange={ this.handleChange } placeholder="Ваш номер телефона" type="tel" />
                             </div>
 
                             <Input
@@ -133,7 +133,7 @@ class Auth extends Component {
                         </div>
                     </div>
                 </div>
-                { preloader 
+                { preloader
                     ? <Preloader />
                     : null
                 }

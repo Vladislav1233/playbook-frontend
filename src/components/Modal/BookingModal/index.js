@@ -78,7 +78,7 @@ class BookingModal extends Component {
                     }
                     console.log(err.response.data);
                 }
-            ); 
+            );
     };
 
     onCancel = (e) => {
@@ -97,11 +97,11 @@ class BookingModal extends Component {
         const { typeBooking, dateBooking, createBooking, isAuthorization, loginAction } = this.props;
         const { start_time, end_time, playground } = values;
         const playgroundId = playground === 'playground_other' ? null : playground;
- 
+
         const { userId } = this.props;
         const formatDate = 'YYYY-MM-DD HH:mm:ss';
 
-        /* Note: data - Формируем данные для запроса бронирования 
+        /* Note: data - Формируем данные для запроса бронирования
         * В запросе данные даты и времени переводим в UTC формат.
         */
         const data = {
@@ -123,7 +123,7 @@ class BookingModal extends Component {
                 password: values.password
             };
             loginAction(dataLogin, false, () => {
-                createBooking(typeBooking, data); 
+                createBooking(typeBooking, data);
                 this.onCancel();
             }).then(() => { this.onCancel(); });
         }
@@ -141,12 +141,12 @@ class BookingModal extends Component {
                 schedulePlayground = [ ...playgroundForTraining.schedules ]
             }
         });
-        
+
         if (schedulePlayground.length > 0) {
             schedulePlayground.forEach(schedulePlaygroundItem => {
                 // TODO: проверить как будет работать дата в ios устройствах.
                 const timeRangeCost = moment.range(
-                    schedulePlaygroundItem.start_time, 
+                    schedulePlaygroundItem.start_time,
                     schedulePlaygroundItem.end_time
                 );
                 costPlaygroundInRange.push({
@@ -160,11 +160,11 @@ class BookingModal extends Component {
     };
 
     render() {
-        const { 
-            isOpenModal, 
-            closeModal, 
-            playgroundsForTraining, 
-            isAuthorization, 
+        const {
+            isOpenModal,
+            closeModal,
+            playgroundsForTraining,
+            isAuthorization,
             dateBooking,
             resetPasswordRequest,
             startTime,
@@ -172,9 +172,9 @@ class BookingModal extends Component {
             stepMinIncrement
         } = this.props;
 
-        const { 
+        const {
             playgroundId,
-            showFileldPassword, 
+            showFileldPassword,
             registeredNewUser
         } = this.state;
 
@@ -216,7 +216,7 @@ class BookingModal extends Component {
                 title='Бронирование'
                 subTitle={`с ${availableRange.startTime} до ${availableRange.endTime}`}
             >
-                <Form 
+                <Form
                     onSubmit={(values) => {
                         if (!showFileldPassword && !isAuthorization) {
                             this.onRegisterUser(values);
@@ -249,17 +249,17 @@ class BookingModal extends Component {
                                     'b-booking-form__fieldset--error': (errors.start_time && touched.start_time) || (errors.end_time && touched.end_time)
                                 })}>
                                     <legend className="b-modal__title-group">Время</legend>
-                                    <Field 
+                                    <Field
                                         name='start_time'
                                         validate={value => {
                                             return composeValidators(
                                                 required(),
-                                                validFormatTime('Поле времени начала бронирования указано не полностью'), 
+                                                validFormatTime('Поле времени начала бронирования указано не полностью'),
                                                 rangeContainsDate(
                                                     Moment.range(
-                                                        moment(availableRange.startTime, 'HH:mm'), 
+                                                        moment(availableRange.startTime, 'HH:mm'),
                                                         moment(availableRange.endTime, 'HH:mm')
-                                                    ), 
+                                                    ),
                                                     moment(value, 'HH:mm'),
                                                     'Время начала бронирования не входит в допустимый диапазон'
                                                 )
@@ -269,7 +269,7 @@ class BookingModal extends Component {
                                             if(input.value.length === 5) {
                                                 input.onChange(stepTime(input.value, stepMinIncrement))
                                             }
-                                            return <TimeField 
+                                            return <TimeField
                                                 {...input}
                                                 labelText='С'
                                                 idInput='startBooking'
@@ -280,17 +280,17 @@ class BookingModal extends Component {
                                         }}
                                     />
 
-                                    <Field 
+                                    <Field
                                         name='end_time'
                                         validate={value => {
                                             return composeValidators(
-                                                required(), 
-                                                validFormatTime('Поле времени окончания бронирования указано не полностью'), 
+                                                required(),
+                                                validFormatTime('Поле времени окончания бронирования указано не полностью'),
                                                 rangeContainsDate(
                                                     Moment.range(
-                                                        moment(availableRange.startTime, 'HH:mm'), 
+                                                        moment(availableRange.startTime, 'HH:mm'),
                                                         moment(availableRange.endTime, 'HH:mm')
-                                                    ), 
+                                                    ),
                                                     moment(value, 'HH:mm'),
                                                     'Время окончания бронирования не входит в допустимый диапазон'
                                                 )
@@ -300,7 +300,7 @@ class BookingModal extends Component {
                                             if(input.value.length === 5) {
                                                 input.onChange(stepTime(input.value, stepMinIncrement))
                                             }
-                                            return <TimeField 
+                                            return <TimeField
                                                 { ...input }
                                                 labelText='По'
                                                 idInput='endBooking'
@@ -310,22 +310,22 @@ class BookingModal extends Component {
                                             />
                                         }}
                                     />
-                                    {errors.start_time && touched.start_time  
+                                    {errors.start_time && touched.start_time
                                         ? <p className="b-booking-form__error">
                                             {errors.start_time}
-                                        </p> 
+                                        </p>
                                         : errors.end_time && touched.end_time
                                         ? <p className="b-booking-form__error">
                                             {errors.end_time}
-                                        </p> 
-                                        : null  
+                                        </p>
+                                        : null
                                     }
 
                                 </fieldset>
 
                                 <fieldset className="b-booking-form__fieldset">
                                     <legend className="b-modal__title-group">Корт</legend>
-                                    <Field 
+                                    <Field
                                         name='playground'
                                         value='playground_other'
                                         type='radio'
@@ -339,7 +339,7 @@ class BookingModal extends Component {
                                     />
 
                                     {playgroundsForTraining ? playgroundsForTraining.map(item => {
-                                        return <Field 
+                                        return <Field
                                                 key={`playground_${item.uuid}`}
                                                 name='playground'
                                                 value={item.uuid}
@@ -353,45 +353,45 @@ class BookingModal extends Component {
                                                 }}
                                             />
                                     }): null}
-                                    <OnChange 
+                                    <OnChange
                                         name="playground"
                                         children={value => {
                                             this.setState({
                                                 playgroundId: value === 'playground_other' ? null : value
                                             });
-                                        }} 
+                                        }}
                                     />
                                 </fieldset>
-                                
+
                                 <fieldset className="b-booking-form__fieldset">
                                     <legend className="b-modal__title-group">Стоимость</legend>
                                     {/* TODO_HOT: сразу показывать общую стоимость из суммы */}
-                                    {!errors.start_time && !errors.end_time 
+                                    {!errors.start_time && !errors.end_time
                                         ? <Fragment>
-                                            <CostInformation 
+                                            <CostInformation
                                                 modif="b-cost-information--total" title="Итого:">
                                                 {/* TODO_AMED: добавить "более" для корта без цены */}
                                                 { playgroundId ? 'Более ' : ''}
                                                 { numberCost(
                                                     +calcCostService(
-                                                        `${dateBooking} ${values.start_time}`, 
-                                                        `${dateBooking} ${values.end_time}`, 
+                                                        `${dateBooking} ${values.start_time}`,
+                                                        `${dateBooking} ${values.end_time}`,
                                                         this.props.cost
                                                     )
                                                     +
                                                     +calcCostService(
-                                                        `${dateBooking} ${values.start_time}:00`, 
-                                                        `${dateBooking} ${values.end_time}`, 
+                                                        `${dateBooking} ${values.start_time}:00`,
+                                                        `${dateBooking} ${values.end_time}`,
                                                         costPlaygroundForPayBooking
                                                     )
                                                 )}
                                             </CostInformation>
-                                            
+
                                             <CostInformation title="Услуги тренера">
                                                 {numberCost(
                                                     calcCostService(
-                                                        `${dateBooking} ${values.start_time}`, 
-                                                        `${dateBooking} ${values.end_time}`, 
+                                                        `${dateBooking} ${values.start_time}`,
+                                                        `${dateBooking} ${values.end_time}`,
                                                         this.props.cost
                                                     )
                                                 )}
@@ -400,8 +400,8 @@ class BookingModal extends Component {
                                             <CostInformation title="Аренда корта">
                                                 {playgroundId
                                                     ? numberCost(calcCostService(
-                                                        `${dateBooking} ${values.start_time}`, 
-                                                        `${dateBooking} ${values.end_time}`, 
+                                                        `${dateBooking} ${values.start_time}`,
+                                                        `${dateBooking} ${values.end_time}`,
                                                         costPlaygroundForPayBooking
                                                     ))
                                                     : '0 ₽'
@@ -418,7 +418,7 @@ class BookingModal extends Component {
 
                                         {showFileldPassword ?
                                             <Fragment>
-                                                {registeredNewUser 
+                                                {registeredNewUser
                                                     ? <div className="b-booking-form__note">
                                                         На ваш номер телефона выслан пароль. Введите его в поле ниже, а затем нажми кнопку <i>"Подтвердить"</i>.
                                                         <br/>
@@ -428,8 +428,8 @@ class BookingModal extends Component {
                                                     : <div className="b-booking-form__note">
                                                         Вы уже зарегистрированный пользователь.
                                                         <br/>
-                                                        Введите свой пароль авторизации или 
-                                                        <a className="link-in-text-white" href="" title="" 
+                                                        Введите свой пароль авторизации или
+                                                        <a className="link-in-text-white" href="" title=""
                                                             onClick={(e) => {
                                                                 e.preventDefault();
                                                                 resetPasswordRequest({
@@ -437,10 +437,10 @@ class BookingModal extends Component {
                                                                 })
                                                             }
                                                         }> запросите новый пароль</a>.
-                                                    </div> 
+                                                    </div>
                                                 }
 
-                                                <Field 
+                                                <Field
                                                     name='password'
                                                     validate={required()}
                                                     render={({ input, meta }) => {
@@ -453,17 +453,17 @@ class BookingModal extends Component {
                                                             theme={{blackColor: true}}
                                                             error={meta.error}
                                                             { ...input }
-                                                        />      
+                                                        />
                                                     }}
                                                 />
                                             </Fragment>
-                                        : 
+                                        :
                                             <Fragment>
-                                                <Field 
+                                                <Field
                                                     name='first_name'
                                                     validate={required()}
                                                     render={({ input, meta }) => {
-                                                        return <Input 
+                                                        return <Input
                                                             labelText='Имя'
                                                             typeInput='text'
                                                             idInput='first_name'
@@ -475,11 +475,11 @@ class BookingModal extends Component {
                                                     }}
                                                 />
 
-                                                <Field 
+                                                <Field
                                                     name='last_name'
                                                     validate={required()}
                                                     render={({ input, meta }) => {
-                                                        return <Input 
+                                                        return <Input
                                                             labelText='Фамилия'
                                                             typeInput='text'
                                                             idInput='last_name'
@@ -495,20 +495,21 @@ class BookingModal extends Component {
                                                     'error': errors.phone && touched.phone
                                                 })}>
                                                     <label className="b-input__label" htmlFor="phone">Телефон</label>
-                                                    <Field 
+                                                    <Field
                                                         name='phone'
                                                         validate={composeValidators(
                                                             required(),
-                                                            fullTelNumber(18) 
+                                                            fullTelNumber(18)
                                                         )}
                                                         render={({ input, meta }) => {
                                                             return <Fragment>
-                                                                <InputMask 
+                                                                <InputMask
                                                                     className='b-input__input'
-                                                                    id="phone" 
-                                                                    mask="+7 (999) 999-99-99" 
-                                                                    maskChar={null} 
-                                                                    { ...input } 
+                                                                    id="phone"
+                                                                    mask="+7 (999) 999-99-99"
+                                                                    maskChar={null}
+                                                                    type="tel"
+                                                                    { ...input }
                                                                 />
                                                                 {meta.error && meta.touched &&
                                                                     <p className="b-input__error">
@@ -520,7 +521,7 @@ class BookingModal extends Component {
                                                     />
                                                 </div>
 
-                                                <Field 
+                                                <Field
                                                     name="is_confirm-personal"
                                                     type='checkbox'
                                                     validate={required('Ваше согласие обязательно')}
@@ -538,16 +539,16 @@ class BookingModal extends Component {
                                             </Fragment>
                                         }
                                     </fieldset>
-                                : 
+                                :
                                     null
                                 }
 
-                                { !!playgroundId && 
+                                { !!playgroundId &&
                                     <p className="b-booking-form__error">
                                         {validCheck( calcCostService(
-                                            `${dateBooking} ${values.start_time}`, 
-                                            `${dateBooking} ${values.end_time}`, 
-                                            costPlaygroundForPayBooking) 
+                                            `${dateBooking} ${values.start_time}`,
+                                            `${dateBooking} ${values.end_time}`,
+                                            costPlaygroundForPayBooking)
                                         )}
                                     </p>
                                 }

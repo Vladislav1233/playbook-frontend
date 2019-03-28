@@ -100,6 +100,7 @@ class Registration extends Component {
                           mask="+7 (999) 999-99-99"
                           maskChar={null}
                           placeholder="Ваш номер телефона"
+                          type="tel"
                           {...input}
                         />
                         {meta.error && meta.touched
