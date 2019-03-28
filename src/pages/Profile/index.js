@@ -11,9 +11,10 @@ import NotFound from '../NotFound';
 
 // Note: images
 import addInfoIcon from '../../style/images/icon/add-info.svg';
-import addScheduleIcon from '../../style/images/icon/add-schedule.svg';
 import invitationReserveIcon from '../../style/images/icon/invitation-reserve.svg';
 import myScheduleIcon from '../../style/images/icon/my-schedule.svg';
+import myPlaygroundIcon from '../../style/images/icon/bookmark.png'
+import addIcon from '../../style/images/icon/add.png'
 
 // Note: styles
 import '../../style/bem-blocks/b-profile-tabs/index.scss';
@@ -21,7 +22,7 @@ import '../../style/bem-blocks/b-profile-tab/index.scss';
 
 const navigationLink = [{
     to: '/profile/create-schedule',
-    image: addScheduleIcon,
+    image: addIcon,
     label: 'Добавить расписание'
 }, {
     to: '/profile/my-schedule',
@@ -29,7 +30,7 @@ const navigationLink = [{
     label: 'Моё расписание'
 }, {
     to: '/profile/manage-playground-list',
-    image: addScheduleIcon,
+    image: myPlaygroundIcon,
     label: 'Управление площадками'
 }, {
     to: '/profile/booking-request',
@@ -64,7 +65,7 @@ class ProfileTrainer extends Component {
                                 const classNameProfileTab = cn(
                                     'b-profile-tab',
                                     {
-                                        'active': howLocation[2] === 'manage-playground' 
+                                        'active': howLocation[2] === 'manage-playground'
                                         && item.label === 'Управление площадками'
                                     }
                                 );

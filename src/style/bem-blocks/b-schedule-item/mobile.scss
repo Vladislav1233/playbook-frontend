@@ -11,14 +11,14 @@
     border-left: 5px solid transparent;
     outline: none;
 
-@include hover {
+    @include hover {
         color: $mainFontColor;
         .b-schedule-item__click {
             color: $mainFontColor;
         }
     }
 
-@include focus {
+    @include focus {
         outline: $focus solid 1px;
 
         .b-schedule-item__click {
@@ -32,7 +32,15 @@
 
     &--busy {
         border-left-color: $error;
+        @include focus {
+            outline: none;
+        }
     }
+
+    &--empty {
+        border-left-color: $border-color;
+    }
+
     &__time-wrap {
         display: flex;
         align-items: center;

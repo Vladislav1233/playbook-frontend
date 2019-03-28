@@ -16,7 +16,7 @@
         @include hover {
             color: $whiteFontColor;
             background: $header-hover;
-            
+
             svg path {
                 fill: #fff;
             }
@@ -39,8 +39,10 @@
 
     &__image-wrapper {
         overflow: hidden;
-        width: 40px;
-        height: 40px;
+        width: 44px;
+        height: 44px;
+        background-color: #0a2923;
+        border: 4px solid #0a2923;
         transition-duration: $animation-time;
         transition-property: border-color;
         text-align: center;
@@ -114,10 +116,7 @@
     }
 
     &--open & {
-        
         &__image-wrapper {
-            border-color: $secondary;
-
             svg path {
                 fill: #fff;
             }

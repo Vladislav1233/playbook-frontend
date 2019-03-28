@@ -92,10 +92,6 @@
         }
     }
 
-    &__not {
-        // margin-bottom: 0px;
-    }
-
     &__title-note {
         @include subTitleStyle();
     }
