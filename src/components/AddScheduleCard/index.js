@@ -127,7 +127,7 @@ class AddScheduleCard extends Component {
 
                             : <li className="b-add-schedule-card__check-item">
                                 <p style={{marginBottom: '15px'}}>Добавьте информацию о кортах, на которых работаете в разделе <Link className="b-add-schedule-card__link" to="/profile/trainer-info">
-                                    «обо мне»
+                                    «настройки»
                                     </Link>
                                 </p>
                             </li>

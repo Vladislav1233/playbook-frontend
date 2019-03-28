@@ -20,9 +20,9 @@ class ObjectCard extends Component {
             if (trainerInfo.trainer_info) {
                 if (trainerInfo.trainer_info.min_price === trainerInfo.trainer_info.max_price) {
                     return convertTypeMoney(trainerInfo.trainer_info.min_price, 'RUB', 'banknote');
-                } 
+                }
                     return `${convertTypeMoney(trainerInfo.trainer_info.min_price, 'RUB', 'banknote')} - ${convertTypeMoney(trainerInfo.trainer_info.max_price, 'RUB', 'banknote')}`
-                
+
             }
         };
 
@@ -39,9 +39,9 @@ class ObjectCard extends Component {
                     : courtsSting.push(`, ${e.name}`)
                 });
                 return courtsSting;
-            } 
+            }
                 return `${trainerInfo.playgrounds[0].name}`;
-            
+
         };
 
         // const addressCourt = () => {
@@ -56,12 +56,12 @@ class ObjectCard extends Component {
         };
 
         // console.log(trainerInfo);
-        
+
         return(
             <div className="b-object-card">
                 <div className="b-object-card__photo-wrapper">
                     {/* TODO: сделать добавление фото в ЛК */}
-                    {trainerInfo.image 
+                    {trainerInfo.image
                         ? <img className="b-object-card__photo" src={trainerInfo.image} alt="Фото тренера" />
                         : null
                     }
@@ -75,11 +75,11 @@ class ObjectCard extends Component {
                         {/* <i className="b-object-card__online-status" title="Тренер доступен сегодня"></i> */}
                     </Link>
 
-                    {/* Обо мне */}
-                    { trainerInfo.trainer_info && 
+                    {/* Настройка профиля */}
+                    { trainerInfo.trainer_info &&
                         <Fragment>
                             <div className="b-object-card__info-block">
-                                <p className="b-object-card__title">Обо мне:</p>
+                                <p className="b-object-card__title">Настройка профиля:</p>
                                 { trainerInfo.trainer_info.about }
                             </div>
                         </Fragment>
@@ -118,7 +118,7 @@ class ObjectCard extends Component {
                                 </div>
                             </Fragment>
                         }
-                        
+
                         <div className="b-object-card__button-item">
                             <Button to={linkTo} modif="b-button--hollow b-button--full" name="Забронировать"/>
                         </div>
