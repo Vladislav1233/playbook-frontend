@@ -56,7 +56,6 @@ class ScheduleItem extends Component {
 
     getCostPlaygroundForPayBooking = () => {
         const { playground } = this.props.dataScheduleItem;
-        console.log(playground)
         const playgroundSchedule = playground.schedules;
         let costPlaygroundInRange = [];
         

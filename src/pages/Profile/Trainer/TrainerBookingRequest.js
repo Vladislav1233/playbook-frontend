@@ -31,7 +31,6 @@ class TrainerBookingRequest extends Component {
 
     render() {
         const { dataBookingRequest, dataPastBooking } = this.props;
-        console.log(this.props)
 
         return(
             <div className="b-trainer-booking-request">

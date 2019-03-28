@@ -31,7 +31,7 @@ class ManagePlaygroundsList extends Component {
                 </h1>
 
                 <ul className="b-list-trainer__list">
-                    {trainerInfo ? trainerInfo.playgrounds.map(playground => {
+                    {trainerInfo && trainerInfo.playgrounds.length > 0 ? trainerInfo.playgrounds.map(playground => {
                         return <li key={playground.uuid} className="b-list-trainer__item">
                             <div className="b-object-card">
                                 <div className="b-object-card__photo-wrapper">
@@ -55,7 +55,7 @@ class ManagePlaygroundsList extends Component {
                             </div>
 
                         </li>
-                    }) : null}
+                    }) : <p style={{display: 'block'}} className="b-booking-request__item">Добавьте информацию о кортах, на которых работаете в разделе <Link className="b-add-schedule-card__link" to='/profile/trainer-info'>"Обо мне"</Link></p>}
                 </ul>
             </div>
 
