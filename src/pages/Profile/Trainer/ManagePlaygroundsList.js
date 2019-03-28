@@ -39,8 +39,8 @@ class ManagePlaygroundsList extends Component {
                                 </div>
 
                                 <div className="b-object-card__info">
-                                    <Link 
-                                        className="b-object-card__name-group" 
+                                    <Link
+                                        className="b-object-card__name-group"
                                         to={`/profile/manage-playground/${playground.uuid}`}
                                     >
                                         <span className="b-object-card__first-name">{playground.name}</span>
@@ -55,7 +55,7 @@ class ManagePlaygroundsList extends Component {
                             </div>
 
                         </li>
-                    }) : <p style={{display: 'block'}} className="b-booking-request__item">Добавьте информацию о кортах, на которых работаете в разделе <Link className="b-add-schedule-card__link" to='/profile/trainer-info'>"Обо мне"</Link></p>}
+                    }) : <p style={ { display: 'block' } } className="b-booking-request__item">Добавьте информацию о кортах, на которых работаете в разделе <Link className="b-add-schedule-card__link" to='/profile/trainer-info'>«настройки»</Link></p>}
                 </ul>
             </div>
 

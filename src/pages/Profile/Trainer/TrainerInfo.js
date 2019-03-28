@@ -212,7 +212,7 @@ class TrainerInfo extends Component {
 
         return (
             <div className="b-trainer-info">
-                <h1>Информация обо мне</h1>
+                <h1>Настройка личного профиля</h1>
                 <div className="b-trainer-info__info-wrap">
                     <div className="b-trainer-info__form">
                         <Input

@@ -39,7 +39,7 @@ const navigationLink = [{
 }, {
     to: '/profile/trainer-info',
     image: addInfoIcon,
-    label: 'Обо мне'
+    label: 'Настройка профиля'
 }];
 
 class ProfileTrainer extends Component {
