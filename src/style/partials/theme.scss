@@ -90,6 +90,10 @@ a {
     &.link-in-text-white {
         @include linkInTextWhite();
     }
+
+    &.link-in-text-black {
+        @include linkInTextBlack();
+    }
 }
 
 button {

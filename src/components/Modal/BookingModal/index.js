@@ -70,13 +70,12 @@ class BookingModal extends Component {
                     localStorage.setItem('userToken', res.data.data.access_token);
                 },
                 err => {
-                    if(err.response.data.phone && err.response.data.phone[0] === "Такое значение поля мобильный номер уже существует.") {
+                    if(err.response.data.data.phone && err.response.data.data.phone[0] === "Такое значение поля мобильный номер уже существует.") {
                         this.setState({
                             registeredNewUser: false,
                             showFileldPassword: true
                         });
                     }
-                    console.log(err.response.data);
                 }
             );
     };
@@ -429,7 +428,7 @@ class BookingModal extends Component {
                                                         Вы уже зарегистрированный пользователь.
                                                         <br/>
                                                         Введите свой пароль авторизации или
-                                                        <a className="link-in-text-white" href="" title=""
+                                                        <a className="link-in-text-black" href="" title=""
                                                             onClick={(e) => {
                                                                 e.preventDefault();
                                                                 resetPasswordRequest({
