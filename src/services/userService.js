@@ -1,6 +1,7 @@
 import { authHeader } from '../helpers/auth-header';
 import { API_URL } from '../store/constants/restAPI';
 import axios from 'axios';
+import { handleErrorServer } from '../helpers/handleErrorServer';
 
 export const userService = {
     login,
@@ -45,6 +46,8 @@ function login(data) {
             }
             // Note: Возвращаем данные юзера в reducer.
             return user.data.data;
+        }, error => {
+            throw error;
         });
 }
 
@@ -66,6 +69,9 @@ function logout() {
             localStorage.removeItem('userInformation');
         }
         return res.data.data
+    }, error => {
+        handleErrorServer(error.response.status)
+        throw error;
     });
 }
 
@@ -81,6 +87,9 @@ function resendVerificationCode(data) {
         method: 'post',
         url: `${API_URL}/api/resend_verification_code`,
         data: data
+    }).catch(error => {
+        handleErrorServer(error.response.status);
+        throw error;
     });
 }
 

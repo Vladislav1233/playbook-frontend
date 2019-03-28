@@ -4,7 +4,6 @@ import {
     GET_FAILURE_SEARCH_PLAYGROUND, 
     CLEAR_SEARCH_PLAYGROUND 
 } from '../constants/searchPlayground';
-import { handleErrorServer } from '../../helpers/handleErrorServer';
 
 import { playgroundService } from '../../services/playgroundService';
 
@@ -20,7 +19,6 @@ export function searchPlaygroundAction(data) {
                 },
                 error => {
                     dispatch(failure(error));
-                    handleErrorServer(error.response.status);
                 }
             )
     }

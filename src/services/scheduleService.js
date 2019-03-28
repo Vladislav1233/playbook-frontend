@@ -1,5 +1,6 @@
 import { API_URL } from '../store/constants/restAPI';
 import axios from 'axios';
+import { handleErrorServer } from '../helpers/handleErrorServer';
 
 export const scheduleService = {
     createSchedule,
@@ -18,6 +19,9 @@ function createSchedule (type, data) {
             'Authorization': `Bearer ${valueToken}`
         },
         data: data
+    }).catch(error => {
+        handleErrorServer(error.response.status);
+        throw error;
     });
 }
 
@@ -31,6 +35,9 @@ function editSchedule (schedule_uuid, data) {
             'Authorization': `Bearer ${valueToken}`
         },
         data: data
+    }).catch(error => {
+        handleErrorServer(error.response.status);
+        throw error;
     });
 }
 
@@ -43,6 +50,9 @@ function deleteSchedule (schedule_uuid) {
         headers: {
             'Authorization': `Bearer ${valueToken}`
         }
+    }).catch(error => {
+        handleErrorServer(error.response.status);
+        throw error;
     })
 }
 
@@ -55,5 +65,8 @@ function getSchedule (type, userId, data) {
         method: 'get',
         url: `${API_URL}/api/schedule/${type}/${userId}`,
         params: data
+    }).catch(error => {
+        handleErrorServer(error.response.status);
+        throw error;
     })
 }

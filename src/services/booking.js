@@ -2,6 +2,7 @@ import { API_URL } from '../store/constants/restAPI';
 import axios from 'axios';
 import Moment from 'moment';
 import { dataTime } from '../helpers/dataTime';
+import { handleErrorServer } from '../helpers/handleErrorServer';
 
 export const bookingService = {
     createBooking,
@@ -25,6 +26,9 @@ function createBooking(type, data) {
             'Authorization': `Bearer ${valueToken}`
         },
         data: data
+    }).catch(error => {
+        handleErrorServer(error.response.status);
+        throw error;
     });
 }
 
@@ -48,6 +52,9 @@ function getBookings(type, uuid, data = { // TODO
             'Authorization': `Bearer ${valueToken}`
         },
         params: data
+    }).catch(error => {
+        handleErrorServer(error.response.status);
+        throw error;
     });
 }
 
@@ -64,6 +71,9 @@ function confirmBooking(bookingId) {
         headers: {
             'Authorization': `Bearer ${valueToken}`
         }
+    }).catch(error => {
+        handleErrorServer(error.response.status);
+        throw error;
     });
 }
 
@@ -84,6 +94,9 @@ function declineBooking(bookingId, data) {
             'Authorization': `Bearer ${valueToken}`
         },
         data: data
+    }).catch(error => {
+        handleErrorServer(error.response.status);
+        throw error;
     });
 }
 
@@ -107,5 +120,8 @@ function getAllBookingsForUser(data = {
             'Authorization': `Bearer ${valueToken}`
         },
         params: data
+    }).catch(error => {
+        handleErrorServer(error.response.status);
+        throw error;
     });
 }

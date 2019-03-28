@@ -1,5 +1,6 @@
 import { API_URL } from '../store/constants/restAPI';
 import axios from 'axios';
+import { handleErrorServer } from '../helpers/handleErrorServer';
 
 export const trainerInfoService = {
     createTrainerInformation,
@@ -18,6 +19,9 @@ function createTrainerInformation(data) {
             'Authorization': `Bearer ${valueToken}`
         },
         data: data
+    }).catch(error => {
+        handleErrorServer(error.response.status);
+        throw error;
     })
 }
 
@@ -25,6 +29,9 @@ function getTrainerInformation(trainerId) {
     return axios({
         method: 'get',
         url: `${API_URL}/api/trainer/info/${trainerId}`
+    }).catch(error => {
+        handleErrorServer(error.response.status);
+        throw error;
     })
 }
 
@@ -38,6 +45,9 @@ function editTrainerInformation(trainer_info_id, data) {
             'Authorization': `Bearer ${valueToken}`
         },
         data: data
+    }).catch(error => {
+        handleErrorServer(error.response.status);
+        throw error;
     })
 }
 
@@ -46,5 +56,8 @@ function getTrainerList(data) {
         method: 'get',
         url: `${API_URL}/api/trainer/list`,
         params: data
+    }).catch(error => {
+        handleErrorServer(error.response.status);
+        throw error;
     })
 }
