@@ -136,7 +136,6 @@ class BookingModal extends Component {
         let costPlaygroundInRange = [];
 
         playgroundsForTraining.forEach(playgroundForTraining => {
-            console.log(playgroundForTraining)
             // eslint-disable-next-line
             if (playgroundForTraining.uuid === playgroundId) {
                 schedulePlayground = [ ...playgroundForTraining.schedules ]
@@ -178,8 +177,6 @@ class BookingModal extends Component {
             showFileldPassword, 
             registeredNewUser
         } = this.state;
-        console.log(this.state);
-        console.log(this.props);
 
         // Note: Доступный диапазон бронирования времени в данной карточке.
         const availableRange = {
@@ -191,7 +188,6 @@ class BookingModal extends Component {
         if (playgroundId) {
             costPlaygroundForPayBooking = [ ...this.getCostPlaygroundForPayBooking() ];
         }
-        console.log(costPlaygroundForPayBooking)
 
         const numberCost = (cost) => {
             return <NumberFormat

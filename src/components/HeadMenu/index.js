@@ -65,6 +65,7 @@ class HeadMenu extends Component {
                 return {
                     pathToCreateSchedule: configPathRouter.profileCreateSchedule,
                     pathToMySchedule: configPathRouter.profileMySchedule,
+                    pathToManageCourt: '/profile/manage-playground-list',
                     pathToRequest: "/profile/booking-request",
                     pathToInfo: "/profile/trainer-info",
                     roleName: 'Тренер'
@@ -133,6 +134,9 @@ class HeadMenu extends Component {
                                             </li>
                                             <li className="b-head-menu__content-item">
                                                 <Link className="b-head-menu__content-text" to={dataAboutRole.pathToMySchedule}>Моё расписание</Link>
+                                            </li>
+                                            <li className="b-head-menu__content-item">
+                                                <Link className="b-head-menu__content-text" to={dataAboutRole.pathToManageCourt}>Управление площадками</Link>
                                             </li>
                                             <li className="b-head-menu__content-item">
                                                 <Link className="b-head-menu__content-text" to={dataAboutRole.pathToRequest}>Входящие запросы</Link>

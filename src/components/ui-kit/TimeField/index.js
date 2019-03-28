@@ -48,6 +48,7 @@ class TimeField extends Component {
                     onBlur={onBlur}
                     onChange={onChange}
                     onFocus={onFocus}
+                    type="tel"
                 />
 
                 {error ? <div className="b-input__error">{error}</div> : null}
