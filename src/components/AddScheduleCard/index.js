@@ -18,8 +18,8 @@ import deleteIcon from '../../style/images/icon/delete.svg';
 class AddScheduleCard extends Component {
 
     render() {
-        const { 
-            idRender, 
+        const {
+            idRender,
             playgroundsForTraining,
             remove,
             name,
@@ -33,11 +33,11 @@ class AddScheduleCard extends Component {
                 </div>
                 <div className="b-add-schedule-card__field b-add-schedule-card__field--left">
 
-                    <Field 
+                    <Field
                         name={`${name}.start_time`}
                         validate={required()}
                         render={({ input, meta }) => {
-                            return <Input 
+                            return <Input
                                 { ...input }
                                 labelText='С'
                                 typeInput="time"
@@ -52,11 +52,11 @@ class AddScheduleCard extends Component {
                 </div>
 
                 <div className="b-add-schedule-card__field b-add-schedule-card__field--right">
-                    <Field 
+                    <Field
                         name={`${name}.end_time`}
                         validate={required()}
                         render={({ input, meta }) => {
-                            return <Input 
+                            return <Input
                                 { ...input }
                                 nameInput={input.name}
                                 labelText='До'
@@ -76,26 +76,26 @@ class AddScheduleCard extends Component {
                     : null
                 }
 
-                <Field 
+                <Field
                     name={`${name}.price_per_hour`}
                     type='number'
                     validate={required()}
                     render={({ input, meta }) => {
                         return <div className="b-add-schedule-card__field">
-                            <Input 
+                            <Input
                                 { ...input }
                                 labelText='Цена за час, ₽'
                                 idInput={`price-${idRender}`}
                                 placeholder='Цена за час'
                                 nameInput={input.name}
                                 theme={{ blackColor: true }}
-                                typeInput={input.type}
+                                typeInput="number"
                                 error={meta.error && meta.touched && meta.error}
                             />
                         </div>
                     }}
                 />
-                
+
                 {playgroundsForTraining
                  ? <div className="b-add-schedule-card__check">
                     <div className="b-add-schedule-card__title-section">Корт</div>
@@ -105,13 +105,13 @@ class AddScheduleCard extends Component {
                         {playgroundsForTraining.length > 0
                             ? playgroundsForTraining.map(item => {
                                 return <li key={item.uuid} className="b-add-schedule-card__check-item">
-                                    <Field 
+                                    <Field
                                         name={`${name}.playgrounds`}
                                         type="checkbox"
                                         value={item.uuid}
                                         validate={value => value ? value.length === 0 ? 'Выберите как минимум один корт' : undefined : 'Выберите как минимум один корт'}
                                         render={({ input, meta }) => {
-                                            return <Checkbox 
+                                            return <Checkbox
                                                 { ...input }
                                                 name={input.name}
                                                 id={`court-${item.uuid}${idRender}`}
@@ -133,7 +133,7 @@ class AddScheduleCard extends Component {
                             </li>
                         }
                     </ul>
-                </div> 
+                </div>
                 : null
                 }
             </div>
