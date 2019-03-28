@@ -23,6 +23,7 @@ import {
 import { bookingService } from '../../services/booking';
 import { alertActions } from './alertAction';
 import textErrorFromServer from '../../helpers/textErrorFromServer';
+import { Link } from 'react-router-dom';
 
 /*
 * Получить входящие запросы на бронирование времени тренера или площадки
@@ -117,7 +118,7 @@ export function createBooking(typeBooking, data) {
             .then(
                 res => {
                     dispatch(success(res)); 
-                    dispatch(alertActions.success('Запрос на бронирование успешно отправлен! Как только ваш запрос обработают на ваш номер придёт смс-оповещение. Статус можно смотреть в разделе "Мои бронирования".'));
+                    dispatch(alertActions.success('Запрос на бронирование успешно отправлен! Как только ваш запрос обработают на ваш номер придёт смс-оповещение. Статус можно смотреть в разделе <a class="link-in-text-black" href="/my-booking">"Мои бронирования"</a>.'));
             }, 
                 err => {
                     dispatch(failure(err));

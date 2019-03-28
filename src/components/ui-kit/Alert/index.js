@@ -37,9 +37,7 @@ class Alert extends Component {
                     }
                 </h1>
 
-                <div className="b-alert__content">
-                    {children}
-                </div>
+                <div dangerouslySetInnerHTML={{__html: children}} className="b-alert__content" />
 
                 {buttonOk ?
                     <div className="b-alert__button-wrapper">
