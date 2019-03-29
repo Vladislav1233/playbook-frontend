@@ -8,18 +8,10 @@
     padding: 0px;
     border: 0px;
     background: none;
-    border-radius: $border-radius;
-    background-color: $mint;
     transition: box-shadow $animation-time;
-
-    .no-touchevents &:hover {
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-    }
-
-    &:focus,
-    &:active {
-        outline: none;
-    }
+    border-radius: $border-radius;
+    border: 1px solid transparent;
+    outline: none;
 
     &:before, &:after {
         position: absolute;
@@ -28,21 +20,32 @@
         content: ' ';
         height: 18px;
         width: 2px;
-        background-color: #fff;
+        background-color: $telegray;
     }
-
     &:before {
         transform: rotate(45deg);
     }
-
     &:after {
         transform: rotate(-45deg);
     }
 
+    @include focus {
+        border-color: $secondary;
+        &:before, &:after {
+            background-color: rgb(61, 61, 61);
+        }
+    }
+
+    @include hover {
+        &:before, &:after {
+            background-color: rgb(61, 61, 61);
+        }
+    }
+
     &--modal {
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 9px;
+        right: 6px;
     }
 
     &--my-book-card {

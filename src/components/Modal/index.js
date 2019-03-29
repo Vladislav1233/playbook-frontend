@@ -12,7 +12,7 @@ class ModalComponent extends Component {
 
   render() {
     const { children, className, title, subTitle, isOpenModal, closeModal } = this.props;
-    const classNameModal = cn('b-modal', className); 
+    const classNameModal = cn('b-modal', className);
 
     return(
       <Modal
@@ -20,7 +20,7 @@ class ModalComponent extends Component {
         onRequestClose={closeModal}
       >
         <div className={classNameModal}>
-          {/* <button className="b-close b-close--modal" onClick={closeModal}></button> */}
+          <button className="b-close b-close--modal" onClick={closeModal}></button>
 
           <div className="b-modal__wrapper">
             {title && <h2 className="b-modal__title">
