@@ -64,6 +64,7 @@ class HeadMenu extends Component {
   render() {
     const { showContent } = this.state;
     const { isAuthorization, userInformation, userRole, location } = this.props;
+    console.log(this.props)
 
     const classNameBlock = cn('b-head-menu', {
       'b-head-menu--open': showContent
@@ -77,12 +78,14 @@ class HeadMenu extends Component {
           pathToManageCourt: '/profile/manage-playground-list',
           pathToRequest: "/profile/booking-request",
           pathToInfo: "/profile/trainer-info",
-          roleName: 'Тренер'
+          roleName: 'Тренер',
+          tag: Link
         }
       } else if (userRole === 'user') {
         return {
           pathProfile: configPathRouter.profileUser,
-          roleName: 'Игрок'
+          roleName: 'Игрок',
+          tag: 'div'
         }
       } else if (userRole === 'organization-admin') {
         // TODO
@@ -104,7 +107,7 @@ class HeadMenu extends Component {
           display="inline-block"
         >
           { isAuthorization
-            ? <a onClick={ this.toggleContent } className="b-head-menu__open-button" href="/">
+            ? <span onClick={ this.toggleContent } className="b-head-menu__open-button">
               <div className="b-head-menu__account-wrapper">
                 <span className="b-head-menu__account-name">{ userInformation.firstName }</span>
                 <div className="b-head-menu__image-wrapper">
@@ -112,21 +115,21 @@ class HeadMenu extends Component {
                   { svgAvatar() }
                 </div>
               </div>
-            </a>
+            </span>
             : (location.pathname === '/') ?
               <div className="b-head-menu__wrapper-link">
                 <Link className="b-head-menu__open-button" to={ configPathRouter.authorization }>Вход</Link>
                 <Link className="b-head-menu__open-button" to={ configPathRouter.registration }>Регистрация</Link>
               </div>
-              : <a onClick={ this.toggleContent } className="b-head-menu__open-button" href="/">
+              : <span onClick={ this.toggleContent } className="b-head-menu__open-button">
                 Войти
-              </a>
+              </span>
           }
           { showContent &&
             <div className="b-head-menu__content">
               { isAuthorization
                 ? <Fragment>
-                  <Link className="b-head-menu__content-header" to={ dataAboutRole.pathToInfo }>
+                  <dataAboutRole.tag className="b-head-menu__content-header" to={ dataAboutRole.pathToInfo }>
                     <div className="b-head-menu__image-wrapper b-head-menu__image-wrapper--popup">
                       { svgAvatar() }
                     </div>
@@ -134,9 +137,9 @@ class HeadMenu extends Component {
                     <div>
                       <span className="b-head-menu__content-text b-head-menu__content-text--name">{ `${userInformation.firstName} ${userInformation.lastName}` }</span>
                       <div className="b-head-menu__content-additional">{ dataAboutRole.roleName }</div>
-                      <span className="b-head-menu__content-link">Настроить</span>
+                      {dataAboutRole.roleName === "Тренер" && <span className="b-head-menu__content-link">Настроить</span>}
                     </div>
-                  </Link>
+                  </dataAboutRole.tag>
 
                   {/* Блок личного кабинета */ }
                   { (dataAboutRole.roleName === "Игрок") ? null :
