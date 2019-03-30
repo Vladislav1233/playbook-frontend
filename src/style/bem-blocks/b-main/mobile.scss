@@ -3,8 +3,8 @@
     background-color: $main-background;
 
     &--hello-page {
+        min-height: 520px;
         background: #fbfbfb;
-        // background-image: url(../../../style/images/back-main-1.jpg);
         background-image: url(../../../style/images/back-main-1.webp);
         background-position: left top;
         background-size: cover;

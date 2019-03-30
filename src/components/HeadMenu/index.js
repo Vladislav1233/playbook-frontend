@@ -115,8 +115,8 @@ class HeadMenu extends Component {
               </div>
             </div>
             : <div className="b-head-menu__wrapper-link">
-                <Link className="b-head-menu__open-button" to={ configPathRouter.authorization }>Вход</Link>
-                <Link className="b-head-menu__open-button" to={ configPathRouter.registration }>Регистрация</Link>
+              <Link className="b-head-menu__open-button" to={ configPathRouter.authorization }>Вход</Link>
+              <Link className="b-head-menu__open-button" to={ configPathRouter.registration }>Регистрация</Link>
             </div>
           }
           { showContent &&
@@ -160,6 +160,12 @@ class HeadMenu extends Component {
                     <Link className="b-head-menu__content-text" to={ configPathRouter.myBooking }>Мои бронирования</Link>
                   </li>
                 </ul>
+
+                <ContentItem>
+                  <li className="b-head-menu__content-item">
+                    <a className="b-head-menu__content-text" href="mailto:manage.playbook@gmail.com" title="Написать нам">Написать нам</a>
+                  </li>
+                </ContentItem>
 
                 <ContentItem>
                   <li className="b-head-menu__content-item">

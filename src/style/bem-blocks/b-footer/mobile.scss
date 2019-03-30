@@ -1,15 +1,15 @@
 // 320
 .b-footer {
     flex-shrink: 0;
-    // background-color: $main-background;
     background-color: #cacaca;
     opacity: .5;
-    // border-top: 1px solid rgba(255, 255, 255, 0.5);
+    display: none;
 
     &--login {
         z-index: 10;
         background: transparent;
         opacity: 1;
+        display: block;
     }
 
     &--main {
@@ -19,6 +19,7 @@
         right: 0;
         background: rgba(255, 255, 255, 0.1);
         opacity: 1;
+        display: block;
     }
 
     &__wrapper {
