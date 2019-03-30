@@ -9,6 +9,12 @@
     text-align: center;
     color: $whiteFontColor;
 
+    @media (max-width: 375px) {
+        & {
+            padding: 0;
+        }
+    }
+
     @include hover {
         color: $whiteFontColor;
         background: $header-hover;
