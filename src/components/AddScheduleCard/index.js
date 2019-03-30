@@ -4,6 +4,7 @@ import { Field } from 'react-final-form';
 
 // Note: helpers
 import { required } from '../../helpers/validate';
+import { endTimeSchedule } from '../../helpers/manipulateTime';
 
 // Note: components
 import Input from '../ui-kit/Input/Input';
@@ -56,6 +57,7 @@ class AddScheduleCard extends Component {
                         name={`${name}.end_time`}
                         validate={required()}
                         render={({ input, meta }) => {
+                            input.onChange(endTimeSchedule(input.value));
                             return <Input
                                 { ...input }
                                 nameInput={input.name}
