@@ -28,7 +28,7 @@ import { userService } from '../../../services/userService';
 import telWithoutPlus from '../../../helpers/telWithoutPlus';
 import calcCostService from '../../../helpers/calcCostService';
 import { required, startTimeBeforeEndTime, rangeContainsDate, composeValidators, validFormatTime, fullTelNumber } from '../../../helpers/validate';
-import { stepTime } from '../../../helpers/stepTime';
+import { stepTime } from '../../../helpers/manipulateTime';
 
 // Note: styles
 import '../../../style/bem-blocks/b-booking-form/index.scss';
@@ -297,7 +297,7 @@ class BookingModal extends Component {
                                         }}
                                         render={({ input }) => {
                                             if(input.value.length === 5) {
-                                                input.onChange(stepTime(input.value, stepMinIncrement))
+                                                input.onChange(stepTime(input.value, stepMinIncrement, 'endScheduleTime'))
                                             }
                                             return <TimeField
                                                 { ...input }
