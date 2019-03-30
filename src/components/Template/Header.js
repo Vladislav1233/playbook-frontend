@@ -7,9 +7,10 @@ import cn from 'classnames';
 // style
 import '../../style/bem-blocks/b-header/index.scss';
 import '../../style/bem-blocks/b-logotype/index.scss';
+import { configPathRouter } from '../../App/configPathRouter';
+
 
 // component
-import MenuHeader from './MenuHeader';
 import HeadMenu from '../HeadMenu';
 
 import tennisBallIcon from '../../style/images/icon/logo.svg';
@@ -42,31 +43,29 @@ class Header extends Component {
             <header className={ rootClassHeader }>
                 <div className="container">
                     <div className="b-header__wrapper">
-                        {/* Гамбургер */}
+                        {/* Логотип */ }
+                        <div className="b-header__left">
+                            <Link className="b-logotype" to='/'>
+                                <img className="b-logotype__image" src={ tennisBallIcon } alt="Логотип - теннисный мяч" />
+                                <span className="b-logotype__text">PlayBook</span>
+                            </Link>
+                        </div>
+
+                        {/* Основные ссылки */ }
                         { !onRegistrationPages &&
-                            <div className="b-header__left">
-                                <MenuHeader
-                                    isAuthorization={this.state.isAuthorization}
-                                    location={this.props.location}
-                                />
-                            </div>
-                        }
-
-                        {/* Логотип */}
-                        { location.pathname !== '/' &&
                             <div className="b-header__center">
-                                <Link className="b-logotype" to='/'>
-                                    <img className="b-logotype__image" src={tennisBallIcon} alt="Логотип - теннисный мяч"/>
-                                    <span className="b-logotype__text">PlayBook</span>
-                                </Link>
+                                <nav className="b-header__nav-list">
+                                    <Link className="b-header__nav-item" to={ configPathRouter.listTrainer }> Тренеры </Link>
+                                    <Link className="b-header__nav-item" to={ configPathRouter.myBooking }>Мои бронирования</Link>
+                                </nav>
                             </div>
                         }
 
-                        {/* Профиль */}
+                        {/* Профиль */ }
                         { !onRegistrationPages &&
                             <div className="b-header__right">
                                 <HeadMenu
-                                    location={this.props.location}
+                                    location={ this.props.location }
                                 />
                             </div>
                         }

@@ -64,7 +64,6 @@ class HeadMenu extends Component {
   render() {
     const { showContent } = this.state;
     const { isAuthorization, userInformation, userRole, location } = this.props;
-    console.log(this.props)
 
     const classNameBlock = cn('b-head-menu', {
       'b-head-menu--open': showContent
@@ -107,83 +106,67 @@ class HeadMenu extends Component {
           display="inline-block"
         >
           { isAuthorization
-            ? <span onClick={ this.toggleContent } className="b-head-menu__open-button">
+            ? <div onClick={ this.toggleContent } className="b-head-menu__open-button" tabIndex="0">
               <div className="b-head-menu__account-wrapper">
                 <span className="b-head-menu__account-name">{ userInformation.firstName }</span>
                 <div className="b-head-menu__image-wrapper">
-                  {/* <img className="b-head-menu__image" src={avaImg} alt=""/> */ }
                   { svgAvatar() }
                 </div>
               </div>
-            </span>
-            : (location.pathname === '/') ?
-              <div className="b-head-menu__wrapper-link">
+            </div>
+            : <div className="b-head-menu__wrapper-link">
                 <Link className="b-head-menu__open-button" to={ configPathRouter.authorization }>Вход</Link>
                 <Link className="b-head-menu__open-button" to={ configPathRouter.registration }>Регистрация</Link>
-              </div>
-              : <span onClick={ this.toggleContent } className="b-head-menu__open-button">
-                Войти
-              </span>
+            </div>
           }
           { showContent &&
             <div className="b-head-menu__content">
-              { isAuthorization
-                ? <Fragment>
-                  <dataAboutRole.tag className="b-head-menu__content-header" to={ dataAboutRole.pathToInfo }>
-                    <div className="b-head-menu__image-wrapper b-head-menu__image-wrapper--popup">
-                      { svgAvatar() }
-                    </div>
+              <Fragment>
+                <dataAboutRole.tag className="b-head-menu__content-header" to={ dataAboutRole.pathToInfo }>
+                  <div className="b-head-menu__image-wrapper b-head-menu__image-wrapper--popup">
+                    { svgAvatar() }
+                  </div>
 
-                    <div>
-                      <span className="b-head-menu__content-text b-head-menu__content-text--name">{ `${userInformation.firstName} ${userInformation.lastName}` }</span>
-                      <div className="b-head-menu__content-additional">{ dataAboutRole.roleName }</div>
-                      {dataAboutRole.roleName === "Тренер" && <span className="b-head-menu__content-link">Настроить</span>}
-                    </div>
-                  </dataAboutRole.tag>
+                  <div>
+                    <span className="b-head-menu__content-text b-head-menu__content-text--name">{ `${userInformation.firstName} ${userInformation.lastName}` }</span>
+                    <div className="b-head-menu__content-additional">{ dataAboutRole.roleName }</div>
+                    { dataAboutRole.roleName === "Тренер" && <span className="b-head-menu__content-link">Настроить</span> }
+                  </div>
+                </dataAboutRole.tag>
 
-                  {/* Блок личного кабинета */ }
-                  { (dataAboutRole.roleName === "Игрок") ? null :
-                    <ContentItem>
-                      <li className="b-head-menu__content-item">
-                        <Link className="b-head-menu__content-text" to={ dataAboutRole.pathToCreateSchedule }>Добавить расписание</Link>
-                      </li>
-                      <li className="b-head-menu__content-item">
-                        <Link className="b-head-menu__content-text" to={ dataAboutRole.pathToMySchedule }>Моё расписание</Link>
-                      </li>
-                      <li className="b-head-menu__content-item">
-                        <Link className="b-head-menu__content-text" to={ dataAboutRole.pathToManageCourt }>Управление площадками</Link>
-                      </li>
-                      <li className="b-head-menu__content-item">
-                        <Link className="b-head-menu__content-text" to={ dataAboutRole.pathToRequest }>Входящие запросы</Link>
-                      </li>
-                    </ContentItem>
-                  }
-
+                {/* Блок личного кабинета */ }
+                { (dataAboutRole.roleName === "Игрок") ? null :
                   <ContentItem>
                     <li className="b-head-menu__content-item">
-                      <Link className="b-head-menu__content-text" to={ configPathRouter.myBooking }>Мои бронирования</Link>
-                    </li>
-                  </ContentItem>
-
-                  <ContentItem>
-                    <li className="b-head-menu__content-item">
-                      <a href="" className="b-head-menu__content-text" onClick={ this.props.onLogout }>Выйти</a>
-                    </li>
-                  </ContentItem>
-                </Fragment>
-                : <Fragment>
-                  <ContentItem>
-                    <li className="b-head-menu__content-item">
-                      <Link className="b-head-menu__content-text" to={ configPathRouter.authorization }>Вход</Link>
+                      <Link className="b-head-menu__content-text" to={ dataAboutRole.pathToCreateSchedule }>Добавить расписание</Link>
                     </li>
                     <li className="b-head-menu__content-item">
-                      <Link className="b-head-menu__content-text" to={ configPathRouter.registration }>Регистрация</Link>
+                      <Link className="b-head-menu__content-text" to={ dataAboutRole.pathToMySchedule }>Моё расписание</Link>
+                    </li>
+                    <li className="b-head-menu__content-item">
+                      <Link className="b-head-menu__content-text" to={ dataAboutRole.pathToManageCourt }>Управление площадками</Link>
+                    </li>
+                    <li className="b-head-menu__content-item">
+                      <Link className="b-head-menu__content-text" to={ dataAboutRole.pathToRequest }>Входящие запросы</Link>
                     </li>
                   </ContentItem>
-                </Fragment>
+                }
 
-              }
+                <ul className="b-head-menu__content-list b-head-menu__content-list--desk-hide">
+                  <li className="b-head-menu__content-item">
+                    <Link className="b-head-menu__content-text" to={ configPathRouter.listTrainer }> Тренеры </Link>
+                  </li>
+                  <li className="b-head-menu__content-item">
+                    <Link className="b-head-menu__content-text" to={ configPathRouter.myBooking }>Мои бронирования</Link>
+                  </li>
+                </ul>
 
+                <ContentItem>
+                  <li className="b-head-menu__content-item">
+                    <a href="" className="b-head-menu__content-text" onClick={ this.props.onLogout }>Выйти</a>
+                  </li>
+                </ContentItem>
+              </Fragment>
             </div>
           }
         </OutsideClickHandler>

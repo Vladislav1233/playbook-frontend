@@ -14,6 +14,10 @@
         background: $header-hover;
     }
 
+    @include focus {
+        color: $whiteFontColor;
+    }
+
     &__image {
         display: inline-block;
         width: 32px;

@@ -7,13 +7,15 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-width: 64px;
+        // min-width: 64px;
         height: 64px;
-        padding: 0 10px;
+        padding: 0 8px;
         text-align: center;
         color: $whiteFontColor;
+        cursor: pointer;
+        outline: none;
 
-@include hover {
+        @include hover {
             color: $whiteFontColor;
             background: $header-hover;
 
@@ -66,16 +68,17 @@
     }
 
     &__content {
-        position: absolute;
-        top: calc(100% + 2px);
+        position: fixed;
+        top: 64px;
         right: 0;
-        width: calc(100vw - 30px);
+        width: calc(100% - 50px);
         max-width: 480px;
         text-align: left;
         border: 1px solid $border-color;
-        border-radius: $border-radius;
+        border-radius: 0;
         background: white;
         box-shadow: 0 2px 4px rgba(0,0,0,.4);
+        bottom: 0;
     }
 
     &__content-header {
@@ -109,6 +112,10 @@
         &:not(:last-child) {
             padding-bottom: 5px;
             border-bottom: 1px solid $border-color;
+        }
+
+        &--desk-hide {
+            display: block;
         }
     }
 

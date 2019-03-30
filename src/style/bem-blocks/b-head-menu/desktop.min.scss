@@ -1,1 +1,22 @@
 // 1024
+.b-head-menu {
+    &__content {
+        position: absolute;
+        top: calc(100% + 2px);
+        right: 0;
+        bottom: auto;
+        width: calc(100vw - 30px);
+        max-width: 480px;
+        text-align: left;
+        border: 1px solid $border-color;
+        border-radius: $border-radius;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .4);
+    }
+
+    &__content-list {
+        &--desk-hide {
+            display: none;
+        }
+    }
+}

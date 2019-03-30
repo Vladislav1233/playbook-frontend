@@ -80,18 +80,7 @@ class MenuHeader extends Component {
                             </li>
                         </ul>
 
-                        <ul className="b-menu__social-list">
-                            <li className="b-menu__social-item">
-                                <i className="fab fa-google-play"></i>
-                            </li>
-                            <li className="b-menu__social-item">
-                                <i className="fab fa-apple"></i>
-                            </li>
-                        </ul>
 
-                        <footer>
-                            <small className="b-menu__copyright">© playbook 2018-2019 • все права защищены</small>
-                        </footer>
                     </section>
                 </nav>
             </Fragment>
