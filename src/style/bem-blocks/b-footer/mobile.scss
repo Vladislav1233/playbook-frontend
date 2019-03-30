@@ -3,11 +3,13 @@
     flex-shrink: 0;
     // background-color: $main-background;
     background-color: #cacaca;
+    opacity: .5;
     // border-top: 1px solid rgba(255, 255, 255, 0.5);
 
     &--login {
         z-index: 10;
         background: transparent;
+        opacity: 1;
     }
 
     &--main {
@@ -16,6 +18,7 @@
         left: 0;
         right: 0;
         background: rgba(255, 255, 255, 0.1);
+        opacity: 1;
     }
 
     &__wrapper {
@@ -23,7 +26,7 @@
         align-items: center;
         justify-content: space-between;
         position: relative;
-        padding: 2px 0;
+        padding: 16px 0 8px;
         justify-content: space-between;
     }
 
