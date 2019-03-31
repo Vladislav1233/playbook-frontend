@@ -56,7 +56,8 @@ class Header extends Component {
                             <div className="b-header__center">
                                 <nav className="b-header__nav-list">
                                     <Link className="b-header__nav-item" to={ configPathRouter.listTrainer }> Тренеры </Link>
-                                    <Link className="b-header__nav-item" to={ configPathRouter.myBooking }>Мои бронирования</Link>
+                                    <Link className="b-header__nav-item disabled" to={ configPathRouter.myBooking }>Площадки</Link>
+                                    <Link className="b-header__nav-item disabled" to={ configPathRouter.myBooking }>Турниры</Link>
                                 </nav>
                             </div>
                         }

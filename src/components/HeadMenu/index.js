@@ -157,9 +157,18 @@ class HeadMenu extends Component {
                     <Link className="b-head-menu__content-text" to={ configPathRouter.listTrainer }> Тренеры </Link>
                   </li>
                   <li className="b-head-menu__content-item">
-                    <Link className="b-head-menu__content-text" to={ configPathRouter.myBooking }>Мои бронирования</Link>
+                    <Link className="b-head-menu__content-text disabled" to={ configPathRouter.myBooking }>Площадки</Link>
+                  </li>
+                  <li className="b-head-menu__content-item">
+                    <Link className="b-head-menu__content-text disabled" to={ configPathRouter.myBooking }>Турниры</Link>
                   </li>
                 </ul>
+
+                <ContentItem>
+                  <li className="b-head-menu__content-item">
+                    <Link className="b-head-menu__content-text" to={ configPathRouter.myBooking }>Мои бронирования</Link>
+                  </li>
+                </ContentItem>
 
                 <ContentItem>
                   <li className="b-head-menu__content-item">
