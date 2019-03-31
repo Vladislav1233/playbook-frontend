@@ -29,21 +29,26 @@ $bright-telegray: #cccccc;
 // Сущности:
 $mainFontColor: #2c2c2c;
 $whiteFontColor: #eee;
+
 $main-background: hsl(220, 9%, 90%);
 $background-schedule: hsl(220, 9%, 90%);
+
 $hover-link-on-dark: $secondary;
 $header-hover: rgba(255, 255, 255, .1);
 $body-hover: rgba(0, 0, 0, .1);
+
 $border-color: #c5d0db;
-$border-radius: 5px;
 $cardShadow: 0 1px 3px rgba(0, 0, 0, .1);
+
 $error: #ff0b0b;
 $ok: #03ad2d;
 $warning: #f5f108;
-$focus: $secondary;
-$focusTrans: rgba(226, 237, 255, 0.8);
 $colorCost: #008621;
 
+$focus: $secondary;
+$focusTrans: rgba(226, 237, 255, 0.8);
+
+$border-radius: 5px;
 $headerHeight: 64px;
 
 /** ----- Mixins class ----- */
