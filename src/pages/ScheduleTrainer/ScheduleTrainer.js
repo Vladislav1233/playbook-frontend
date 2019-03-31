@@ -41,11 +41,11 @@ class ScheduleTrainer extends Component {
     }
 
     render() {
-        const { 
-            scheduleTrainer, 
-            getTrainerSchedule, 
-            bookedTime, 
-            playgroundsForTraining, 
+        const {
+            scheduleTrainer,
+            getTrainerSchedule,
+            bookedTime,
+            playgroundsForTraining,
             match,
             bookingPreloader,
             location
@@ -53,7 +53,7 @@ class ScheduleTrainer extends Component {
 
         console.log(this.props);
 
-        const { 
+        const {
             trainerInformation
         } = this.state;
 
@@ -70,7 +70,7 @@ class ScheduleTrainer extends Component {
 
         return (
             <Fragment>
-                <div className="container container--schedule-trainer">
+                <div className="container container--null">
                     <Schedule
                         schedule={scheduleTrainer}
                         template={'trainer'}
@@ -101,7 +101,7 @@ const mapStateToProps = ({ scheduleTrainer, booking }) => {
         bookingPreloader: booking.preloader
     }
 };
-  
+
 const mapStateToDispatch = (dispatch) => {
     return {
         /*
@@ -112,6 +112,6 @@ const mapStateToDispatch = (dispatch) => {
         getTrainerSchedule: (userId, data) => dispatch(getTrainerSchedule(userId, data))
     }
 };
-  
+
 export default withRouter(connect(mapStateToProps, mapStateToDispatch)(ScheduleTrainer));
 

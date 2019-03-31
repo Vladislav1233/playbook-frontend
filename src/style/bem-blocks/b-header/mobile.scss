@@ -13,7 +13,7 @@
         align-items: center;
         justify-content: space-between;
         position: relative;
-        height: 64px;
+        height: $headerHeight;
     }
 
     &__get-schedule {
@@ -54,8 +54,8 @@
 
     &__nav-item {
         display: inline-block;
-        line-height: 64px;
-        height: 64px;
+        line-height: $headerHeight;
+        height: $headerHeight;
         padding: 0 10px;
         outline: none;
 

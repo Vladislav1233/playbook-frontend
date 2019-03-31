@@ -60,7 +60,7 @@ class ProfileTrainer extends Component {
     const howLocation = location.pathname.split('/');
 
     return (
-      <div className="container container--cabinet">
+      <div className="container container--null">
         <div className="b-profile-tabs">
           <DesktopMin>
             <nav className={ classNameList }>

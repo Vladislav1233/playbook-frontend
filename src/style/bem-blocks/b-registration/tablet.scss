@@ -1,7 +1,7 @@
 // 768++
 .b-registration {
     & .container {
-        padding-top: 64px;
+        padding-top: $headerHeight;
     }
 
     &__form-wrapper {
