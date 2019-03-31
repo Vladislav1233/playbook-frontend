@@ -45,9 +45,7 @@
     }
 
     &__cost {
-        font-size: (16em/15);
-        font-weight: 500;
-        color: var(--accent-text);
+        @include costStyle();
     }
 
     &__list-place {

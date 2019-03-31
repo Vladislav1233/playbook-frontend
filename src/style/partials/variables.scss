@@ -93,7 +93,7 @@ $focusTrans: rgba(226, 237, 255, 0.8);
 @mixin costStyle() {
     font-size: (16rem/15);
     font-weight: 500;
-    color: var(--accent-text);
+    color: $ok;
 }
 
 @mixin subTitleStyle() {
