@@ -7,12 +7,11 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        // min-width: 64px;
         height: 64px;
         padding: 0 8px;
+        cursor: pointer;
         text-align: center;
         color: $whiteFontColor;
-        cursor: pointer;
         outline: none;
 
         @include hover {
@@ -71,14 +70,15 @@
         position: fixed;
         top: 0;
         right: 0;
+        bottom: 0;
         width: calc(100% - 50px);
         max-width: 360px;
+        transition: transformX .1s;
         text-align: left;
         border: 1px solid $border-color;
         border-radius: 0;
         background: white;
-        box-shadow: -1000px 0px 0 1000px rgba(0, 0, 0, 0.4);
-        bottom: 0;
+        box-shadow: -1000px 0px 0 1000px rgba(0, 0, 0, .4);
     }
 
     &__content-header {
