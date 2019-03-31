@@ -1,9 +1,9 @@
 // 320 ++
 
 .b-hamburger {
-    position: relative;
-    z-index: 250;
-    left: 0;
+    // position: relative;
+    // z-index: 250;
+    // left: 0;
     display: inline-flex;
     align-items: center;
     overflow: hidden;
@@ -19,23 +19,23 @@
         }
     }
 
-    &.open {
-        background: rgba(255, 255, 255, 0.05);
-        border-left: 1px solid #02100b;
-        border-bottom: 1px solid #02100b;
-    }
+    // &.open {
+    //     background: rgba(255, 255, 255, 0.05);
+    //     border-left: 1px solid #02100b;
+    //     border-bottom: 1px solid #02100b;
+    // }
 
-    &.open & {
-        &__top-bar,
-        &__bottom-bar {
-            stroke-dashoffset: -650px;
-        }
+    // &.open & {
+    //     &__top-bar,
+    //     &__bottom-bar {
+    //         stroke-dashoffset: -650px;
+    //     }
 
-        &__middle-bar {
-            stroke-dasharray: 0px 220px;
-            stroke-dashoffset: -120px;
-        }
-    }
+    //     &__middle-bar {
+    //         stroke-dasharray: 0px 220px;
+    //         stroke-dashoffset: -120px;
+    //     }
+    // }
 
     svg {
         display: block;
@@ -45,7 +45,7 @@
     }
 
     path {
-        transition: all $animation-time-double ease-in-out, stroke $animation-time;
+        // transition: all $animation-time-double ease-in-out, stroke $animation-time;
         fill: none;
         stroke: #ffffff;
         stroke-linecap: round;

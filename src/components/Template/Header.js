@@ -9,12 +9,13 @@ import '../../style/bem-blocks/b-header/index.scss';
 import '../../style/bem-blocks/b-logotype/index.scss';
 import { configPathRouter } from '../../App/configPathRouter';
 
+// helpers
+import { DesktopMin } from '../../helpers/mediaQuery';
 
 // component
 import HeadMenu from '../HeadMenu';
 
 import tennisBallIcon from '../../style/images/icon/logo.svg';
-// import Registration from '../../pages/Registration/Registration';
 
 class Header extends Component {
     constructor(props) {
@@ -53,13 +54,15 @@ class Header extends Component {
 
                         {/* Основные ссылки */ }
                         { !onRegistrationPages &&
-                            <div className="b-header__center">
-                                <nav className="b-header__nav-list">
-                                    <Link className="b-header__nav-item" to={ configPathRouter.listTrainer }> Тренеры </Link>
-                                    <Link className="b-header__nav-item disabled" to={ configPathRouter.myBooking }>Площадки</Link>
-                                    <Link className="b-header__nav-item disabled" to={ configPathRouter.myBooking }>Турниры</Link>
-                                </nav>
-                            </div>
+                            <DesktopMin>
+                                <div className="b-header__center">
+                                    <nav className="b-header__nav-list">
+                                        <Link className="b-header__nav-item" to={ configPathRouter.listTrainer }> Тренеры </Link>
+                                        <Link className="b-header__nav-item disabled" to={ configPathRouter.myBooking }>Площадки</Link>
+                                        <Link className="b-header__nav-item disabled" to={ configPathRouter.myBooking }>Турниры</Link>
+                                    </nav>
+                                </div>
+                            </DesktopMin>
                         }
 
                         {/* Профиль */ }

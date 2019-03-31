@@ -7,10 +7,9 @@ import { configPathRouter } from '../../App/configPathRouter';
 import OutsideClickHandler from 'react-outside-click-handler';
 import Swipe from 'react-easy-swipe';
 
-
 // helpers
 import { history } from '../../helpers/history';
-import { DesktopMin, NotDesktopMin } from '../../helpers/mediaQuery'
+import { DesktopMin, NotDesktopMin } from '../../helpers/mediaQuery';
 
 // Note: style
 import '../../style/bem-blocks/b-head-menu/index.scss';
@@ -225,17 +224,19 @@ class HeadMenu extends Component {
                   </ContentItem>
                 }
 
-                <ul className="b-head-menu__content-list b-head-menu__content-list--desk-hide">
-                  <li className="b-head-menu__content-item">
-                    <Link className="b-head-menu__content-text" to={ configPathRouter.listTrainer }> Тренеры </Link>
-                  </li>
-                  <li className="b-head-menu__content-item">
-                    <Link className="b-head-menu__content-text disabled" to={ configPathRouter.myBooking }>Площадки</Link>
-                  </li>
-                  <li className="b-head-menu__content-item">
-                    <Link className="b-head-menu__content-text disabled" to={ configPathRouter.myBooking }>Турниры</Link>
-                  </li>
-                </ul>
+                <NotDesktopMin>
+                  <ul className="b-head-menu__content-list">
+                    <li className="b-head-menu__content-item">
+                      <Link className="b-head-menu__content-text" to={ configPathRouter.listTrainer }> Тренеры </Link>
+                    </li>
+                    <li className="b-head-menu__content-item">
+                      <Link className="b-head-menu__content-text disabled" to={ configPathRouter.myBooking }>Площадки</Link>
+                    </li>
+                    <li className="b-head-menu__content-item">
+                      <Link className="b-head-menu__content-text disabled" to={ configPathRouter.myBooking }>Турниры</Link>
+                    </li>
+                  </ul>
+                </NotDesktopMin>
 
                 { isAuthorization &&
                   <ContentItem>

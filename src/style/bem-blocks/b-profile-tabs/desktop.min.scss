@@ -2,10 +2,6 @@
 .b-profile-tabs {
     display: flex;
 
-    &__header {
-        display: none;
-    }
-
     &__list-wrapper {
         background: linear-gradient(90deg, rgb(227, 229, 232) 0%, rgb(236, 236, 236) 100%);
         display: block;
