@@ -1,11 +1,6 @@
 // 320++
 .b-registration {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    overflow: auto;
-    width: 100%;
-    min-height: 100vh;
+    min-height: 100%;
 
     &__bg {
         position: absolute;
@@ -26,9 +21,8 @@
         position: relative;
         z-index: 2;
         display: flex;
-        min-height: 100vh;
-        padding-top: 100px;
-        padding-bottom: 64px;
+        min-height: 100%;
+        padding-top: 42px;
     }
 
     &__form-wrapper {

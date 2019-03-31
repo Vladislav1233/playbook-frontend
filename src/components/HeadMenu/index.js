@@ -119,7 +119,7 @@ class HeadMenu extends Component {
               <Link className="b-head-menu__open-button" to={ configPathRouter.registration }>Регистрация</Link>
             </div>
           }
-          { showContent &&
+          { (showContent && isAuthorization) &&
             <div className="b-head-menu__content">
               <Fragment>
                 <dataAboutRole.tag className="b-head-menu__content-header" to={ dataAboutRole.pathToInfo }>
