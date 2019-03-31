@@ -3,14 +3,6 @@
     flex-shrink: 0;
     background-color: $mint;
 
-    @media (max-width: 340px) {
-        & .container {
-            padding: 0;
-            margin: 0 -2px 0 0px;
-            width: auto;
-        }
-    }
-
     &--light {
         z-index: 10;
         background: hsla(0, 0%, 0%, 0.584);

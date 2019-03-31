@@ -18,6 +18,7 @@ export const NotDesktopBig = props => <Responsive { ...props } maxWidth={ 1439 }
 export const NotDesktopFullHD = props => <Responsive { ...props } maxWidth={ 1679 } />;
 
 // example
+
 // const Desktop = props => <Responsive { ...props } minWidth={ 992 } />;
 // const Tablet = props => <Responsive { ...props } minWidth={ 768 } maxWidth={ 991 } />;
 // const Mobile = props => <Responsive { ...props } maxWidth={ 767 } />;
