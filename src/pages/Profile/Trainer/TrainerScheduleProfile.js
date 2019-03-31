@@ -11,6 +11,11 @@ import Preloader from '../../../components/Preloader/Preloader';
 // Note: style
 import '../../../style/bem-blocks/b-trainer-schedule-profile/index.scss';
 
+const additionalService = [{
+    uuid: '1',
+    name: 'Ракетка',
+    costPerHour: '1000' // cent
+}];
 class TrainerScheduleProfile extends Component {
 
     componentDidMount() {
@@ -57,6 +62,7 @@ class TrainerScheduleProfile extends Component {
                     onClickDecline={this.onClickDecline}
                     preloader={bookingPreloader}
                     titlePage={"Моё расписание"}
+                    additionalService={additionalService}
                 />
 
                 { this.props.preloader ? <Preloader /> : null }
@@ -66,7 +72,6 @@ class TrainerScheduleProfile extends Component {
 }
 
 const mapStateToProps = ({ scheduleTrainer, identificate, booking }) => {
-    console.log(scheduleTrainer)
     return {
         scheduleTrainer: scheduleTrainer.scheduleTrainer,
         bookedTime: scheduleTrainer.bookedTime,

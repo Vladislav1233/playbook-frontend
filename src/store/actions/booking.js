@@ -23,7 +23,6 @@ import {
 import { bookingService } from '../../services/booking';
 import { alertActions } from './alertAction';
 import textErrorFromServer from '../../helpers/textErrorFromServer';
-import { Link } from 'react-router-dom';
 
 /*
 * Получить входящие запросы на бронирование времени тренера или площадки

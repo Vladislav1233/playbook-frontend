@@ -93,7 +93,8 @@ class ScheduleItem extends Component {
             isWhoBooked, 
             onClickDecline, 
             cost,
-            bookedCost
+            bookedCost,
+            additionalService
         } = this.props;
 
         const textBooking = 'Нажми, чтобы забронировать';
@@ -225,6 +226,7 @@ class ScheduleItem extends Component {
                         cost={cost}
                         startTime={start_time}
                         endTime={end_time}
+                        additionalService={additionalService}
                     />
                 }
             </Fragment>

@@ -224,7 +224,9 @@ class BookingModal extends Component {
                         }
                     }}
                     initialValues={{
-                        playground: 'playground_other'
+                        playground: 'playground_other',
+                        withMe: '0',
+                        inventory_racket: '0'
                     }}
                     validate={values => {
                         const errors = {};
@@ -360,6 +362,41 @@ class BookingModal extends Component {
                                             });
                                         }}
                                     />
+                                </fieldset>
+
+                                <fieldset className="b-booking-form__fieldset">
+                                    <legend className="b-modal__title-group">Доп. информация</legend>
+
+                                    <Field 
+                                        name="withMe"
+                                        render={({ input }) => {
+                                            return <Input 
+                                                { ...input }
+                                                typeInput="number"
+                                                placeholder="Количество людей"
+                                                labelText="Со мной будет (кол-во людей)"
+                                                idInput="withMe"
+                                                nameInput={input.name}
+                                                theme={{blackColor: true}}
+                                            />
+                                        }}
+                                    />
+
+                                    <Field 
+                                        name="inventory_racket"
+                                        render={({ input }) => {
+                                            return <Input 
+                                                { ...input }
+                                                typeInput="number"
+                                                placeholder="Количество ракеток"
+                                                labelText="Мне нужна ракетка (шт.)"
+                                                idInput="inventory_racket"
+                                                nameInput={input.name}
+                                                theme={{blackColor: true}}
+                                            />
+                                        }}
+                                    />
+
                                 </fieldset>
 
                                 <fieldset className="b-booking-form__fieldset">

@@ -58,7 +58,8 @@ class Schedule extends Component {
       onClickDecline,
       preloader,
       titlePage,
-      noteTitle
+      noteTitle,
+      additionalService
     } = this.props;
 
     const notScheduleTemplate = () => (
@@ -165,6 +166,7 @@ class Schedule extends Component {
                     playgroundsForTraining={ playgroundsForTraining }
                     userId={ userId }
                     cost={ cost }
+                    additionalService={additionalService}
                   />
                   : notScheduleTemplate()
                 : null }
