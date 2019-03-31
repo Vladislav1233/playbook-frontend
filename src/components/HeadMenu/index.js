@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { userActions } from '../../store/actions/userAction';
 import { configPathRouter } from '../../App/configPathRouter';
 import OutsideClickHandler from 'react-outside-click-handler';
-
+import Swipe from 'react-easy-swipe';
 
 // helpers
 import { history } from '../../helpers/history';
@@ -38,7 +38,10 @@ class HeadMenu extends Component {
     super(props);
 
     this.state = {
-      showContent: false
+      showContent: false,
+      contentStyle: {
+        transform: 'translatex(0px)'
+      }
     };
 
     history.listen(() => {
@@ -60,6 +63,29 @@ class HeadMenu extends Component {
       showContent: false
     })
   };
+
+  stretchMenu = (x) => {
+    if (x < 0 ) return
+
+    this.setState({
+      contentStyle: { transform: `translatex(${ Math.floor(x / 7) }px)`}
+    })
+  }
+
+  // Swipe
+  onSwipeMove = (position) => {
+    this.stretchMenu(position.x);
+  }
+
+  onSwipeRight = (e) => {
+    !!e && this.closeContent();
+  }
+
+  onSwipeEnd = () => {
+    this.setState({
+      contentStyle: { transform: `translatex(0px)` }
+    })
+  }
 
   render() {
     const { showContent } = this.state;
@@ -120,69 +146,78 @@ class HeadMenu extends Component {
             </div>
           }
           { (showContent && isAuthorization) &&
-            <div className="b-head-menu__content">
-              <Fragment>
-                <dataAboutRole.tag className="b-head-menu__content-header" to={ dataAboutRole.pathToInfo }>
-                  <div className="b-head-menu__image-wrapper b-head-menu__image-wrapper--popup">
-                    { svgAvatar() }
-                  </div>
 
-                  <div>
-                    <span className="b-head-menu__content-text b-head-menu__content-text--name">{ `${userInformation.firstName} ${userInformation.lastName}` }</span>
-                    <div className="b-head-menu__content-additional">{ dataAboutRole.roleName }</div>
-                    { dataAboutRole.roleName === "Тренер" && <span className="b-head-menu__content-link">Настроить</span> }
-                  </div>
-                </dataAboutRole.tag>
+            <Swipe
+              onSwipeMove={ this.onSwipeMove }
+              onSwipeRight={ this.onSwipeRight }
+              onSwipeEnd={ this.onSwipeEnd }
+              tolerance={65}
+            >
+              <aside className="b-head-menu__content" style={this.state.contentStyle}>
+                <Fragment>
+                  <dataAboutRole.tag className="b-head-menu__content-header" to={ dataAboutRole.pathToInfo }>
+                    <div className="b-head-menu__image-wrapper b-head-menu__image-wrapper--popup">
+                      { svgAvatar() }
+                    </div>
 
-                {/* Блок личного кабинета */ }
-                { (dataAboutRole.roleName === "Игрок") ? null :
+                    <div>
+                      <span className="b-head-menu__content-text b-head-menu__content-text--name">{ `${userInformation.firstName} ${userInformation.lastName}` }</span>
+                      <div className="b-head-menu__content-additional">{ dataAboutRole.roleName }</div>
+                      { dataAboutRole.roleName === "Тренер" && <span className="b-head-menu__content-link">Настроить</span> }
+                    </div>
+                  </dataAboutRole.tag>
+
+                  {/* Блок личного кабинета */ }
+                  { (dataAboutRole.roleName === "Игрок") ? null :
+                    <ContentItem>
+                      <li className="b-head-menu__content-item">
+                        <Link className="b-head-menu__content-text" to={ dataAboutRole.pathToCreateSchedule }>Добавить расписание</Link>
+                      </li>
+                      <li className="b-head-menu__content-item">
+                        <Link className="b-head-menu__content-text" to={ dataAboutRole.pathToMySchedule }>Моё расписание</Link>
+                      </li>
+                      <li className="b-head-menu__content-item">
+                        <Link className="b-head-menu__content-text" to={ dataAboutRole.pathToManageCourt }>Управление площадками</Link>
+                      </li>
+                      <li className="b-head-menu__content-item">
+                        <Link className="b-head-menu__content-text" to={ dataAboutRole.pathToRequest }>Входящие запросы</Link>
+                      </li>
+                    </ContentItem>
+                  }
+
+                  <ul className="b-head-menu__content-list b-head-menu__content-list--desk-hide">
+                    <li className="b-head-menu__content-item">
+                      <Link className="b-head-menu__content-text" to={ configPathRouter.listTrainer }> Тренеры </Link>
+                    </li>
+                    <li className="b-head-menu__content-item">
+                      <Link className="b-head-menu__content-text disabled" to={ configPathRouter.myBooking }>Площадки</Link>
+                    </li>
+                    <li className="b-head-menu__content-item">
+                      <Link className="b-head-menu__content-text disabled" to={ configPathRouter.myBooking }>Турниры</Link>
+                    </li>
+                  </ul>
+
                   <ContentItem>
                     <li className="b-head-menu__content-item">
-                      <Link className="b-head-menu__content-text" to={ dataAboutRole.pathToCreateSchedule }>Добавить расписание</Link>
-                    </li>
-                    <li className="b-head-menu__content-item">
-                      <Link className="b-head-menu__content-text" to={ dataAboutRole.pathToMySchedule }>Моё расписание</Link>
-                    </li>
-                    <li className="b-head-menu__content-item">
-                      <Link className="b-head-menu__content-text" to={ dataAboutRole.pathToManageCourt }>Управление площадками</Link>
-                    </li>
-                    <li className="b-head-menu__content-item">
-                      <Link className="b-head-menu__content-text" to={ dataAboutRole.pathToRequest }>Входящие запросы</Link>
+                      <Link className="b-head-menu__content-text" to={ configPathRouter.myBooking }>Мои бронирования</Link>
                     </li>
                   </ContentItem>
-                }
 
-                <ul className="b-head-menu__content-list b-head-menu__content-list--desk-hide">
-                  <li className="b-head-menu__content-item">
-                    <Link className="b-head-menu__content-text" to={ configPathRouter.listTrainer }> Тренеры </Link>
-                  </li>
-                  <li className="b-head-menu__content-item">
-                    <Link className="b-head-menu__content-text disabled" to={ configPathRouter.myBooking }>Площадки</Link>
-                  </li>
-                  <li className="b-head-menu__content-item">
-                    <Link className="b-head-menu__content-text disabled" to={ configPathRouter.myBooking }>Турниры</Link>
-                  </li>
-                </ul>
+                  <ContentItem>
+                    <li className="b-head-menu__content-item">
+                      <a className="b-head-menu__content-text" href="mailto:manage.playbook@gmail.com" title="Написать нам">Написать нам</a>
+                    </li>
+                  </ContentItem>
 
-                <ContentItem>
-                  <li className="b-head-menu__content-item">
-                    <Link className="b-head-menu__content-text" to={ configPathRouter.myBooking }>Мои бронирования</Link>
-                  </li>
-                </ContentItem>
+                  <ContentItem>
+                    <li className="b-head-menu__content-item">
+                      <a href="" className="b-head-menu__content-text" onClick={ this.props.onLogout }>Выйти</a>
+                    </li>
+                  </ContentItem>
+                </Fragment>
+              </aside>
+            </Swipe>
 
-                <ContentItem>
-                  <li className="b-head-menu__content-item">
-                    <a className="b-head-menu__content-text" href="mailto:manage.playbook@gmail.com" title="Написать нам">Написать нам</a>
-                  </li>
-                </ContentItem>
-
-                <ContentItem>
-                  <li className="b-head-menu__content-item">
-                    <a href="" className="b-head-menu__content-text" onClick={ this.props.onLogout }>Выйти</a>
-                  </li>
-                </ContentItem>
-              </Fragment>
-            </div>
           }
         </OutsideClickHandler>
       </div>

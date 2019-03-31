@@ -47,6 +47,7 @@
     "react-calendar": "^2.18.1",
     "react-dev-utils": "^5.0.3",
     "react-dom": "^16.8.5",
+    "react-easy-swipe": "0.0.17",
     "react-final-form": "^4.1.0",
     "react-final-form-arrays": "2.0.1",
     "react-final-form-listeners": "^1.0.2",
