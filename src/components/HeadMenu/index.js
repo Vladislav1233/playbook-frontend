@@ -7,8 +7,10 @@ import { configPathRouter } from '../../App/configPathRouter';
 import OutsideClickHandler from 'react-outside-click-handler';
 import Swipe from 'react-easy-swipe';
 
+
 // helpers
 import { history } from '../../helpers/history';
+import { DesktopMin, NotDesktopMin } from '../../helpers/mediaQuery'
 
 // Note: style
 import '../../style/bem-blocks/b-head-menu/index.scss';
@@ -143,16 +145,19 @@ class HeadMenu extends Component {
             </div>
             : <div className="b-head-menu__wrapper-link">
               {/* TODO: адаптив реакта создать */}
-              <Link className="b-head-menu__open-button" to={ configPathRouter.authorization }>Вход</Link>
-              <Link className="b-head-menu__open-button" to={ configPathRouter.registration }>Регистрация</Link>
-
-              <div onClick={ this.toggleContent } className="b-hamburger">
-                <svg viewBox="0 0 800 600">
-                  <path d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200" className="b-hamburger__top-bar"></path>
-                  <path d="M300,320 L540,320" className="b-hamburger__middle-bar"></path>
-                  <path d="M300,210 C300,210 520,210 540,210 C740,210 640,530 520,410 C440,330 300,190 300,190" className="b-hamburger__bottom-bar" transform="translate(480, 320) scale(1, -1) translate(-480, -318)"></path>
-                </svg>
-              </div>
+              <DesktopMin>
+                <Link className="b-head-menu__open-button" to={ configPathRouter.authorization }>Вход</Link>
+                <Link className="b-head-menu__open-button" to={ configPathRouter.registration }>Регистрация</Link>
+              </DesktopMin>
+              <NotDesktopMin>
+                <div onClick={ this.toggleContent } className="b-hamburger">
+                  <svg viewBox="0 0 800 600">
+                    <path d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200" className="b-hamburger__top-bar"></path>
+                    <path d="M300,320 L540,320" className="b-hamburger__middle-bar"></path>
+                    <path d="M300,210 C300,210 520,210 540,210 C740,210 640,530 520,410 C440,330 300,190 300,190" className="b-hamburger__bottom-bar" transform="translate(480, 320) scale(1, -1) translate(-480, -318)"></path>
+                  </svg>
+                </div>
+              </NotDesktopMin>
             </div>
           }
           { showContent &&
