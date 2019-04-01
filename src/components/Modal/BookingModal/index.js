@@ -11,6 +11,7 @@ import { ANALIZE_DATE_TIME_ZONE } from '../../../store/constants/formatDates';
 // Note: action
 import { createBooking } from '../../../store/actions/booking';
 import { userActions } from '../../../store/actions/userAction';
+import { getAllEquipmentsForBookable } from '../../../store/actions/equipment';
 
 // Note: components
 import Input from '../../ui-kit/Input/Input';
@@ -51,6 +52,10 @@ class BookingModal extends Component {
 
         this.initialState = this.state;
     }
+
+    componentDidMount() {
+        this.props.getAllEquipmentsForBookableAction('trainer', this.props.userId)
+    };
 
     onRegisterUser = ({ first_name, last_name, phone }) => {
 
@@ -93,11 +98,10 @@ class BookingModal extends Component {
     };
 
     onSubmitBooking = (values) => {
-        const { typeBooking, dateBooking, createBooking, isAuthorization, loginAction } = this.props;
+        const { typeBooking, dateBooking, createBooking, isAuthorization, loginAction, userId } = this.props;
         const { start_time, end_time, playground, players_count } = values;
         const playgroundId = playground === 'playground_other' ? null : playground;
 
-        const { userId } = this.props;
         const formatDate = 'YYYY-MM-DD HH:mm:ss';
 
         /* Note: data - Формируем данные для запроса бронирования
@@ -647,7 +651,8 @@ const mapStateToDispatch = (dispatch) => {
     return {
         createBooking: (typeBooking, data) => dispatch(createBooking(typeBooking, data)),
         loginAction: (data, toMain, callback) => dispatch(userActions.login(data, toMain, callback)),
-        resetPasswordRequest: (data) => dispatch(userActions.resetPasswordRequest(data))
+        resetPasswordRequest: (data) => dispatch(userActions.resetPasswordRequest(data)),
+        getAllEquipmentsForBookableAction: (bookable_type, bookable_uuid) => dispatch(getAllEquipmentsForBookable(bookable_type, bookable_uuid)) 
     }
 }
 
