@@ -94,7 +94,7 @@ class BookingModal extends Component {
 
     onSubmitBooking = (values) => {
         const { typeBooking, dateBooking, createBooking, isAuthorization, loginAction } = this.props;
-        const { start_time, end_time, playground } = values;
+        const { start_time, end_time, playground, players_count } = values;
         const playgroundId = playground === 'playground_other' ? null : playground;
 
         const { userId } = this.props;
@@ -106,7 +106,8 @@ class BookingModal extends Component {
         const data = {
             start_time: moment(`${dateBooking} ${start_time}:00`).utc().format(formatDate),
             end_time: moment(`${dateBooking} ${end_time}:00`).utc().format(formatDate),
-            bookable_uuid: userId
+            bookable_uuid: userId,
+            players_count
         };
 
         if (playgroundId) {
@@ -225,7 +226,7 @@ class BookingModal extends Component {
                     }}
                     initialValues={{
                         playground: 'playground_other',
-                        withMe: '0',
+                        players_count: '1',
                         inventory_racket: '0'
                     }}
                     validate={values => {
@@ -368,14 +369,14 @@ class BookingModal extends Component {
                                     <legend className="b-modal__title-group">Доп. информация</legend>
 
                                     <Field 
-                                        name="withMe"
+                                        name="players_count"
                                         render={({ input }) => {
                                             return <Input 
                                                 { ...input }
                                                 typeInput="number"
-                                                placeholder="Количество людей"
-                                                labelText="Со мной будет (кол-во людей)"
-                                                idInput="withMe"
+                                                placeholder="Количество игроков"
+                                                labelText="Количество игроков"
+                                                idInput="players_count"
                                                 nameInput={input.name}
                                                 theme={{blackColor: true}}
                                             />
