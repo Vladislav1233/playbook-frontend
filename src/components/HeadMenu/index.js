@@ -134,7 +134,7 @@ class HeadMenu extends Component {
           display="inline-block"
         >
           { isAuthorization
-            ? <div onClick={ this.toggleContent } className="b-head-menu__open-button" tabIndex="0">
+            ? <div onClick={ this.toggleContent } className="b-head-menu__open-button b-head-menu__open-button--arrow" tabIndex="0">
               <div className="b-head-menu__account-wrapper">
                 <span className="b-head-menu__account-name">{ userInformation.firstName }</span>
                 <div className="b-head-menu__image-wrapper">
@@ -248,7 +248,7 @@ class HeadMenu extends Component {
 
                 <ContentItem>
                   <li className="b-head-menu__content-item">
-                    <a className="b-head-menu__content-text" href="mailto:manage.playbook@gmail.com" title="Написать нам">Написать нам</a>
+                    <a className="b-head-menu__content-text" href="mailto:manage.playbook@gmail.com" target="_blank" title="Написать нам">Написать нам</a>
                   </li>
                 </ContentItem>
 
