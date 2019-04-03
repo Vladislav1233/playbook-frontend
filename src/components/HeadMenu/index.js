@@ -230,10 +230,10 @@ class HeadMenu extends Component {
                       <Link className="b-head-menu__content-text" to={ configPathRouter.listTrainer }> Тренеры </Link>
                     </li>
                     <li className="b-head-menu__content-item">
-                      <Link className="b-head-menu__content-text disabled" to={ configPathRouter.myBooking }>Площадки</Link>
+                      <Link className="b-head-menu__content-text gl-disabled" to={ configPathRouter.myBooking }>Площадки</Link>
                     </li>
                     <li className="b-head-menu__content-item">
-                      <Link className="b-head-menu__content-text disabled" to={ configPathRouter.myBooking }>Турниры</Link>
+                      <Link className="b-head-menu__content-text gl-disabled" to={ configPathRouter.myBooking }>Турниры</Link>
                     </li>
                   </ul>
                 </NotDesktopMin>
