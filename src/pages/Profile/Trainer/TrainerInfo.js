@@ -6,6 +6,7 @@ import { Form, Field } from 'react-final-form';
 // actions
 import { searchPlaygroundAction, clearSearchPlayground } from '../../../store/actions/searchPlayground';
 import { alertActions } from '../../../store/actions/alertAction';
+import { createEquipment } from '../../../store/actions/equipment';
 
 // Note: helpers
 import { convertTypeMoney } from '../../../helpers/convertTypeMoney';
@@ -25,6 +26,10 @@ import '../../../style/bem-blocks/b-trainer-info/index.scss';
 const LIST_ADDITIONAL_SERVICE_TENNIS = [{
     name: 'Аренда теннисной ракетки',
     id: 'tennis_racket',
+    showFieldForAvailability: true
+}, {
+    name: 'Корзина мячей',
+    id: 'tennis_ball',
     showFieldForAvailability: true
 }];
 
@@ -165,6 +170,9 @@ class TrainerInfo extends Component {
             this.setState({ preloader: true });
         }
 
+        console.log(values)
+        // createEquipmentAction
+
         // TODO: здесь надо будет обсудить и доделать так, чтобы найденные новые площадки не пересекались с уже добавленными себе, чтобы лишнего не выводилось тренеру. + Надо придумать как удалять площадку на которой тренируешь.
         const {
             playgrounds
@@ -215,7 +223,7 @@ class TrainerInfo extends Component {
                     }
                 );
         }
-    }
+    };
 
     render() {
         const { trainerInfo, preloader } = this.state;
@@ -224,9 +232,9 @@ class TrainerInfo extends Component {
         return (
             <Form 
                 onSubmit={this.onSaveInformation}
-                initialValues={
-                    {...trainerInfo}
-                }
+                initialValues={{
+                    ...trainerInfo
+                }}
                 render={({ handleSubmit }) => {
                     return <form onSubmit={handleSubmit} className="b-trainer-info">
                         <h1>Настройка личного профиля</h1>
@@ -414,6 +422,7 @@ const mapStateToDispatch = dispatch => {
     return {
         searchPlayground: (data) => dispatch(searchPlaygroundAction(data)),
         onClearSearchPlayground: () => dispatch(clearSearchPlayground()),
+        createEquipmentAction: (data) => dispatch(createEquipment(data)),
         dispatch: (action) => dispatch(action)
     }
 }

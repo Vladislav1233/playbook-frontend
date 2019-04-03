@@ -42,7 +42,6 @@ class Input extends Component {
                     max={maxValue}
                     min={minValue}
                     disabled={disabled ? disabled : null}
-                    {...this.props}
                 />
 
                 {error ? <div className="b-input__error">{error}</div> : null}

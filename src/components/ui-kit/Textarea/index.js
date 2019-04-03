@@ -33,7 +33,6 @@ class Input extends Component {
                     value={value}
                     onChange={onChange}
                     autoComplete={autoComplete}
-                    {...this.props}
                 />
             </div>
         )
