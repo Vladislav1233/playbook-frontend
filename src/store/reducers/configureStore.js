@@ -14,6 +14,7 @@ import trainerList from './trainerList';
 import scrollPage from './scrollPage';
 import alertReducer from './alertReducer';
 import trainerInfo from './trainerInfo';
+import equipment from './equipment';
 
 export default function(initialState = {}) {
     const rootReducer = combineReducers({
@@ -29,7 +30,8 @@ export default function(initialState = {}) {
         trainerList,
         scrollPage,
         alertReducer,
-        trainerInfo
+        trainerInfo,
+        equipment
     });
 
     return createStore(rootReducer, initialState, applyMiddleware(thunkMiddleware));

@@ -6,7 +6,7 @@ import { Form, Field } from 'react-final-form';
 // actions
 import { searchPlaygroundAction, clearSearchPlayground } from '../../../store/actions/searchPlayground';
 import { alertActions } from '../../../store/actions/alertAction';
-import { createEquipment } from '../../../store/actions/equipment';
+import { createEquipment, getAllEquipmentsForBookable } from '../../../store/actions/equipment';
 
 // Note: helpers
 import { convertTypeMoney } from '../../../helpers/convertTypeMoney';
@@ -56,6 +56,7 @@ class TrainerInfo extends Component {
 
     componentDidMount() {
         this.getTrainerInfo();
+        this.props.getAllEquipmentsForBookableAction('trainer', this.props.userId);
     }
 
     componentWillUnmount() {
@@ -170,8 +171,24 @@ class TrainerInfo extends Component {
             this.setState({ preloader: true });
         }
 
-        console.log(values)
-        // createEquipmentAction
+        let dataAdditionalService = []; 
+        LIST_ADDITIONAL_SERVICE_TENNIS.forEach((serviceItem) => {
+            // console.log(serviceItem)
+            if(values[serviceItem.id] && values[serviceItem.id].service) {
+                dataAdditionalService.push({
+                    name: serviceItem.name,
+                    price_per_hour: convertTypeMoney(+values[serviceItem.id].cost, 'RUB', 'coin'),
+                    currency: 'RUB',
+                    availability: values[serviceItem.id].availability ? values[serviceItem.id].availability : 1,
+                    uuid: values[serviceItem.id].uuid ? values[serviceItem.id].uuid : undefined
+                });
+            }
+        })
+        
+        dataAdditionalService.forEach((requestDataService) => {
+            requestDataService.uuid ? undefined : this.props.createEquipmentAction(requestDataService);
+        });
+
 
         // TODO: здесь надо будет обсудить и доделать так, чтобы найденные новые площадки не пересекались с уже добавленными себе, чтобы лишнего не выводилось тренеру. + Надо придумать как удалять площадку на которой тренируешь.
         const {
@@ -227,15 +244,37 @@ class TrainerInfo extends Component {
 
     render() {
         const { trainerInfo, preloader } = this.state;
-        const { foundPlagrounds } = this.props;
+        const { foundPlagrounds, equipment } = this.props;
+
+        let additionalServiceRender = {};
+        if(equipment.length > 0) {
+            equipment.forEach((equipmentItem) => {
+                LIST_ADDITIONAL_SERVICE_TENNIS.forEach(_additionalService => {
+                    if(_additionalService.name === equipmentItem.name) {
+                        additionalServiceRender[_additionalService.id] = {
+                            service: true,
+                            cost: convertTypeMoney(equipmentItem.price_per_hour, 'RUB', 'banknote'),
+                            availability: equipmentItem.availability,
+                            uuid: equipmentItem.uuid
+                        }
+                    }
+                });
+            });
+        };
+        console.log(equipment);
+        console.log(additionalServiceRender)
+
+        
 
         return (
             <Form 
                 onSubmit={this.onSaveInformation}
                 initialValues={{
-                    ...trainerInfo
+                    ...trainerInfo,
+                    ...additionalServiceRender
                 }}
-                render={({ handleSubmit }) => {
+                render={({ handleSubmit, values }) => {
+                    console.log(values)
                     return <form onSubmit={handleSubmit} className="b-trainer-info">
                         <h1>Настройка личного профиля</h1>
                         <div className="b-trainer-info__info-wrap">
@@ -411,10 +450,11 @@ class TrainerInfo extends Component {
     }
 }
 
-const mapStateToProps = ({ searchPlayground, identificate }) => {
+const mapStateToProps = ({ searchPlayground, identificate, equipment }) => {
     return {
         foundPlagrounds: searchPlayground.playgrounds,
-        userId: identificate.userId
+        userId: identificate.userId,
+        equipment: equipment.equipments
     }
 }
 
@@ -423,6 +463,7 @@ const mapStateToDispatch = dispatch => {
         searchPlayground: (data) => dispatch(searchPlaygroundAction(data)),
         onClearSearchPlayground: () => dispatch(clearSearchPlayground()),
         createEquipmentAction: (data) => dispatch(createEquipment(data)),
+        getAllEquipmentsForBookableAction: (bookable_type, bookable_uuid) => dispatch(getAllEquipmentsForBookable(bookable_type, bookable_uuid)),
         dispatch: (action) => dispatch(action)
     }
 }

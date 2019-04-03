@@ -87,7 +87,6 @@ export default function identificate(state = initialState, action) {
             }
 
         case userConstants.RESEND_VERIFICATION_CODE_FAILURE:
-            console.log(action.payload);
             return {
                 ...state,
                 preloader: false
