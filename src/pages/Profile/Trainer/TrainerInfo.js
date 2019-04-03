@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from "react-redux";
 import { trainerInfoService } from '../../../services/trainerInfoService';
+import { Form, Field } from 'react-final-form';
 
 // actions
 import { searchPlaygroundAction, clearSearchPlayground } from '../../../store/actions/searchPlayground';
@@ -16,9 +17,16 @@ import Textarea from '../../../components/ui-kit/Textarea';
 import SearchListPlayground from '../../../components/SearchListPlayground';
 import Button from '../../../components/ui-kit/Button/Button';
 import Preloader from '../../../components/Preloader/Preloader';
+import CreateAdditionalService from '../../../components/CreateAdditionalService';
 
 // Note: styles
 import '../../../style/bem-blocks/b-trainer-info/index.scss';
+
+const LIST_ADDITIONAL_SERVICE_TENNIS = [{
+    name: 'Аренда теннисной ракетки',
+    id: 'tennis_racket',
+    showFieldForAvailability: true
+}];
 
 class TrainerInfo extends Component {
 
@@ -152,18 +160,21 @@ class TrainerInfo extends Component {
         }
     }
 
-    onSaveInformation = () => {
+    onSaveInformation = (values) => {
         if (this.state.preloader === false) {
             this.setState({ preloader: true });
         }
 
         // TODO: здесь надо будет обсудить и доделать так, чтобы найденные новые площадки не пересекались с уже добавленными себе, чтобы лишнего не выводилось тренеру. + Надо придумать как удалять площадку на которой тренируешь.
         const {
-            playgrounds,
+            playgrounds
+        } = this.state.trainerInfo;
+
+        const { 
             about,
             minPrice,
-            maxPrice
-        } = this.state.trainerInfo;
+            maxPrice 
+        } = values;
 
         const { idInfo } = this.state;
 
@@ -211,154 +222,183 @@ class TrainerInfo extends Component {
         const { foundPlagrounds } = this.props;
 
         return (
-            <div className="b-trainer-info">
-                <h1>Настройка личного профиля</h1>
-                <div className="b-trainer-info__info-wrap">
-                    <div className="b-trainer-info__form">
-                        <Input
-                            labelText="Имя"
-                            idInput="profile_name"
-                            nameInput="name"
-                            placeholder="Имя"
-                            value={trainerInfo.name}
-                            onChange={e => this.handleChangeInput(e)}
-                            theme={{ blackColor: true }}
-                            disabled
-                        />
-
-                        {/* <Input
-                            labelText="Отчество"
-                            idInput="profile_patronymic"
-                            nameInput="patronymic"
-                            placeholder="Отчество"
-                            value={trainerInfo.patronymic}
-                            onChange={e => this.handleChangeInput(e)}
-                            theme={{blackColor: true}}
-                        /> */}
-
-                        <Input
-                            labelText="Фамилия"
-                            idInput="profile_surname"
-                            nameInput="surname"
-                            placeholder="Фамилия"
-                            value={trainerInfo.surname}
-                            onChange={e => this.handleChangeInput(e)}
-                            theme={{ blackColor: true }}
-                            disabled
-                        />
-
-                        <Textarea
-                            typeInput=""
-                            labelText="О себе"
-                            idInput="profile_about"
-                            nameInput="about"
-                            placeholder="Поле для дополнительной информации"
-                            value={trainerInfo.about}
-                            onChange={e => this.handleChangeInput(e)}
-                            theme={{ blackColor: true }}
-                        />
-                    </div>
-
-                    <div className="b-trainer-info__playground">
-                        <div className="b-trainer-info__cost">
-                            <div className="b-trainer-info__title-field">Стоимость часа, ₽</div>
-
-                            <Input
-                                idInput="profile_minPrice"
-                                nameInput="minPrice"
-                                placeholder="Минимальная"
-                                value={trainerInfo.minPrice}
-                                onChange={e => this.handleChangeInput(e)}
-                                theme={{ blackColor: true }}
-                                modif="b-input--time-booking"
-                                typeInput="number"
-                            />
-                            <Input
-                                idInput="profile_maxPrice"
-                                nameInput="maxPrice"
-                                placeholder="Максимальная"
-                                value={trainerInfo.maxPrice}
-                                onChange={e => this.handleChangeInput(e)}
-                                theme={{ blackColor: true }}
-                                modif="b-input--time-booking"
-                                typeInput="number"
-                            />
+            <Form 
+                onSubmit={this.onSaveInformation}
+                initialValues={
+                    {...trainerInfo}
+                }
+                render={({ handleSubmit }) => {
+                    return <form onSubmit={handleSubmit} className="b-trainer-info">
+                        <h1>Настройка личного профиля</h1>
+                        <div className="b-trainer-info__info-wrap">
+                            <div className="b-trainer-info__form">
+                                <Field 
+                                    name='name'
+                                    render={({ input }) => {
+                                        return <Input
+                                            { ...input }
+                                            labelText="Имя"
+                                            idInput="profile_name"
+                                            nameInput={input.name}
+                                            placeholder="Имя"
+                                            theme={{ blackColor: true }}
+                                            disabled
+                                        />
+                                    }}
+                                />
+        
+                                {/* <Input
+                                    labelText="Отчество"
+                                    idInput="profile_patronymic"
+                                    nameInput="patronymic"
+                                    placeholder="Отчество"
+                                    value={trainerInfo.patronymic}
+                                    onChange={e => this.handleChangeInput(e)}
+                                    theme={{blackColor: true}}
+                                /> */}
+                                
+                                <Field 
+                                    name='surname'
+                                    render={({ input }) => {
+                                        return <Input
+                                            { ...input }
+                                            labelText="Фамилия"
+                                            idInput="profile_surname"
+                                            nameInput={input.name}
+                                            placeholder="Фамилия"
+                                            theme={{ blackColor: true }}
+                                            disabled
+                                        />
+                                    }}
+                                />
+                                
+                                <Field 
+                                    name="about"
+                                    render={({ input }) => {
+                                        return <Textarea
+                                            { ...input }
+                                            labelText="О себе"
+                                            idInput="profile_about"
+                                            nameInput={input.name}
+                                            placeholder="Поле для дополнительной информации"
+                                            theme={{ blackColor: true }}
+                                        />
+                                    }}
+                                />
+                            </div>
+        
+                            <div className="b-trainer-info__playground">
+                                <div className="b-trainer-info__cost">
+                                    <div className="b-trainer-info__title-field">Стоимость часа, ₽</div>
+                                    
+                                    <Field 
+                                        name="minPrice"
+                                        render={({ input }) => {
+                                            return <Input
+                                                { ...input }
+                                                idInput="profile_minPrice"
+                                                nameInput={input.name}
+                                                placeholder="Минимальная"
+                                                theme={{ blackColor: true }}
+                                                modif="b-input--time-booking"
+                                                typeInput="number"
+                                            />
+                                        }}
+                                    />
+                                    
+                                    <Field 
+                                        name="maxPrice"
+                                        render={({ input }) => {
+                                            return <Input
+                                                idInput="profile_maxPrice"
+                                                nameInput={input.name}
+                                                placeholder="Максимальная"
+                                                theme={{ blackColor: true }}
+                                                modif="b-input--time-booking"
+                                                typeInput="number"
+                                            />
+                                        }}
+                                    />
+                                </div>
+                                
+                                <CreateAdditionalService 
+                                    listAdditionalService={LIST_ADDITIONAL_SERVICE_TENNIS}
+                                    onChangeField={this.handleAdditionalService}
+                                />
+        
+                                <div className="b-trainer-info__title-field">Выбор площадок, на которых вы тренируете</div>
+                                <Input
+                                    idInput="profile_search-court"
+                                    nameInput="searchCourt"
+                                    placeholder="Введите название или адрес"
+                                    value={trainerInfo.searchCourt}
+                                    onChange={e => {
+                                        this.handleChangeInput(e);
+                                        this.onSearchCourt(e);
+                                    }}
+                                    theme={{ blackColor: true }}
+                                    autoComplete={false}
+                                />
+        
+                                {foundPlagrounds.length > 0 ?
+                                    <Fragment>
+                                        <div className="b-trainer-info__title-field b-trainer-info__title-field--light">Найденные площадки:</div>
+                                        <ul className='b-trainer-info__playground-list'>
+                                            {foundPlagrounds.map(item => {
+                                                return (
+                                                    <li key={item.uuid} className="b-trainer-info__playground-item">
+                                                        <SearchListPlayground
+                                                            id={`search_${item.uuid}`}
+                                                            namePlayground={item.name}
+                                                            addressPlayground={item.address}
+                                                            onChange={this.handlePlayground}
+                                                            value={item.uuid}
+                                                            hover
+                                                        />
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
+                                    </Fragment>
+                                    :
+                                    null
+                                }
+        
+                                {trainerInfo.playgrounds.length > 0 ?
+                                    <Fragment>
+                                        <div className="b-trainer-info__title-field b-trainer-info__title-field--light">Добавленные площадки:</div>
+                                        <ul className='b-trainer-info__playground-list'>
+                                            {trainerInfo.playgrounds.map(item => {
+                                                return (
+                                                    <li key={item.uuid} className="b-trainer-info__playground-item">
+                                                        <SearchListPlayground
+                                                            id={`work_${item.uuid}`}
+                                                            namePlayground={item.name}
+                                                            addressPlayground={item.address}
+                                                            disabled
+                                                            checked
+                                                            value={item.uuid}
+                                                            onChange={this.handlePlayground}
+                                                        />
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
+                                    </Fragment>
+                                    :
+                                    null
+                                }
+        
+                            </div>
                         </div>
-
-                        <div className="b-trainer-info__title-field">Выбор площадок, на которых вы тренируете</div>
-                        <Input
-                            idInput="profile_search-court"
-                            nameInput="searchCourt"
-                            placeholder="Введите название или адрес"
-                            value={trainerInfo.searchCourt}
-                            onChange={e => {
-                                this.handleChangeInput(e);
-                                this.onSearchCourt(e);
-                            }}
-                            theme={{ blackColor: true }}
-                            autoComplete={false}
-                        />
-
-                        {foundPlagrounds.length > 0 ?
-                            <Fragment>
-                                <div className="b-trainer-info__title-field b-trainer-info__title-field--light">Найденные площадки:</div>
-                                <ul className='b-trainer-info__playground-list'>
-                                    {foundPlagrounds.map(item => {
-                                        return (
-                                            <li key={item.uuid} className="b-trainer-info__playground-item">
-                                                <SearchListPlayground
-                                                    id={`search_${item.uuid}`}
-                                                    namePlayground={item.name}
-                                                    addressPlayground={item.address}
-                                                    onChange={this.handlePlayground}
-                                                    value={item.uuid}
-                                                    hover
-                                                />
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            </Fragment>
-                            :
-                            null
-                        }
-
-                        {trainerInfo.playgrounds.length > 0 ?
-                            <Fragment>
-                                <div className="b-trainer-info__title-field b-trainer-info__title-field--light">Добавленные площадки:</div>
-                                <ul className='b-trainer-info__playground-list'>
-                                    {trainerInfo.playgrounds.map(item => {
-                                        return (
-                                            <li key={item.uuid} className="b-trainer-info__playground-item">
-                                                <SearchListPlayground
-                                                    id={`work_${item.uuid}`}
-                                                    namePlayground={item.name}
-                                                    addressPlayground={item.address}
-                                                    disabled
-                                                    checked
-                                                    value={item.uuid}
-                                                    onChange={this.handlePlayground}
-                                                />
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            </Fragment>
-                            :
-                            null
-                        }
-
-                    </div>
-                </div>
-                <div className="b-trainer-info__button">
-                    <Button
-                        name="Сохранить"
-                        onClick={this.onSaveInformation}
-                    />
-                </div>
-
-                {preloader ? <Preloader /> : null}
-            </div>
+                        <div className="b-trainer-info__button">
+                            <Button type="submit">Сохранить</Button>
+                        </div>
+        
+                        {preloader ? <Preloader /> : null}
+                    </form>
+                }}
+            />
         )
     }
 }
