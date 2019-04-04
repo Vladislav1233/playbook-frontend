@@ -1,4 +1,4 @@
-image: alpine-bash
+image: debian
 
 before_script:
   - bash gitlab-ci-preinstall.sh > /dev/null
