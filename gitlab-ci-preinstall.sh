@@ -3,4 +3,4 @@
 set -xe
 
 apt-get update -yqq
-apt-get install git ssh sshpass-yqq
+apt-get install git ssh sshpass -yqq
