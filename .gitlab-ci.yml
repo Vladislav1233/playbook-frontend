@@ -4,6 +4,8 @@ before_script:
   - bash gitlab-ci-preinstall.sh > /dev/null
 
 deploy:
+  only:
+    - develop
   script:
     - sshpass -p $SSH_PASSWORD ssh -oStrictHostKeyChecking=no $SSH_USER@$SSH_HOST 'cd playbook-backend-develop && ./compile-frontend.sh develop playbook-develop_workspace_1'
 
