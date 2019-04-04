@@ -5,5 +5,5 @@ before_script:
 
 deploy:
   script:
-    - sshpass -p '$SSH_PASSWORD' ssh $SSH_USER@playbook.su 'cd playbook-backend-develop && ./compile-frontend.sh develop playbook-develop_workspace_1'
+    - sshpass -p '$SSH_PASSWORD' ssh $SSH_USER@playbook.su 'ls' && exit 0
 
