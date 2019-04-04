@@ -41,6 +41,11 @@
         display: inline-block;
     }
 
+    &__label-info {
+        display: block;
+        font-size: 12px;
+    }
+
     &__error {
         top: 100%;
         position: absolute;

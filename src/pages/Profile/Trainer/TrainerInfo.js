@@ -263,6 +263,7 @@ class TrainerInfo extends Component {
         };
         console.log(equipment);
         console.log(additionalServiceRender)
+        console.log(trainerInfo)
 
         
 
@@ -357,6 +358,7 @@ class TrainerInfo extends Component {
                                         name="maxPrice"
                                         render={({ input }) => {
                                             return <Input
+                                                { ...input }
                                                 idInput="profile_maxPrice"
                                                 nameInput={input.name}
                                                 placeholder="Максимальная"

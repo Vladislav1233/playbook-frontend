@@ -99,10 +99,21 @@ class BookingModal extends Component {
 
     onSubmitBooking = (values) => {
         const { typeBooking, dateBooking, createBooking, isAuthorization, loginAction, userId } = this.props;
-        const { start_time, end_time, playground, players_count } = values;
+        const { start_time, end_time, playground, players_count, equipments } = values;
         const playgroundId = playground === 'playground_other' ? null : playground;
 
         const formatDate = 'YYYY-MM-DD HH:mm:ss';
+
+        // Note: Собираем данные для бронирования дополнительных услуг
+        const dataEquipments = [];
+        for (let key in equipments) {
+            if(Object.prototype.hasOwnProperty.call(equipments, key)) {
+                dataEquipments.push({
+                    uuid: key,
+                    count: equipments[key]
+                })
+            }
+        };
 
         /* Note: data - Формируем данные для запроса бронирования
         * В запросе данные даты и времени переводим в UTC формат.
@@ -111,7 +122,8 @@ class BookingModal extends Component {
             start_time: moment(`${dateBooking} ${start_time}:00`).utc().format(formatDate),
             end_time: moment(`${dateBooking} ${end_time}:00`).utc().format(formatDate),
             bookable_uuid: userId,
-            players_count
+            players_count,
+            equipments: dataEquipments
         };
 
         if (playgroundId) {
@@ -173,7 +185,8 @@ class BookingModal extends Component {
             resetPasswordRequest,
             startTime,
             endTime,
-            stepMinIncrement
+            stepMinIncrement,
+            equipments
         } = this.props;
 
         const {
@@ -181,6 +194,8 @@ class BookingModal extends Component {
             showFileldPassword,
             registeredNewUser
         } = this.state;
+
+        console.log(equipments)
 
         // Note: Доступный диапазон бронирования времени в данной карточке.
         const availableRange = {
@@ -249,6 +264,7 @@ class BookingModal extends Component {
                         return errors;
                     }}
                     render={({ handleSubmit, values, errors, touched }) => {
+                        console.log(values)
                         return (
                             <form onSubmit={handleSubmit} className="b-booking-form">
                                 <fieldset className={ cn('b-booking-form__fieldset', {
@@ -386,21 +402,25 @@ class BookingModal extends Component {
                                             />
                                         }}
                                     />
-
-                                    <Field 
-                                        name="inventory_racket"
-                                        render={({ input }) => {
-                                            return <Input 
-                                                { ...input }
-                                                typeInput="number"
-                                                placeholder="Количество ракеток"
-                                                labelText="Мне нужна ракетка (шт.)"
-                                                idInput="inventory_racket"
-                                                nameInput={input.name}
-                                                theme={{blackColor: true}}
-                                            />
-                                        }}
-                                    />
+                                    
+                                    {equipments.length > 0 ? equipments.map((equipment) => {
+                                        return <Field
+                                            key={equipment.uuid} 
+                                            name={`equipments.${equipment.uuid}`}
+                                            render={({ input }) => {
+                                                return <Input 
+                                                    { ...input }
+                                                    typeInput="number"
+                                                    labelText={`${equipment.name} (Шт.)`}
+                                                    placeholder='Количество'
+                                                    idInput={equipment.uuid}
+                                                    nameInput={input.name}
+                                                    theme={{blackColor: true}}
+                                                    infoLabel={`Доступно: ${equipment.availability}`}
+                                                />
+                                            }}
+                                        />
+                                    }) : null }
 
                                 </fieldset>
 
@@ -641,9 +661,10 @@ class CostInformation extends Component {
     }
 }
 
-const mapStateToProps = ({ identificate }) => {
+const mapStateToProps = ({ identificate, equipment }) => {
     return {
-        isAuthorization: identificate.authorization
+        isAuthorization: identificate.authorization,
+        equipments: equipment.equipments
     }
 };
 

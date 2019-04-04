@@ -16,7 +16,8 @@ class BookingRequest extends Component {
                 <h3>Актуальные заявки:</h3>
                 <div className="b-booking-request__list">
                     {dataBookingRequest.length > 0 ? 
-                        dataBookingRequest.map(item => {                     
+                        dataBookingRequest.map(item => {   
+                            console.log(item)                  
                             return <BookingRequestItem 
                                 key={item.bookingId}
                                 booking={item.bookingId}
@@ -32,6 +33,7 @@ class BookingRequest extends Component {
                                 tel={item.tel}
                                 price={item.price}
                                 playgroundSchedule={item.playgroundSchedule}
+                                equipment_rent={item.equipment_rent}
                             />
                         }) : <p className="b-booking-request__item">Нет текущих заявок.</p>
                     }
@@ -42,6 +44,7 @@ class BookingRequest extends Component {
                         <h3>Устаревшие заявки:</h3>
                         <div className="b-booking-request__list b-booking-request__list--old">
                             {dataPastBooking.map(item => {
+                                console.log(item)
                                 return <BookingRequestItem 
                                     key={item.bookingId}
                                     booking={item.bookingId}
@@ -57,6 +60,7 @@ class BookingRequest extends Component {
                                     tel={item.tel}
                                     price={item.price}
                                     playgroundSchedule={item.playgroundSchedule}
+                                    equipment_rent={item.equipment_rent}
                                 />
                             })}
                         </div>

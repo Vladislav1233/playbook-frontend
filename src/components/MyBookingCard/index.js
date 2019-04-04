@@ -5,6 +5,7 @@ import { ANALIZE_DATE_TIME_ZONE } from "../../store/constants/formatDates";
 
 // Note: components
 import DeclineBookingModal from '../Modal/DeclineBookingModal';
+import EquipmentsRent from '../EquipmentsRent';
 
 // Note: helpers
 import { convertTypeMoney } from '../../helpers/convertTypeMoney';
@@ -73,7 +74,8 @@ class MyBookingCard extends Component {
             price,
             status, // Note: 0 - не подтверждено (не обработана заявка), 1 - подтверждено, 2 - отменено/отклонено.
             note, // Note: заметка с причиной отмены бронирования
-            bookingId
+            bookingId,
+            equipment_rent
         } = this.props;
 
         const pricePlayground = +calcCostService(
@@ -140,6 +142,18 @@ class MyBookingCard extends Component {
                         }    
                         </div>
                 </div>
+
+                {equipment_rent && equipment_rent.length > 0 
+                    ? <div className="info-block">
+                        <p className="info-block__title">Дополнительные услуги</p>
+                        <EquipmentsRent 
+                            equipmentRent={equipment_rent}
+                            startTimeRent={startTime}
+                            endTimeRent={endTime}
+                        />
+                    </div>
+                    : null
+                }
 
                 <div className="info-block info-block--accent">
                     <p className="info-block__title">Оплата тренера</p>

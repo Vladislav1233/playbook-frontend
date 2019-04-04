@@ -88,7 +88,8 @@ export default function(state = initialState, action) {
                     bookingId: item.uuid,
                     status: item.status,
                     price: item.price,
-                    playgroundSchedule: item.playground ? item.playground.schedules : []
+                    playgroundSchedule: item.playground ? item.playground.schedules : [],
+                    equipment_rent: item.equipment_rent
                 }
             };
             
