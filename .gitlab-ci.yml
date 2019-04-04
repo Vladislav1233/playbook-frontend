@@ -1,0 +1,9 @@
+image: node:alpine
+
+before_script:
+  - bash gitlab-ci-preinstall.sh > /dev/null
+
+deploy:
+  script:
+    - sshpass -p '$SSH_PASSWORD' ssh $SSH_USER@playbook.su 'cd playbook-backend-develop && ./compile-frontend.sh develop playbook-develop_workspace_1'
+
