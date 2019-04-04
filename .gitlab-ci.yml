@@ -5,5 +5,5 @@ before_script:
 
 deploy:
   script:
-    - sshpass -p '$SSH_PASSWORD' ssh -oStrictHostKeyChecking=no $SSH_USER@playbook.su 'ls' && exit 0
+    - sshpass -p $SSH_PASSWORD ssh -oStrictHostKeyChecking=no $SSH_USER@$SSH_HOST 'ls' && exit 0
 
