@@ -4,34 +4,19 @@
     background-color: $background-schedule;
 
     &__info-wrap {
-        display: flex;
-        align-items: stretch;
-        justify-content: space-between;
+        display: block;
         overflow: hidden;
-        margin-bottom: 15px;
+    }
+
+    &__card {
+        overflow: hidden;
+        flex: 1 1 auto;
+        margin: 0 0 8px;
+        padding: 30px;
+        border: none;
         border-radius: 5px;
+        background-color: #ffffff;
         box-shadow: $cardShadow;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    &__form {
-        flex: 1 1 auto;
-        overflow: hidden;
-        margin: 0px auto;
-        padding: 30px;
-        border-right: 1px solid $border-color;
-        background-color: #ffffff;
-    }
-
-    &__playground {
-        flex: 1 1 auto;
-        max-width: 53%;
-        min-height: 230px;
-        margin: 0px auto;
-        padding: 30px;
-        border-color: $border-color;
-        background-color: #ffffff;
     }
 
     &__playground-list {
