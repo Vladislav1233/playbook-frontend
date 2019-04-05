@@ -20,7 +20,7 @@ class CreateAdditionalService extends Component {
             <div className="b-create-additional-service">
 
                 {listAdditionalService.map((item) => {
-                    return <AdditionalServiceField name={item.id} item={item} key={item.id} /> 
+                    return <AdditionalServiceField name={item.id} item={item} key={item.id} />
                 })}
             </div>
         )
@@ -37,11 +37,11 @@ const Condition = ({ when, is, children }) => (
 const AdditionalServiceField = ({ name, item }) => {
     return <Fragment>
         <div className="b-create-additional-service__check">
-            <Field 
+            <Field
                 name={`${name}.service`}
                 type="checkbox"
                 render={({ input }) => {
-                    return <Checkbox 
+                    return <Checkbox
                         { ...input }
                         id={`service_${item.id}`}
                     >
@@ -50,32 +50,32 @@ const AdditionalServiceField = ({ name, item }) => {
                 }}
             />
         </div>
-        
+
         <Condition when={`${name}.service`} is={true}>
             <div className="b-create-additional-service__info">
                 <div className="b-create-additional-service__field-wrapper">
-                    <Field 
+                    <Field
                         name={`${name}.cost`}
                         validate={required()}
                         render={({ input, meta }) => {
                             return <Input
                                 { ...input }
-                                labelText='Стоимость часа, ₽'
+                                labelText='Стоимость часа (₽)'
                                 nameInput={input.name}
                                 theme={{ blackColor: true }}
                                 typeInput="number"
                                 error={meta.error && meta.touched && meta.error}
-                            /> 
+                            />
                         }}
-                    /> 
+                    />
                 </div>
 
-                {item.showFieldForAvailability 
+                {item.showFieldForAvailability
                     && <div className="b-create-additional-service__field-wrapper">
-                        <Field 
+                        <Field
                             name={`${name}.availability`}
                             render={({ input }) => {
-                                return <Input 
+                                return <Input
                                     { ...input }
                                     labelText='В наличии (шт.)'
                                     nameInput={input.name}

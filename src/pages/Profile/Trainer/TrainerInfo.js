@@ -339,7 +339,7 @@ class TrainerInfo extends Component {
               <div className="b-trainer-info__card">
                 <h3>Корты и цены</h3>
                 <div className="b-trainer-info__cost">
-                  <div className="b-trainer-info__title-field">Стоимость часа, ₽</div>
+                  <div className="b-trainer-info__title-field">Стоимость часа (₽)</div>
 
                   <Field
                     name="minPrice"

@@ -43,7 +43,9 @@
 
     &__label-info {
         display: block;
-        font-size: 12px;
+        font-weight: 300;
+        color: $secondary;
+        font-size: .85em;
     }
 
     &__error {

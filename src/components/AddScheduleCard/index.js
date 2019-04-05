@@ -86,7 +86,7 @@ class AddScheduleCard extends Component {
                         return <div className="b-add-schedule-card__field">
                             <Input
                                 { ...input }
-                                labelText='Цена за час, ₽'
+                                labelText='Цена за час (₽)'
                                 idInput={`price-${idRender}`}
                                 placeholder='Цена за час'
                                 nameInput={input.name}
