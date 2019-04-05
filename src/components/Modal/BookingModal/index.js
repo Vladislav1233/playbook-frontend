@@ -30,6 +30,7 @@ import telWithoutPlus from '../../../helpers/telWithoutPlus';
 import calcCostService from '../../../helpers/calcCostService';
 import { required, startTimeBeforeEndTime, rangeContainsDate, composeValidators, validFormatTime, fullTelNumber } from '../../../helpers/validate';
 import { stepTime } from '../../../helpers/manipulateTime';
+import { convertTypeMoney } from '../../../helpers/convertTypeMoney';
 
 // Note: styles
 import '../../../style/bem-blocks/b-booking-form/index.scss';
@@ -245,8 +246,7 @@ class BookingModal extends Component {
                     }}
                     initialValues={{
                         playground: 'playground_other',
-                        players_count: '1',
-                        inventory_racket: '0'
+                        players_count: '1'
                     }}
                     validate={values => {
                         const errors = {};
@@ -264,7 +264,23 @@ class BookingModal extends Component {
                         return errors;
                     }}
                     render={({ handleSubmit, values, errors, touched }) => {
+                        let costTrainerService = '--:--';
+                        let costPlaygroundRent = '--:--';
+                        if (!errors.start_time && !errors.end_time) {
+                            costTrainerService = calcCostService(
+                                `${dateBooking} ${values.start_time}`,
+                                `${dateBooking} ${values.end_time}`,
+                                this.props.cost
+                            )
+
+                            costPlaygroundRent = calcCostService(
+                                `${dateBooking} ${values.start_time}`,
+                                `${dateBooking} ${values.end_time}`,
+                                costPlaygroundForPayBooking
+                            )
+                        };
                         console.log(values)
+                        console.log(equipments)
                         return (
                             <form onSubmit={handleSubmit} className="b-booking-form">
                                 <fieldset className={ cn('b-booking-form__fieldset', {
@@ -416,7 +432,7 @@ class BookingModal extends Component {
                                                     idInput={equipment.uuid}
                                                     nameInput={input.name}
                                                     theme={{blackColor: true}}
-                                                    infoLabel={`Доступно: ${equipment.availability}`}
+                                                    infoLabel={`Доступно: ${equipment.availability}, стоимость: ${convertTypeMoney(equipment.price_per_hour, 'RUB', 'banknote')} ₽/час`}
                                                 />
                                             }}
                                         />
@@ -433,43 +449,32 @@ class BookingModal extends Component {
                                                 modif="b-cost-information--total" title="Итого:">
                                                 {/* TODO_AMED: добавить "более" для корта без цены */}
                                                 { playgroundId ? 'Более ' : ''}
-                                                { numberCost(
-                                                    +calcCostService(
-                                                        `${dateBooking} ${values.start_time}`,
-                                                        `${dateBooking} ${values.end_time}`,
-                                                        this.props.cost
-                                                    )
-                                                    +
-                                                    +calcCostService(
-                                                        `${dateBooking} ${values.start_time}:00`,
-                                                        `${dateBooking} ${values.end_time}`,
-                                                        costPlaygroundForPayBooking
-                                                    )
-                                                )}
+                                                {numberCost(+costTrainerService + +costPlaygroundRent)}
                                             </CostInformation>
 
                                             <CostInformation title="Услуги тренера">
-                                                {numberCost(
-                                                    calcCostService(
-                                                        `${dateBooking} ${values.start_time}`,
-                                                        `${dateBooking} ${values.end_time}`,
-                                                        this.props.cost
-                                                    )
-                                                )}
+                                                {numberCost(costTrainerService)}
                                             </CostInformation>
 
                                             <CostInformation title="Аренда корта">
                                                 {playgroundId
-                                                    ? numberCost(calcCostService(
-                                                        `${dateBooking} ${values.start_time}`,
-                                                        `${dateBooking} ${values.end_time}`,
-                                                        costPlaygroundForPayBooking
-                                                    ))
+                                                    ? numberCost(costPlaygroundRent)
                                                     : '0 ₽'
                                                 }
                                             </CostInformation>
+
+                                            {/* <CostInformation title="Аренда теннисной ракетки">
+                                                {numberCost(calcCostService(
+                                                    `${dateBooking} ${values.start_time}`,
+                                                    `${dateBooking} ${values.end_time}`, 
+                                                    [{
+                                                        time: moment.range(`${dateBooking} ${values.start_time}`, `${dateBooking} ${values.end_time}`),
+                                                        cost: equipment.equipment.price_per_hour
+                                                    }]
+                                                ))}
+                                            </CostInformation> */}
                                         </Fragment>
-                                        : <p>Будет расчитанна автоматически</p>
+                                        : <p>Будет расчитана автоматически</p>
                                     }
                                 </fieldset>
 
