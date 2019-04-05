@@ -42,7 +42,7 @@ class HelloPage extends Component {
                     </div>
 
                     <h3 className="b-hello-page__heading">
-                        Забронируй корт для  тенниса и играй в удобное для тебя время
+                        Забронируй площадку или тренера и играй в удобное для тебя время
                     </h3>
                     <nav className="b-hello-page__nav">
                         <ul className="b-hello-page__list">
@@ -69,18 +69,6 @@ class HelloPage extends Component {
                                         Мои бронирования
                                     </Link>
                                 </li>
-                                {userRole[0] !== 'user'
-                                    ? <li className="b-hello-page__item">
-                                        <Link
-                                            className="b-button b-button--hollow b-button--hello-page"
-                                            to={profileTo()}
-                                        >
-                                            Личный кабинет
-                                        </Link>
-                                    </li>
-                                    : null
-                                }
-
                               </ul>
                             : null
                         }

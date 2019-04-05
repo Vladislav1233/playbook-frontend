@@ -1,15 +1,19 @@
 // 768
 .b-head-menu {
-
     &__content {
         font-size: 16px;
         max-width: 320px;
     }
 
-    &__content-list {
-    }
-
     &__account-name {
         display: block;
+    }
+
+    &__open-button {
+        &--arrow {
+            &:after {
+                margin-left: 12px;
+            }
+        }
     }
 }
