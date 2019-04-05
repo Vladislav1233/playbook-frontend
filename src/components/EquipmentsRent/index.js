@@ -5,6 +5,7 @@ import { extendMoment } from 'moment-range';
 // Note: helpers
 import calcCostService from '../../helpers/calcCostService';
 
+import '../../style/bem-blocks/b-equipments-rent/index.scss';
 
 const moment = extendMoment(Moment);
 
@@ -21,15 +22,15 @@ class EquipmentsRent extends Component {
                         <div>Количество: {equipment.count}</div>
                         <div>К оплате: {
                             calcCostService(
-                                startTimeRent, 
-                                endTimeRent, 
+                                startTimeRent,
+                                endTimeRent,
                                 [{
                                     time: moment.range(startTimeRent, endTimeRent),
                                     cost: equipment.equipment.price_per_hour
                                 }]
-                            )                                    
+                            )
                         } ₽</div>
-                    </li> 
+                    </li>
                 })}
             </ul>
         )
