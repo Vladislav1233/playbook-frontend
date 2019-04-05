@@ -432,10 +432,10 @@ class TrainerInfo extends Component {
                     </ul>
                   </Fragment>
                   :
-                  <div class="b-search-list-playground b-search-list-playground--empty">
-                    <div class="b-search-list-playground__content">
-                      <div class="b-search-list-playground__name">Ничего не выбрано</div>
-                      <div class="b-search-list-playground__address">Введите в поиске название или адрес площадки</div>
+                  <div className="b-search-list-playground b-search-list-playground--empty">
+                    <div className="b-search-list-playground__content">
+                      <div className="b-search-list-playground__name">Ничего не выбрано</div>
+                      <div className="b-search-list-playground__address">Введите в поиске название или адрес площадки</div>
                     </div>
                   </div>
                 }
