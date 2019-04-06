@@ -7,5 +7,5 @@ deploy:
   only:
     - develop
   script:
-    - sshpass -p $SSH_PASSWORD ssh -oStrictHostKeyChecking=no $SSH_USER@$SSH_HOST '/root/playbook-backend-develop/compile-frontend.sh develop playbook-develop_workspace_1'
+    - sshpass -p $SSH_PASSWORD ssh -oStrictHostKeyChecking=no $SSH_USER@$SSH_HOST 'cd /root/playbook-backend-develop && compile-frontend.sh develop playbook-develop_workspace_1'
 
