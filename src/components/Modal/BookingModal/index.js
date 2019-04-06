@@ -28,7 +28,7 @@ import { userService } from '../../../services/userService';
 // Note: helpers
 import telWithoutPlus from '../../../helpers/telWithoutPlus';
 import calcCostService from '../../../helpers/calcCostService';
-import { required, startTimeBeforeEndTime, rangeContainsDate, composeValidators, validFormatTime, fullTelNumber } from '../../../helpers/validate';
+import { required, startTimeBeforeEndTime, rangeContainsDate, composeValidators, validFormatTime, fullTelNumber, negativeNumber } from '../../../helpers/validate';
 import { stepTime } from '../../../helpers/manipulateTime';
 import { convertTypeMoney } from '../../../helpers/convertTypeMoney';
 import { isEmptyObject } from '../../../helpers/isEmptyObject';
@@ -451,7 +451,11 @@ class BookingModal extends Component {
 
                                     <Field 
                                         name="players_count"
-                                        render={({ input }) => {
+                                        validate={composeValidators(
+                                            required(),
+                                            negativeNumber()
+                                        )}
+                                        render={({ input, meta }) => {
                                             return <Input 
                                                 { ...input }
                                                 typeInput="number"
@@ -460,6 +464,7 @@ class BookingModal extends Component {
                                                 idInput="players_count"
                                                 nameInput={input.name}
                                                 theme={{blackColor: true}}
+                                                error={meta.error && meta.touched && meta.error}
                                             />
                                         }}
                                     />
@@ -469,7 +474,8 @@ class BookingModal extends Component {
                                         <Field
                                             key={equipment.uuid} 
                                             name={`equipments.${equipment.uuid}`}
-                                            render={({ input }) => {
+                                            validate={negativeNumber()}
+                                            render={({ input, meta }) => {
                                                 return <Input 
                                                     { ...input }
                                                     typeInput="number"
@@ -479,6 +485,7 @@ class BookingModal extends Component {
                                                     nameInput={input.name}
                                                     theme={{blackColor: true}}
                                                     infoLabel={`Доступно: ${equipment.availability}, стоимость: ${convertTypeMoney(equipment.price_per_hour, 'RUB', 'banknote')} ₽/час`}
+                                                    error={meta.error && meta.touched && meta.error}
                                                 />
                                             }}
                                         />

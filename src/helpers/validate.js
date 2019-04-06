@@ -47,3 +47,10 @@ export const confirmPassword = (password, text = 'Пароли не совпад
 export const fullTelNumber = (countNumber, text="Телефон введён не полностью") => value => {
     return value.length === countNumber ? undefined : text
 };
+
+export const negativeNumber = (text = 'Значение должно равняться 0 или больше') => value => {
+    if(value) {
+        return +value >= 0 ? undefined : text;
+    }
+    return undefined;
+};
