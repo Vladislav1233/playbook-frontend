@@ -1,0 +1,11 @@
+image: debian
+
+before_script:
+  - apt-get update -yqq && apt-get install git ssh sshpass -yqq
+
+deploy:
+  only:
+    - develop
+  script:
+    - sshpass -p $SSH_PASSWORD ssh -oStrictHostKeyChecking=no $SSH_USER@$SSH_HOST 'cd /root/playbook-backend-develop && ./compile-frontend.sh develop playbook-develop_workspace_1'
+
