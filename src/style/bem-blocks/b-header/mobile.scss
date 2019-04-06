@@ -5,7 +5,7 @@
 
     &--light {
         z-index: 10;
-        background: #00000095;
+        background: hsla(0, 0%, 0%, 0.584);
     }
 
     &__wrapper {
@@ -13,7 +13,7 @@
         align-items: center;
         justify-content: space-between;
         position: relative;
-        height: 64px;
+        height: $headerHeight;
     }
 
     &__get-schedule {
@@ -29,19 +29,43 @@
     &__left,
     &__center,
     &__right {
-        width: auto;
+        flex: 1 1 auto;
     }
 
     &__left {
         text-align: left;
+        width: 250px;
+
+        .b-header--light & {
+            text-align: center
+        }
     }
 
     &__center {
         text-align: center;
+        flex-grow: 3;
         margin: auto;
     }
 
     &__right {
+        width: 250px;
         text-align: right;
+    }
+
+    &__nav-item {
+        display: inline-block;
+        line-height: $headerHeight;
+        height: $headerHeight;
+        padding: 0 10px;
+        outline: none;
+
+        @include hover {
+            color: $whiteFontColor;
+            background: $header-hover;
+        }
+
+        @include focus {
+            color: $whiteFontColor;
+        }
     }
 }

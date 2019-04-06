@@ -1,1 +1,16 @@
 // 1024
+.b-head-menu {
+    &__content {
+        position: absolute;
+        top: calc(100% - 4px);
+        right: 4px;
+        bottom: auto;
+        width: calc(100vw - 30px);
+        max-width: 360px;
+        text-align: left;
+        border: 1px solid $border-color;
+        border-radius: $border-radius;
+        background: white;
+        box-shadow: $cardShadow;
+    }
+}

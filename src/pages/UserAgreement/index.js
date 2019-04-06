@@ -11,7 +11,7 @@ class UserAgreement extends Component {
     return (
       <div className="container">
         <div className="text-container">
-          <article className="b-personal-data">
+          <article className="b-personal-data gl-hyphens">
             <h1>Пользовательское соглашение на обработку персональных данных.</h1>
 
             <ol>

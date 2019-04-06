@@ -51,8 +51,7 @@
     &__price-value {
         display: inline-block;
         padding: 0 0 0 4px;
-        font-weight: 700;
-        color: var(--accent-text);
+        @include costStyle();
     }
 
     &__cost,

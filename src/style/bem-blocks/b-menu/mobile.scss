@@ -23,7 +23,7 @@
     }
 
     &__header {
-        height: 64px;
+        height: $headerHeight;
         border-bottom: 1px solid #02100b;
     }
 
@@ -51,38 +51,5 @@
 
     &__item {
         list-style-type: none;
-    }
-
-    &__link {
-        display: block;
-        padding: 8px 0px;
-        line-height: 1;
-
-        &--disabled {
-            cursor: default;
-            pointer-events: none;
-            color: #ffffff40;
-        }
-    }
-
-    &__social-list {
-        margin: auto 0 5px 0;
-        padding: 0;
-        font-size: 23px;
-        text-align: center;
-        color: #ffffff40;
-    }
-
-    &__social-item {
-        display: inline-block;
-        padding: 10px;
-        list-style: none;
-    }
-
-    &__copyright {
-        display: block;
-        font-size: 12px;
-        text-align: center;
-        color: #dddddd;
     }
 }

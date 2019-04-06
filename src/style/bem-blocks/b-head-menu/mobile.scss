@@ -7,18 +7,31 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-width: 64px;
-        height: 64px;
-        padding: 0 10px;
+        height: $headerHeight;
+        padding: 0 8px;
+        cursor: pointer;
         text-align: center;
         color: $whiteFontColor;
+        outline: none;
 
-@include hover {
+        @include hover {
             color: $whiteFontColor;
             background: $header-hover;
 
             svg path {
                 fill: #ffffff;
+            }
+        }
+
+        &--arrow {
+            &:after {
+                content: '';
+                position: relative;
+                display: inline-block;
+                border: 4px solid transparent;
+                border-top: 6px solid #fff;
+                margin-left: 6px;
+                margin-top: 5px;
             }
         }
     }
@@ -39,6 +52,7 @@
 
     &__image-wrapper {
         overflow: hidden;
+        flex: 0 0 auto;
         width: 44px;
         height: 44px;
         transition-duration: $animation-time;
@@ -57,6 +71,18 @@
             border-radius: 5px;
             background-color: rgba(0, 0, 0, .8);
         }
+
+        &--popup-alien {
+            width: 42px;
+            height: 42px;
+            line-height: 42px;
+            font-size: 1.5rem;
+            margin-right: 12px;
+            border: 1px solid rgba(0, 0, 0, .8);
+            border-radius: 5px;
+            background-color: transparent;
+            color: $mainFontColor;
+        }
     }
 
     &__image {
@@ -66,16 +92,18 @@
     }
 
     &__content {
-        position: absolute;
-        top: calc(100% + 2px);
+        position: fixed;
+        top: 0;
         right: 0;
-        width: calc(100vw - 30px);
-        max-width: 480px;
+        bottom: 0;
+        width: calc(100% - 50px);
+        max-width: 360px;
+        transition: transformX .1s;
         text-align: left;
         border: 1px solid $border-color;
-        border-radius: $border-radius;
+        border-radius: 0;
         background: white;
-        box-shadow: 0 2px 4px rgba(0,0,0,.4);
+        // box-shadow: -1000px 0px 0 1000px rgba(0, 0, 0, .4);
     }
 
     &__content-header {
