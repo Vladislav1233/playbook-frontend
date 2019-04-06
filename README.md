@@ -11,4 +11,4 @@
 
 ### Scripts
 * Run tests `yarn jest`
-* Run linter `yarn lint`
+* Run linter `yarn lint` 
