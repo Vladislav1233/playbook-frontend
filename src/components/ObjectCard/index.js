@@ -76,10 +76,10 @@ class ObjectCard extends Component {
                     </Link>
 
                     {/* Настройка профиля */}
-                    { trainerInfo.trainer_info &&
+                    { trainerInfo.trainer_info && trainerInfo.trainer_info.about &&
                         <Fragment>
                             <div className="b-object-card__info-block">
-                                <p className="b-object-card__title">Настройка профиля:</p>
+                                <p className="b-object-card__title">Обо мне:</p>
                                 { trainerInfo.trainer_info.about }
                             </div>
                         </Fragment>

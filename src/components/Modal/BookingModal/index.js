@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { extendMoment } from 'moment-range';
-import NumberFormat from 'react-number-format';
 import cn from 'classnames';
 import { Form, Field } from 'react-final-form';
 import { OnChange } from 'react-final-form-listeners';
@@ -11,6 +10,7 @@ import { ANALIZE_DATE_TIME_ZONE } from '../../../store/constants/formatDates';
 // Note: action
 import { createBooking } from '../../../store/actions/booking';
 import { userActions } from '../../../store/actions/userAction';
+import { getAllEquipmentsForBookable } from '../../../store/actions/equipment';
 
 // Note: components
 import Input from '../../ui-kit/Input/Input';
@@ -20,6 +20,7 @@ import Button from '../../ui-kit/Button/Button';
 import ModalComponent from '../index';
 import Radio from '../../ui-kit/Radio';
 import Checkbox from '../../ui-kit/Checkbox/Checkbox';
+import MoneyFromat from '../../ui-kit/MoneyFormat';
 
 // Note: services
 import { userService } from '../../../services/userService';
@@ -29,6 +30,8 @@ import telWithoutPlus from '../../../helpers/telWithoutPlus';
 import calcCostService from '../../../helpers/calcCostService';
 import { required, startTimeBeforeEndTime, rangeContainsDate, composeValidators, validFormatTime, fullTelNumber } from '../../../helpers/validate';
 import { stepTime } from '../../../helpers/manipulateTime';
+import { convertTypeMoney } from '../../../helpers/convertTypeMoney';
+import { isEmptyObject } from '../../../helpers/isEmptyObject';
 
 // Note: styles
 import '../../../style/bem-blocks/b-booking-form/index.scss';
@@ -46,11 +49,16 @@ class BookingModal extends Component {
         this.state = {
             playgroundId: null,
             registeredNewUser: false,
-            showFileldPassword: false
+            showFileldPassword: false,
+            costAdditionalService: {}
         };
 
         this.initialState = this.state;
     }
+
+    componentDidMount() {
+        this.props.getAllEquipmentsForBookableAction('trainer', this.props.userId)
+    };
 
     onRegisterUser = ({ first_name, last_name, phone }) => {
 
@@ -87,18 +95,32 @@ class BookingModal extends Component {
 
         this.props.closeModal();
 
+        this.setState({
+            ...this.initialState
+        });
+
         if (!localStorage.getItem('userRole') && localStorage.getItem('userToken')) {
             localStorage.removeItem('userToken');
         }
     };
 
     onSubmitBooking = (values) => {
-        const { typeBooking, dateBooking, createBooking, isAuthorization, loginAction } = this.props;
-        const { start_time, end_time, playground } = values;
+        const { typeBooking, dateBooking, createBooking, isAuthorization, loginAction, userId } = this.props;
+        const { start_time, end_time, playground, players_count, equipments } = values;
         const playgroundId = playground === 'playground_other' ? null : playground;
 
-        const { userId } = this.props;
         const formatDate = 'YYYY-MM-DD HH:mm:ss';
+
+        // Note: Собираем данные для бронирования дополнительных услуг
+        const dataEquipments = [];
+        for (let key in equipments) {
+            if(Object.prototype.hasOwnProperty.call(equipments, key)) {
+                dataEquipments.push({
+                    uuid: key,
+                    count: equipments[key]
+                })
+            }
+        };
 
         /* Note: data - Формируем данные для запроса бронирования
         * В запросе данные даты и времени переводим в UTC формат.
@@ -106,7 +128,9 @@ class BookingModal extends Component {
         const data = {
             start_time: moment(`${dateBooking} ${start_time}:00`).utc().format(formatDate),
             end_time: moment(`${dateBooking} ${end_time}:00`).utc().format(formatDate),
-            bookable_uuid: userId
+            bookable_uuid: userId,
+            players_count,
+            equipments: dataEquipments
         };
 
         if (playgroundId) {
@@ -168,13 +192,15 @@ class BookingModal extends Component {
             resetPasswordRequest,
             startTime,
             endTime,
-            stepMinIncrement
+            stepMinIncrement,
+            equipments
         } = this.props;
 
         const {
             playgroundId,
             showFileldPassword,
-            registeredNewUser
+            registeredNewUser,
+            costAdditionalService
         } = this.state;
 
         // Note: Доступный диапазон бронирования времени в данной карточке.
@@ -188,20 +214,42 @@ class BookingModal extends Component {
             costPlaygroundForPayBooking = [ ...this.getCostPlaygroundForPayBooking() ];
         }
 
-        const numberCost = (cost) => {
-            return <NumberFormat
-                value={cost}
-                suffix=' ₽'
-                thousandSeparator={' '}
-                displayType='text'
-                decimalScale={0}
-            />
-        };
-
         // Сейчас проверка цены корта
         const validCheck = (cost) => {
             if (cost === null) {
                 return 'Стоимость данного корта не указана администратором, уточняйте лично. Итоговая цена будет посчитана без учёта аренды корта.';
+            }
+        };
+
+        const templateAdditionalServiceCost = (_values) => {
+
+            if(!isEmptyObject(costAdditionalService)) {
+                let _array = [];
+                for (let _key in costAdditionalService) {
+                    if(Object.prototype.hasOwnProperty.call(costAdditionalService, _key)) {
+                        _array.push(costAdditionalService[_key])
+                    }
+                }
+                return _array.map(_item => {
+                    if(_item.count > 0) {
+                        const _cost = calcCostService(
+                            `${dateBooking} ${_values.start_time}`,
+                            `${dateBooking} ${_values.end_time}`,
+                            [{
+                                time: moment.range(
+                                    `${dateBooking} ${_values.start_time}`, 
+                                    `${dateBooking} ${_values.end_time}`
+                                ),
+                                cost: _item.pricePerHour
+                            }]
+                        ) * +_item.count;
+    
+                        return <CostInformation key={_item.uuid} title={_item.name}>
+                            <MoneyFromat cost={_cost} />
+                        </CostInformation>
+                    }
+                    return null
+                });
             }
         };
 
@@ -224,7 +272,8 @@ class BookingModal extends Component {
                         }
                     }}
                     initialValues={{
-                        playground: 'playground_other'
+                        playground: 'playground_other',
+                        players_count: '1'
                     }}
                     validate={values => {
                         const errors = {};
@@ -242,6 +291,41 @@ class BookingModal extends Component {
                         return errors;
                     }}
                     render={({ handleSubmit, values, errors, touched }) => {
+                        let costTrainerService = '--:--';
+                        let costPlaygroundRent = '--:--';
+                        let sumCostAdditionalService = 0;
+
+                        if (!errors.start_time && !errors.end_time) {
+                            costTrainerService = calcCostService(
+                                `${dateBooking} ${values.start_time}`,
+                                `${dateBooking} ${values.end_time}`,
+                                this.props.cost
+                            )
+
+                            costPlaygroundRent = calcCostService(
+                                `${dateBooking} ${values.start_time}`,
+                                `${dateBooking} ${values.end_time}`,
+                                costPlaygroundForPayBooking
+                            )
+
+                            for (let _key in costAdditionalService) {
+                                if(Object.prototype.hasOwnProperty.call(costAdditionalService, _key) && costAdditionalService[_key].count >= 0) {
+                                    sumCostAdditionalService = sumCostAdditionalService + (calcCostService(
+                                        `${dateBooking} ${values.start_time}`,
+                                        `${dateBooking} ${values.end_time}`,
+                                        [{
+                                            time: moment.range(
+                                                `${dateBooking} ${values.start_time}`, 
+                                                `${dateBooking} ${values.end_time}`
+                                            ),
+                                            cost: costAdditionalService[_key].pricePerHour
+                                        }]
+                                    ) * costAdditionalService[_key].count)
+                                    
+                                }
+                            }
+                        };
+
                         return (
                             <form onSubmit={handleSubmit} className="b-booking-form">
                                 <fieldset className={ cn('b-booking-form__fieldset', {
@@ -363,6 +447,65 @@ class BookingModal extends Component {
                                 </fieldset>
 
                                 <fieldset className="b-booking-form__fieldset">
+                                    <legend className="b-modal__title-group">Доп. информация</legend>
+
+                                    <Field 
+                                        name="players_count"
+                                        render={({ input }) => {
+                                            return <Input 
+                                                { ...input }
+                                                typeInput="number"
+                                                placeholder="Количество игроков"
+                                                labelText="Количество игроков"
+                                                idInput="players_count"
+                                                nameInput={input.name}
+                                                theme={{blackColor: true}}
+                                            />
+                                        }}
+                                    />
+                                    
+                                    {equipments.length > 0 ? equipments.map((equipment) => {
+                                        return <Fragment> 
+                                        <Field
+                                            key={equipment.uuid} 
+                                            name={`equipments.${equipment.uuid}`}
+                                            render={({ input }) => {
+                                                return <Input 
+                                                    { ...input }
+                                                    typeInput="number"
+                                                    labelText={`${equipment.name} (шт.)`}
+                                                    placeholder='Количество'
+                                                    idInput={equipment.uuid}
+                                                    nameInput={input.name}
+                                                    theme={{blackColor: true}}
+                                                    infoLabel={`Доступно: ${equipment.availability}, стоимость: ${convertTypeMoney(equipment.price_per_hour, 'RUB', 'banknote')} ₽/час`}
+                                                />
+                                            }}
+                                        />
+                                        <OnChange 
+                                            name={`equipments.${equipment.uuid}`}
+                                            children={value => {
+                                                this.setState(() => {
+                                                    return {
+                                                        costAdditionalService: {
+                                                            ...costAdditionalService,
+                                                            [equipment.uuid]: {
+                                                                name: equipment.name,
+                                                                uuid: equipment.uuid,
+                                                                pricePerHour: equipment.price_per_hour,
+                                                                count: value
+                                                            }
+                                                        }
+                                                    }
+                                                })
+                                            }}
+                                        />
+                                        </Fragment>
+                                    }) : null }
+
+                                </fieldset>
+
+                                <fieldset className="b-booking-form__fieldset">
                                     <legend className="b-modal__title-group">Стоимость</legend>
                                     {/* TODO_HOT: сразу показывать общую стоимость из суммы */}
                                     {!errors.start_time && !errors.end_time
@@ -371,43 +514,25 @@ class BookingModal extends Component {
                                                 modif="b-cost-information--total" title="Итого:">
                                                 {/* TODO_AMED: добавить "более" для корта без цены */}
                                                 { playgroundId ? 'Более ' : ''}
-                                                { numberCost(
-                                                    +calcCostService(
-                                                        `${dateBooking} ${values.start_time}`,
-                                                        `${dateBooking} ${values.end_time}`,
-                                                        this.props.cost
-                                                    )
-                                                    +
-                                                    +calcCostService(
-                                                        `${dateBooking} ${values.start_time}:00`,
-                                                        `${dateBooking} ${values.end_time}`,
-                                                        costPlaygroundForPayBooking
-                                                    )
-                                                )}
+                                                <MoneyFromat 
+                                                    cost={+costTrainerService + +costPlaygroundRent + +sumCostAdditionalService}
+                                                />
                                             </CostInformation>
 
                                             <CostInformation title="Услуги тренера">
-                                                {numberCost(
-                                                    calcCostService(
-                                                        `${dateBooking} ${values.start_time}`,
-                                                        `${dateBooking} ${values.end_time}`,
-                                                        this.props.cost
-                                                    )
-                                                )}
+                                                <MoneyFromat cost={costTrainerService} />
                                             </CostInformation>
 
                                             <CostInformation title="Аренда корта">
                                                 {playgroundId
-                                                    ? numberCost(calcCostService(
-                                                        `${dateBooking} ${values.start_time}`,
-                                                        `${dateBooking} ${values.end_time}`,
-                                                        costPlaygroundForPayBooking
-                                                    ))
+                                                    ? <MoneyFromat cost={costPlaygroundRent} />
                                                     : '0 ₽'
                                                 }
                                             </CostInformation>
+
+                                            {templateAdditionalServiceCost(values)}
                                         </Fragment>
-                                        : <p>Будет расчитанна автоматически</p>
+                                        : <p>Будет расчитана автоматически</p>
                                     }
                                 </fieldset>
 
@@ -599,9 +724,10 @@ class CostInformation extends Component {
     }
 }
 
-const mapStateToProps = ({ identificate }) => {
+const mapStateToProps = ({ identificate, equipment }) => {
     return {
-        isAuthorization: identificate.authorization
+        isAuthorization: identificate.authorization,
+        equipments: equipment.equipments
     }
 };
 
@@ -609,7 +735,8 @@ const mapStateToDispatch = (dispatch) => {
     return {
         createBooking: (typeBooking, data) => dispatch(createBooking(typeBooking, data)),
         loginAction: (data, toMain, callback) => dispatch(userActions.login(data, toMain, callback)),
-        resetPasswordRequest: (data) => dispatch(userActions.resetPasswordRequest(data))
+        resetPasswordRequest: (data) => dispatch(userActions.resetPasswordRequest(data)),
+        getAllEquipmentsForBookableAction: (bookable_type, bookable_uuid) => dispatch(getAllEquipmentsForBookable(bookable_type, bookable_uuid)) 
     }
 }
 

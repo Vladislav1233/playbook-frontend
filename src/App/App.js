@@ -16,7 +16,6 @@ import { alertActions } from '../store/actions/alertAction'
 // component
 import Header from '../components/Template/Header';
 import Footer from '../components/Template/Footer';
-import CoverPage from '../components/CoverPage/CoverPage';
 import Alert from '../components/ui-kit/Alert';
 
 // style
@@ -79,8 +78,6 @@ class App extends Component {
                     {renderRoutePage()}
                 </main>
                 <Footer location={ location.pathname } />
-                {/* TODO: сделать анимацию через react transition */}
-                <CoverPage />
 
                 {alertMessage ?
                     <Alert buttonOk type={alertType} closeAlert={this.props.closeAlert}>

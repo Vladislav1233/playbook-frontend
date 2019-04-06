@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
 import cn from 'classnames';
 
-import { toggleCabinet } from '../../store/actions/toggleCabinet';
 import { NavLink, Route, Switch, Redirect } from "react-router-dom";
 import { RouteWithSubRoutes } from '../../App/routeConfig';
 
@@ -10,7 +8,7 @@ import { RouteWithSubRoutes } from '../../App/routeConfig';
 import NotFound from '../NotFound';
 
 // Helpers
-import { DesktopMin, NotDesktopMin } from '../../helpers/mediaQuery';
+import { DesktopMin } from '../../helpers/mediaQuery';
 
 // Note: images
 import addInfoIcon from '../../style/images/icon/add-info.svg';
@@ -48,14 +46,7 @@ const navigationLink = [{
 class ProfileTrainer extends Component {
 
   render() {
-    const { toggleCabinet, routes, location } = this.props;
-
-    const classNameList = cn(
-      'b-profile-tabs__list-wrapper',
-      {
-        open: toggleCabinet
-      }
-    );
+    const { routes, location } = this.props;
 
     const howLocation = location.pathname.split('/');
 
@@ -63,7 +54,7 @@ class ProfileTrainer extends Component {
       <div className="container container--null">
         <div className="b-profile-tabs">
           <DesktopMin>
-            <nav className={ classNameList }>
+            <nav className='b-profile-tabs__list-wrapper'>
               <div className="b-profile-tabs__list">
                 { navigationLink.map((item, index) => {
                   const classNameProfileTab = cn(
@@ -100,19 +91,4 @@ class ProfileTrainer extends Component {
   }
 }
 
-const mapStateToProps = ({ toggleCabinet }) => {
-  return {
-    toggleCabinet: toggleCabinet.toggleCabinet
-  }
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onToggleCabinet: (e) => {
-      if (e) e.preventDefault();
-      dispatch(toggleCabinet());
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileTrainer);
+export default ProfileTrainer;

@@ -13,8 +13,8 @@ export const store = configureStore();
 ReactDOM.render(
     <Provider store={store}>
         <Router history={history}>
-                {/* <Route path='/' component={App} /> */}
-                <App />
+            {/* <Route path='/' component={App} /> */}
+            <App />
         </Router>
     </Provider>,
     document.getElementById('root')

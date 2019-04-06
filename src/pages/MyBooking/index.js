@@ -23,6 +23,7 @@ class MyBooking extends Component {
             declineBooking,
             preloaderBooking
         } = this.props;
+        console.log(dataMyBooking)
 
         return(
             <div className="b-my-booking">
@@ -48,6 +49,7 @@ class MyBooking extends Component {
                                                 declineBooking={declineBooking}
                                                 bookingId={item.uuid}
                                                 playgroundSchedule={item.playground ? item.playground.schedules : []}
+                                                equipment_rent={item.equipment_rent}
                                             />
                                         </div>
                                     )

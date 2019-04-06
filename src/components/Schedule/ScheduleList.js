@@ -17,7 +17,8 @@ class ScheduleList extends Component {
         userId, 
         isWhoBooked, 
         onClickDecline, 
-        cost 
+        cost,
+        additionalService
     } = this.props;
 
     return (
@@ -40,6 +41,7 @@ class ScheduleList extends Component {
                                 onClickDecline={onClickDecline}
                                 cost={cost}
                                 bookedCost={item.price}
+                                additionalService={additionalService}
                             />
                         </li>
                     )

@@ -1,25 +1,15 @@
 // 1024
 .b-trainer-info {
     &__info-wrap {
+        display: flex;
         margin-bottom: 30px;
         flex-wrap: wrap;
         box-shadow: none;
-        margin: 0 -8px 17px;
+        margin: 0 -8px;
     }
 
-    &__form {
-        margin: 0 8px 8px;
-        border: none;
-        border-radius: 5px;
-        box-shadow: $cardShadow;
-        width: calc(50% - 16px);
-    }
-
-    &__playground {
-        margin: 0 8px 8px;
-        border: none;
-        border-radius: 5px;
-        box-shadow: $cardShadow;
+    &__card {
+        margin: 0 8px 16px;
         width: calc(50% - 16px);
     }
 

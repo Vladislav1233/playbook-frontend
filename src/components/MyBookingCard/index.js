@@ -5,6 +5,8 @@ import { ANALIZE_DATE_TIME_ZONE } from "../../store/constants/formatDates";
 
 // Note: components
 import DeclineBookingModal from '../Modal/DeclineBookingModal';
+import EquipmentsRent from '../EquipmentsRent';
+import MoneyFromat from '../ui-kit/MoneyFormat';
 
 // Note: helpers
 import { convertTypeMoney } from '../../helpers/convertTypeMoney';
@@ -73,7 +75,8 @@ class MyBookingCard extends Component {
             price,
             status, // Note: 0 - не подтверждено (не обработана заявка), 1 - подтверждено, 2 - отменено/отклонено.
             note, // Note: заметка с причиной отмены бронирования
-            bookingId
+            bookingId,
+            equipment_rent
         } = this.props;
 
         const pricePlayground = +calcCostService(
@@ -141,16 +144,34 @@ class MyBookingCard extends Component {
                         </div>
                 </div>
 
+                {equipment_rent && equipment_rent.length > 0 
+                    ? <div className="info-block">
+                        <p className="info-block__title">Дополнительные услуги</p>
+                        <EquipmentsRent 
+                            equipmentRent={equipment_rent}
+                            startTimeRent={startTime}
+                            endTimeRent={endTime}
+                        />
+                    </div>
+                    : null
+                }
+
                 <div className="info-block info-block--accent">
                     <p className="info-block__title">Оплата тренера</p>
-                    <div className="info-block__text">{convertTypeMoney(price, 'RUB', 'banknote')} ₽</div>
+                    <div className="info-block__text">
+                        <MoneyFromat 
+                            cost={convertTypeMoney(price, 'RUB', 'banknote')}
+                        />
+                    </div>
                 </div>
 
                 <div className="info-block info-block--accent">
                     <p className="info-block__title">Оплата корта</p>
                     <div className="info-block__text">
                         {pricePlayground > 0 
-                            ? `${pricePlayground} ₽` 
+                            ? <MoneyFromat 
+                                cost={pricePlayground}
+                            /> 
                             : 'Не указана администратором. Уточняйте у тренера или у администратора корта.'
                         }
                     </div>
