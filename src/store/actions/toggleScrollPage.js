@@ -8,10 +8,10 @@ import {
 * isNoScroll = false - страница скроллиться
 */
 export function toggleScrollPage(isNoScroll) {
-  return dispatch => {
-      dispatch({
-        type: SCROLL_PAGE,
-        payload: isNoScroll
-      })
-  }
+	return dispatch => {
+		dispatch({
+			type: SCROLL_PAGE,
+			payload: isNoScroll
+		})
+	}
 }

@@ -14,6 +14,9 @@ import CoverPage from '../CoverPage';
 import { history } from '../../helpers/history';
 import { DesktopMin, NotDesktopMin } from '../../helpers/mediaQuery';
 
+// Note: action
+import { toggleScrollPage } from '../../store/actions/toggleScrollPage';
+
 // Note: style
 import '../../style/bem-blocks/b-head-menu/index.scss';
 import '../../style/bem-blocks/b-hamburger/index.scss';
@@ -60,13 +63,13 @@ class HeadMenu extends Component {
     this.setState({
       ...this.state,
       showContent: !this.state.showContent
-    })
+    }, () => this.props.toggleScrollPageAction(this.state.showContent))
   };
 
   closeContent = () => {
     this.setState({
       showContent: false
-    })
+    }, () => this.props.toggleScrollPageAction(this.state.showContent))
   };
 
   stretchMenu = (x) => {
@@ -286,7 +289,8 @@ const mapDispatchToProps = (dispatch) => {
     onLogout: e => {
       e.preventDefault();
       dispatch(userActions.logout());
-    }
+    },
+    toggleScrollPageAction: (isNoScroll) => dispatch(toggleScrollPage(isNoScroll))
   }
 }
 
