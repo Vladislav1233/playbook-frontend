@@ -27,8 +27,9 @@ class EquipmentsRent extends Component {
                                 [{
                                     time: moment.range(startTimeRent, endTimeRent),
                                     cost: equipment.equipment.price_per_hour
-                                }]
-                            )
+                                }],
+                                'YYYY-MM-DD HH:mm:ss ZZ'
+                            ) * equipment.count
                         } ₽</div>
                     </li>
                 })}

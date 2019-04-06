@@ -196,7 +196,6 @@ class BookingModal extends Component {
             registeredNewUser
         } = this.state;
 
-        console.log(equipments)
 
         // Note: Доступный диапазон бронирования времени в данной карточке.
         const availableRange = {
