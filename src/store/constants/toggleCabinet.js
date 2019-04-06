@@ -1,1 +1,0 @@
-export const TOGGLE_CABINET = 'TOGGLE_CABINET';

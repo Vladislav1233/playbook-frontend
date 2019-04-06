@@ -7,6 +7,9 @@ import { configPathRouter } from '../../App/configPathRouter';
 import OutsideClickHandler from 'react-outside-click-handler';
 import Swipe from 'react-easy-swipe';
 
+// Note: components
+import CoverPage from '../CoverPage';
+
 // helpers
 import { history } from '../../helpers/history';
 import { DesktopMin, NotDesktopMin } from '../../helpers/mediaQuery';
@@ -128,9 +131,7 @@ class HeadMenu extends Component {
     return (
       <div className={ classNameBlock }>
         <OutsideClickHandler
-          onOutsideClick={ () => {
-            this.closeContent();
-          } }
+          onOutsideClick={this.closeContent}
           display="inline-block"
         >
           { isAuthorization
@@ -259,8 +260,10 @@ class HeadMenu extends Component {
                     </li>
                   </ContentItem>
                 }
-
               </aside>
+              <NotDesktopMin>
+                <CoverPage active onClick={this.closeContent}/>
+              </NotDesktopMin>
             </Swipe>
 
           }
