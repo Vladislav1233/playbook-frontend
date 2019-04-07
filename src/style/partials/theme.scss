@@ -179,6 +179,11 @@ button {
         .info-block__title {
             min-width: 70px;
             margin-right: 10px;
+            text-align: right;
+        }
+
+        .info-block__text {
+            text-align: left;
         }
     }
 
