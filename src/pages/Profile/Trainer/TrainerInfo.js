@@ -175,7 +175,7 @@ class TrainerInfo extends Component {
       about,
       minPrice,
       maxPrice
-    } = values;
+		} = values;
 
     const { idInfo } = this.state;
 		
@@ -266,17 +266,17 @@ class TrainerInfo extends Component {
           }
         });
       });
-    };
+		};
 
     return (
       <Form
         onSubmit={ this.onSaveInformation }
         initialValues={ {
-          ...trainerInfo,
-          ...additionalServiceRender
-        } }
+					...trainerInfo,
+					...additionalServiceRender
+				} }
+				keepDirtyOnReinitialize
         render={ ({ handleSubmit, values }) => {
-          // console.log(values)
           return <form onSubmit={ handleSubmit } className="b-trainer-info">
             <h1>Настройка личного профиля</h1>
             <div className="b-trainer-info__info-wrap">
@@ -446,7 +446,8 @@ class TrainerInfo extends Component {
               <div className="b-trainer-info__card">
                 <h3>Дополнительные услуги</h3>
                 <CreateAdditionalService
-                  listAdditionalService={ LIST_ADDITIONAL_SERVICE_TENNIS }
+									listAdditionalService={ LIST_ADDITIONAL_SERVICE_TENNIS }
+									init={additionalServiceRender}
                 />
               </div>
             </div>
