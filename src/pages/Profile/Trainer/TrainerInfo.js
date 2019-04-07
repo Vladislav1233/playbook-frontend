@@ -169,11 +169,32 @@ class TrainerInfo extends Component {
   onSaveInformation = (values) => {
     if (this.state.preloader === false) {
       this.setState({ preloader: true });
-    }
+		}
+
+		const {
+      about,
+      minPrice,
+      maxPrice
+		} = values;
+
+    const { idInfo } = this.state;
+		
+		// TODO: здесь надо будет обсудить и доделать так, чтобы найденные новые площадки не пересекались с уже добавленными себе, чтобы лишнего не выводилось тренеру. + Надо придумать как удалять площадку на которой тренируешь.
+    const {
+      playgrounds
+		} = this.state.trainerInfo;
+		
+		// Note: проверяем заполнены ли площадки
+		if(playgrounds.length === 0) {
+			this.setState({
+				preloader: false
+			});
+			this.props.dispatch(alertActions.error('Ошибка! Добавьте минимум 1 корт на котором тренируете.'));
+			return;
+		}
 
     let dataAdditionalService = [];
     LIST_ADDITIONAL_SERVICE_TENNIS.forEach((serviceItem) => {
-      // console.log(serviceItem)
       if (values[serviceItem.id] && values[serviceItem.id].service) {
         dataAdditionalService.push({
           name: serviceItem.name,
@@ -184,24 +205,9 @@ class TrainerInfo extends Component {
         });
       }
     })
-
     dataAdditionalService.forEach((requestDataService) => {
       requestDataService.uuid ? undefined : this.props.createEquipmentAction(requestDataService);
     });
-
-
-    // TODO: здесь надо будет обсудить и доделать так, чтобы найденные новые площадки не пересекались с уже добавленными себе, чтобы лишнего не выводилось тренеру. + Надо придумать как удалять площадку на которой тренируешь.
-    const {
-      playgrounds
-    } = this.state.trainerInfo;
-
-    const {
-      about,
-      minPrice,
-      maxPrice
-    } = values;
-
-    const { idInfo } = this.state;
 
     const playgroundsId = playgrounds.length > 0 ? playgrounds.map(item => {
       return item.uuid;
@@ -260,22 +266,17 @@ class TrainerInfo extends Component {
           }
         });
       });
-    };
-    // console.log(equipment);
-    // console.log(additionalServiceRender)
-    // console.log(trainerInfo)
-
-
+		};
 
     return (
       <Form
         onSubmit={ this.onSaveInformation }
         initialValues={ {
-          ...trainerInfo,
-          ...additionalServiceRender
-        } }
+					...trainerInfo,
+					...additionalServiceRender
+				} }
+				keepDirtyOnReinitialize
         render={ ({ handleSubmit, values }) => {
-          // console.log(values)
           return <form onSubmit={ handleSubmit } className="b-trainer-info">
             <h1>Настройка личного профиля</h1>
             <div className="b-trainer-info__info-wrap">
@@ -445,8 +446,8 @@ class TrainerInfo extends Component {
               <div className="b-trainer-info__card">
                 <h3>Дополнительные услуги</h3>
                 <CreateAdditionalService
-                  listAdditionalService={ LIST_ADDITIONAL_SERVICE_TENNIS }
-                  onChangeField={ this.handleAdditionalService }
+									listAdditionalService={ LIST_ADDITIONAL_SERVICE_TENNIS }
+									init={additionalServiceRender}
                 />
               </div>
             </div>

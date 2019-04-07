@@ -7,6 +7,7 @@ import Input from '../ui-kit/Input/Input';
 
 // Note: helpers
 import { required } from '../../helpers/validate';
+import { isEmptyObject } from '../../helpers/isEmptyObject';
 
 // Note: styles
 import '../../style/bem-blocks/b-create-additional-service/index.scss'
@@ -14,13 +15,13 @@ import '../../style/bem-blocks/b-create-additional-service/index.scss'
 class CreateAdditionalService extends Component {
 
     render() {
-        const { listAdditionalService } = this.props;
+        const { listAdditionalService, init } = this.props;
 
         return(
             <div className="b-create-additional-service">
 
                 {listAdditionalService.map((item) => {
-                    return <AdditionalServiceField name={item.id} item={item} key={item.id} />
+                    return <AdditionalServiceField name={item.id} item={item} key={item.id} init={init}/>
                 })}
             </div>
         )
@@ -34,7 +35,7 @@ const Condition = ({ when, is, children }) => (
 );
 
 // Note: example - https://codesandbox.io/s/8z5jm6x80
-const AdditionalServiceField = ({ name, item }) => {
+const AdditionalServiceField = ({ name, item, init }) => {
     return <Fragment>
         <div className="b-create-additional-service__check">
             <Field
@@ -57,6 +58,7 @@ const AdditionalServiceField = ({ name, item }) => {
                     <Field
                         name={`${name}.cost`}
                         validate={required()}
+                        initialValue={!isEmptyObject(init) && init[item.id] ? init[item.id].cost : ''}
                         render={({ input, meta }) => {
                             return <Input
                                 { ...input }
@@ -74,6 +76,7 @@ const AdditionalServiceField = ({ name, item }) => {
                     && <div className="b-create-additional-service__field-wrapper">
                         <Field
                             name={`${name}.availability`}
+                            initialValue={!isEmptyObject(init) && init[item.id] ? init[item.id].availability : ''}
                             render={({ input }) => {
                                 return <Input
                                     { ...input }
@@ -85,6 +88,14 @@ const AdditionalServiceField = ({ name, item }) => {
                         />
                     </div>
                 }
+
+                <Field 
+                    name={`${name}.uuid`}
+                    initialValue={!isEmptyObject(init) && init[item.id] ? init[item.id].uuid : ''}
+                    component='input'
+                    type='text'
+                    style={ { display: 'none' } }
+                />
             </div>
         </Condition>
     </Fragment>

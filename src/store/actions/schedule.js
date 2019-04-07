@@ -120,6 +120,7 @@ export function getTrainerSchedule(userId, data, isCabinet = false) {
                     if (isCabinet) {
                         bookingService.getBookings('trainer', userId, params).then(
                             responseReservedTime => {
+                                console.log(responseReservedTime)
                                 dispatch(success(response, responseReservedTime));
                             }
                         )

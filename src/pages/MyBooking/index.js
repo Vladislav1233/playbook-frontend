@@ -23,7 +23,6 @@ class MyBooking extends Component {
             declineBooking,
             preloaderBooking
         } = this.props;
-        console.log(dataMyBooking)
 
         return(
             <div className="b-my-booking">

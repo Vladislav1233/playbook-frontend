@@ -6,8 +6,8 @@ const moment = extendMoment(Moment);
 const calcCostService = (startTimeBooking, endTimeBooking, rangeCostArray, formatForTime = 'YYYY-MM-DD HH:mm:ss') => {
     /*
     * calcCost - функция подсчета стоимости услуги бронирования.
-    * startTimeBooking (string. example: '12:00') - время начала букинга.
-    * endTimeBooking (string. example: '18:00') - время окончания букинга.
+    * startTimeBooking (string. example: '2019-03-22 12:00') - время начала букинга.
+    * endTimeBooking (string. example: '2019-03-22 18:00') - время окончания букинга.
     * rangeCostArray (array. example: [{time: object moment range, cost: 10000 (cent)}]) - массив со стоимостью часа в диапазоне времени.
     */
 
