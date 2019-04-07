@@ -8,6 +8,8 @@ module.exports = {
         "no-undef": 1,
         "no-delete-var": 1,
 
+        // "indent": ["warn", "tab"],
+
         // best (https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js)
         // enforces getter/setter pairs in objects
         'accessor-pairs': 'off',

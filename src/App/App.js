@@ -71,6 +71,13 @@ class App extends Component {
             }
         }
 
+        // try off scroll
+        if (scrollPage) {
+            document.documentElement.classList.add('no-scroll');
+        } else {
+            document.documentElement.classList.remove('no-scroll');
+        }
+
         return (
             <div className={pageWrapperClass}>
                 <Header location={location.pathname} />
