@@ -35,6 +35,25 @@ export default function equipment(state = initialState, action) {
                 preloader: false
             }
 
+        case CREATE_EQUIPMENT_START: 
+            return {
+                ...state,
+                preloader: true
+            }
+
+        case CREATE_EQUIPMENT_SUCCESS:
+            return {
+                ...state,
+                preloader: false,
+                equipments: [ ...state.equipments, action.payload.data.data ]
+            }
+
+        case CREATE_EQUIPMENT_FAILURE:
+            return {
+                ...state,
+                preloader: false
+            }
+
         default:
             return {
                 ...state

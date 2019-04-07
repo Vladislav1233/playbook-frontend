@@ -184,6 +184,7 @@ class TrainerInfo extends Component {
       playgrounds
 		} = this.state.trainerInfo;
 		
+		// Note: проверяем заполнены ли площадки
 		if(playgrounds.length === 0) {
 			this.setState({
 				preloader: false
