@@ -12,6 +12,11 @@ const CONTENT_TYPE = {
   JSON: 'application/json'
 };
 
+const ENVIRONMENT = {
+  development: 'development',
+  production: 'production'
+};
+
 type RequestDefaults = {
   mode: string,
   credentials: string
@@ -19,4 +24,4 @@ type RequestDefaults = {
 
 const requestDefaults: RequestDefaults = { mode: 'cors', credentials: 'include' };
 
-export { REST_API, GET, POST, PUT, DELETE, REST_API_ERROR, requestDefaults, CONTENT_TYPE, API_URL };
+export { REST_API, GET, POST, PUT, DELETE, REST_API_ERROR, requestDefaults, CONTENT_TYPE, API_URL, ENVIRONMENT };

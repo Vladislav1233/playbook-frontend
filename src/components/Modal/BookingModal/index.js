@@ -5,7 +5,10 @@ import { extendMoment } from 'moment-range';
 import cn from 'classnames';
 import { Form, Field } from 'react-final-form';
 import { OnChange } from 'react-final-form-listeners';
+
+// constants
 import { ANALIZE_DATE_TIME_ZONE } from '../../../store/constants/formatDates';
+import { ENVIRONMENT } from '../../../store/constants/restAPI';
 
 // Note: action
 import { createBooking } from '../../../store/actions/booking';
@@ -76,6 +79,9 @@ class BookingModal extends Component {
                         showFileldPassword: true
                     });
                     localStorage.setItem('userToken', res.data.data.access_token);
+                    if(process.env.NODE_ENV === ENVIRONMENT.development) {
+                        alert(`Пароль: ${res.data.data.verification_code}`)
+                    }
                 },
                 err => {
                     if(err.response.data.data.phone && err.response.data.data.phone[0] === "Такое значение поля мобильный номер уже существует.") {
@@ -551,7 +557,7 @@ class BookingModal extends Component {
                                             <Fragment>
                                                 {registeredNewUser
                                                     ? <div className="b-booking-form__note">
-                                                        На ваш номер телефона выслан пароль. Введите его в поле ниже, а затем нажми кнопку <i>"Подтвердить"</i>.
+                                                        На ваш номер телефона выслан пароль. Введите его в поле ниже, а затем нажмите кнопку <i>"Подтвердить"</i>.
                                                         <br/>
                                                         Пароль можно использовать повторно для авторизации в системе по вашему номеру телефона.
                                                     </div>
