@@ -62,7 +62,7 @@ class ObjectCard extends Component {
                 <div className="b-object-card__photo-wrapper">
                     {/* TODO: сделать добавление фото в ЛК */}
                     {trainerInfo.image
-                        ? <img className="b-object-card__photo" src={trainerInfo.image} alt="Фото тренера" />
+                        ? <img loading="lazy" className="b-object-card__photo" src={trainerInfo.image} alt="Фото тренера" />
                         : null
                     }
                 </div>

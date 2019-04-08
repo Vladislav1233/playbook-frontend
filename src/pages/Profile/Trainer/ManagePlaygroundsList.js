@@ -35,7 +35,7 @@ class ManagePlaygroundsList extends Component {
                         return <li key={playground.uuid} className="b-list-trainer__item">
                             <div className="b-object-card">
                                 <div className="b-object-card__photo-wrapper">
-                                    <img className="b-object-card__photo" src='https://pp.userapi.com/c624421/v624421853/2da9f/F0drNkjzT3A.jpg' alt="Фото тренера" />
+                                    <img className="b-object-card__photo" src='https://pp.userapi.com/c624421/v624421853/2da9f/F0drNkjzT3A.jpg' alt="Фото тренера" loading="lazy" />
                                 </div>
 
                                 <div className="b-object-card__info">
