@@ -23,7 +23,7 @@ class Checkbox extends Component {
     }
 
     render() {
-        const { name, id, value, modif, checked, type, children, error } = this.props;
+        const { name, id, value, modif, checked, type, children, error, onChange } = this.props;
 
         const classNameCheckbox = cn(
             'b-checkbox',
@@ -52,7 +52,7 @@ class Checkbox extends Component {
                         value={value}
                         checked={checked}
                         onChange={(e) => {
-                            this.props.onChange(e)
+                            onChange(e)
                         }}
                     />
                     <label className={classNameStyleCheck} htmlFor={id}>

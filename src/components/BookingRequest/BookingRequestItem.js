@@ -5,6 +5,7 @@ import { extendMoment } from 'moment-range';
 // Note: components
 import DeclineBookingModal from '../Modal/DeclineBookingModal'; 
 import Button from '../ui-kit/Button/Button';
+import EquipmentsRent from '../EquipmentsRent';
 
 import { convertTypeMoney } from '../../helpers/convertTypeMoney';
 import calcCostService from '../../helpers/calcCostService';
@@ -58,12 +59,16 @@ class BookingRequestItem extends Component {
             endTime,
             onClickConfirm, 
             onClickDecline,
-            price
+            price,
+            equipment_rent
         } = this.props;
 
+        const startTimeCard = startTime.format('YYYY-MM-DD HH:mm:ss'),
+            endTimeCard = endTime.format('YYYY-MM-DD HH:mm:ss');
+
         const pricePlayground = +calcCostService(
-            startTime.format('YYYY-MM-DD HH:mm:ss'), 
-            endTime.format('YYYY-MM-DD HH:mm:ss'), 
+            startTimeCard, 
+            endTimeCard, 
             this.getCostPlaygroundForPayBooking()
         );
 
@@ -94,6 +99,18 @@ class BookingRequestItem extends Component {
                         <p className="info-block__title">Когда</p>
                         <p className="info-block__text">{time}</p>
                     </div>
+                    
+                    {equipment_rent.length > 0 
+                        ? <div className="info-block">
+                            <p className="info-block__title">Дополнительные услуги</p>
+                            <EquipmentsRent 
+                                equipmentRent={equipment_rent}
+                                startTimeRent={startTimeCard}
+                                endTimeRent={endTimeCard}
+                            />
+                        </div>
+                        : null
+                    }
 
                     <div className="info-block info-block--accent">
                         <p className="info-block__title">К оплате тренеру:</p>

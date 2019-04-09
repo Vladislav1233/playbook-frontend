@@ -5,8 +5,7 @@ import toggleMenu from './toggleMenu';
 import scheduleTrainer from './scheduleTrainer';
 import scheduleCourt from './scheduleCourt';
 import roleUser from './roleUser';
-import registration from './registration';
-import toggleCabinet from './toggleCabinet';
+import registration from './registration'; 
 import searchPlayground from './searchPlayground';
 import identificate from './identificate';
 import booking from './booking';
@@ -14,6 +13,7 @@ import trainerList from './trainerList';
 import scrollPage from './scrollPage';
 import alertReducer from './alertReducer';
 import trainerInfo from './trainerInfo';
+import equipment from './equipment';
 
 export default function(initialState = {}) {
     const rootReducer = combineReducers({
@@ -23,13 +23,13 @@ export default function(initialState = {}) {
         roleUser,
         registration,
         identificate,
-        toggleCabinet,
         searchPlayground,
         booking,
         trainerList,
         scrollPage,
         alertReducer,
-        trainerInfo
+        trainerInfo,
+        equipment
     });
 
     return createStore(rootReducer, initialState, applyMiddleware(thunkMiddleware));

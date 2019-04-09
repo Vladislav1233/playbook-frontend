@@ -58,7 +58,8 @@ class Schedule extends Component {
       onClickDecline,
       preloader,
       titlePage,
-      noteTitle
+      noteTitle,
+      additionalService
     } = this.props;
 
     const notScheduleTemplate = () => (
@@ -130,14 +131,28 @@ class Schedule extends Component {
                 <div className='b-schedule__playground'>
                   <div className="b-schedule__title">Тренирую на:</div>
 
-                  { playgroundsForTraining.map(item => {
-                    return (
-                      <div className="b-schedule__playground-item" key={ item.uuid }>
-                        <div className="b-schedule__playground-name">{ item.name }</div>
-                        <div className="b-schedule__playground-address">({ item.address })</div>
-                      </div>
-                    )
-                  }) }
+                  {/* если не список */}
+                  { (playgroundsForTraining.length === 1) ?
+                    playgroundsForTraining.map(item => {
+                      return (
+                        <div className="b-schedule__playground-item" key={ item.uuid }>
+                          <div className="b-schedule__playground-name">{ item.name }</div>
+                          <div className="b-schedule__playground-address">({ item.address })</div>
+                        </div>
+                      )
+                    })
+                    :
+                    <ul className="b-schedule__playground-list">
+                      { playgroundsForTraining.map(item => {
+                        return (
+                          <li className="b-schedule__playground-item" key={ item.uuid }>
+                            <div className="b-schedule__playground-name">{ item.name }</div>
+                            <div className="b-schedule__playground-address">({ item.address })</div>
+                          </li>
+                        )
+                      }) }
+                    </ul>
+                  }
                 </div>
                 : null }
 
@@ -151,6 +166,7 @@ class Schedule extends Component {
                     playgroundsForTraining={ playgroundsForTraining }
                     userId={ userId }
                     cost={ cost }
+                    additionalService={additionalService}
                   />
                   : notScheduleTemplate()
                 : null }

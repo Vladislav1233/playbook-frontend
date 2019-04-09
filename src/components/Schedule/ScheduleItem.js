@@ -10,6 +10,7 @@ import calcCostService from '../../helpers/calcCostService';
 // Note: components
 import BookingModal from '../Modal/BookingModal';
 import DeclineBookingModal from '../Modal/DeclineBookingModal';
+import EquipmentsRent from '../EquipmentsRent';
 
 // style
 import '../../style/bem-blocks/b-schedule-item/index.scss';
@@ -78,23 +79,27 @@ class ScheduleItem extends Component {
   
     render() {
         const { 
-            start_time, 
-            end_time,
-            isStatus, // true - это время свободно, false - это время занято
-            playground
-        } = this.props.dataScheduleItem;
-        const bookingId = this.props.dataScheduleItem.uuid;
-        const analizeDateTimeZone = 'YYYY-MM-DD HH:mm:ss ZZ';
-    
-        const { 
             playgroundsForTraining, 
             userId, 
             creator, 
             isWhoBooked, 
             onClickDecline, 
             cost,
-            bookedCost
+            bookedCost,
+            additionalService
         } = this.props;
+
+        const { 
+            start_time, 
+            end_time,
+            isStatus, // true - это время свободно, false - это время занято
+            playground,
+            equipment_rent
+        } = this.props.dataScheduleItem;
+
+        const bookingId = this.props.dataScheduleItem.uuid;
+
+        const analizeDateTimeZone = 'YYYY-MM-DD HH:mm:ss ZZ';
 
         const textBooking = 'Нажми, чтобы забронировать';
 
@@ -189,6 +194,20 @@ class ScheduleItem extends Component {
                                 </p>
                             </div>
                         }
+
+                        {equipment_rent 
+                            ? <div className="info-block info-block--compact">
+                                <p className="info-block__title">Доп. услуги:</p>
+                                <p className="info-block__text">
+                                    <EquipmentsRent 
+                                        equipmentRent={equipment_rent}
+                                        startTimeRent={start_time}
+                                        endTimeRent={end_time}
+                                    />
+                                </p>
+                            </div>
+                            : null
+                        }
                     </div>
                     
                     { !!isStatus &&
@@ -225,6 +244,7 @@ class ScheduleItem extends Component {
                         cost={cost}
                         startTime={start_time}
                         endTime={end_time}
+                        additionalService={additionalService}
                     />
                 }
             </Fragment>

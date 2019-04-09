@@ -11,15 +11,20 @@ import Preloader from '../../../components/Preloader/Preloader';
 // Note: style
 import '../../../style/bem-blocks/b-trainer-schedule-profile/index.scss';
 
+const additionalService = [{
+    uuid: '1',
+    name: 'Ракетка',
+    costPerHour: '1000' // cent
+}];
 class TrainerScheduleProfile extends Component {
 
     componentDidMount() {
-        const { getTrainerSchedule } = this.props;
+        const { getTrainerScheduleAction } = this.props;
 
         // Note: собираем данные для get запроса расписания при инициализации страницы. Берём текущий день
         const data = dataTime();
         const { userId } = this.props;
-        getTrainerSchedule(userId, data, true);
+        getTrainerScheduleAction(userId, data, true);
     }
 
     onClickDecline = (bookingId, note) => {
@@ -36,7 +41,7 @@ class TrainerScheduleProfile extends Component {
     render() {
         const { 
             scheduleTrainer, 
-            getTrainerSchedule, 
+            getTrainerScheduleAction, 
             bookedTime, 
             playgroundsForTraining,
             bookingPreloader,
@@ -48,7 +53,7 @@ class TrainerScheduleProfile extends Component {
                 <Schedule 
                     schedule={scheduleTrainer}
                     template={'trainer'}
-                    getTrainerSchedule={getTrainerSchedule}
+                    getTrainerSchedule={getTrainerScheduleAction}
                     userId={userId}
                     bookedTime={bookedTime}
                     cost={scheduleTrainer.cost}
@@ -57,6 +62,7 @@ class TrainerScheduleProfile extends Component {
                     onClickDecline={this.onClickDecline}
                     preloader={bookingPreloader}
                     titlePage={"Моё расписание"}
+                    additionalService={additionalService}
                 />
 
                 { this.props.preloader ? <Preloader /> : null }
@@ -66,7 +72,6 @@ class TrainerScheduleProfile extends Component {
 }
 
 const mapStateToProps = ({ scheduleTrainer, identificate, booking }) => {
-    console.log(scheduleTrainer)
     return {
         scheduleTrainer: scheduleTrainer.scheduleTrainer,
         bookedTime: scheduleTrainer.bookedTime,
@@ -85,7 +90,7 @@ const mapStateToDispatch = (dispatch) => {
         * data - принимает объект с ключами start_time и end_time - период на который придёт расписание.
         * isCabinet - если true, то присылаем данные забронированного времени тренера со всей конфиденциальной информацией, которую модет знать и читать только тренер.
         */
-        getTrainerSchedule: (userId, data, isCabinet) => dispatch(getTrainerSchedule(userId, data, isCabinet)),
+        getTrainerScheduleAction: (userId, data, isCabinet) => dispatch(getTrainerSchedule(userId, data, isCabinet)),
         /*
         * Отменить бронирование
         * bookingId - uuid объекта бронирования

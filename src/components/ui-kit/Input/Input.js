@@ -16,7 +16,8 @@ class Input extends Component {
     render() {
         const {
             labelText, typeInput, idInput, placeholder, value, nameInput, modif,
-            theme, onChange, autoComplete, maxValue, minValue, disabled, error, invalidRanges
+            theme, onChange, autoComplete, maxValue, minValue, disabled, error, invalidRanges,
+            infoLabel
         } = this.props;
 
         const classInput = cn('b-input', modif, {
@@ -27,7 +28,10 @@ class Input extends Component {
         return(
             <div className={classInput}>
                 {labelText ?
-                    <label htmlFor={idInput} className="b-input__label">{labelText}</label>
+                    <label htmlFor={idInput} className="b-input__label">
+                        {labelText}
+                        {infoLabel ? <span className="b-input__label-info">{infoLabel}</span> : ''}
+                    </label>
                 : null}
 
                 <input

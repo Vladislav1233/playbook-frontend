@@ -15,7 +15,7 @@ import { alertActions } from '../store/actions/alertAction'
 
 // component
 import Header from '../components/Template/Header';
-import CoverPage from '../components/CoverPage/CoverPage';
+import Footer from '../components/Template/Footer';
 import Alert from '../components/ui-kit/Alert';
 
 // style
@@ -71,14 +71,20 @@ class App extends Component {
             }
         }
 
+        // try off scroll
+        if (scrollPage) {
+            document.documentElement.classList.add('no-scroll');
+        } else {
+            document.documentElement.classList.remove('no-scroll');
+        }
+
         return (
             <div className={pageWrapperClass}>
                 <Header location={location.pathname} />
                 <main className={mainClass}>
                     {renderRoutePage()}
                 </main>
-                {/* TODO: сделать анимацию через react transition */}
-                <CoverPage />
+                <Footer location={ location.pathname } />
 
                 {alertMessage ?
                     <Alert buttonOk type={alertType} closeAlert={this.props.closeAlert}>
