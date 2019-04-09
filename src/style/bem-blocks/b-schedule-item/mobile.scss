@@ -126,4 +126,12 @@
         border: 0;
         background: none;
     }
+
+    &__duration {
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.2;
+        color: $bright-telegray;
+        margin-left: 16px;
+    }
 }
