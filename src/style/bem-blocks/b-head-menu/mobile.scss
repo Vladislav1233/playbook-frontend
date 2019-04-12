@@ -53,8 +53,8 @@
     &__image-wrapper {
         overflow: hidden;
         flex: 0 0 auto;
-        width: 44px;
-        height: 44px;
+        width: $headerHeight - 16;
+        height: $headerHeight - 16;
         transition-duration: $animation-time;
         transition-property: border-color;
         text-align: center;
