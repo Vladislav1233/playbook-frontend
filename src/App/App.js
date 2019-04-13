@@ -42,7 +42,7 @@ class App extends Component {
         };
 
         const pageWrapperClass = cn('b-page-wrapper', {
-            'no-scroll': toggleMenu || scrollPage, // TODO: через screen snap сделать позицию страницы не дерганной.
+            // 'no-scroll': toggleMenu || scrollPage, // TODO: через screen snap сделать позицию страницы не дерганной.
             // 'b-page-wrapper--overflow': location.pathname === '/authentication-trainer' || location.pathname === configPathRouter.authorization
         })
 
@@ -71,6 +71,7 @@ class App extends Component {
             }
         }
 
+        // TODO: НУЖНО УБЕРАТЬ КЛАСС ПРИ ПЕРЕХОДЕ ПО РОУТИНГУ
         // try off scroll
         if (scrollPage) {
             document.documentElement.classList.add('no-scroll');

@@ -1,8 +1,8 @@
 // 320
 .b-add-schedule-card {
     position: relative;
-    margin: 0 -15px 15px;
-    padding: 15px 15px 1px;
+    margin: 0 -16px 16px;
+    padding: 16px 16px 1px;
     background: #ffffff;
     box-shadow: $cardShadow;
 
@@ -14,11 +14,11 @@
         }
 
         &--left {
-            padding-right: 15px;
+            padding-right: 16px;
         }
 
         &--right {
-            padding-left: 15px;
+            padding-left: 16px;
         }
     }
 
@@ -51,7 +51,7 @@
     }
 
     &__error {
-        margin-bottom: 15px;
+        margin-bottom: 16px;
         color: $error;
     }
 

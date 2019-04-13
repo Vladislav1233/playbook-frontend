@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import { withRouter } from "react-router";
 import cn from 'classnames';
 
+// helpers
+import { Tablet } from '../../helpers/mediaQuery';
+
 // style
 import '../../style/bem-blocks/b-footer/index.scss';
 import '../../style/bem-blocks/b-logotype/index.scss';
@@ -37,23 +40,27 @@ class Footer extends Component {
             <footer className={ rootClassFooter }>
                 <div className="container">
                     <div className="b-footer__wrapper">
-                        {/* <div className="b-footer__left"> */}
+                        <div className="b-footer__left">
                             {/* <a className="b-footer__link" href="mailto:manage.playbook@gmail.com" title="Написать нам">Написать нам</a> */}
                             {/* <a className="b-footer__link b-footer__link--disabled" href="" title="Помощь">Помощь</a> */}
-                        {/* </div> */}
-                        <div className="b-footer__center">
                             <small className="b-footer__copyright">© playbook 2018-2019 • все права защищены</small>
                         </div>
-                        {/* <div className="b-footer__right">
-                            <ul className="b-footer__social-list">
+                        {/* <div className="b-footer__center">
+                        </div> */}
+                        <div className="b-footer__right">
+                            {/* <ul className="b-footer__social-list">
                                 <li className="b-footer__social-item">
                                     <i className="fab fa-google-play"></i>
                                 </li>
                                 <li className="b-footer__social-item">
                                     <i className="fab fa-apple"></i>
                                 </li>
-                            </ul>
-                        </div> */}
+                            </ul> */}
+                            <a className="b-footer__link" href="https://vk.com/playbooksu" title="">
+                                <i class="fab fa-vk"></i>
+                                <Tablet> - Мы вконтакте </Tablet>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </footer>

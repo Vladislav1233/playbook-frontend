@@ -12,19 +12,17 @@
     }
 
     &__save {
-        position: fixed;
-        z-index: 10;
-        bottom: 0;
+        position: sticky;
+        z-index: 100;
+        bottom: 16px;
         left: 0;
         display: flex;
         justify-content: space-between;
         width: 100%;
-        min-width: 320px;
-        padding: 0 16px 16px;
     }
 
     &__schedule {
-        padding: 15px 15px 65px;
+        padding: 16px 16px 32px;
         border-radius: 15px 15px 0 0;
         background-color: $main-background;
     }
