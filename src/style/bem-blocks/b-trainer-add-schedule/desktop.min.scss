@@ -21,13 +21,4 @@
         padding-top: 30px;
         border-radius: 0;
     }
-
-    &__save {
-        width: calc(100% - 320px - 180px);
-        right: auto;
-        left: 50%;
-        transform: translateX(-50%);
-        margin-left: -96px;
-        max-width: 992px;
-    }
 }

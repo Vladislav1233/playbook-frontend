@@ -4,13 +4,12 @@
     padding-right: 8px;
     padding-bottom: 20px;
     padding-left: 8px;
-    border-top: 1px solid #06281b;
 
     &__calendar {
         width: 100%;
         max-width: 320px;
         margin: 0px auto;
-        font-family: $medium;
+        font-family: $roboto;
         border: none;
         background: transparent;
     }
@@ -43,7 +42,6 @@
     }
 
     .react-calendar__tile {
-        font-family: $medium;
         font-size: 14px;
         transition-duration: $animation-time;
         transition-property: box-shadow;
@@ -73,7 +71,7 @@
             &.react-calendar__tile--active:enabled:hover,
             &.react-calendar__tile--active:enabled:focus,
             &.react-calendar__tile--active {
-                background: rgba(255, 255, 255, .2);
+                background: rgba(255, 255, 255, .5);
             }
         }
 

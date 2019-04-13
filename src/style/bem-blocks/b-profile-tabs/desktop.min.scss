@@ -3,24 +3,24 @@
     display: flex;
 
     &__list-wrapper {
-        background: linear-gradient(90deg, rgb(227, 229, 232) 0%, rgb(236, 236, 236) 100%);
-        display: block;
-        position: sticky;
         z-index: 1;
-        top: 0px;
+        display: block;
+        flex-shrink: 0;
         width: 130px;
         min-width: 0;
-        height: calc(100vh - 64px);
+        min-height: calc(100vh - #{$headerHeight});
         margin: 0;
         margin-bottom: 0px;
-        padding-top: 60px;
+        padding-top: 88px;
         transform: translateX(0%);
         opacity: 1;
         border-right: 1px solid $telegray;
-        flex-shrink: 0;
+        background: linear-gradient(90deg, rgb(227, 229, 232) 0%, rgb(236, 236, 236) 100%);
     }
 
     &__list {
+        position: sticky;
+        top: $headerHeight + 10;
         padding: 0;
     }
 
