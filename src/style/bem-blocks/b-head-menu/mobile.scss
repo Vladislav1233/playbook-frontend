@@ -9,8 +9,10 @@
         justify-content: center;
         height: $headerHeight;
         padding: 0 8px;
+        font-weight: 300;
         cursor: pointer;
         text-align: center;
+        vertical-align: top;
         color: $whiteFontColor;
         outline: none;
 
@@ -25,14 +27,18 @@
 
         &--arrow {
             &:after {
-                content: '';
                 position: relative;
                 display: inline-block;
-                border: 4px solid transparent;
-                border-top: 6px solid #fff;
-                margin-left: 6px;
                 margin-top: 5px;
+                margin-left: 6px;
+                content: '';
+                border: 4px solid transparent;
+                border-top: 6px solid #ffffff;
             }
+        }
+
+        &--dots {
+            padding: 0 16px;
         }
     }
 
@@ -53,8 +59,8 @@
     &__image-wrapper {
         overflow: hidden;
         flex: 0 0 auto;
-        width: 44px;
-        height: 44px;
+        width: $headerHeight - 16;
+        height: $headerHeight - 16;
         transition-duration: $animation-time;
         transition-property: border-color;
         text-align: center;
@@ -75,13 +81,13 @@
         &--popup-alien {
             width: 42px;
             height: 42px;
-            line-height: 42px;
-            font-size: 1.5rem;
             margin-right: 12px;
+            font-size: 1.5rem;
+            line-height: 42px;
+            color: $mainFontColor;
             border: 1px solid rgba(0, 0, 0, .8);
             border-radius: 5px;
             background-color: transparent;
-            color: $mainFontColor;
         }
     }
 
@@ -97,6 +103,7 @@
         top: 0;
         right: 0;
         bottom: 0;
+        overflow-y: auto;
         width: calc(100% - 50px);
         max-width: 360px;
         transition: transformX .1s;
@@ -104,8 +111,6 @@
         border: 1px solid $border-color;
         border-radius: 0;
         background: white;
-        overflow-y: auto;
-        // box-shadow: -1000px 0px 0 1000px rgba(0, 0, 0, .4);
     }
 
     &__content-header {

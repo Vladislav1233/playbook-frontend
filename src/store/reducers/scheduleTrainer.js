@@ -168,7 +168,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 preloader: false,
-                bookedTime: uniquePlaygrounds(reservedTime),
+                bookedTime: action.isCabinet ? uniquePlaygrounds(reservedTime) : [], // Note: показываем занятое время только в ЛК.
                 playgroundsForTraining: newPlaygroundsForTraining,
                 scheduleTrainer: {
                     ...state.scheduleTrainer,

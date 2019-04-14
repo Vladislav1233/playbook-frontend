@@ -6,6 +6,7 @@ import NumberFormat from 'react-number-format';
 // Note: helpers
 import { convertTypeMoney } from '../../helpers/convertTypeMoney';
 import calcCostService from '../../helpers/calcCostService';
+import { Tablet } from '../../helpers/mediaQuery';
 
 // Note: components
 import BookingModal from '../Modal/BookingModal';
@@ -29,15 +30,15 @@ class ScheduleItem extends Component {
 
     openModal = () => {
         this.setState({
-            ...this.state, 
-            showModal: true 
+            ...this.state,
+            showModal: true
         });
     }
 
     closeModal = () => {
-        this.setState({ 
+        this.setState({
             ...this.state,
-            showModal: false 
+            showModal: false
         });
     }
 
@@ -59,12 +60,12 @@ class ScheduleItem extends Component {
         const { playground } = this.props.dataScheduleItem;
         const playgroundSchedule = playground.schedules;
         let costPlaygroundInRange = [];
-        
+
         if (playgroundSchedule.length > 0) {
             playgroundSchedule.forEach(schedulePlaygroundItem => {
                 // TODO: проверить как будет работать дата в ios устройствах.
                 const timeRangeCost = moment.range(
-                    schedulePlaygroundItem.start_time, 
+                    schedulePlaygroundItem.start_time,
                     schedulePlaygroundItem.end_time
                 );
                 costPlaygroundInRange.push({
@@ -73,24 +74,24 @@ class ScheduleItem extends Component {
                 });
             })
         }
-    
+
         return costPlaygroundInRange;
     };
-  
+
     render() {
-        const { 
-            playgroundsForTraining, 
-            userId, 
-            creator, 
-            isWhoBooked, 
-            onClickDecline, 
+        const {
+            playgroundsForTraining,
+            userId,
+            creator,
+            isWhoBooked,
+            onClickDecline,
             cost,
             bookedCost,
             additionalService
         } = this.props;
 
-        const { 
-            start_time, 
+        const {
+            start_time,
             end_time,
             isStatus, // true - это время свободно, false - это время занято
             playground,
@@ -103,10 +104,10 @@ class ScheduleItem extends Component {
 
         const textBooking = 'Нажми, чтобы забронировать';
 
-        let costPlayground = playground 
+        let costPlayground = playground
             ? +calcCostService(
-                moment(start_time).format('YYYY-MM-DD HH:mm:ss'), 
-                moment(end_time).format('YYYY-MM-DD HH:mm:ss'), 
+                moment(start_time).format('YYYY-MM-DD HH:mm:ss'),
+                moment(end_time).format('YYYY-MM-DD HH:mm:ss'),
                 this.getCostPlaygroundForPayBooking()
             ) : 0;
 
@@ -131,6 +132,13 @@ class ScheduleItem extends Component {
                             <div className="b-schedule-item__time b-schedule-item__time--finish">
                                 {moment(end_time, analizeDateTimeZone).format('HH:mm')}
                             </div>
+
+                            <Tablet>
+                                <span className="b-schedule-item__duration">
+                                    [ { moment(end_time, analizeDateTimeZone).diff(moment(start_time, analizeDateTimeZone), "minutes") } мин ]
+                                </span>
+                            </Tablet>
+
                         </div>
 
                         {/* Имя */}
@@ -151,7 +159,7 @@ class ScheduleItem extends Component {
                             </div>
                         }
 
-                        {!isStatus && isWhoBooked && 
+                        {!isStatus && isWhoBooked &&
                             <div className="info-block info-block--compact">
                                 <p className="info-block__title">Площадка:</p>
                                 <p className="info-block__text">
@@ -159,13 +167,13 @@ class ScheduleItem extends Component {
                                 </p>
                             </div>
                         }
-                        
+
 
                         {bookedCost && isWhoBooked
                             ? <div className="info-block info-block--accent info-block--compact">
                                 <p className="info-block__title">К оплате тренеру:</p>
                                 <p className="info-block__text">
-                                    {<NumberFormat 
+                                    {<NumberFormat
                                         value={convertTypeMoney(bookedCost, 'RUB', 'banknote')}
                                         suffix=' ₽'
                                         thousandSeparator={' '}
@@ -181,8 +189,8 @@ class ScheduleItem extends Component {
                             <div className="info-block info-block--accent info-block--compact">
                                 <p className="info-block__title">К оплате за корт:</p>
                                 <p className="info-block__text">
-                                    {costPlayground > 0 
-                                        ? <NumberFormat 
+                                    {costPlayground > 0
+                                        ? <NumberFormat
                                             value={costPlayground}
                                             suffix=' ₽'
                                             thousandSeparator={' '}
@@ -195,11 +203,11 @@ class ScheduleItem extends Component {
                             </div>
                         }
 
-                        {equipment_rent 
+                        {equipment_rent
                             ? <div className="info-block info-block--compact">
                                 <p className="info-block__title">Доп. услуги:</p>
                                 <p className="info-block__text">
-                                    <EquipmentsRent 
+                                    <EquipmentsRent
                                         equipmentRent={equipment_rent}
                                         startTimeRent={start_time}
                                         endTimeRent={end_time}
@@ -209,32 +217,32 @@ class ScheduleItem extends Component {
                             : null
                         }
                     </div>
-                    
+
                     { !!isStatus &&
                         <div className="b-schedule-item__click">{textBooking}</div>
                     }
-                    
+
                     {/* TODO: Добавить тултип */}
-                    {!isStatus && isWhoBooked 
+                    {!isStatus && isWhoBooked
                         ? ( <Fragment>
                                 <button type="button" onClick={this.openDeclineModal} title="Отменить" className="b-schedule-item__cancel">
                                     <img className="b-add-schedule-card__delete-icon" src={deleteIcon} alt="Корзина" />
                                 </button>
 
-                                <DeclineBookingModal 
+                                <DeclineBookingModal
                                     isOpenModal={this.state.declineModal}
                                     closeModal={this.closeDeclineModal}
                                     onClickDecline={(note) => onClickDecline(bookingId, note)}
                                     nameButton="Отменить бронь"
-                                />     
+                                />
                             </Fragment>
                         )
                         : null
                     }
                 </button>
-                        
-                {isStatus && 
-                    <BookingModal 
+
+                {isStatus &&
+                    <BookingModal
                         isOpenModal={this.state.showModal}
                         closeModal={this.closeModal}
                         typeBooking='trainer'

@@ -129,6 +129,14 @@ button {
     border: none;
 }
 
+input,
+textarea {
+    &::placeholder {
+        color: $telegray;
+        font-weight: 300;
+    }
+}
+
 .container {
     width: 100%;
     min-width: 320px;
@@ -183,6 +191,19 @@ button {
     hyphenate-limit-lines: 2;
     hyphenate-limit-last: always;
     hyphenate-limit-zone: 8%;
+}
+
+.gl-row-gap {
+    display: flex;
+    flex-flow: row nowrap;
+
+    & > * {
+        flex: 0 0 auto;
+    }
+
+    & > * + * {
+        margin-left: 8px;
+    }
 }
 
 // Общий стиль: заголовок - описание

@@ -41,6 +41,7 @@ class Header extends Component {
         )
 
         return (
+            <div className="b-header-holder">
             <header className={ rootClassHeader }>
                 <div className="container">
                     <div className="b-header__wrapper">
@@ -76,6 +77,7 @@ class Header extends Component {
                     </div>
                 </div>
             </header>
+            </div>
         );
     }
 }

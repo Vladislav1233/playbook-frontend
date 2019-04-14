@@ -57,6 +57,10 @@ class HeadMenu extends Component {
     });
   }
 
+  componentWillUnmount() {
+    this.props.toggleScrollPageAction(false);
+  }
+
   toggleContent = (e) => {
     e.preventDefault();
 
@@ -97,7 +101,7 @@ class HeadMenu extends Component {
 
   render() {
     const { showContent } = this.state;
-    const { isAuthorization, userInformation, userRole, location } = this.props;
+    const { isAuthorization, userInformation, userRole } = this.props;
 
     const classNameBlock = cn('b-head-menu', {
       'b-head-menu--open': showContent
@@ -150,15 +154,22 @@ class HeadMenu extends Component {
               <DesktopMin>
                 <Link className="b-head-menu__open-button" to={ configPathRouter.authorization }>Вход</Link>
                 <Link className="b-head-menu__open-button" to={ configPathRouter.registration }>Регистрация</Link>
+                <i onClick={ this.toggleContent } className="b-head-menu__open-button b-head-menu__open-button--dots">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="6" height="30" viewBox="0 0 6 30" fill="none">
+                    <circle cx="3" cy="5" r="2.5" fill="white" />
+                    <circle cx="3" cy="15" r="2.5" fill="white" />
+                    <circle cx="3" cy="25" r="2.5" fill="white" />
+                  </svg>
+                </i>
               </DesktopMin>
               <NotDesktopMin>
-                <div onClick={ this.toggleContent } className="b-hamburger">
+                <i onClick={ this.toggleContent } className="b-hamburger">
                   <svg viewBox="0 0 800 600">
                     <path d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200" className="b-hamburger__top-bar"></path>
                     <path d="M300,320 L540,320" className="b-hamburger__middle-bar"></path>
                     <path d="M300,210 C300,210 520,210 540,210 C740,210 640,530 520,410 C440,330 300,190 300,190" className="b-hamburger__bottom-bar" transform="translate(480, 320) scale(1, -1) translate(-480, -318)"></path>
                   </svg>
-                </div>
+                </i>
               </NotDesktopMin>
             </div>
           }
@@ -200,14 +211,16 @@ class HeadMenu extends Component {
                 }
 
                 { !isAuthorization &&
-                  <ContentItem>
-                    <li className="b-head-menu__content-item" key="0">
-                      <Link className="b-head-menu__content-text" to={ configPathRouter.authorization }>Вход</Link>
-                    </li>
-                    <li className="b-head-menu__content-item" key="1">
-                      <Link className="b-head-menu__content-text" to={ configPathRouter.registration }>Регистрация</Link>
-                    </li>
-                  </ContentItem>
+                  <NotDesktopMin>
+                    <ContentItem>
+                      <li className="b-head-menu__content-item" key="0">
+                        <Link className="b-head-menu__content-text" to={ configPathRouter.authorization }>Вход</Link>
+                      </li>
+                      <li className="b-head-menu__content-item" key="1">
+                        <Link className="b-head-menu__content-text" to={ configPathRouter.registration }>Регистрация</Link>
+                      </li>
+                    </ContentItem>
+                  </NotDesktopMin>
                 }
 
                 {/* Блок личного кабинета тренера */ }

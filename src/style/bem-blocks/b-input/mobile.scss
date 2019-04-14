@@ -42,10 +42,12 @@
     }
 
     &__label-info {
-        display: block;
-        font-weight: 300;
-        // color: $secondary;
-        font-size: .85em;
+        @include subTitleStyle();
+
+        &--top {
+            margin-top: -15px;
+            margin-bottom: 15px;
+        }
     }
 
     &__error {

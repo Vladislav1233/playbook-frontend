@@ -77,10 +77,12 @@ const AdditionalServiceField = ({ name, item, init }) => {
                         <Field
                             name={`${name}.availability`}
                             initialValue={!isEmptyObject(init) && init[item.id] ? init[item.id].availability : ''}
+                            type='number'
                             render={({ input }) => {
                                 return <Input
                                     { ...input }
                                     labelText='В наличии (шт.)'
+                                    typeInput="number"
                                     nameInput={input.name}
                                     theme={{ blackColor: true }}
                                 />
