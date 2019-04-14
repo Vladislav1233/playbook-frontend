@@ -51,8 +51,6 @@ class ScheduleTrainer extends Component {
             location
         } = this.props;
 
-        console.log(this.props);
-
         const {
             trainerInformation
         } = this.state;

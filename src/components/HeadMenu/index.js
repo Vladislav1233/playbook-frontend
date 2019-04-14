@@ -57,6 +57,10 @@ class HeadMenu extends Component {
     });
   }
 
+  componentWillUnmount() {
+    this.props.toggleScrollPageAction(false);
+  }
+
   toggleContent = (e) => {
     e.preventDefault();
 
@@ -97,7 +101,7 @@ class HeadMenu extends Component {
 
   render() {
     const { showContent } = this.state;
-    const { isAuthorization, userInformation, userRole, location } = this.props;
+    const { isAuthorization, userInformation, userRole } = this.props;
 
     const classNameBlock = cn('b-head-menu', {
       'b-head-menu--open': showContent

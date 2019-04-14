@@ -135,7 +135,7 @@ class ScheduleItem extends Component {
 
                             <Tablet>
                                 <span className="b-schedule-item__duration">
-                                    [ { moment(end_time).diff(moment(start_time), "minutes") } мин ]
+                                    [ { moment(end_time, analizeDateTimeZone).diff(moment(start_time, analizeDateTimeZone), "minutes") } мин ]
                                 </span>
                             </Tablet>
 
