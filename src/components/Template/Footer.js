@@ -56,7 +56,7 @@ class Footer extends Component {
                                     <i className="fab fa-apple"></i>
                                 </li>
                             </ul> */}
-                            <a className="b-footer__link" href="https://vk.com/playbooksu" title="">
+                            <a className="b-footer__link" href="https://vk.com/playbooksu" title="PlayBook вконтакте" target="_blank">
                                 <i class="fab fa-vk"></i>
                                 <Tablet> - Мы вконтакте </Tablet>
                             </a>
