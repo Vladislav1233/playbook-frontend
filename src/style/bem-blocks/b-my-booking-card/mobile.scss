@@ -11,13 +11,13 @@
     border-left: 2px solid transparent;
 
     &.accept {
-        border-color: $mint;
+        border-color: $ok;
     }
     &.wait {
         border-color: orange;
     }
     &.cancel {
-        border-color: #e92617;
+        border-color: $error;
     }
 
     &__type {
@@ -42,13 +42,13 @@
         padding-right: 40px;
 
         .accept & {
-            color: $mint;
+            color: $ok;
         }
         .wait & {
             color: orange;
         }
         .cancel & {
-            color: #e92617;
+            color: $error;
         }
     }
 
