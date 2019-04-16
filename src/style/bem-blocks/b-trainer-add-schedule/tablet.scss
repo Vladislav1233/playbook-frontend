@@ -1,10 +1,11 @@
 // 768
 .b-trainer-add-schedule {
     &__schedule {
-        padding: 30px 30px 100px;
+        padding: 30px;
     }
 
     &__save {
         padding: 0 16px;
+        bottom: 32px;
     }
 }
