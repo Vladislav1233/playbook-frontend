@@ -276,7 +276,7 @@ class HeadMenu extends Component {
 										<li className="b-head-menu__content-item">
 											<Link className="b-head-menu__content-text" to={ dataAboutRole.pathToRequest }>
 												<span className="b-head-menu__icon-container">
-													<i class="far fa-bell"></i>
+													<i className="far fa-bell"></i>
 												</span>
 												Входящие запросы
 											</Link>
