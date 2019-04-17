@@ -8,6 +8,10 @@ export const playgroundService = {
 
 function searchPlayground(data) {
     let valueToken = localStorage.getItem('userToken');
+    
+    // TODO
+    data.limit = '100';
+    data.offset = '0';
 
     return axios({
         method: 'get',
