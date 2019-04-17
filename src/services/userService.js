@@ -15,11 +15,31 @@ export const userService = {
     delete: _delete
 };
 
+function userStorage(data) {
+    // store user details and jwt token in local storage to keep user logged in between page refreshes
+    localStorage.setItem('userToken', data.data.data.access_token);
+    // Note: Храним роль юзера
+    localStorage.setItem('userRole', JSON.stringify(data.data.data.roles));
+    // Note: храним uuid юзера
+    localStorage.setItem('userId', data.data.data.uuid);
+    // Note: храним информацию о юзере
+    const userInformation = {
+        first_name: data.data.data.first_name,
+        last_name: data.data.data.last_name
+    };
+    localStorage.setItem('userInformation', JSON.stringify(userInformation));
+};
+
 function register(user) {
     return axios({
         method: 'post',
         url: `${API_URL}/api/register`,
         data: user
+    }).then(response => {
+        if (response.data.data.access_token) {
+            userStorage(response);
+        }
+        return response.data.data;
     });
 }
 
@@ -31,18 +51,7 @@ function login(data) {
         data: data
     }).then(user => {
             if (user.data.data.access_token) {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('userToken', user.data.data.access_token);
-                // Note: Храним роль юзера
-                localStorage.setItem('userRole', JSON.stringify(user.data.data.roles));
-                // Note: храним uuid юзера
-                localStorage.setItem('userId', user.data.data.uuid);
-                // Note: храним информацию о юзере
-                const userInformation = {
-                    first_name: user.data.data.first_name,
-                    last_name: user.data.data.last_name
-                };
-                localStorage.setItem('userInformation', JSON.stringify(userInformation));
+                userStorage(user)
             }
             // Note: Возвращаем данные юзера в reducer.
             return user.data.data;

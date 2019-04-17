@@ -78,9 +78,9 @@ class BookingModal extends Component {
 						registeredNewUser: true,
 						showFileldPassword: true
 					});
-					localStorage.setItem('userToken', res.data.data.access_token);
+					localStorage.setItem('userToken', res.access_token);
 					if(process.env.NODE_ENV === ENVIRONMENT.development) {
-						alert(`Пароль: ${res.data.data.verification_code}`)
+						alert(`Пароль: ${res.verification_code}`)
 					}
 				},
 				err => {

@@ -22,9 +22,13 @@ class EquipmentsRent extends Component {
                 {equipmentRent.map(equipment => {
                     return <li key={equipment.equipment.uuid}>
                         <div>{equipment.equipment.name}</div>
-                        <div>Количество: {equipment.count}</div>
-                        <div>К оплате: <MoneyFormat 
-                            cost={calcCostService(
+                        <div>
+                            <span className="gl-tiny">Количество: </span>
+                            {equipment.count}</div>
+                        <div>
+                            <span className="gl-tiny">К оплате: </span>
+                            <MoneyFormat
+                                cost={calcCostService(
                                     startTimeRent,
                                     endTimeRent,
                                     [{

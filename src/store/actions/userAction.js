@@ -1,7 +1,6 @@
 import { userConstants } from '../constants/userConstants';
 import { userService } from '../../services/userService';
 import { history } from '../../helpers/history';
-import { configPathRouter } from '../../App/configPathRouter';
 import { alertActions } from './alertAction';
 import textErrorFromServer from '../../helpers/textErrorFromServer';
 
@@ -21,10 +20,9 @@ function register(user) {
 
         userService.register(user)
             .then(
-                user => {
-                    dispatch(success());
-                    dispatch(alertActions.success('Вы успешно зарегистрированы. Введите свои данные для входа на сайт.'))
-                    history.push(configPathRouter.authorization);
+                response => {
+                    dispatch(success(response));
+                    history.push('/');
                 },
                 error => {
                     dispatch(failure(error.toString()));
@@ -33,9 +31,24 @@ function register(user) {
             );
     };
 
-    function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
-    function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
-    function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
+    function request(user) { 
+        return { 
+            type: userConstants.REGISTER_REQUEST, 
+            user 
+        } 
+    }
+    function success(user) {
+        return { 
+            type: userConstants.REGISTER_SUCCESS, 
+            payload: user
+        } 
+    }
+    function failure(error) { 
+        return { 
+            type: userConstants.REGISTER_FAILURE, 
+            payload: error 
+        } 
+    }
 }
 
 function login(data, toMain = true, callback) {

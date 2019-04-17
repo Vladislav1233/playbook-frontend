@@ -106,7 +106,7 @@
         overflow-y: auto;
         width: calc(100% - 50px);
         max-width: 360px;
-        transition: transformX .1s;
+        transition: transform .1s;
         text-align: left;
         border: 1px solid $border-color;
         border-radius: 0;
@@ -157,7 +157,7 @@
 
     &__content-text {
         display: block;
-        padding: 8px 0px;
+        padding: 6px 0px;
         padding-right: 15px;
         padding-left: 15px;
         color: $mainFontColor;
@@ -170,6 +170,18 @@
             line-height: 1;
             letter-spacing: -.3px;
         }
+    }
+
+    &__icon-container {
+        display: inline-block;
+        width: 24px;
+        line-height: 24px;
+        height: 24px;
+        vertical-align: middle;
+        margin-right: 22px;
+        font-size: 1.3em;
+        color: $secondary;
+        text-align: center;
     }
 
     &__content-additional {

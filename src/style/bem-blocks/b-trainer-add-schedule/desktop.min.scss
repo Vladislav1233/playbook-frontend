@@ -1,7 +1,6 @@
 // 1024
 .b-trainer-add-schedule {
-    display: flex;
-    min-height: 100%;
+    flex-direction: row;
 
     &__calendar {
         margin: 0;

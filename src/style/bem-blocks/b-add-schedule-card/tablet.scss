@@ -10,6 +10,10 @@
         display: flex;
         flex-flow: row wrap;
         margin: 0 -8px;
+        align-items: flex-start;
+        flex: 1 1 auto;
+        justify-content: flex-start;
+        align-content: flex-start;
     }
 
     &__delete {
