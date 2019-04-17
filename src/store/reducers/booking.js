@@ -71,6 +71,7 @@ export default function(state = initialState, action) {
             let newPastBooking = [];
             let newConfirmBooking = [];
             let newConfirmPastBooking = [];
+            console.log(action.payload)
             
             // Note: функция, которая возвращает объект c данными одного запроса на бронирование.
             const createDataBookingRequest = function(item) {
@@ -89,7 +90,7 @@ export default function(state = initialState, action) {
                     status: item.status,
                     price: item.price,
                     playgroundSchedule: item.playground ? item.playground.schedules : [],
-                    equipment_rent: item.equipment_rent
+                    equipment_rent: item.equipments_rent
                 }
             };
             
