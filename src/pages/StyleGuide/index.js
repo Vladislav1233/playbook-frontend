@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
-import { withNaming } from '@bem-react/classname';
+import cn from '../../helpers/bem.js'
 // Note: components
 import Button from '../../components/ui-kit/Button/Button';
 import Input from '../../components/ui-kit/Input/Input';
 import Radio from '../../components/ui-kit/Radio';
 import Checkbox from '../../components/ui-kit/Checkbox/Checkbox';
 
+
 // Note: styles
 import '../../style/bem-blocks/b-guide/index.scss';
 
-const cn = withNaming({ n: 'n-', e: '__', m: '--' });
-const rootCls = cn('car');
-
-console.log(rootCls('element'));
-
+// bem class
+const rootCls = cn('new-react-block');
 
 class StyleGuide extends Component {
 	// eslint-disable-next-line class-methods-use-this
