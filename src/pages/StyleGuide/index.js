@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { withNaming } from '@bem-react/classname';
 // Note: components
 import Button from '../../components/ui-kit/Button/Button';
 import Input from '../../components/ui-kit/Input/Input';
@@ -9,12 +9,35 @@ import Checkbox from '../../components/ui-kit/Checkbox/Checkbox';
 // Note: styles
 import '../../style/bem-blocks/b-guide/index.scss';
 
+const cn = withNaming({ n: 'r-', e: '__', m: '--' });
+const rootCls = cn('car');
+
+console.log( rootCls('element') );
+
+
 class StyleGuide extends Component {
+  // eslint-disable-next-line class-methods-use-this
   render() {
     return (
       <div className="container">
         <div className="b-guide">
           <h1>Style guide: </h1>
+
+          <section className="b-guide__section">
+            <div className={ rootCls() }>
+              class = ''{ rootCls() }''
+              <br/>
+              class mod = ''{ rootCls({ 'mod': true }) }''
+
+              <div className={ rootCls('element') }>
+                class = ''{ rootCls('element') }''
+
+                <div className={ rootCls('element', { mod: true }) }>
+                  class = ''{ rootCls('element', { mod: true }) }''
+                </div>
+              </div>
+            </div>
+          </section>
 
           <section className="b-guide__section">
             <h2 className="b-guide__heading"> Headings: </h2>
