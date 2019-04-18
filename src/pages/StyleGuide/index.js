@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import cn from '../../helpers/bem.js'
+import bem from '../../helpers/bem.js'
 // Note: components
 import Button from '../../components/ui-kit/Button/Button';
 import Input from '../../components/ui-kit/Input/Input';
@@ -10,7 +10,7 @@ import Checkbox from '../../components/ui-kit/Checkbox/Checkbox';
 import '../../style/bem-blocks/b-guide/index.scss';
 
 // bem class
-const rootCls = cn('new-react-block');
+const rootCls = bem('new-react-block');
 
 class StyleGuide extends Component {
 	// eslint-disable-next-line class-methods-use-this
