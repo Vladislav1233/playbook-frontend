@@ -6,7 +6,6 @@ import Input from '../../components/ui-kit/Input/Input';
 import Radio from '../../components/ui-kit/Radio';
 import Checkbox from '../../components/ui-kit/Checkbox/Checkbox';
 
-
 // Note: styles
 import '../../style/bem-blocks/b-guide/index.scss';
 
