@@ -102,7 +102,7 @@ class Auth extends Component {
                             <h1 className="b-registration__heading">Авторизация</h1>
 
                             <div className="b-input">
-                                <InputMask className="b-input__input" id="phone" name="phone" mask="+7 (999) 999-99-99" maskChar={ null } value={ user.phone } onChange={ this.handleChange } placeholder="Ваш номер телефона" type="tel" />
+                                <InputMask className="b-input__input" id="phone" name="phone" mask="+9 (999) 999-99-99" maskChar={ null } value={ user.phone } onChange={ this.handleChange } placeholder="Ваш номер телефона" type="tel" />
                             </div>
 
                             <Input

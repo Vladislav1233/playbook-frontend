@@ -1,11 +1,12 @@
 // 320++
 .b-guide {
-    padding: 30px 60px 150px;
+    padding: 30px 15px 150px;
+    margin: 0 -15px;
     background: #fff;
 
     &__section {
-        margin-bottom: 30px;
-        padding-left: 30px;
+        margin-bottom: 40px;
+        padding: 10px 0 10px 30px;
         border-left: 1px solid #ddd;
     }
 
