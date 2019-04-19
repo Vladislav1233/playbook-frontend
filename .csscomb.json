@@ -332,8 +332,8 @@
             "stroke",
             "stroke-linecap",
             "stroke-width",
-
-            "stroke-dashoffset"
+            "stroke-dashoffset",
+            "touch-action"
         ]
     ]
 }

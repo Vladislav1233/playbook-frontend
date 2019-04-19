@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { connect } from "react-redux";
@@ -13,6 +13,7 @@ import CoverPage from '../CoverPage';
 // helpers
 import { history } from '../../helpers/history';
 import { DesktopMin, NotDesktopMin } from '../../helpers/mediaQuery';
+import { screenWidth, mediaScreen } from '../../helpers/screenWidth';
 
 // Note: action
 import { toggleScrollPage } from '../../store/actions/toggleScrollPage';
@@ -22,7 +23,6 @@ import '../../style/bem-blocks/b-head-menu/index.scss';
 import '../../style/bem-blocks/b-hamburger/index.scss';
 
 // Note: image
-// import avaImg from '../../style/images/ava_1.svg';
 const svgAvatar = () => {
 	return (
 		<svg className="b-head-menu__image" xmlns="http://www.w3.org/2000/svg" width="71" height="65" viewBox="0 0 71 65" fill="none">
@@ -64,17 +64,60 @@ class HeadMenu extends Component {
 	toggleContent = (e) => {
 		e.preventDefault();
 
-		this.setState({
-			...this.state,
-			showContent: !this.state.showContent
-		}, () => this.props.toggleScrollPageAction(this.state.showContent))
+		if (this.state.showContent) {
+			this.closeContent();
+		} else {
+			this.openContent();
+		}
 	};
 
+	openContent = () => {
+		// если таблетка
+		if (screenWidth() < mediaScreen.desktopMin) {
+			this.setState({
+				showContent: true,
+				contentStyle: {
+					transform: 'translatex(100%)',
+					transition: '0.3s',
+				}
+			});
+			setTimeout(() => {
+				this.setState({
+					showContent: true,
+					contentStyle: {
+						transform: `translatex(0px)`,
+						transition: '0.3s',
+					},
+				}, () => this.props.toggleScrollPageAction(this.state.showContent))
+			});
+		} else {
+			this.setState({
+				showContent: true,
+			});
+		}
+	}
+
 	closeContent = () => {
-		this.setState({
-			showContent: false
-		}, () => this.props.toggleScrollPageAction(this.state.showContent))
-	};
+		// если таблетка
+		if (screenWidth() < mediaScreen.desktopMin) {
+			this.setState({
+				contentStyle: {
+					transform: 'translatex(100%)',
+					transition: '0.3s',
+				}
+			});
+			setTimeout(() => {
+				this.setState({
+					showContent: false,
+					contentStyle: { transform: `translatex(0px)` },
+				}, () => this.props.toggleScrollPageAction(this.state.showContent))
+			}, 300);
+		} else {
+			this.setState({
+				showContent: false,
+			});
+		}
+	}
 
 	stretchMenu = (x) => {
 		if (x < 0) return
@@ -90,19 +133,8 @@ class HeadMenu extends Component {
 	}
 
 	onSwipeRight = (e) => {
-		if (!!e) {
-			this.setState({
-				contentStyle: {
-					transform: 'translatex(100%)',
-					transition: '0.3s',
-				}
-			})
-			setTimeout(() => {
-				this.closeContent();
-				this.setState({
-					contentStyle: { transform: `translatex(0px)` }
-				})
-			}, 300);
+		if (e) {
+			this.closeContent();
 		}
 	}
 
@@ -354,7 +386,6 @@ class HeadMenu extends Component {
 								<CoverPage active onClick={ this.closeContent } />
 							</NotDesktopMin>
 						</Swipe>
-
 					}
 				</OutsideClickHandler>
 			</div>

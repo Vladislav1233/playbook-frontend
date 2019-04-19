@@ -646,7 +646,7 @@ class BookingModal extends Component {
 																<InputMask
 																	className='b-input__input'
 																	id="phone"
-																	mask="+9 (999) 999-99-99"
+																	mask="+7 (999) 999-99-99"
 																	maskChar={null}
 																	type="tel"
 																	{ ...input }
