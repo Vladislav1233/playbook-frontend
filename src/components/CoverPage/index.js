@@ -11,7 +11,7 @@ class CoverPage extends React.PureComponent {
 			'b-cover-page',
 			this.props.className,
 			{
-				leaving: this.props.leaving
+				active: this.props.active
 			}
 		)
 
