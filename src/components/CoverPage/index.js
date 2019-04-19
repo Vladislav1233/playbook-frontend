@@ -5,21 +5,24 @@ import cn from 'classnames';
 // style
 import '../../style/bem-blocks/b-cover-page/index.scss';
 
-function CoverPage(props) {
-    const className = cn(
-        'b-cover-page',
-        props.className,
-        {
-            active: props.active
-        }
-    )
-    return (
-        <div 
-            className={className}
-            onClick={props.onClick}
-        >
-        </div>
-    )
+class CoverPage extends React.PureComponent {
+	render() {
+		const className = cn(
+			'b-cover-page',
+			this.props.className,
+			{
+				leaving: this.props.leaving
+			}
+		)
+
+		return (
+			<div
+				className={className}
+				onClick={this.props.onClick}
+			>
+			</div>
+		)
+	}
 }
 
 export default CoverPage;
