@@ -1,4 +1,6 @@
-export const screenWidth = document.documentElement.clientWidth;
+export const screenWidth = () => {
+    return document.documentElement.clientWidth;
+}
 
 export const mediaScreen = {
     tablet: 768,
