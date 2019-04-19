@@ -386,7 +386,6 @@ class HeadMenu extends Component {
 								<CoverPage active onClick={ this.closeContent } />
 							</NotDesktopMin>
 						</Swipe>
-
 					}
 				</OutsideClickHandler>
 			</div>
