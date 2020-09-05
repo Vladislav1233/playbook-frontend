@@ -84,7 +84,7 @@
     "jest": "./node_modules/.bin/jest --env=jsdom"
   },
   "devDependencies": {
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "sass-loader": "^7.1.0"
   },
   "jest": {
