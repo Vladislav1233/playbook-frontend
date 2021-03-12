@@ -46,7 +46,7 @@
     "react": "^16.8.6",
     "react-addons-css-transition-group": "^15.6.2",
     "react-calendar": "^2.18.1",
-    "react-dev-utils": "^5.0.3",
+    "react-dev-utils": "^11.0.4",
     "react-dom": "^16.8.6",
     "react-easy-swipe": "0.0.17",
     "react-final-form": "^4.1.0",
